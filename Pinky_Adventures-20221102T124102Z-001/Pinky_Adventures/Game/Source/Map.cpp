@@ -55,6 +55,10 @@ void Map::Draw()
     ListItem<MapLayer*>* mapLayerItem;
     mapLayerItem = mapData.maplayers.start;
 
+    ListItem<PhysBody*>* bodyItem;
+    bodyItem = listBodies.start;
+    
+
     while (mapLayerItem != NULL) {
 
         //L06: DONE 7: use GetProperty method to ask each layer if your “Draw” property is true.
@@ -80,9 +84,53 @@ void Map::Draw()
                 }
             }
         }
+
         mapLayerItem = mapLayerItem->next;
 
     }
+    
+}
+
+void Map::DrawPlatformCollider() {
+    if (mapLoaded == false)
+        return;
+
+    ListItem<MapLayer*>* mapLayerItem;
+    mapLayerItem = mapData.maplayers.start;
+
+    ListItem<PhysBody*>* bodyItem;
+    bodyItem = listBodies.start;
+
+    while (mapLayerItem != NULL) {
+
+        if (mapLayerItem->data->properties.GetProperty("Block") != NULL && mapLayerItem->data->properties.GetProperty("Block")->value) {
+
+
+            for (int x = 0; x < mapLayerItem->data->width; x++)
+            {
+                for (int y = 0; y < mapLayerItem->data->height; y++)
+                {
+                    int gid = mapLayerItem->data->Get(x, y);
+
+                    TileSet* tileset = GetTilesetFromTileId(gid);
+
+                    SDL_Rect r = tileset->GetTileRect(gid);
+                    iPoint pos = MapToWorld(x, y);
+
+                    PhysBody* body;
+
+                    body = app->physics->CreateRectangle(pos.x + r.w / 2, pos.y + r.h / 2, r.w, r.h, bodyType::STATIC);
+
+                    listBodies.Add(body);
+
+                }
+            }
+
+        }
+        mapLayerItem = mapLayerItem->next;
+
+    }
+
 }
 
 // L05: DONE 8: Create a method that translates x,y coordinates from map positions to world positions
@@ -158,6 +206,16 @@ bool Map::CleanUp()
         layerItem = layerItem->next;
     }
 
+
+    ListItem<PhysBody*>* bodyItem;
+    bodyItem = listBodies.start;
+
+    while (bodyItem != NULL)
+    {
+        RELEASE(bodyItem->data);
+        bodyItem = bodyItem->next;
+    }
+
     return true;
 }
 
@@ -190,29 +248,7 @@ bool Map::Load()
     {
         ret = LoadAllLayers(mapFileXML.child("map"));
     }
-    //
-    //if (mapLayerItem->data->properties.GetProperty("Draw") != NULL && mapLayerItem->data->properties.GetProperty("Draw")->value) {
 
-    //    for (int x = 0; x < mapLayerItem->data->width; x++)
-    //    {
-    //        for (int y = 0; y < mapLayerItem->data->height; y++)
-    //        {
-    //            // L05: DONE 9: Complete the draw function
-    //            int gid = mapLayerItem->data->Get(x, y);
-
-    //            //L06: DONE 3: Obtain the tile set using GetTilesetFromTileId
-    //            TileSet* tileset = GetTilesetFromTileId(gid);
-
-    //            SDL_Rect r = tileset->GetTileRect(gid);
-    //            iPoint pos = MapToWorld(x, y);
-
-    //            app->render->DrawTexture(tileset->texture,
-    //                pos.x,
-    //                pos.y,
-    //                &r);
-    //        }
-    //    }
-    //}
     // L07 DONE 3: Create colliders
     // Later you can create a function here to load and create the colliders from the map
     PhysBody* c1 = app->physics->CreateRectangle(1 + 240 / 2, 290 + 95 / 2, 240, 95, bodyType::STATIC);
@@ -375,7 +411,7 @@ bool Map::LoadProperties(pugi::xml_node& node, Properties& properties)
         Properties::Property* p = new Properties::Property();
         p->name = propertieNode.attribute("name").as_string();
         p->value = propertieNode.attribute("value").as_bool(); // (!!) I'm assuming that all values are bool !!
-
+        
         properties.list.Add(p);
     }
 

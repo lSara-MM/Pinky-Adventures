@@ -56,8 +56,9 @@ bool Player::Awake() {
 	position.y = parameters.attribute("y").as_int();
 	texturePath = parameters.attribute("texturepath").as_string();
 	fxPath = parameters.attribute("audiopath").as_string();
-	width = 20;
-	height = 30;
+	speed = parameters.attribute("velocity").as_int();
+	width = parameters.attribute("width").as_int();
+	height = parameters.attribute("height").as_int();
 	jump = 1;
 	return true;
 }
@@ -79,6 +80,8 @@ bool Player::Start() {
 	//initialize audio effect - !! Path is hardcoded, should be loaded from config.xml
 	pickCoinFxId = app->audio->LoadFx(fxPath);
 
+	camerabody = app->physics->CreateRectangle(app->render->camera.x + width / 2, app->render->camera.x + height / 2, width, height, bodyType::KINEMATIC);
+
 	return true;
 }
 
@@ -87,9 +90,9 @@ bool Player::Update()
 	currentAnimation = &idleAnim;
 	// L07 DONE 5: Add physics to the player - updated player position using physics
 
-	int speed = 5; 
 	b2Vec2 vel = b2Vec2(0, GRAVITY_Y); 
 
+	b2Vec2 velcam = b2Vec2(0, 0);
 	//L02: DONE 4: modify the position of the player using arrow keys and render the texture
 
 	
@@ -103,28 +106,35 @@ bool Player::Update()
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
 		flipType = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;
 		vel = b2Vec2(-speed, GRAVITY_Y);
+		velcam = b2Vec2(speed, 0);
 		currentAnimation = &forwardAnim;
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
 		flipType = SDL_RendererFlip::SDL_FLIP_NONE;
 		vel = b2Vec2(speed, GRAVITY_Y);
+		velcam = b2Vec2(-speed, 0);
 		currentAnimation = &forwardAnim;
 	}
 
 	//Set the velocity of the pbody of the player
 	pbody->body->SetLinearVelocity(vel);
 
+	camerabody->body->SetLinearVelocity(velcam);
+
 	//Update player position in pixels
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - width/2;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - height/2;
+
+	app->render->camera.x = METERS_TO_PIXELS(camerabody->body->GetTransform().p.x) - width / 2;
+
+	app->render->camera.y = METERS_TO_PIXELS(camerabody->body->GetTransform().p.y) - width / 2;
 
 	currentAnimation->Update();
 
 	SDL_Rect rect = currentAnimation->GetCurrentFrame();
 
 	app->render->DrawTexture(texture, position.x, position.y, &rect, 1.0f, NULL, NULL, NULL, flipType);
-
 
 	return true;
 }
@@ -151,6 +161,12 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 				jump += 1;
 			}
 			break;
+
+		case ColliderType::SPIKE:
+			LOG("Collision SPIKE");
+			//ANIMACION MUERTE
+			break;
+
 		case ColliderType::UNKNOWN:
 			LOG("Collision UNKNOWN");
 			break;

@@ -43,6 +43,7 @@ struct Properties
 	{
 		SString name;
 		bool value;
+	
 	};
 
 	~Properties()
@@ -130,6 +131,8 @@ public:
 
 	// L05: DONE 8: Create a method that translates x,y coordinates from map positions to world positions
 	iPoint MapToWorld(int x, int y) const;
+	
+	void DrawPlatformCollider();
 
 private:
 
@@ -152,6 +155,7 @@ public:
 
 	// L04: DONE 1: Declare a variable data of the struct MapData
 	MapData mapData;
+	List<PhysBody*> listBodies;
 
 private:
 

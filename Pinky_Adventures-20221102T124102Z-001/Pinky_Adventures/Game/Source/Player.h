@@ -40,9 +40,9 @@ public:
 	Animation forwardAnim;
 	Animation jumpAnim;
 
-	int jump;
+	int jump, speed, width, height;;
 
-	int width, height;
+
 	SDL_RendererFlip flipType;
 
 private:
@@ -53,6 +53,8 @@ private:
 
 	// L07 DONE 5: Add physics to the player - declare a Physics body
 	PhysBody* pbody;
+
+	PhysBody* camerabody;
 
 	int pickCoinFxId;
 	const char* fxPath;
