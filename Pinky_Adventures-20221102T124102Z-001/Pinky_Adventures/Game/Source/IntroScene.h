@@ -1,22 +1,20 @@
-#ifndef __SCENE_H__
-#define __SCENE_H__
+#ifndef __INTROSCENE_H__
+#define __INTROSCENE_H__
 
 #include "Module.h"
 #include "Player.h"
 #include "Item.h"
 
-#include "App.h"
-
 struct SDL_Texture;
 
-class Scene : public Module
+class IntroScene : public Module
 {
 public:
 
-	Scene();
+	IntroScene();
 
 	// Destructor
-	virtual ~Scene();
+	virtual ~IntroScene();
 
 	// Called before render is available
 	bool Awake(pugi::xml_node& config);
@@ -41,10 +39,9 @@ public:
 	//L02: DONE 3: Declare a Player attribute 
 	Player* player;
 
-	//active = false;
-
 private:
 	SDL_Texture* img;
+
 };
 
-#endif // __SCENE_H__
+#endif // __INTROSCENE_H__

@@ -96,6 +96,8 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\EntityManager.cpp" />
+    <ClCompile Include="Source\FadeToBlack.cpp" />
+    <ClCompile Include="Source\IntroScene.cpp" />
     <ClCompile Include="Source\Item.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\App.cpp" />
@@ -111,6 +113,8 @@
     <ClInclude Include="Source\Animation.h" />
     <ClInclude Include="Source\Entity.h" />
     <ClInclude Include="Source\EntityManager.h" />
+    <ClInclude Include="Source\FadeToBlack.h" />
+    <ClInclude Include="Source\IntroScene.h" />
     <ClInclude Include="Source\Item.h" />
     <ClInclude Include="Source\Map.h" />
     <ClInclude Include="Source\Physics.h" />
