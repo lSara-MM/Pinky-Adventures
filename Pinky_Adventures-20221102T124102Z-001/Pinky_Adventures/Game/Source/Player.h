@@ -41,6 +41,8 @@ public:
 	Animation jumpAnim;
 
 	int jump;
+
+	int width, height;
 	SDL_RendererFlip flipType;
 
 private:

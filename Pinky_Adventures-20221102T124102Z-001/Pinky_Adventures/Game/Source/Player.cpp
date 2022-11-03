@@ -56,7 +56,8 @@ bool Player::Awake() {
 	position.y = parameters.attribute("y").as_int();
 	texturePath = parameters.attribute("texturepath").as_string();
 	fxPath = parameters.attribute("audiopath").as_string();
-
+	width = 20;
+	height = 30;
 	jump = 1;
 	return true;
 }
@@ -67,9 +68,8 @@ bool Player::Start() {
 	texture = app->tex->Load(texturePath);
 
 	// L07 DONE 5: Add physics to the player - initialize physics body
-	pbody = app->physics->CreateCircle(position.x + 16, position.y + 16, 16, bodyType::DYNAMIC);
-
-	
+	pbody = app->physics->CreateRectangle(position.x + width/2, position.y +height/2, width, height, bodyType::DYNAMIC);
+	pbody->body->SetFixedRotation(true);
 	// L07 DONE 6: Assign player class (using "this") to the listener of the pbody. This makes the Physics module to call the OnCollision method
 	pbody->listener = this; 
 
@@ -97,7 +97,7 @@ bool Player::Update()
 		
 		currentAnimation = &jumpAnim;
 		jump = 0;
-		pbody->body->ApplyForce(b2Vec2(0, -5000), pbody->body->GetWorldCenter(), true);
+		pbody->body->ApplyForce(b2Vec2(0, -800), pbody->body->GetWorldCenter(), true);
 	}
 	
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
@@ -116,8 +116,8 @@ bool Player::Update()
 	pbody->body->SetLinearVelocity(vel);
 
 	//Update player position in pixels
-	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
-	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 16;
+	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - width/2;
+	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - height/2;
 
 	currentAnimation->Update();
 

@@ -190,7 +190,29 @@ bool Map::Load()
     {
         ret = LoadAllLayers(mapFileXML.child("map"));
     }
-    
+    //
+    //if (mapLayerItem->data->properties.GetProperty("Draw") != NULL && mapLayerItem->data->properties.GetProperty("Draw")->value) {
+
+    //    for (int x = 0; x < mapLayerItem->data->width; x++)
+    //    {
+    //        for (int y = 0; y < mapLayerItem->data->height; y++)
+    //        {
+    //            // L05: DONE 9: Complete the draw function
+    //            int gid = mapLayerItem->data->Get(x, y);
+
+    //            //L06: DONE 3: Obtain the tile set using GetTilesetFromTileId
+    //            TileSet* tileset = GetTilesetFromTileId(gid);
+
+    //            SDL_Rect r = tileset->GetTileRect(gid);
+    //            iPoint pos = MapToWorld(x, y);
+
+    //            app->render->DrawTexture(tileset->texture,
+    //                pos.x,
+    //                pos.y,
+    //                &r);
+    //        }
+    //    }
+    //}
     // L07 DONE 3: Create colliders
     // Later you can create a function here to load and create the colliders from the map
     PhysBody* c1 = app->physics->CreateRectangle(1 + 240 / 2, 290 + 95 / 2, 240, 95, bodyType::STATIC);
