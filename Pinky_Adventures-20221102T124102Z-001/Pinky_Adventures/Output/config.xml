@@ -6,6 +6,7 @@
 
   <renderer>
     <vsync value="true"/>
+	<camera x="0" y="0"/>
   </renderer>
 
   <window>
@@ -23,7 +24,7 @@
 
   <!-- L02: DONE: Add an element for the entity manager and add the player parameters -->
   <scene>
-    <player x="150" y="260" texturepath="Assets/Textures/character.png" velocity="5" width="20" height="30"/>
+    <player x="120" y="260" texturepath="Assets/Textures/character.png" velocity="5" width="20" height="30"/>
 	<!--
 	<item x="256" y="515" texturepath="Assets/Textures/goldCoin.png"/>
     <item x="416" y="512" texturepath="Assets/Textures/goldCoin.png"/>

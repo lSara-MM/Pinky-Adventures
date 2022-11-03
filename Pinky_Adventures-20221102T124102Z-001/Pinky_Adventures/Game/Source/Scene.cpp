@@ -96,7 +96,7 @@ bool Scene::Update(float dt)
 	// Draw map
 	app->map->Draw();
 
-	//app->map->DrawPlatformCollider();
+//	app->map->DrawPlatformCollider();
 
 	return true;
 }

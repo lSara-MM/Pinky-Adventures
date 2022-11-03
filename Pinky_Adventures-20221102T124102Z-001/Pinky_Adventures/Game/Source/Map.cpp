@@ -263,6 +263,8 @@ bool Map::Load()
     // L07 DONE 7: Assign collider type
     c3->ctype = ColliderType::PLATFORM;
 
+    PhysBody* c = app->physics->CreateRectangle(2, 0, 0, 1000, bodyType::STATIC);//limit mapa
+
     if(ret == true)
     {
         // L04: DONE 5: LOG all the data loaded iterate all tilesets and LOG everything
