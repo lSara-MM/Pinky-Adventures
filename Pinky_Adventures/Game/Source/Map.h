@@ -67,6 +67,7 @@ struct Properties
 	List<Property*> list;
 };
 
+
 // L05: DONE 1: Create a struct for the map layer
 struct MapLayer
 {
@@ -79,6 +80,7 @@ struct MapLayer
 	// L06: DONE: Store custom properties
 	Properties properties;
 
+	
 	MapLayer() : data(NULL)
 	{}
 
@@ -150,6 +152,9 @@ private:
 
 	// L06: DONE 6: Load a group of properties 
 	bool LoadProperties(pugi::xml_node& node, Properties& properties);
+
+
+
 
 public: 
 

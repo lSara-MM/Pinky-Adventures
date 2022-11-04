@@ -55,10 +55,6 @@ void Map::Draw()
     ListItem<MapLayer*>* mapLayerItem;
     mapLayerItem = mapData.maplayers.start;
 
-    ListItem<PhysBody*>* bodyItem;
-    bodyItem = listBodies.start;
-    
-
     while (mapLayerItem != NULL) {
 
         //L06: DONE 7: use GetProperty method to ask each layer if your “Draw” property is true.
@@ -92,6 +88,7 @@ void Map::Draw()
 }
 
 void Map::DrawPlatformCollider() {
+
     if (mapLoaded == false)
         return;
 
@@ -101,29 +98,41 @@ void Map::DrawPlatformCollider() {
     ListItem<PhysBody*>* bodyItem;
     bodyItem = listBodies.start;
 
+    int contador = 0;
+
     while (mapLayerItem != NULL) {
 
         if (mapLayerItem->data->properties.GetProperty("Block") != NULL && mapLayerItem->data->properties.GetProperty("Block")->value) {
-
 
             for (int x = 0; x < mapLayerItem->data->width; x++)
             {
                 for (int y = 0; y < mapLayerItem->data->height; y++)
                 {
-                    int gid = mapLayerItem->data->Get(x, y);
+                    
+                    if (mapLayerItem->data->data[contador]!=NULL) {
 
-                    TileSet* tileset = GetTilesetFromTileId(gid);
+                        int gid = mapLayerItem->data->Get(x, y);
 
-                    SDL_Rect r = tileset->GetTileRect(gid);
-                    iPoint pos = MapToWorld(x, y);
+                        TileSet* tileset = GetTilesetFromTileId(gid);
 
-                    PhysBody* body;
+                        SDL_Rect r = tileset->GetTileRect(gid);
 
-                    body = app->physics->CreateRectangle(pos.x + r.w / 2, pos.y + r.h / 2, r.w, r.h, bodyType::STATIC);
+                        iPoint pos = MapToWorld(x, y);
 
-                    listBodies.Add(body);
+                        PhysBody* collider;
 
+                        collider = app->physics->CreateRectangle(pos.x + r.w / 2, pos.y + r.h / 2, r.w, r.h, bodyType::STATIC);
+
+                        collider->ctype = ColliderType::PLATFORM;
+
+                        listBodies.Add(collider);
+                      
+                    }
+                
+                  
                 }
+
+               
             }
 
         }
@@ -249,19 +258,19 @@ bool Map::Load()
         ret = LoadAllLayers(mapFileXML.child("map"));
     }
 
-    // L07 DONE 3: Create colliders
-    // Later you can create a function here to load and create the colliders from the map
-    PhysBody* c1 = app->physics->CreateRectangle(1 + 240 / 2, 290 + 95 / 2, 240, 95, bodyType::STATIC);
-    // L07 DONE 7: Assign collider type
-    c1->ctype = ColliderType::PLATFORM;
+    //// L07 DONE 3: Create colliders
+    //// Later you can create a function here to load and create the colliders from the map
+    //PhysBody* c1 = app->physics->CreateRectangle(1 + 240 / 2, 290 + 95 / 2, 240, 95, bodyType::STATIC);
+    //// L07 DONE 7: Assign collider type
+    //c1->ctype = ColliderType::PLATFORM;
 
-    PhysBody* c2 = app->physics->CreateRectangle(305 + 175 / 2, 290 + 95 / 2, 175, 95, bodyType::STATIC);
-    // L07 DONE 7: Assign collider type
-    c2->ctype = ColliderType::PLATFORM;
+    //PhysBody* c2 = app->physics->CreateRectangle(305 + 175 / 2, 290 + 95 / 2, 175, 95, bodyType::STATIC);
+    //// L07 DONE 7: Assign collider type
+    //c2->ctype = ColliderType::PLATFORM;
 
-    PhysBody* c3 = app->physics->CreateRectangle(256, 704 + 32, 576, 64, STATIC);
-    // L07 DONE 7: Assign collider type
-    c3->ctype = ColliderType::PLATFORM;
+    //PhysBody* c3 = app->physics->CreateRectangle(256, 704 + 32, 576, 64, STATIC);
+    //// L07 DONE 7: Assign collider type
+    //c3->ctype = ColliderType::PLATFORM;
 
     PhysBody* c = app->physics->CreateRectangle(2, 0, 0, 1000, bodyType::STATIC);//limit mapa
 
@@ -369,6 +378,10 @@ bool Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 
     //L06: DONE 6 Call Load Propoerties
     LoadProperties(node, layer->properties);
+
+    //LoadGidValue(node, layer->gids);
+
+
 
     //Reserve the memory for the data 
     layer->data = new uint[layer->width * layer->height];
