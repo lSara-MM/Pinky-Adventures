@@ -62,9 +62,14 @@ bool Scene::Start()
 		app->map->mapData.tilesets.Count());
 
 	app->win->SetTitle(title.GetString());
+	
 
+	// NO CREC QUE S'HAGI DE FER AIXI PERO ES QUE SINÓ
+	// S'HAURÀ DE FER MANUALMENT LO DE RESETEJAR LES PROPIETATS DEL PLAYER
+	player->Enable();
+	player->Awake();
 	player->Start();
-
+	
 	return true;
 }
 
@@ -126,6 +131,9 @@ bool Scene::PostUpdate()
 bool Scene::CleanUp()
 {
 	LOG("Freeing scene");
-
+	
+	player->Disable();
+	app->render->camera.x = 0;
+	app->render->camera.y = 0;
 	return true;
 }
