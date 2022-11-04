@@ -1,0 +1,48 @@
+<config>
+	<app>
+		<title>Pinky Adventures :D</title>
+		<organization>UPC</organization>
+	</app>
+
+	<renderer>
+		<vsync value="true"/>
+		<camera x="0" y="0"/>
+	</renderer>
+
+	<window>
+		<resolution width="1024" height="767" scale="2"/>
+		<fullscreen value="false"/>
+		<borderless value="false"/>
+		<resizable value="false"/>
+		<fullscreen_window value="false"/>
+	</window>
+
+	<audio>
+		<music volume="128"/>
+		<fx volume="128"/>
+	</audio>
+
+	<!-- L02: DONE: Add an element for the entity manager and add the player parameters -->
+
+	<fadeToBlack>
+	</fadeToBlack>
+
+	<introScene>
+	</introScene>
+
+	<scene>
+		<player x="120" y="260" texturepath="Assets/Textures/character.png" velocity="5" width="20" height="30"/>
+		<!--
+	<item x="256" y="515" texturepath="Assets/Textures/goldCoin.png"/>
+    <item x="416" y="512" texturepath="Assets/Textures/goldCoin.png"/>
+    <item x="384" y="352" texturepath="Assets/Textures/goldCoin.png"/>
+    <item x="200" y="672" texturepath="Assets/Textures/goldCoin.png"/>
+    <item x="500" y="672" texturepath="Assets/Textures/goldCoin.png"/> -->
+	</scene>
+
+	<map>
+		<mapfolder path="Assets/Maps/"/>
+		<mapfile path="Assets/Maps/map1.tmx"/>
+	</map>
+
+</config>

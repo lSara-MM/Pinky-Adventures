@@ -16,7 +16,7 @@
 
 IntroScene::IntroScene() : Module()
 {
-	name.Create("IntroScene");
+	name.Create("introScene");
 }
 
 // Destructor
@@ -75,8 +75,6 @@ bool IntroScene::PreUpdate()
 bool IntroScene::Update(float dt)
 {
 	// L03: DONE 3: Request App to Load / Save when pressing the keys F5 (save) / F6 (load)
-	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
-		app->SaveGameRequest();
 
 	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		app->LoadGameRequest();
@@ -100,7 +98,7 @@ bool IntroScene::Update(float dt)
 	//app->render->DrawTexture(img, 380, 100); // Placeholder not needed any more
 
 	// Draw map
-	app->map->Draw();
+	//app->map->Draw();
 
 	return true;
 }

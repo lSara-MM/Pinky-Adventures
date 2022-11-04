@@ -13,14 +13,14 @@ public:
 	//Destructor
 	~FadeToBlack();
 
-	bool Awake();
+	bool Awake(pugi::xml_node& config);
 	// Called when the module is activated
 	// Enables the blending mode for transparency
 	bool Start() override;
 
 	// Called at the middle of the application loop
 	// Updates the fade logic
-	bool Update();
+	bool Update(float dt) override;
 
 	// Called at the end of the application loop
 	// Performs the render call of a black rectangle with transparency
@@ -50,6 +50,8 @@ private:
 	// The modules that should be switched after the first step
 	Module* moduleToEnable = nullptr;
 	Module* moduleToDisable = nullptr;
+
+	pugi::xml_node configNode;
 };
 
 #endif //__FADETOBLACKH__

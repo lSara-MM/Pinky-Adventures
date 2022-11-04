@@ -53,6 +53,9 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(fade);
 	// Render last to swap buffer
 	AddModule(render);
+
+	scene->active = false;
+	scene->active = false;
 }
 
 // Destructor
@@ -97,8 +100,11 @@ bool App::Awake()
 			// If the section with the module name exists in config.xml, fill the pointer with the valid xml_node
 			// that can be used to read all variables for that module.
 			// Send nullptr if the node does not exist in config.xml
-			pugi::xml_node node = configNode.child(item->data->name.GetString());
-			ret = item->data->Awake(node);
+			if (item->data->active == true)
+			{
+				pugi::xml_node node = configNode.child(item->data->name.GetString());
+				ret = item->data->Awake(node);
+			}
 			item = item->next;
 		}
 	}
@@ -115,7 +121,10 @@ bool App::Start()
 
 	while (item != NULL && ret == true)
 	{
-		ret = item->data->Start();
+		if (item->data->active == true)
+		{
+			ret = item->data->Start();
+		}
 		item = item->next;
 	}
 
@@ -251,7 +260,10 @@ bool App::CleanUp()
 
 	while (item != NULL && ret == true)
 	{
-		ret = item->data->CleanUp();
+		if (item->data->active == true)
+		{
+			ret = item->data->CleanUp();
+		}
 		item = item->prev;
 	}
 
