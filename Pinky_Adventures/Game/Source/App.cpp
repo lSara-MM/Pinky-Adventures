@@ -53,9 +53,6 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(fade);
 	// Render last to swap buffer
 	AddModule(render);
-
-	scene->active = false;
-	scene->active = false;
 }
 
 // Destructor
@@ -119,6 +116,9 @@ bool App::Start()
 	ListItem<Module*>* item;
 	item = modules.start;
 
+	scene->active = false;
+	entityManager->active = false;
+
 	while (item != NULL && ret == true)
 	{
 		if (item->data->active == true)
@@ -128,6 +128,7 @@ bool App::Start()
 		item = item->next;
 	}
 
+	
 	return ret;
 }
 
