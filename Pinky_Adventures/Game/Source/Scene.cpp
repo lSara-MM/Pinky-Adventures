@@ -63,6 +63,8 @@ bool Scene::Start()
 
 	app->win->SetTitle(title.GetString());
 
+	player->Start();
+
 	return true;
 }
 
@@ -101,6 +103,8 @@ bool Scene::Update(float dt)
 
 	// Draw map
 	app->map->Draw();
+
+	player->Update();
 
 //	app->map->DrawPlatformCollider();
 

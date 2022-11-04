@@ -60,6 +60,7 @@ bool Player::Awake() {
 	width = parameters.attribute("width").as_int();
 	height = parameters.attribute("height").as_int();
 	jump = 1;
+
 	return true;
 }
 
