@@ -1840,7 +1840,7 @@
    <tile gid="30"/>
    <tile gid="30"/>
    <tile gid="30"/>
-   <tile gid="10"/>
+   <tile gid="52"/>
    <tile gid="52"/>
    <tile gid="52"/>
    <tile gid="52"/>
@@ -1973,8 +1973,8 @@
    <tile gid="30"/>
    <tile gid="30"/>
    <tile gid="10"/>
-   <tile gid="52"/>
    <tile gid="53"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -2907,7 +2907,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="243"/>
+   <tile/>
    <tile gid="7"/>
    <tile gid="8"/>
    <tile gid="33"/>
@@ -3265,7 +3265,7 @@
    <tile gid="53"/>
   </data>
  </layer>
- <layer id="6" name="map1.1" width="134" height="24">
+ <layer id="6" name="map1.1" width="134" height="24" visible="0">
   <properties>
    <property name="Draw" type="bool" value="true"/>
   </properties>
@@ -8421,7 +8421,7 @@
    <tile/>
    <tile gid="244"/>
    <tile gid="244"/>
-   <tile gid="244"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
@@ -9668,8 +9668,8 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="52"/>
-   <tile gid="53"/>
+   <tile/>
+   <tile gid="244"/>
    <tile/>
    <tile/>
    <tile/>
@@ -12578,7 +12578,7 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile gid="245"/>
+   <tile/>
    <tile/>
    <tile/>
    <tile/>
