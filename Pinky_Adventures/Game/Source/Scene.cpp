@@ -105,6 +105,11 @@ bool Scene::Update(float dt)
 
 	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT)
 		app->fade->FadingToBlack(this, (Module*)app->iScene, 90);
+
+	if (player->ded == true) {
+		app->fade->FadingToBlack(this, (Module*)app->iScene, 90);
+	}
+
 	//app->render->DrawTexture(img, 380, 100); // Placeholder not needed any more
 	// Draw map
 	

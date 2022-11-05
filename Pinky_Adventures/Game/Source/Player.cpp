@@ -45,14 +45,24 @@ Player::Player() : Entity(EntityType::PLAYER)
 
 	jumpAnim.speed = 0.1f;
 
-	deathAnim.PushBack({ 1, 103, 32, 32 });
+	deathAnim.PushBack({ 4, 4, 21, 29 });
+	deathAnim.PushBack({ 36, 2, 22, 29 });
+	deathAnim.PushBack({ 68, 12, 25, 20 });
+	deathAnim.PushBack({ 99, 22, 29, 11 });
+	deathAnim.PushBack({ 129, 21, 35, 12 });
+	deathAnim.PushBack({ 170, 20, 25, 13 });
+	deathAnim.PushBack({ 202, 18, 25, 15 });
+
+	/*deathAnim.PushBack({ 1, 103, 32, 32 });
 	deathAnim.PushBack({ 1, 135, 32, 32 });
 	deathAnim.PushBack({ 1, 167, 32, 32 });
 	deathAnim.PushBack({ 1, 199, 32, 32 });
 	deathAnim.PushBack({ 1, 231, 32, 32 });
 	deathAnim.PushBack({ 1, 263, 32, 32 });
 	deathAnim.PushBack({ 1, 295, 32, 32 });
-	deathAnim.PushBack({ 1, 372, 32, 32 });
+	deathAnim.PushBack({ 1, 372, 32, 32 });*/
+	//aquesta animacio que has posat a mi no em va
+
 
 	deathAnim.speed = 0.1f;
 }
@@ -94,9 +104,8 @@ bool Player::Start() {
 	// L07 DONE 7: Assign collider type
 	pbody->ctype = ColliderType::PLAYER;
 
-	//initialize audio effect - !! Path is hardcoded, should be loaded from config.xml
-	pickCoinFxId = app->audio->LoadFx(fxPath);
-
+	ded = false;
+	ani = true;
 	camerabody = app->physics->CreateRectangle(app->render->camera.x + width / 2, app->render->camera.x + height / 2, width, height, bodyType::KINEMATIC);
 	return true;
 }
@@ -112,14 +121,14 @@ bool Player::Update()
 	//L02: DONE 4: modify the position of the player using arrow keys and render the texture
 
 	
-	if ((app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) && jump > 0) {
+	if ((app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) && jump > 0 && ded == false) {
 		
 		currentAnimation = &jumpAnim;
 		jump--;
 		pbody->body->ApplyForce(b2Vec2(0, -800), pbody->body->GetWorldCenter(), true);
 	}
 	
-	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && ded == false) {
 		flipType = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;
 		vel = b2Vec2(-speed, GRAVITY_Y);
 		if (app->render->camera.x <= -10) {
@@ -128,12 +137,17 @@ bool Player::Update()
 		currentAnimation = &forwardAnim;
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && ded == false) {
 		flipType = SDL_RendererFlip::SDL_FLIP_NONE;
 		vel = b2Vec2(speed, GRAVITY_Y);
 		velcam = b2Vec2(-speed, 0);
 		currentAnimation = &forwardAnim;
 	}
+
+	else if (ded == true) {
+		currentAnimation = &deathAnim;
+	}
+
 
 	//Set the velocity of the pbody of the player
 	pbody->body->SetLinearVelocity(vel);
@@ -150,7 +164,25 @@ bool Player::Update()
 	currentAnimation->Update();
 
 	SDL_Rect rect = currentAnimation->GetCurrentFrame();
-	app->render->DrawTexture(texture, position.x, position.y, &rect, 1.0f, NULL, NULL, NULL, flipType);
+
+	if (ded == false) {
+
+		app->render->DrawTexture(texture, position.x, position.y, &rect, 1.0f, NULL, NULL, NULL, flipType);
+	}
+
+	else if (ded == true && currentAnimation->current_frame != 0 && ani == true) {
+
+		app->render->DrawTexture(texture, position.x, position.y, &rect, 1.0f, NULL, NULL, NULL, flipType);
+
+
+	}
+
+	else if (ded == true && currentAnimation->current_frame == 0 && ani == true) {
+
+		ani = false;
+
+	}
+
 
 	return true;
 }
@@ -197,8 +229,9 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			{
 				currentAnimation = &deathAnim;
 			}*/
-			app->fade->FadingToBlack((Module*)app->scene, (Module*)app->iScene, 90);
-			//ANIMACION MUERTE
+			ded = true;
+			
+		
 			break;
 
 		case ColliderType::UNKNOWN:

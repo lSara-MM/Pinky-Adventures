@@ -4,6 +4,7 @@
 #include "App.h"
 #include "Textures.h"
 #include "Scene.h"
+#include "Physics.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -132,4 +133,27 @@ bool EntityManager::Update(float dt)
 	}
 
 	return ret;
+}
+
+bool EntityManager::LoadState(pugi::xml_node& data)
+{
+	float x = data.child("player").attribute("x").as_int();
+	float y = data.child("player").attribute("y").as_int();
+
+	app->scene->player->pbody->body->SetTransform({ PIXEL_TO_METERS(x),PIXEL_TO_METERS(y) }, 0);
+
+	return true;
+}
+
+
+bool EntityManager::SaveState(pugi::xml_node& data)
+{
+	pugi::xml_node player = data.append_child("player");
+
+	player.append_attribute("x") = app->scene->player->position.x;
+
+	player.append_attribute("y") = app->scene->player->position.y;
+
+
+	return true;
 }

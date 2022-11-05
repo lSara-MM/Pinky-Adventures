@@ -7,10 +7,12 @@
 	<:anonymous />
 	<introScene />
 	<scene />
-	<entitymanager />
+	<entitymanager>
+		<player x="224" y="258" />
+	</entitymanager>
 	<map />
 	<fadeToBlack />
 	<renderer>
-		<camera x="-292" y="0" />
+		<camera x="-238" y="0" />
 	</renderer>
 </save_state>

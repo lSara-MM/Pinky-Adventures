@@ -324,7 +324,7 @@ bool Map::Load()
     c15->ctype = ColliderType::PLATFORM;
 
 
-    PhysBody* c16 = app->physics->CreateRectangle(640 + 80 / 2, 304 + 16 / 2, 80, 16, bodyType::STATIC);
+    PhysBody* c16 = app->physics->CreateRectangle(656 + 64 / 2, 304 + 16 / 2, 64, 16, bodyType::STATIC);
     c16->ctype = ColliderType::PLATFORM;
 
 
@@ -353,7 +353,7 @@ bool Map::Load()
     PhysBody* c25 = app->physics->CreateRectangle(640 + 208 / 2, 176 + 16 / 2, 208, 16, bodyType::STATIC);
     c25->ctype = ColliderType::PLATFORM;
 
-    PhysBody* c26 = app->physics->CreateRectangle(640 + 16 / 2, 192 + 112 / 2, 16, 112, bodyType::STATIC);
+    PhysBody* c26 = app->physics->CreateRectangle(640 + 16 / 2, 192 + 128 / 2, 16, 128, bodyType::STATIC);
     c26->ctype = ColliderType::PLATFORM;
 
 
@@ -475,7 +475,7 @@ bool Map::Load()
     c58->ctype = ColliderType::SPIKE;
 
 
-    PhysBody* c59 = app->physics->CreateRectangle(480 + 144 / 2, 352 + 32 / 2, 144, 32, bodyType::STATIC);
+    PhysBody* c59 = app->physics->CreateRectangle(480 + 144 / 2, 360 + 16 / 2, 144, 16, bodyType::STATIC);
     c59->ctype = ColliderType::SPIKE;
 
 
@@ -500,7 +500,7 @@ bool Map::Load()
     c66->ctype = ColliderType::SPIKE;
 
 
-    PhysBody* c67 = app->physics->CreateRectangle(1504 + 528 / 2, 352 + 32 / 2, 528, 32, bodyType::STATIC);
+    PhysBody* c67 = app->physics->CreateRectangle(1504 + 528 / 2, 361 + 16 / 2, 528, 16, bodyType::STATIC);
     c67->ctype = ColliderType::SPIKE;
 
 
