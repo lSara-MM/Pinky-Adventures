@@ -43,6 +43,10 @@
 	<map>
 		<mapfolder path="Assets/Maps/"/>
 		<mapfile path="Assets/Maps/map1.tmx"/>
+
+		<map1>
+			<spikes x1="" y1="" x2=""/>
+		</map1>
 	</map>
 
 </config>

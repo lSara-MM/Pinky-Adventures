@@ -61,7 +61,7 @@ bool IntroScene::Start()
 	//app->win->SetTitle(title.GetString());
 
 
-	img = app->tex->Load("Assets/bggatto.jpg");
+	img = app->tex->Load("Assets/center.png");
 	return true;
 }
 

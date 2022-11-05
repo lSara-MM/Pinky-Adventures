@@ -5,10 +5,12 @@
 	<textures />
 	<audio />
 	<:anonymous />
+	<introScene />
 	<scene />
 	<entitymanager />
 	<map />
+	<fadeToBlack />
 	<renderer>
-		<camera x="-392" y="4" />
+		<camera x="-292" y="0" />
 	</renderer>
 </save_state>

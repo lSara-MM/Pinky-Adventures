@@ -8,6 +8,7 @@
 #include "EntityManager.h"
 #include "Map.h"
 
+#include "Physics.h"
 #include "FadeToBlack.h"
 
 #include "Defs.h"
@@ -47,6 +48,8 @@ bool Scene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool Scene::Start()
 {
+	app->physics->Enable();
+	app->physics->Start();
 	//img = app->tex->Load("Assets/Textures/test.png");
 	//app->audio->PlayMusic("Assets/Audio/Music/music_spy.ogg");
 	
@@ -63,11 +66,7 @@ bool Scene::Start()
 
 	app->win->SetTitle(title.GetString());
 	
-
-	// NO CREC QUE S'HAGI DE FER AIXI PERO ES QUE SINÓ
-	// S'HAURÀ DE FER MANUALMENT LO DE RESETEJAR LES PROPIETATS DEL PLAYER
 	player->Enable();
-	player->Awake();
 	player->Start();
 	
 	return true;
@@ -101,26 +100,16 @@ bool Scene::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		app->render->camera.x -= 1;
 
+	app->map->Draw();
+	player->Update();
 
 	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT)
 		app->fade->FadingToBlack(this, (Module*)app->iScene, 90);
-
-	if (player->ded == true) {
-		app->fade->FadingToBlack(this, (Module*)app->iScene, 90);
-	}
-
-
-
 	//app->render->DrawTexture(img, 380, 100); // Placeholder not needed any more
-
 	// Draw map
-	app->map->Draw();
+	
 
-
-	player->Update();
-
-//	app->map->DrawPlatformCollider();
-
+	//app->map->DrawPlatformCollider();
 
 	return true;
 }
@@ -141,8 +130,13 @@ bool Scene::CleanUp()
 {
 	LOG("Freeing scene");
 	
+	player->CleanUp();
 	player->Disable();
 	app->render->camera.x = 0;
 	app->render->camera.y = 0;
+	
+	app->map->UnloadCollisions();
+	//app->physics->CleanUp();	// peta despues :')
+
 	return true;
 }

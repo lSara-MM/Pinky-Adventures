@@ -136,6 +136,10 @@ public:
 	
 	void DrawPlatformCollider();
 
+	bool UnloadCollisions();
+
+	bool LoadSpikes(pugi::xml_node mapNode);
+
 private:
 
 	bool LoadMap(pugi::xml_node mapFile);

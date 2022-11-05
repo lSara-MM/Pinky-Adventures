@@ -59,7 +59,7 @@ void Map::Draw()
 
         //L06: DONE 7: use GetProperty method to ask each layer if your “Draw” property is true.
         if (mapLayerItem->data->properties.GetProperty("Draw") != NULL && mapLayerItem->data->properties.GetProperty("Draw")->value) {
-
+            
             for (int x = 0; x < mapLayerItem->data->width; x++)
             {
                 for (int y = 0; y < mapLayerItem->data->height; y++)
@@ -225,6 +225,20 @@ bool Map::CleanUp()
         bodyItem = bodyItem->next;
     }
 
+    return true;
+}
+
+bool Map::UnloadCollisions()    //nose perque no fa res xd
+{
+    ListItem<PhysBody*>* bodyItem;
+    bodyItem = listBodies.start;
+
+    while (bodyItem != NULL)
+    {
+        RELEASE(bodyItem->data);
+        bodyItem = bodyItem->next;
+    }
+    
     return true;
 }
 
@@ -461,11 +475,10 @@ bool Map::Load()
     c58->ctype = ColliderType::SPIKE;
 
 
-    PhysBody* c59 = app->physics->CreateRectangle(480 + 144 / 2, 361 + 28 / 2, 144, 28, bodyType::STATIC);
+    PhysBody* c59 = app->physics->CreateRectangle(480 + 144 / 2, 352 + 32 / 2, 144, 32, bodyType::STATIC);
     c59->ctype = ColliderType::SPIKE;
 
-    PhysBody* c60 = app->physics->CreateRectangle(240 + 64 / 2, 384 , 64, 0, bodyType::STATIC);
-    c60->ctype = ColliderType::SPIKE;
+
 
     PhysBody* c61 = app->physics->CreateRectangle(688 + 32 / 2, 160 + 12 , 32, 8, bodyType::STATIC);
     c61->ctype = ColliderType::SPIKE;
@@ -487,16 +500,21 @@ bool Map::Load()
     c66->ctype = ColliderType::SPIKE;
 
 
-    PhysBody* c67 = app->physics->CreateRectangle(1504 + 528 / 2, 360 + 28 / 2, 528, 28, bodyType::STATIC);
+    PhysBody* c67 = app->physics->CreateRectangle(1504 + 528 / 2, 352 + 32 / 2, 528, 32, bodyType::STATIC);
     c67->ctype = ColliderType::SPIKE;
 
-    PhysBody* c68 = app->physics->CreateRectangle(1040 + 224 / 2, 384, 224, 0, bodyType::STATIC);
-    c68->ctype = ColliderType::SPIKE;
 
 
     PhysBody* c = app->physics->CreateRectangle(2, 0, 0, 1000, bodyType::STATIC);//limit mapa
     c->ctype = ColliderType::PLATFORM;
 
+
+    /*listBodies.Add(c1);
+    listBodies.Add(c2);
+    listBodies.Add(c3);
+    listBodies.Add(c);*/
+
+    //LoadSpikes(mapFileXML.child("map")); PORQUE NO VAAA, PUTO PETA
 
     if(ret == true)
     {
@@ -676,4 +694,99 @@ Properties::Property* Properties::GetProperty(const char* name)
     return p;
 }
 
+bool Map::LoadSpikes(pugi::xml_node mapNode)
+{
+    bool ret = true;
 
+    ListItem<MapLayer*>* mapLayerItem;
+    mapLayerItem = mapData.maplayers.start;
+
+    ListItem<TileSet*>* tileset;
+    //tileset = mapData.tilesets.Find(tileset);
+    tileset = mapData.tilesets.start;
+
+    //ListItem<PhysBody*>* bodyItem;
+    //bodyItem = listBodies.start;
+    
+    //pugi::xml_node layerNode = mapNode.child("layer");
+
+    MapLayer* mapLayer = new MapLayer();
+    mapLayer->data = new uint[mapLayer->width * mapLayer->height];
+    memset(mapLayer->data, 0, mapLayer->width * mapLayer->height);
+
+    pugi::xml_node tile;
+    int i = 0;
+    for (pugi::xml_node layerNode = mapNode.child("layer"); layerNode && ret; layerNode = layerNode.next_sibling("layer"))
+    {
+        int i = 0;
+        for (tile = layerNode.child("data").child("tile"); tile && ret; tile = tile.next_sibling("tile"))
+        {
+            if (tile.attribute("gid").as_int() == 243)
+            {
+                // mapLayer->data[i]
+                for (int x = 0; x < mapLayerItem->data->width; x++)
+                {
+                    for (int y = 0; y < mapLayerItem->data->height; y++)
+                    {
+                        // L05: DONE 9: Complete the draw function
+                        int gid = mapLayerItem->data->Get(x, y);
+
+                        //L06: DONE 3: Obtain the tile set using GetTilesetFromTileId
+                        TileSet* tileset = GetTilesetFromTileId(gid);
+
+                        SDL_Rect r = tileset->GetTileRect(gid);
+                        iPoint pos = MapToWorld(x, y);
+
+                        PhysBody* spikeCollision = app->physics->CreateRectangle(pos.x, pos.y, r.w, r.h, bodyType::STATIC);
+                        spikeCollision->ctype = ColliderType::SPIKE;
+                        
+                        listBodies.Add(spikeCollision);
+                       
+                    }
+                }
+                //mapLayer->data[i] = tile.attribute("gid").as_int(); 
+            }
+            i++;
+        }
+    }
+
+    {
+        /*pugi::xml_node layerNode = mapNode.find_child_by_attribute("map1.2", "134", "24");
+        MapLayer map1 = layerNode.;*/
+
+        //while (mapLayerItem->data->name == "map1.2") {
+
+        //    //if (tileset->data->firstgid == 243)
+        //    //{
+        //        //L06: DONE 7: use GetProperty method to ask each layer if your “Draw” property is true.
+        //        for (int x = 0; x < mapLayerItem->data->width; x++)
+        //        {
+        //            for (int y = 0; y < mapLayerItem->data->height; y++)
+        //            {
+        //                // L05: DONE 9: Complete the draw function
+        //                int gid = mapLayerItem->data->Get(x, y);
+
+        //                //L06: DONE 3: Obtain the tile set using GetTilesetFromTileId
+        //                TileSet* tileset = GetTilesetFromTileId(gid);
+
+        //                SDL_Rect r = tileset->GetTileRect(gid);
+        //                iPoint pos = MapToWorld(x, y);
+
+        //                bodyItem->data = app->physics->CreateRectangle(pos.x, pos.y, r.w, r.h, bodyType::STATIC);
+        //                bodyItem->data->ctype = ColliderType::PLATFORM;
+        //                /*app->render->DrawTexture(tileset->texture,
+        //                    pos.x,
+        //                    pos.y,
+        //                    &r);*/
+        //            }
+        //        }
+
+        //        tileset = tileset->next;
+        //        mapLayerItem = mapLayerItem->next;
+
+        //   // } 
+        //}
+    }
+
+    return ret;
+}
