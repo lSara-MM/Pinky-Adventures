@@ -37,8 +37,19 @@ Player::Player() : Entity(EntityType::PLAYER)
 	jumpAnim.PushBack({ 166, 71, 20, 29 });
 	jumpAnim.PushBack({ 197, 74, 22, 27 });
 	jumpAnim.PushBack({ 231, 75, 18, 26 });
-
 	jumpAnim.speed = 0.1f;
+
+
+	deathAnim.PushBack({ 4, 4, 21, 29 });
+	deathAnim.PushBack({ 36, 2, 22, 29 });
+	deathAnim.PushBack({ 68, 12, 25, 20 });
+	deathAnim.PushBack({ 99, 22, 29, 11 });
+	deathAnim.PushBack({ 129, 21, 35, 12 });
+	deathAnim.PushBack({ 170, 20, 25, 13 });
+	deathAnim.PushBack({ 202, 18, 25, 15 });
+	deathAnim.speed = 0.1f;
+
+	
 }
 
 Player::~Player() {
@@ -61,6 +72,8 @@ bool Player::Awake() {
 	height = parameters.attribute("height").as_int();
 	jump = 1;
 
+	ded = false;
+
 	return true;
 }
 
@@ -78,8 +91,7 @@ bool Player::Start() {
 	// L07 DONE 7: Assign collider type
 	pbody->ctype = ColliderType::PLAYER;
 
-	//initialize audio effect - !! Path is hardcoded, should be loaded from config.xml
-	pickCoinFxId = app->audio->LoadFx(fxPath);
+	ani = true;
 
 	camerabody = app->physics->CreateRectangle(app->render->camera.x + width / 2, app->render->camera.x + height / 2, width, height, bodyType::KINEMATIC);
 
@@ -97,14 +109,15 @@ bool Player::Update()
 	//L02: DONE 4: modify the position of the player using arrow keys and render the texture
 
 	
-	if ((app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) && jump == 1) {
+	if (((app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) && jump == 1) && ded==false) {
 		
 		currentAnimation = &jumpAnim;
 		jump = 0;
-		pbody->body->ApplyForce(b2Vec2(0, -800), pbody->body->GetWorldCenter(), true);
+		//pbody->body->ApplyForce(b2Vec2(0, -1200), pbody->body->GetWorldCenter(), true);
+		vel=b2Vec2(0, -100);
 	}
 	
-	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT) {
+	else if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && ded == false ) {
 		flipType = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;
 		vel = b2Vec2(-speed, GRAVITY_Y);
 		if (app->render->camera.x <= -10) {
@@ -113,14 +126,22 @@ bool Player::Update()
 		currentAnimation = &forwardAnim;
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT) {
+	else if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && ded == false) {
 		flipType = SDL_RendererFlip::SDL_FLIP_NONE;
 		vel = b2Vec2(speed, GRAVITY_Y);
 		velcam = b2Vec2(-speed, 0);
 		currentAnimation = &forwardAnim;
 	}
 
+	else if (ded == true) {
+		currentAnimation = &deathAnim;
+	}
+
+	if (jump == 0) {
+		currentAnimation = &jumpAnim;
+	}
 	//Set the velocity of the pbody of the player
+
 	pbody->body->SetLinearVelocity(vel);
 
 	camerabody->body->SetLinearVelocity(velcam);
@@ -135,14 +156,34 @@ bool Player::Update()
 	currentAnimation->Update();
 
 	SDL_Rect rect = currentAnimation->GetCurrentFrame();
+	if (ded == false) {
 
-	app->render->DrawTexture(texture, position.x, position.y, &rect, 1.0f, NULL, NULL, NULL, flipType);
+		app->render->DrawTexture(texture, position.x, position.y, &rect, 1.0f, NULL, NULL, NULL, flipType);
+	}
+
+	else if (ded == true && currentAnimation->current_frame!=0 && ani == true) {
+		
+		app->render->DrawTexture(texture, position.x, position.y, &rect, 1.0f, NULL, NULL, NULL, flipType);
+
+		
+	}
+
+	else if (ded == true && currentAnimation->current_frame == 0 && ani == true) {
+
+		ani = false;
+
+	}
+
 
 	return true;
 }
 
 bool Player::CleanUp()
 {
+	app->tex->UnLoad(texture);
+
+
+
 	return true;
 }
 
@@ -160,13 +201,13 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		case ColliderType::PLATFORM:
 			LOG("Collision PLATFORM");
 			if (jump == 0) {
-				jump += 1;
+				jump = 1;
 			}
 			break;
 
 		case ColliderType::SPIKE:
 			LOG("Collision SPIKE");
-			//ANIMACION MUERTE
+			ded = true;
 			break;
 
 		case ColliderType::UNKNOWN:

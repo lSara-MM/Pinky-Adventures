@@ -39,9 +39,11 @@ public:
 	Animation idleAnim;
 	Animation forwardAnim;
 	Animation jumpAnim;
+	Animation deathAnim;
 
 	int jump, speed, width, height;;
-
+	bool ded;
+	bool ani;
 
 	SDL_RendererFlip flipType;
 
