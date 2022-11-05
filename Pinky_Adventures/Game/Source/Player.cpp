@@ -21,6 +21,7 @@ Player::Player() : Entity(EntityType::PLAYER)
 	idleAnim.PushBack({ 40, 39, 17, 28 });
 	idleAnim.PushBack({ 71, 38, 18, 29 });
 	idleAnim.PushBack({ 102, 38, 20, 29 });
+
 	idleAnim.speed = 0.15f;
 
 	// walk forward animation (arcade sprite sheet)
@@ -30,6 +31,7 @@ Player::Player() : Entity(EntityType::PLAYER)
 	forwardAnim.PushBack({ 103, 142, 18, 27 });
 	forwardAnim.PushBack({ 136, 141, 17, 28 });
 	forwardAnim.PushBack({ 168, 141, 17, 28 });
+
 	forwardAnim.speed = 0.1f;
 
 	// TODO 4: Make ryu walk backwards with the correct animations
@@ -42,6 +44,17 @@ Player::Player() : Entity(EntityType::PLAYER)
 	jumpAnim.PushBack({ 231, 75, 18, 26 });
 
 	jumpAnim.speed = 0.1f;
+
+	deathAnim.PushBack({ 1, 103, 32, 32 });
+	deathAnim.PushBack({ 1, 135, 32, 32 });
+	deathAnim.PushBack({ 1, 167, 32, 32 });
+	deathAnim.PushBack({ 1, 199, 32, 32 });
+	deathAnim.PushBack({ 1, 231, 32, 32 });
+	deathAnim.PushBack({ 1, 263, 32, 32 });
+	deathAnim.PushBack({ 1, 295, 32, 32 });
+	deathAnim.PushBack({ 1, 372, 32, 32 });
+
+	deathAnim.speed = 0.1f;
 }
 
 Player::~Player() {
@@ -62,7 +75,7 @@ bool Player::Awake() {
 	speed = parameters.attribute("velocity").as_int();
 	width = parameters.attribute("width").as_int();
 	height = parameters.attribute("height").as_int();
-	jump = 1;
+	jump = 2;
 
 	return true;
 }
@@ -99,10 +112,10 @@ bool Player::Update()
 	//L02: DONE 4: modify the position of the player using arrow keys and render the texture
 
 	
-	if ((app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) && jump == 1) {
+	if ((app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) && jump > 0) {
 		
 		currentAnimation = &jumpAnim;
-		jump = 0;
+		jump--;
 		pbody->body->ApplyForce(b2Vec2(0, -800), pbody->body->GetWorldCenter(), true);
 	}
 	
@@ -137,7 +150,6 @@ bool Player::Update()
 	currentAnimation->Update();
 
 	SDL_Rect rect = currentAnimation->GetCurrentFrame();
-
 	app->render->DrawTexture(texture, position.x, position.y, &rect, 1.0f, NULL, NULL, NULL, flipType);
 
 	return true;
@@ -174,13 +186,17 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		case ColliderType::PLATFORM:
 			LOG("Collision PLATFORM");
 			if (jump == 0) {
-				jump += 1;
+				jump += 2;
 			}
 			break;
 
 		case ColliderType::SPIKE:
 			LOG("Collision SPIKE");
-
+			// Nada de lo que hago funciona :')
+			/*if (currentAnimation->GetCurrentFrame().y != 372)
+			{
+				currentAnimation = &deathAnim;
+			}*/
 			app->fade->FadingToBlack((Module*)app->scene, (Module*)app->iScene, 90);
 			//ANIMACION MUERTE
 			break;
