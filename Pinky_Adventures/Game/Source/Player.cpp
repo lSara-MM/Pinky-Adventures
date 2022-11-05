@@ -8,6 +8,7 @@
 #include "Log.h"
 #include "Point.h"
 #include "Physics.h"
+#include "Window.h"
 
 #include "FadeToBlack.h"
 
@@ -106,7 +107,7 @@ bool Player::Start() {
 
 	ded = false;
 	ani = true;
-	camerabody = app->physics->CreateRectangle(app->render->camera.x + width / 2, app->render->camera.x + height / 2, width, height, bodyType::KINEMATIC);
+	//camerabody = app->physics->CreateRectangle(app->render->camera.x + width / 2, app->render->camera.x + height / 2, width, height, bodyType::KINEMATIC);
 	return true;
 }
 
@@ -117,7 +118,7 @@ bool Player::Update()
 
 	b2Vec2 vel = b2Vec2(0, GRAVITY_Y); 
 
-	b2Vec2 velcam = b2Vec2(0, 0);
+	//b2Vec2 velcam = b2Vec2(0, 0);
 	//L02: DONE 4: modify the position of the player using arrow keys and render the texture
 
 	
@@ -131,16 +132,16 @@ bool Player::Update()
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && ded == false) {
 		flipType = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;
 		vel = b2Vec2(-speed, GRAVITY_Y);
-		if (app->render->camera.x <= -10) {
+		/*if (app->render->camera.x <= -10) {
 			velcam = b2Vec2(speed, 0);
-		}
+		}*/
 		currentAnimation = &forwardAnim;
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && ded == false) {
 		flipType = SDL_RendererFlip::SDL_FLIP_NONE;
 		vel = b2Vec2(speed, GRAVITY_Y);
-		velcam = b2Vec2(-speed, 0);
+		//velcam = b2Vec2(-speed, 0);
 		currentAnimation = &forwardAnim;
 	}
 
@@ -148,18 +149,18 @@ bool Player::Update()
 		currentAnimation = &deathAnim;
 	}
 
-
+	
 	//Set the velocity of the pbody of the player
 	pbody->body->SetLinearVelocity(vel);
 
-	camerabody->body->SetLinearVelocity(velcam);
+	//camerabody->body->SetLinearVelocity(velcam);
 
 	//Update player position in pixels
 
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - width/2;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - height/2;
 
-	app->render->camera.x = METERS_TO_PIXELS(camerabody->body->GetTransform().p.x) - width / 2;
+	
 
 	currentAnimation->Update();
 
@@ -183,6 +184,7 @@ bool Player::Update()
 
 	}
 
+	app->render->camera.x = -position.x-100;
 
 	return true;
 }
@@ -215,6 +217,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			LOG("Collision ITEM");
 			app->audio->PlayFx(pickCoinFxId);
 			break;
+
 		case ColliderType::PLATFORM:
 			LOG("Collision PLATFORM");
 			if (jump == 0) {
@@ -230,7 +233,6 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 				currentAnimation = &deathAnim;
 			}*/
 			ded = true;
-			
 		
 			break;
 
