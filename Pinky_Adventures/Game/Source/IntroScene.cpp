@@ -122,9 +122,7 @@ bool IntroScene::CleanUp()
 {
 	LOG("Freeing IntroScene");
 
-	if (app->physics->active == false) {
-		app->physics->active = true;
-	}
+
 	app->physics->Enable();
 
 	return true;

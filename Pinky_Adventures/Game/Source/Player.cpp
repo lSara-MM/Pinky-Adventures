@@ -271,6 +271,7 @@ bool Player::CleanUp()
 	// no fan res(?)
 	/*pbody->body->SetActive(false);
 	pbody->~PhysBody();*/
+	//app->physics->world->DestroyBody(pbody->body);fent world public,r
 	delete pbody;//tampoc
 	return true;
 }

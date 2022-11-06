@@ -77,9 +77,13 @@ bool Scene::Start()
 
 	cameraMargin = 4;
 
-	player->Enable();
-	player->Start();
+
+	if (player->active == false) {
+		player->Enable();
+	}
 	
+	player->Start();
+
 	return true;
 }
 
@@ -146,13 +150,14 @@ bool Scene::CleanUp()
 {
 	LOG("Freeing scene");
 	
-	//player->CleanUp();//el disable ja hauria de fer el clean up;
-	player->active = false;
+	//player->CleanUp();
+
 	player->Disable();
+
 	app->render->camera.x = 0;
 	app->render->camera.y = 0;
 
-	app->physics->active = false;
+
 	app->physics->Disable();
 
 	app->map->UnloadCollisions();
