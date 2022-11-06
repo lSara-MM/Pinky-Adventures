@@ -41,6 +41,11 @@ public:
 	//L02: DONE 3: Declare a Player attribute 
 	Player* player;
 
+	int maxCameraPosLeft;
+	int maxCameraPosRigth;
+
+	int cameraMargin;
+
 	//active = false;
 
 private:

@@ -39,6 +39,7 @@ public:
 	Animation idleAnim;
 	Animation forwardAnim;
 	Animation jumpAnim;
+	Animation hurtAnim;
 	Animation deathAnim;
 
 	int jump, speed, width, height;;
@@ -47,7 +48,9 @@ public:
 
 	SDL_RendererFlip flipType;
 
+	//bool colliding;
 	PhysBody* pbody;
+
 
 private:
 
@@ -56,9 +59,9 @@ private:
 	const char* texturePath;
 
 	// L07 DONE 5: Add physics to the player - declare a Physics body
+	//PhysBody* pbody;
 
-
-	//PhysBody* camerabody;
+	PhysBody* camerabody;
 
 	int pickCoinFxId;
 	const char* fxPath;

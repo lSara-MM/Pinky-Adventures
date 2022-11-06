@@ -53,6 +53,12 @@ bool Scene::Start()
 	//img = app->tex->Load("Assets/Textures/test.png");
 	//app->audio->PlayMusic("Assets/Audio/Music/music_spy.ogg");
 	
+	maxCameraPosLeft = 0;
+	maxCameraPosRigth = app->map->mapData.width * app->map->mapData.tileWidth;
+
+	cameraMargin = 4;
+
+
 	// L03: DONE: Load map
 	app->map->Load();
 

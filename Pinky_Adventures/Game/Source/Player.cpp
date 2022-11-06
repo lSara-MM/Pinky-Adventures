@@ -11,7 +11,7 @@
 #include "Window.h"
 
 #include "FadeToBlack.h"
-
+#include "Map.h"
 
 Player::Player() : Entity(EntityType::PLAYER)
 {
@@ -54,18 +54,60 @@ Player::Player() : Entity(EntityType::PLAYER)
 	deathAnim.PushBack({ 170, 20, 25, 13 });
 	deathAnim.PushBack({ 202, 18, 25, 15 });
 
-	/*deathAnim.PushBack({ 1, 103, 32, 32 });
-	deathAnim.PushBack({ 1, 135, 32, 32 });
-	deathAnim.PushBack({ 1, 167, 32, 32 });
-	deathAnim.PushBack({ 1, 199, 32, 32 });
-	deathAnim.PushBack({ 1, 231, 32, 32 });
-	deathAnim.PushBack({ 1, 263, 32, 32 });
-	deathAnim.PushBack({ 1, 295, 32, 32 });
-	deathAnim.PushBack({ 1, 372, 32, 32 });*/
-	//aquesta animacio que has posat a mi no em va
-
 
 	deathAnim.speed = 0.1f;
+
+	{
+		//// Idle
+		//idleAnim.PushBack({ 160, 137, 32, 34 });
+		//idleAnim.PushBack({ 192, 137, 32, 34 });
+		//idleAnim.PushBack({ 224, 137, 32, 34 });
+		//idleAnim.PushBack({ 256, 137, 32, 34 });
+
+		//idleAnim.speed = 0.15f;
+
+		//// Walk
+		//forwardAnim.PushBack({ 192, 68, 32, 34 });
+		//forwardAnim.PushBack({ 224, 68, 32, 34 });
+		//forwardAnim.PushBack({ 256, 68, 32, 34 });
+		//forwardAnim.PushBack({ 288, 68, 32, 34 });
+		//forwardAnim.PushBack({ 320, 68, 32, 34 });
+		//forwardAnim.PushBack({ 352, 68, 32, 34 });
+
+		//forwardAnim.speed = 0.1f;
+
+		//// Jump
+		//jumpAnim.PushBack({ 0, 171, 32, 34 });
+		//jumpAnim.PushBack({ 32, 171, 32, 34 });
+		//jumpAnim.PushBack({ 64, 171, 32, 34 });
+		//jumpAnim.PushBack({ 128, 171, 32, 34 });
+		//jumpAnim.PushBack({ 160, 171, 32, 34 });
+		//jumpAnim.PushBack({ 192, 171, 32, 34 });
+		//jumpAnim.PushBack({ 224, 171, 32, 34 });
+		//jumpAnim.PushBack({ 256, 171, 32, 34 });
+
+		//jumpAnim.speed = 0.1f;
+
+		//// Hurt
+		//hurtAnim.PushBack({ 0, 137, 32, 34 });
+		//hurtAnim.PushBack({ 32, 137, 32, 34 });
+		//hurtAnim.PushBack({ 64, 137, 32, 34 });
+		//hurtAnim.PushBack({ 128, 137, 32, 34 });
+
+		//hurtAnim.speed = 0.1f;
+
+		//// Hurt
+		//deathAnim.PushBack({ 0, 103, 32, 34 });
+		//deathAnim.PushBack({ 32, 103, 32, 34 });
+		//deathAnim.PushBack({ 64, 103, 32, 34 });
+		//deathAnim.PushBack({ 128, 103, 32, 34 });
+		//deathAnim.PushBack({ 160, 103, 32, 34 });
+		//deathAnim.PushBack({ 192, 103, 32, 34 });
+		//deathAnim.PushBack({ 224, 103, 32, 34 });
+		//deathAnim.PushBack({ 256, 103, 32, 34 });
+
+		//deathAnim.speed = 0.1f;
+	}
 }
 
 Player::~Player() {
@@ -113,6 +155,20 @@ bool Player::Start() {
 
 bool Player::Update()
 {
+	// Move camera with olayer
+	// Left
+	if (app->scene->maxCameraPosLeft > app->render->camera.x && - position.x +
+		app->scene->cameraMargin * app->map->mapData.tileWidth >= app->render->camera.x)
+	{
+		app->render->camera.x += speed;
+	}
+	//Right
+	if (app->scene->maxCameraPosRigth <= app->render->camera.x && position.x + 
+		app->scene->cameraMargin * app->map->mapData.tileWidth >= -app->render->camera.x + app->render->camera.w)
+	{
+		app->render->camera.x -= speed;
+	}
+
 	currentAnimation = &idleAnim;
 	// L07 DONE 5: Add physics to the player - updated player position using physics
 
@@ -160,8 +216,6 @@ bool Player::Update()
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - width/2;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - height/2;
 
-	
-
 	currentAnimation->Update();
 
 	SDL_Rect rect = currentAnimation->GetCurrentFrame();
@@ -174,17 +228,12 @@ bool Player::Update()
 	else if (ded == true && currentAnimation->current_frame != 0 && ani == true) {
 
 		app->render->DrawTexture(texture, position.x, position.y, &rect, 1.0f, NULL, NULL, NULL, flipType);
-
-
 	}
 
 	else if (ded == true && currentAnimation->current_frame == 0 && ani == true) {
-
+		
 		ani = false;
-
 	}
-
-	app->render->camera.x = -position.x-100;
 
 	return true;
 }
@@ -227,12 +276,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 
 		case ColliderType::SPIKE:
 			LOG("Collision SPIKE");
-			// Nada de lo que hago funciona :')
-			/*if (currentAnimation->GetCurrentFrame().y != 372)
-			{
-				currentAnimation = &deathAnim;
-			}*/
-			ded = true;
+		//	ded = true;
 		
 			break;
 
