@@ -45,9 +45,9 @@ public:
 	int jump, speed, width, height;;
 	bool ded;
 	bool ani;
-
+	float grav;
 	SDL_RendererFlip flipType;
-
+	int contador;
 	//bool colliding;
 	PhysBody* pbody;
 

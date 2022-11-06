@@ -23,7 +23,7 @@ Player::Player() : Entity(EntityType::PLAYER)
 	idleAnim.PushBack({ 71, 38, 18, 29 });
 	idleAnim.PushBack({ 102, 38, 20, 29 });
 
-	idleAnim.speed = 0.15f;
+	idleAnim.speed = 0.1f;
 
 	// walk forward animation (arcade sprite sheet)
 	forwardAnim.PushBack({ 8, 142, 17, 27 });
@@ -44,7 +44,7 @@ Player::Player() : Entity(EntityType::PLAYER)
 	jumpAnim.PushBack({ 197, 74, 22, 27 });
 	jumpAnim.PushBack({ 231, 75, 18, 26 });
 
-	jumpAnim.speed = 0.1f;
+	jumpAnim.speed = 0.07f;
 
 	deathAnim.PushBack({ 4, 4, 21, 29 });
 	deathAnim.PushBack({ 36, 2, 22, 29 });
@@ -129,7 +129,8 @@ bool Player::Awake() {
 	width = parameters.attribute("width").as_int();
 	height = parameters.attribute("height").as_int();
 	jump = 2;
-
+	grav = GRAVITY_Y;
+	contador = 0;//contador tiempo conejo esta saltando (cambio gravedad)
 	return true;
 }
 
@@ -155,7 +156,7 @@ bool Player::Start() {
 
 bool Player::Update()
 {
-	// Move camera with olayer
+	// Move camera with player
 	// Left
 	if (app->scene->maxCameraPosLeft > app->render->camera.x && - position.x +
 		app->scene->cameraMargin * app->map->mapData.tileWidth >= app->render->camera.x)
@@ -172,7 +173,7 @@ bool Player::Update()
 	currentAnimation = &idleAnim;
 	// L07 DONE 5: Add physics to the player - updated player position using physics
 
-	b2Vec2 vel = b2Vec2(0, GRAVITY_Y); 
+	b2Vec2 vel = b2Vec2(0, grav); 
 
 	//b2Vec2 velcam = b2Vec2(0, 0);
 	//L02: DONE 4: modify the position of the player using arrow keys and render the texture
@@ -182,12 +183,14 @@ bool Player::Update()
 		
 		currentAnimation = &jumpAnim;
 		jump--;
-		pbody->body->ApplyForce(b2Vec2(0, -800), pbody->body->GetWorldCenter(), true);
+		contador = 20;
+		//pbody->body->ApplyForce(b2Vec2(0, -800.0f), pbody->body->GetWorldCenter(), true);
+		
 	}
 	
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && ded == false) {
 		flipType = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;
-		vel = b2Vec2(-speed, GRAVITY_Y);
+		vel = b2Vec2(-speed, grav);
 		/*if (app->render->camera.x <= -10) {
 			velcam = b2Vec2(speed, 0);
 		}*/
@@ -196,7 +199,7 @@ bool Player::Update()
 
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && ded == false) {
 		flipType = SDL_RendererFlip::SDL_FLIP_NONE;
-		vel = b2Vec2(speed, GRAVITY_Y);
+		vel = b2Vec2(speed, grav);
 		//velcam = b2Vec2(-speed, 0);
 		currentAnimation = &forwardAnim;
 	}
@@ -205,7 +208,16 @@ bool Player::Update()
 		currentAnimation = &deathAnim;
 	}
 
-	
+	if (contador != 0) {
+		grav = -GRAVITY_Y;
+		currentAnimation = &jumpAnim;
+		contador--;
+	}
+
+	if (contador == 0) {
+		grav = GRAVITY_Y;
+	}
+
 	//Set the velocity of the pbody of the player
 	pbody->body->SetLinearVelocity(vel);
 
