@@ -269,8 +269,9 @@ bool Player::CleanUp()
 	jump = 1;
 	
 	// no fan res(?)
-	pbody->body->SetActive(false);
-	pbody->~PhysBody();
+	/*pbody->body->SetActive(false);
+	pbody->~PhysBody();*/
+	delete pbody;//tampoc
 	return true;
 }
 

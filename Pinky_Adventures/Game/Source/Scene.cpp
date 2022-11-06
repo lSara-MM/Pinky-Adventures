@@ -146,11 +146,15 @@ bool Scene::CleanUp()
 {
 	LOG("Freeing scene");
 	
-	player->CleanUp();
+	//player->CleanUp();//el disable ja hauria de fer el clean up;
+	player->active = false;
 	player->Disable();
 	app->render->camera.x = 0;
 	app->render->camera.y = 0;
-	
+
+	app->physics->active = false;
+	app->physics->Disable();
+
 	app->map->UnloadCollisions();
 	//app->physics->CleanUp();	// peta despues :')
 

@@ -8,7 +8,7 @@
 #include "Scene.h"
 #include "EntityManager.h"
 #include "Map.h"
-
+#include "Physics.h"
 #include "FadeToBlack.h"
 
 #include "Defs.h"
@@ -121,6 +121,11 @@ bool IntroScene::PostUpdate()
 bool IntroScene::CleanUp()
 {
 	LOG("Freeing IntroScene");
+
+	if (app->physics->active == false) {
+		app->physics->active = true;
+	}
+	app->physics->Enable();
 
 	return true;
 }
