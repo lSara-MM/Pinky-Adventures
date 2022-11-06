@@ -158,17 +158,24 @@ bool Player::Update()
 {
 	// Move camera with player
 	// Left
-	if (app->scene->maxCameraPosLeft > app->render->camera.x && - position.x +
-		app->scene->cameraMargin * app->map->mapData.tileWidth >= app->render->camera.x)
+	if (app->scene->maxCameraPosLeft > app->render->camera.x && 
+		- position.x + app->scene->cameraMargin * app->map->mapData.tileWidth >= app->render->camera.x)
 	{
 		app->render->camera.x += speed;
 	}
+
+	LOG("pos %d\n 1: %d, -cam: %d", position.x, 
+		(position.x + app->scene->cameraMargin * app->map->mapData.tileWidth) * 2, 
+		(-app->render->camera.x + app->render->camera.w));
+	
 	//Right
-	if (app->scene->maxCameraPosRigth <= app->render->camera.x && position.x + 
-		app->scene->cameraMargin * app->map->mapData.tileWidth >= -app->render->camera.x + app->render->camera.w)
+	if (app->scene->maxCameraPosRigth >= -app->render->camera.x + app->render->camera.w &&
+		(position.x + app->scene->cameraMargin * app->map->mapData.tileWidth) * 2 >= -app->render->camera.x + app->render->camera.w)
 	{
-		app->render->camera.x -= speed;
+		app->render->camera.x -= speed*2;
 	}
+
+	// faria falta ajustar i arreglar perque lo player va mes rapid que la cam i quan està cap a la meitat o mes fa coses rares :/
 
 	currentAnimation = &idleAnim;
 	// L07 DONE 5: Add physics to the player - updated player position using physics

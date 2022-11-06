@@ -48,16 +48,14 @@ bool Scene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool Scene::Start()
 {
-	app->physics->Enable();
-	app->physics->Start();
+	//app->physics->Enable();
+	//app->physics->Start();
+	
+	//app->entityManager->Enable();
+
+
 	//img = app->tex->Load("Assets/Textures/test.png");
 	//app->audio->PlayMusic("Assets/Audio/Music/music_spy.ogg");
-	
-	maxCameraPosLeft = 0;
-	maxCameraPosRigth = app->map->mapData.width * app->map->mapData.tileWidth;
-
-	cameraMargin = 4;
-
 
 	// L03: DONE: Load map
 	app->map->Load();
@@ -72,6 +70,13 @@ bool Scene::Start()
 
 	app->win->SetTitle(title.GetString());
 	
+	// cammera 
+	maxCameraPosLeft = 0;
+	maxCameraPosRigth = app->map->mapData.width * app->map->mapData.tileWidth * app->win->scale;	// hola perque no meu agafa be? osea me diu que tot es un numero random to gran
+
+
+	cameraMargin = 4;
+
 	player->Enable();
 	player->Start();
 	
