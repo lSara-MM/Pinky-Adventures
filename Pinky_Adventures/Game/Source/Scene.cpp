@@ -51,7 +51,7 @@ bool Scene::Start()
 	//app->physics->Enable();
 	//app->physics->Start();
 	
-	app->entityManager->Enable();
+	//app->entityManager->Enable();//activar aixo fa que apareixin colliders extra del player, però player va com x2 speed
 
 
 	//img = app->tex->Load("Assets/Textures/test.png");
@@ -82,7 +82,7 @@ bool Scene::Start()
 	}
 	
 	secret = false;
-	//player->Start();
+	player->Start();
 
 	return true;
 }

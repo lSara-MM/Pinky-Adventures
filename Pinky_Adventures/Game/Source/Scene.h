@@ -46,7 +46,7 @@ public:
 
 	int cameraMargin;
 
-	bool secret;
+	bool secret;//mapa secreto activo o no
 	//active = false;
 
 private:

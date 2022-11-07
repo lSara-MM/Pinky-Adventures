@@ -190,7 +190,7 @@ bool Player::Update()
 		
 		currentAnimation = &jumpAnim;
 		jump--;
-		contador = 40;
+		contador = 20;
 		//pbody->body->ApplyForce(b2Vec2(0, -800.0f), pbody->body->GetWorldCenter(), true);
 		
 	}
