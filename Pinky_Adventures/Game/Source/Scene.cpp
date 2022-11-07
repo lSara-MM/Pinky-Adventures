@@ -74,8 +74,6 @@ bool Scene::Start()
 	maxCameraPosLeft = 0;
 	maxCameraPosRigth = app->map->mapData.width * app->map->mapData.tileWidth * app->win->GetScale();
 
-	cameraMargin = 4;
-
 	bgColor = { 0, 0, app->win->GetWidth() * app->win->GetScale() + 100,  app->win->GetHeight() };
 
 	if (player->active == false) {
@@ -83,12 +81,8 @@ bool Scene::Start()
 	}
 	
 	secret = false;
-<<<<<<< Updated upstream
-	player->Start();
-=======
 
-	//player->Start();
->>>>>>> Stashed changes
+	player->Start();
 
 	return true;
 }
@@ -120,7 +114,6 @@ bool Scene::Update(float dt)
 
 	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		app->render->camera.x -= 1;
-<<<<<<< Updated upstream
 
 	if (secret == false) {
 		app->map->Draw();
@@ -130,10 +123,6 @@ bool Scene::Update(float dt)
 		app->map->DrawSecret();
 	}
 
-=======
-	
-	
->>>>>>> Stashed changes
 	player->Update();
 	app->render->DrawRectangle(bgColor, 88, 141, 190);
 	app->map->Draw();

@@ -44,11 +44,9 @@ public:
 	int maxCameraPosLeft;
 	int maxCameraPosRigth;
 
-	int cameraMargin;
-
 	bool secret;//mapa secreto activo o no
 	//active = false;
-	bool secret;
+
 	SDL_Rect bgColor;
 
 private:
