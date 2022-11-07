@@ -5,6 +5,8 @@
 #include "Point.h"
 #include "SDL/include/SDL.h"
 
+#include "Animation.h"
+
 struct SDL_Texture;
 
 class Item : public Entity
@@ -24,12 +26,15 @@ public:
 
 public:
 
-	bool isPicked = false;
+	bool isPicked;
 
 private:
 
 	SDL_Texture* texture;
 	const char* texturePath;
+
+	Animation* currentAnimation;
+	Animation coinAnim;
 
 	//DONE 4: Add a physics to an item
 	PhysBody* pbody;

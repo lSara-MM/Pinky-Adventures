@@ -12,6 +12,8 @@
 
 #include "FadeToBlack.h"
 #include "Map.h"
+#include "Item.h"
+
 
 Player::Player() : Entity(EntityType::PLAYER)
 {
@@ -156,26 +158,52 @@ bool Player::Start() {
 
 bool Player::Update()
 {
+	
 	// Move camera with player
-	// Left
-	if (app->scene->maxCameraPosLeft > app->render->camera.x && 
+	//Left
+	/*if (app->scene->maxCameraPosLeft > app->render->camera.x && 
 		- position.x + app->scene->cameraMargin * app->map->mapData.tileWidth >= app->render->camera.x)
 	{
 		app->render->camera.x += speed;
-	}
+	}*/
 
-	LOG("pos %d\n 1: %d, -cam: %d", position.x, 
-		(position.x + app->scene->cameraMargin * app->map->mapData.tileWidth) * 2, 
-		(-app->render->camera.x + app->render->camera.w));
 	
 	//Right
-	if (app->scene->maxCameraPosRigth >= -app->render->camera.x + app->render->camera.w &&
-		(position.x + app->scene->cameraMargin * app->map->mapData.tileWidth) * 2 >= -app->render->camera.x + app->render->camera.w)
+	/*if (app->scene->maxCameraPosRigth >= -app->render->camera.x + app->render->camera.w &&
+		(position.x * app->win->GetScale() + app->scene->cameraMargin * app->map->mapData.tileWidth) * 2 >= -app->render->camera.x + app->render->camera.w)
 	{
-		app->render->camera.x -= speed*2;
+		app->render->camera.x -= speed;
 	}
+	*/
 
-	// faria falta ajustar i arreglar perque lo player va mes rapid que la cam i quan està cap a la meitat o mes fa coses rares :/
+	int maxR = -position.x * app->win->GetScale() + 300;
+	if (-maxR < app->scene->maxCameraPosRigth - app->render->camera.w && -maxR > app->scene->maxCameraPosLeft)
+	{
+		app->render->camera.x = maxR;
+	}
+	
+	//app->render->camera.x = maxR;
+
+	//int margin = 7;
+
+	//if(position.x + app->render->camera.x > 300)
+	//{
+	//	app->render->camera.x -= margin;
+	//}
+	//if(position.x + app->render->camera.x < 200 && app->render->camera.x < 0)
+	//{
+	//	app->render->camera.x += margin;
+	//}
+	//if(position.y + app->render->camera.y > 625)
+	//{
+	//	app->render->camera.y -= margin;
+	//}
+	//if(position.y + app->render->camera.y < 200 || app->render->camera.y > 0)
+	//{
+	//	app->render->camera.y += margin;
+	//}
+
+
 
 	currentAnimation = &idleAnim;
 	// L07 DONE 5: Add physics to the player - updated player position using physics
@@ -272,7 +300,7 @@ bool Player::CleanUp()
 	/*pbody->body->SetActive(false);
 	pbody->~PhysBody();*/
 	//app->physics->world->DestroyBody(pbody->body);fent world public,r
-	delete pbody;//tampoc
+	delete pbody; //tampoc
 	return true;
 }
 
@@ -286,6 +314,8 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		case ColliderType::ITEM:
 			LOG("Collision ITEM");
 			app->audio->PlayFx(pickCoinFxId);
+			//coin->Disable();
+			//coin->isPicked = true;
 			break;
 
 		case ColliderType::PLATFORM:

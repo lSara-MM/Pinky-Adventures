@@ -164,7 +164,7 @@ void Map::DrawPlatformCollider() {
                 for (int y = 0; y < mapLayerItem->data->height; y++)
                 {
                     
-                    if (mapLayerItem->data->data[contador]!=NULL) {
+                    if (mapLayerItem->data->data[contador] != NULL) {
 
                         int gid = mapLayerItem->data->Get(x, y);
 
@@ -327,6 +327,8 @@ bool Map::Load()
         ret = LoadAllLayers(mapFileXML.child("map"));
     }
 
+    
+    {
     PhysBody* c1 = app->physics->CreateRectangle(1 + 240 / 2, 290 + 95 / 2, 240, 95, bodyType::STATIC);
     c1->ctype = ColliderType::PLATFORM;
 
@@ -518,9 +520,9 @@ bool Map::Load()
 
     PhysBody* c56 = app->physics->CreateRectangle(2128 + 16 / 2, 0 + 16 / 2, 16, 16, bodyType::STATIC);
     c56->ctype = ColliderType::PLATFORM;
+    }
 
-
-
+    
 
     PhysBody* c57 = app->physics->CreateRectangle(160 + 16 / 2, 272 + 12, 16, 8, bodyType::STATIC);
     c57->ctype = ColliderType::SPIKE;

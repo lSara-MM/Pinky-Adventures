@@ -1,6 +1,7 @@
 #include "FadeToBlack.h"
 
 #include "App.h"
+#include "Window.h"
 #include "Render.h"
 
 #include "SDL/include/SDL_render.h"
@@ -19,10 +20,10 @@ FadeToBlack::~FadeToBlack()
 bool FadeToBlack::Awake(pugi::xml_node& config)
 {
 	LOG("Loading FadeToBlack");
+	
 	bool ret = true;
-	screenRect = { 0, 0, config.parent().child("window").child("resolution").attribute("width").as_int() * config.parent().child("window").child("resolution").attribute("scale").as_int(),
-		config.parent().child("window").child("resolution").attribute("height").as_int() * config.parent().child("window").child("resolution").attribute("scale").as_int() };
-
+	screenRect = { 0, 0, app->win->GetWidth() * app->win->GetScale(), app->win->GetHeight()* app->win->GetScale() };
+	
 	return ret;
 }
 

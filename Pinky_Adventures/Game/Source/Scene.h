@@ -48,6 +48,8 @@ public:
 
 	bool secret;//mapa secreto activo o no
 	//active = false;
+	bool secret;
+	SDL_Rect bgColor;
 
 private:
 	SDL_Texture* img;

@@ -72,17 +72,23 @@ bool Scene::Start()
 	
 	// cammera 
 	maxCameraPosLeft = 0;
-	maxCameraPosRigth = app->map->mapData.width * app->map->mapData.tileWidth * app->win->scale;
+	maxCameraPosRigth = app->map->mapData.width * app->map->mapData.tileWidth * app->win->GetScale();
 
 	cameraMargin = 4;
 
+	bgColor = { 0, 0, app->win->GetWidth() * app->win->GetScale() + 100,  app->win->GetHeight() };
 
 	if (player->active == false) {
 		player->Enable();
 	}
 	
 	secret = false;
+<<<<<<< Updated upstream
 	player->Start();
+=======
+
+	//player->Start();
+>>>>>>> Stashed changes
 
 	return true;
 }
@@ -114,6 +120,7 @@ bool Scene::Update(float dt)
 
 	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		app->render->camera.x -= 1;
+<<<<<<< Updated upstream
 
 	if (secret == false) {
 		app->map->Draw();
@@ -123,7 +130,14 @@ bool Scene::Update(float dt)
 		app->map->DrawSecret();
 	}
 
+=======
+	
+	
+>>>>>>> Stashed changes
 	player->Update();
+	app->render->DrawRectangle(bgColor, 88, 141, 190);
+	app->map->Draw();
+
 
 	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT)
 		app->fade->FadingToBlack(this, (Module*)app->iScene, 90);
@@ -132,11 +146,16 @@ bool Scene::Update(float dt)
 		app->fade->FadingToBlack(this, (Module*)app->iScene, 90);
 	}
 
+	if (player->position.x > 624 && player->position.x < 895 && player->position.y > 224)
+	{
+		secret = true;
+	}
+	
 	//app->render->DrawTexture(img, 380, 100); // Placeholder not needed any more
 	// Draw map
 	
 
-	//app->map->DrawPlatformCollider();
+	app->map->DrawPlatformCollider();
 
 	return true;
 }
@@ -145,7 +164,7 @@ bool Scene::Update(float dt)
 bool Scene::PostUpdate()
 {
 	bool ret = true;
-
+	
 	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
 
@@ -166,7 +185,5 @@ bool Scene::CleanUp()
 	app->physics->Disable();
 
 	app->map->UnloadCollisions();
-	//app->physics->CleanUp();	// peta despues :')
-
 	return true;
 }

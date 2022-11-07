@@ -12,6 +12,14 @@
 Item::Item() : Entity(EntityType::ITEM)
 {
 	name.Create("item");
+
+	coinAnim.PushBack({ 0, 0, 16, 16 });
+	coinAnim.PushBack({ 16, 0, 16, 16 });
+	coinAnim.PushBack({ 32, 0, 16, 16 });
+	coinAnim.PushBack({ 48, 0, 16, 16 });
+
+	coinAnim.speed = 0.1f;
+
 }
 
 Item::~Item() {}
@@ -31,26 +39,42 @@ bool Item::Start() {
 	texture = app->tex->Load(texturePath);
 	
 	// L07 DONE 4: Add a physics to an item - initialize the physics body
-	pbody = app->physics->CreateCircle(position.x + 16, position.y + 16, 16, bodyType::STATIC);
-
+	
+	//pbody = app->physics->CreateCircle(position.x + 8, position.y + 8, 8, bodyType::STATIC);
+	//pbody->body->SetFixedRotation(true);
 	// L07 DONE 7: Assign collider type
-	pbody->ctype = ColliderType::ITEM;
-
+	//pbody->ctype = ColliderType::ITEM;
+	isPicked = false;
 	return true;
 }
 
 bool Item::Update()
 {
 	// L07 DONE 4: Add a physics to an item - update the position of the object from the physics.  
-	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
-	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 16;
 
-	app->render->DrawTexture(texture, position.x, position.y);
+	//position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
+	//position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 16;
 
+	if (isPicked == true)
+	{
+		active = false;
+	
+
+		return true;
+	}
+
+	currentAnimation = &coinAnim;
+	currentAnimation->Update();
+	SDL_Rect rect = currentAnimation->GetCurrentFrame();
+	app->render->DrawTexture(texture, position.x, position.y, &rect);
+
+	
 	return true;
 }
 
 bool Item::CleanUp()
 {
+	isPicked = false;
+
 	return true;
 }

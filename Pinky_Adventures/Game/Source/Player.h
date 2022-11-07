@@ -6,7 +6,7 @@
 #include "SDL/include/SDL.h"
 
 #include "Animation.h"
-
+#include "Item.h"
 
 struct SDL_Texture;
 
@@ -51,6 +51,7 @@ public:
 	//bool colliding;
 	PhysBody* pbody;
 
+	Item* coin;
 
 private:
 
@@ -65,7 +66,6 @@ private:
 
 	int pickCoinFxId;
 	const char* fxPath;
-
 };
 
 #endif // __PLAYER_H__
