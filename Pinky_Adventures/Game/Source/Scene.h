@@ -46,6 +46,7 @@ public:
 
 	int cameraMargin;
 
+	bool secret;
 	//active = false;
 
 private:

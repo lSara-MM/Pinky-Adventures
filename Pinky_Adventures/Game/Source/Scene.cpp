@@ -81,6 +81,7 @@ bool Scene::Start()
 		player->Enable();
 	}
 	
+	secret = false;
 	//player->Start();
 
 	return true;
@@ -114,7 +115,14 @@ bool Scene::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		app->render->camera.x -= 1;
 
-	app->map->Draw();
+	if (secret == false) {
+		app->map->Draw();
+	}
+	
+	else if (secret == true) {
+		app->map->DrawSecret();
+	}
+
 	player->Update();
 
 	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT)

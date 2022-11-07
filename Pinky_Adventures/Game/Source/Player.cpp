@@ -190,7 +190,7 @@ bool Player::Update()
 		
 		currentAnimation = &jumpAnim;
 		jump--;
-		contador = 20;
+		contador = 40;
 		//pbody->body->ApplyForce(b2Vec2(0, -800.0f), pbody->body->GetWorldCenter(), true);
 		
 	}
@@ -299,6 +299,12 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			LOG("Collision SPIKE");
 		//	ded = true;
 		
+			break;
+
+		case ColliderType::CHANGE:
+			LOG("Collision CHANGE");
+			//	ded = true;
+			app->scene->secret = true;
 			break;
 
 		case ColliderType::UNKNOWN:

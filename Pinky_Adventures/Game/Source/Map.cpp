@@ -87,6 +87,61 @@ void Map::Draw()
     
 }
 
+void Map::DrawSecret()
+{
+    if (mapLoaded == false)
+        return;
+
+    /*
+    // L04: DONE 6: Iterate all tilesets and draw all their
+    // images in 0,0 (you should have only one tileset for now)
+
+    ListItem<TileSet*>* tileset;
+    tileset = mapData.tilesets.start;
+
+    while (tileset != NULL) {
+        app->render->DrawTexture(tileset->data->texture,0,0);
+        tileset = tileset->next;
+    }
+    */
+
+    // L05: DONE 5: Prepare the loop to draw all tiles in a layer + DrawTexture()
+
+    ListItem<MapLayer*>* mapLayerItem;
+    mapLayerItem = mapData.maplayers.start;
+
+    while (mapLayerItem != NULL) {
+
+        //L06: DONE 7: use GetProperty method to ask each layer if your “Draw” property is true.
+        if (mapLayerItem->data->properties.GetProperty("Secret") != NULL && mapLayerItem->data->properties.GetProperty("Secret")->value ) {
+
+            for (int x = 0; x < mapLayerItem->data->width; x++)
+            {
+                for (int y = 0; y < mapLayerItem->data->height; y++)
+                {
+                    // L05: DONE 9: Complete the draw function
+                    int gid = mapLayerItem->data->Get(x, y);
+
+                    //L06: DONE 3: Obtain the tile set using GetTilesetFromTileId
+                    TileSet* tileset = GetTilesetFromTileId(gid);
+
+                    SDL_Rect r = tileset->GetTileRect(gid);
+                    iPoint pos = MapToWorld(x, y);
+
+                    app->render->DrawTexture(tileset->texture,
+                        pos.x,
+                        pos.y,
+                        &r);
+                }
+            }
+        }
+
+        mapLayerItem = mapLayerItem->next;
+
+    }
+
+}
+
 void Map::DrawPlatformCollider() {
 
     if (mapLoaded == false)
@@ -502,6 +557,9 @@ bool Map::Load()
 
     PhysBody* c67 = app->physics->CreateRectangle(1504 + 528 / 2, 361 + 16 / 2, 528, 16, bodyType::STATIC);
     c67->ctype = ColliderType::SPIKE;
+
+    PhysBody* c68 = app->physics->CreateRectangleSensor(641 + 1 / 2, 320 + 32 / 2, 1, 32, bodyType::STATIC);
+    c68->ctype = ColliderType::CHANGE;
 
 
 

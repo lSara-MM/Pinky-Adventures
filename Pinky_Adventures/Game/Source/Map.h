@@ -125,6 +125,8 @@ public:
     // Called each loop iteration
     void Draw();
 
+	void DrawSecret();
+
     // Called before quitting
     bool CleanUp();
 
