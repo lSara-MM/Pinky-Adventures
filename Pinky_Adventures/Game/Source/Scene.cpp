@@ -51,7 +51,7 @@ bool Scene::Start()
 	//app->physics->Enable();
 	//app->physics->Start();
 	
-	//app->entityManager->Enable();
+	app->entityManager->Enable();
 
 
 	//img = app->tex->Load("Assets/Textures/test.png");
@@ -72,8 +72,7 @@ bool Scene::Start()
 	
 	// cammera 
 	maxCameraPosLeft = 0;
-	maxCameraPosRigth = app->map->mapData.width * app->map->mapData.tileWidth * app->win->scale;	// hola perque no meu agafa be? osea me diu que tot es un numero random to gran
-
+	maxCameraPosRigth = app->map->mapData.width * app->map->mapData.tileWidth * app->win->scale;
 
 	cameraMargin = 4;
 
@@ -82,7 +81,7 @@ bool Scene::Start()
 		player->Enable();
 	}
 	
-	player->Start();
+	//player->Start();
 
 	return true;
 }
@@ -150,8 +149,6 @@ bool Scene::CleanUp()
 {
 	LOG("Freeing scene");
 	
-	//player->CleanUp();
-
 	player->Disable();
 
 	app->render->camera.x = 0;
