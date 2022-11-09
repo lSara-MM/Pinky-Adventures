@@ -13,6 +13,7 @@
 #include "FadeToBlack.h"
 #include "Map.h"
 #include "Item.h"
+#include "EntityManager.h"
 
 
 Player::Player() : Entity(EntityType::PLAYER)
@@ -132,7 +133,7 @@ bool Player::Awake() {
 	height = parameters.attribute("height").as_int();
 	jump = 2;
 	grav = GRAVITY_Y;
-	contador = 0;//contador tiempo conejo esta saltando (cambio gravedad)
+	contador = 0; //contador tiempo conejo esta saltando (cambio gravedad)
 	return true;
 }
 
@@ -160,49 +161,11 @@ bool Player::Update()
 {
 	
 	// Move camera with player
-	//Left
-	/*if (app->scene->maxCameraPosLeft > app->render->camera.x && 
-		- position.x + app->scene->cameraMargin * app->map->mapData.tileWidth >= app->render->camera.x)
-	{
-		app->render->camera.x += speed;
-	}*/
-
-	
-	//Right
-	/*if (app->scene->maxCameraPosRigth >= -app->render->camera.x + app->render->camera.w &&
-		(position.x * app->win->GetScale() + app->scene->cameraMargin * app->map->mapData.tileWidth) * 2 >= -app->render->camera.x + app->render->camera.w)
-	{
-		app->render->camera.x -= speed;
-	}
-	*/
-
 	int maxR = -position.x * app->win->GetScale() + 300;
 	if (-maxR < app->scene->maxCameraPosRigth - app->render->camera.w && -maxR > app->scene->maxCameraPosLeft)
 	{
 		app->render->camera.x = maxR;
 	}
-	
-	//app->render->camera.x = maxR;
-
-	//int margin = 7;
-
-	//if(position.x + app->render->camera.x > 300)
-	//{
-	//	app->render->camera.x -= margin;
-	//}
-	//if(position.x + app->render->camera.x < 200 && app->render->camera.x < 0)
-	//{
-	//	app->render->camera.x += margin;
-	//}
-	//if(position.y + app->render->camera.y > 625)
-	//{
-	//	app->render->camera.y -= margin;
-	//}
-	//if(position.y + app->render->camera.y < 200 || app->render->camera.y > 0)
-	//{
-	//	app->render->camera.y += margin;
-	//}
-
 
 
 	currentAnimation = &idleAnim;
@@ -314,8 +277,8 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		case ColliderType::ITEM:
 			LOG("Collision ITEM");
 			app->audio->PlayFx(pickCoinFxId);
-			//coin->Disable();
-			//coin->isPicked = true;
+			//app->scene->coin->isPicked = true;	// exception
+			//app->entityManager->entities.start->data->Disable();
 			break;
 
 		case ColliderType::PLATFORM:
@@ -327,13 +290,12 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 
 		case ColliderType::SPIKE:
 			LOG("Collision SPIKE");
-		//	ded = true;
+			//ded = true;
 		
 			break;
 
 		case ColliderType::CHANGE:
 			LOG("Collision CHANGE");
-			//	ded = true;
 			app->scene->secret = true;
 			break;
 

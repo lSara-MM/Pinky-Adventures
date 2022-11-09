@@ -51,8 +51,6 @@ public:
 	//bool colliding;
 	PhysBody* pbody;
 
-	Item* coin;
-
 private:
 
 	//L02: DONE 1: Declare player parameters

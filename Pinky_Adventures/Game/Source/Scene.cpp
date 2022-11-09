@@ -53,7 +53,7 @@ bool Scene::Start()
 	
 	//app->entityManager->Enable();//activar aixo fa que apareixin colliders extra del player, però player va com x2 speed
 
-
+	app->entityManager->Start();
 	//img = app->tex->Load("Assets/Textures/test.png");
 	//app->audio->PlayMusic("Assets/Audio/Music/music_spy.ogg");
 
@@ -81,8 +81,8 @@ bool Scene::Start()
 	}
 	
 	secret = false;
-
-	player->Start();
+	//player->Start();
+	
 
 	return true;
 }
@@ -125,7 +125,8 @@ bool Scene::Update(float dt)
 
 	app->render->DrawRectangle(bgColor, 88, 141, 190);
 	app->map->Draw();
-	player->Update();
+	app->entityManager->Update(dt);	// 
+	//player->Update();
 
 	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT)
 		app->fade->FadingToBlack(this, (Module*)app->iScene, 90);

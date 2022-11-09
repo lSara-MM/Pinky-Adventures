@@ -40,11 +40,12 @@ public:
 
 	//L02: DONE 3: Declare a Player attribute 
 	Player* player;
+	Item* coin;
 
 	int maxCameraPosLeft;
 	int maxCameraPosRigth;
 
-	bool secret;//mapa secreto activo o no
+	bool secret; //mapa secreto activo o no
 	//active = false;
 
 	SDL_Rect bgColor;
