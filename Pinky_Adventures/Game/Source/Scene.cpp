@@ -123,10 +123,9 @@ bool Scene::Update(float dt)
 		app->map->DrawSecret();
 	}
 
-	player->Update();
 	app->render->DrawRectangle(bgColor, 88, 141, 190);
 	app->map->Draw();
-
+	player->Update();
 
 	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT)
 		app->fade->FadingToBlack(this, (Module*)app->iScene, 90);
