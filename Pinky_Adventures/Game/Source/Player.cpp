@@ -272,13 +272,16 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 
 	// L07 DONE 7: Detect the type of collision
 
-	switch (physB->ctype)
+ 	switch (physB->ctype)
 	{
 		case ColliderType::ITEM:
 			LOG("Collision ITEM");
 			app->audio->PlayFx(pickCoinFxId);
-			//app->scene->coin->isPicked = true;	// exception
-			//app->entityManager->entities.start->data->Disable();
+
+			app->scene->listCoins.start->data->isPicked = false;
+			app->scene->listCoins.start = app->scene->listCoins.start->next;
+ 			//app->scene->coin->isPicked = false;	// exception
+			//app->entityManager->entities.start->data->Disable(); // apaga el modulo entero
 			break;
 
 		case ColliderType::PLATFORM:

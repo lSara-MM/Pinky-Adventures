@@ -9,6 +9,8 @@
 #include "Point.h"
 #include "Physics.h"
 
+#include "EntityManager.h"
+
 Item::Item() : Entity(EntityType::ITEM)
 {
 	name.Create("item");
@@ -44,7 +46,7 @@ bool Item::Start() {
 	pbody->body->SetFixedRotation(true);
 	// L07 DONE 7: Assign collider type
 	pbody->ctype = ColliderType::ITEM;
-	isPicked = false;
+	isPicked = true;
 	return true;
 }
 
@@ -55,9 +57,10 @@ bool Item::Update()
 	//position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
 	//position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 16;
 
-	if (isPicked == true)
+	if (isPicked == false)
 	{
 		active = false;
+		pbody->body->SetActive(false);
 		return true;
 	}
 

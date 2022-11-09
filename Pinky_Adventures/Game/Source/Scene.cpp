@@ -34,8 +34,10 @@ bool Scene::Awake(pugi::xml_node& config)
 	// Check https://pugixml.org/docs/quickstart.html#access
 	for (pugi::xml_node itemNode = config.child("item"); itemNode; itemNode = itemNode.next_sibling("item"))
 	{
+
 		Item* item = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
 		item->parameters = itemNode;
+		listCoins.Add(item);
 	}
 
 	//L02: DONE 3: Instantiate the player using the entity manager
@@ -125,7 +127,7 @@ bool Scene::Update(float dt)
 
 	app->render->DrawRectangle(bgColor, 88, 141, 190);
 	app->map->Draw();
-	app->entityManager->Update(dt);	// 
+	app->entityManager->Update(dt);	// millor que posar-ho individual
 	//player->Update();
 
 	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT)

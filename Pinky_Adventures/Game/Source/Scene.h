@@ -40,7 +40,9 @@ public:
 
 	//L02: DONE 3: Declare a Player attribute 
 	Player* player;
-	Item* coin;
+	//Item* coin;
+	List<Item*> listCoins;
+	//ListItem<Item*>* coins;
 
 	int maxCameraPosLeft;
 	int maxCameraPosRigth;
