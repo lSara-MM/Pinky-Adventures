@@ -92,21 +92,6 @@ void Map::DrawSecret()
     if (mapLoaded == false)
         return;
 
-    /*
-    // L04: DONE 6: Iterate all tilesets and draw all their
-    // images in 0,0 (you should have only one tileset for now)
-
-    ListItem<TileSet*>* tileset;
-    tileset = mapData.tilesets.start;
-
-    while (tileset != NULL) {
-        app->render->DrawTexture(tileset->data->texture,0,0);
-        tileset = tileset->next;
-    }
-    */
-
-    // L05: DONE 5: Prepare the loop to draw all tiles in a layer + DrawTexture()
-
     ListItem<MapLayer*>* mapLayerItem;
     mapLayerItem = mapData.maplayers.start;
 
@@ -467,14 +452,12 @@ bool Map::Load()
 
 
 
-    PhysBody* c41 = app->physics->CreateRectangle(1648 + 32 / 2, 128 + 32 / 2, 32, 32, bodyType::STATIC);
+    PhysBody* c41 = app->physics->CreateRectangle(1664 + 32 / 2, 128 + 32 / 2, 32, 32, bodyType::STATIC);
     c41->ctype = ColliderType::PLATFORM;
 
-    PhysBody* c42 = app->physics->CreateRectangle(1696 + 32 / 2, 160 + 32 / 2, 32, 32, bodyType::STATIC);
+    PhysBody* c42 = app->physics->CreateRectangle(1728 + 32 / 2, 160 + 32 / 2, 32, 32, bodyType::STATIC);
     c42->ctype = ColliderType::PLATFORM;
-    PhysBody* c43 = app->physics->CreateRectangle(1744 + 32 / 2, 192 + 32 / 2, 32, 32, bodyType::STATIC);
-    c43->ctype = ColliderType::PLATFORM;
-
+    
  
 
     PhysBody* c44 = app->physics->CreateRectangle(1792 + 48 / 2, 240 + 16 / 2, 48, 16, bodyType::STATIC);
@@ -568,7 +551,7 @@ bool Map::Load()
     PhysBody* c = app->physics->CreateRectangle(2, 0, 0, 1000, bodyType::STATIC);//limit mapa
     c->ctype = ColliderType::PLATFORM;
 
-
+    //listBodies
     /*listBodies.Add(c1);
     listBodies.Add(c2);
     listBodies.Add(c3);

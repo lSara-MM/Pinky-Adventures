@@ -123,6 +123,7 @@ bool IntroScene::CleanUp()
 {
 	LOG("Freeing IntroScene");
 
+	app->tex->UnLoad(img);
 
 	app->physics->Enable();
 

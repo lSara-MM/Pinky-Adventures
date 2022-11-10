@@ -38,6 +38,8 @@ private:
 
 	//DONE 4: Add a physics to an item
 	PhysBody* pbody;
+
+	//List<PhysBody*> listItems;
 };
 
 #endif // __ITEM_H__

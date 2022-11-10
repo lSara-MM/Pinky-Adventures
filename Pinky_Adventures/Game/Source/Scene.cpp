@@ -117,6 +117,11 @@ bool Scene::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 		app->render->camera.x -= 1;
 
+
+	app->render->DrawRectangle(bgColor, 88, 141, 190);//orden importa
+
+
+
 	if (secret == false) {
 		app->map->Draw();
 	}
@@ -125,8 +130,7 @@ bool Scene::Update(float dt)
 		app->map->DrawSecret();
 	}
 
-	app->render->DrawRectangle(bgColor, 88, 141, 190);
-	app->map->Draw();
+	
 	app->entityManager->Update(dt);	// millor que posar-ho individual
 	//player->Update();
 
