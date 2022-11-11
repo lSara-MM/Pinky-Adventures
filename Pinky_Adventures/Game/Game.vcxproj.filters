@@ -24,9 +24,6 @@
     <ClCompile Include="Source\Input.cpp">
       <Filter>Modules\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Item.cpp">
-      <Filter>Modules\Core</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Map.cpp">
       <Filter>Modules\Core</Filter>
     </ClCompile>
@@ -44,6 +41,12 @@
     </ClCompile>
     <ClCompile Include="Source\IntroScene.cpp" />
     <ClCompile Include="Source\FadeToBlack.cpp">
+      <Filter>Modules\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ItemCoin.cpp">
+      <Filter>Modules\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\ItemGem.cpp">
       <Filter>Modules\Core</Filter>
     </ClCompile>
   </ItemGroup>
@@ -92,9 +95,6 @@
     <ClInclude Include="Source\Input.h">
       <Filter>Modules\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Item.h">
-      <Filter>Modules\Core</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Map.h">
       <Filter>Modules\Core</Filter>
     </ClInclude>
@@ -118,6 +118,12 @@
     </ClInclude>
     <ClInclude Include="Source\IntroScene.h" />
     <ClInclude Include="Source\FadeToBlack.h">
+      <Filter>Modules\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ItemCoin.h">
+      <Filter>Modules\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\ItemGem.h">
       <Filter>Modules\Core</Filter>
     </ClInclude>
   </ItemGroup>

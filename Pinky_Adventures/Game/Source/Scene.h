@@ -3,7 +3,8 @@
 
 #include "Module.h"
 #include "Player.h"
-#include "Item.h"
+#include "ItemCoin.h"
+#include "ItemGem.h"
 
 #include "App.h"
 
@@ -40,8 +41,8 @@ public:
 
 	//L02: DONE 3: Declare a Player attribute 
 	Player* player;
-	//Item* coin;
-	List<Item*> listCoins;
+	Gem* gem;
+	List<Coin*> listCoins;
 	//ListItem<Item*>* coins;
 	int contadorT;
 	int maxCameraPosLeft;

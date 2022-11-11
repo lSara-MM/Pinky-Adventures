@@ -12,7 +12,8 @@
 
 #include "FadeToBlack.h"
 #include "Map.h"
-#include "Item.h"
+#include "ItemCoin.h"
+#include "ItemGem.h"
 #include "EntityManager.h"
 
 
@@ -126,8 +127,11 @@ bool Player::Awake() {
 	//L02: DONE 5: Get Player parameters from XML
 	position.x = parameters.attribute("x").as_int();
 	position.y = parameters.attribute("y").as_int();
+	
 	texturePath = parameters.attribute("texturepath").as_string();
-	fxPath = parameters.attribute("audiopath").as_string();
+	fxCoin = parameters.attribute("audiopathCoin").as_string();
+	fxGem = parameters.attribute("audiopathGem").as_string();
+
 	speed = parameters.attribute("velocity").as_int();
 	width = parameters.attribute("width").as_int();
 	height = parameters.attribute("height").as_int();
@@ -146,6 +150,9 @@ bool Player::Start() {
 
 	//initilize textures
 	texture = app->tex->Load(texturePath);
+
+	pickCoinFxId = app->audio->LoadFx(fxCoin);
+	pickGemFxId = app->audio->LoadFx(fxGem);
 
 	// L07 DONE 5: Add physics to the player - initialize physics body
 	pbody = app->physics->CreateRectangle(position.x + width / 2, position.y + height / 2, width, height, bodyType::DYNAMIC);
@@ -264,7 +271,8 @@ bool Player::CleanUp()
 	position.x = parameters.attribute("x").as_int();
 	position.y = parameters.attribute("y").as_int();
 	texturePath = parameters.attribute("texturepath").as_string();
-	fxPath = parameters.attribute("audiopath").as_string();
+	fxCoin = parameters.attribute("audiopathCoin").as_string();
+	fxGem = parameters.attribute("audiopathGem").as_string();
 	speed = parameters.attribute("velocity").as_int();
 	width = parameters.attribute("width").as_int();
 	height = parameters.attribute("height").as_int();
@@ -273,14 +281,8 @@ bool Player::CleanUp()
 	jumpPath = parameters.attribute("audiopathJump").as_string();
 	landPath = parameters.attribute("audiopathLand").as_string();
 	app->tex->UnLoad(texture);
-
 	pbody->body->GetWorld()->DestroyBody(pbody->body);
 
-	// no fan res(?)
-	/*pbody->body->SetActive(false);
-	pbody->~PhysBody();*/
-	//app->physics->world->DestroyBody(pbody->body);fent world public,r
-	//delete pbody; //tampoc
 	return true;
 }
 
@@ -291,14 +293,22 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 
  	switch (physB->ctype)
 	{
-		case ColliderType::ITEM:
-			LOG("Collision ITEM");
+
+		case ColliderType::COIN:
+			LOG("Collision COIN");
+			app->audio->PlayFx(pickCoinFxId);
 			app->audio->PlayFx(fxCoin);
 
 			app->scene->listCoins.start->data->isPicked = false;
 			app->scene->listCoins.start = app->scene->listCoins.start->next;
  			//app->scene->coin->isPicked = false;	// exception
 			//app->entityManager->entities.start->data->Disable(); // apaga el modulo entero
+			break;
+
+		case ColliderType::GEM:
+			LOG("Collision GEM");
+			app->audio->PlayFx(pickGemFxId);
+			//app->scene->gem->isPicked = false;
 			break;
 
 		case ColliderType::PLATFORM:

@@ -1,5 +1,5 @@
-#ifndef __ITEM_H__
-#define __ITEM_H__
+#ifndef __ITEMCOIN_H__
+#define __ITEMCOIN_H__
 
 #include "Entity.h"
 #include "Point.h"
@@ -9,12 +9,12 @@
 
 struct SDL_Texture;
 
-class Item : public Entity
+class Coin : public Entity
 {
 public:
 
-	Item();
-	virtual ~Item();
+	Coin();
+	virtual ~Coin();
 
 	bool Awake();
 
@@ -33,7 +33,7 @@ private:
 	SDL_Texture* texture;
 	const char* texturePath;
 
-	Animation* currentAnimation;
+	Animation* currentAnimCoin;
 	Animation coinAnim;
 
 	//DONE 4: Add a physics to an item
@@ -42,4 +42,4 @@ private:
 	//List<PhysBody*> listItems;
 };
 
-#endif // __ITEM_H__
+#endif // __ITEMCOIN_H__

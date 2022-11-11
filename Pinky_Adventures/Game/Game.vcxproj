@@ -98,7 +98,8 @@
     <ClCompile Include="Source\EntityManager.cpp" />
     <ClCompile Include="Source\FadeToBlack.cpp" />
     <ClCompile Include="Source\IntroScene.cpp" />
-    <ClCompile Include="Source\Item.cpp" />
+    <ClCompile Include="Source\ItemCoin.cpp" />
+    <ClCompile Include="Source\ItemGem.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\App.cpp" />
     <ClCompile Include="Source\Audio.cpp" />
@@ -115,7 +116,8 @@
     <ClInclude Include="Source\EntityManager.h" />
     <ClInclude Include="Source\FadeToBlack.h" />
     <ClInclude Include="Source\IntroScene.h" />
-    <ClInclude Include="Source\Item.h" />
+    <ClInclude Include="Source\ItemCoin.h" />
+    <ClInclude Include="Source\ItemGem.h" />
     <ClInclude Include="Source\Map.h" />
     <ClInclude Include="Source\Physics.h" />
     <ClInclude Include="Source\Player.h" />
