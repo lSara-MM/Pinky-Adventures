@@ -55,6 +55,9 @@ public:
 
 private:
 	SDL_Texture* img;
+	bool mute;
+	const char* musicBg;
+	ListItem<Coin*>* originList;
 };
 
 #endif // __SCENE_H__

@@ -76,7 +76,7 @@ bool IntroScene::PreUpdate()
 bool IntroScene::Update(float dt)
 {
 	// L03: DONE 3: Request App to Load / Save when pressing the keys F5 (save) / F6 (load)
-	int a = 10;
+	int a = 3 * app->win->GetScale();
 
 	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		app->LoadGameRequest();
