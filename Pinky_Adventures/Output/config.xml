@@ -31,7 +31,8 @@
 	</introScene>
 
 	<scene>
-		<player x="120" y="260" texturepath="Assets/Textures/character.png" velocity="5" width="20" height="27"/>
+		<player x="120" y="260" texturepath="Assets/Textures/character.png" velocity="5" width="20" height="29"
+				audiopathCoin="Assets/Audio/Fx/Gem" audiopathGem="Assets/Audio/Fx/Gem.wav"/>
 		<!--height estava a 30 però no sembla que toqui el terra, amb aquest valor queda millor-->
 	
 		<!--COINS-->
@@ -67,6 +68,9 @@
 		<item  name="coin" x="832" y="256" texturepath="Assets/Maps/coin.png"/>
 		<item  name="coin" x="848" y="240" texturepath="Assets/Maps/coin.png"/>
 
+		<item  name="gem" x="2080" y="298" texturepath="Assets/Maps/gems.png"/>
+		
+	
 
 	</scene>
 
