@@ -46,7 +46,15 @@ bool Scene::Awake(pugi::xml_node& config)
 	player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
 	player->parameters = config.child("player");
 
+
 	audioPath = config.child("lvl1").attribute("audioPath").as_string();
+
+
+
+	// music
+	musicBg = config.attribute("music").as_string();
+
+	originList = listCoins.start;
 
 	return ret;
 }
@@ -59,18 +67,13 @@ bool Scene::Start()
 	app->render->camera.y = 0;
 
 	contadorT = 0;
-	//app->physics->Enable();
-	//app->physics->Start();
-	
-	//app->entityManager->Enable();//activar aixo fa que apareixin colliders extra del player, però player va com x2 speed
 
 	app->entityManager->Start();
-	//img = app->tex->Load("Assets/Textures/test.png");
-	//app->audio->PlayMusic("Assets/Audio/Music/music_spy.ogg");
 
 	// L03: DONE: Load map
 	app->map->Load();
-
+	secret = false;
+	
 	// L04: DONE 7: Set the window title with map/tileset info
 	SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d",
 		app->map->mapData.width,
@@ -91,11 +94,15 @@ bool Scene::Start()
 		player->Enable();
 	}
 	
+
 	app->audio->PlayMusic(audioPath, 0);
 
 	secret = false;
+
 	//player->Start();
-	
+
+	app->audio->PlayMusic(musicBg); //nose que pasa que de repent ha dixat de funcionar despues del fade to black 2
+	mute = false;
 
 	return true;
 }
@@ -117,22 +124,59 @@ bool Scene::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		app->LoadGameRequest();
 
-	if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-		app->render->camera.y += a;
+	app->input->godMode = true;	// TO CHANGE WHEN RELEASE
+	// GodMode
+	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+		app->input->godMode = !app->input->godMode;
 
-	if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-		app->render->camera.y -= a;
+	// Show collisions
+	if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+		app->physics->collisions = !app->physics->collisions;
 
-	if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		app->render->camera.x += a;
+	// Instant win
+	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
+		player->ded = true;
 
-	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		app->render->camera.x -= a;
+	// Instant lose
+	if (app->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
+		player->ded = true;
 
+	// Mute / unmute
+	if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
+		mute = !mute;
 
-	app->render->DrawRectangle(bgColor, 88, 141, 190);//orden importa
+	if (app->input->godMode == true)
+	{
+		// Free camera
+		if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+			app->render->camera.y += a;
 
+		if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+			app->render->camera.y -= a;
 
+		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+			app->render->camera.x += a;
+
+		if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+			app->render->camera.x -= a;
+
+		// Reset camera
+		if (app->input->GetKey(SDL_SCANCODE_C) == KEY_REPEAT)
+		{
+			int maxR = -player->position.x * app->win->GetScale() + 300;
+
+			app->render->camera.x = maxR;
+		}
+
+		// Borrar al final
+		if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
+			app->fade->FadingToBlack(this, (Module*)app->iScene, 90);
+
+	}
+	
+	(mute) ? app->audio->PauseMusic() : app->audio->ResumeMusic();
+
+	app->render->DrawRectangle(bgColor, 88, 141, 190);
 
 	if (secret == false) {
 		app->map->Draw();
@@ -146,11 +190,13 @@ bool Scene::Update(float dt)
 	app->entityManager->Update(dt);	// millor que posar-ho individual
 	//player->Update();
 
+
 	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) {
 		app->fade->FadingToBlack(this, (Module*)app->iScene, 90);
 		app->audio->PauseMusic();
 	}
 	
+
 
 	if (player->ded == true) {
 		contadorT++;
@@ -190,14 +236,31 @@ bool Scene::PostUpdate()
 bool Scene::CleanUp()
 {
 	LOG("Freeing scene");
-	
+	app->render->camera.x = 0;
+	app->render->camera.y = 0;
+
+	app->audio->PauseMusic();
 	player->Disable();
+
 
 
 	app->render->camera.x = 0;
 	app->render->camera.y = 0;
 
 	app->audio->PauseMusic();
+
+	
+	// Reset items
+	ListItem<Entity*>* item;
+	Entity* pEntity = NULL;
+
+	for (item = app->entityManager->entities.start; item != NULL; item = item->next)
+	{
+		pEntity = item->data;
+		pEntity->active = true;
+	}
+	listCoins.start = originList;
+
 
 	app->physics->Disable();
 	//app->map->CleanUp();per algun motiu no pilla algo del tileset i peta

@@ -26,8 +26,6 @@ Gem::Gem() : Entity(EntityType::GEM)
 	GemAnim.PushBack({ 0, 0, 32, 32 });
 
 	GemAnim.speed = 0.1f;
-
-
 }
 
 Gem::~Gem() {}
@@ -52,6 +50,7 @@ bool Gem::Start() {
 	pbody->ctype = ColliderType::GEM;
 	pbody->body->SetFixedRotation(true);
 	isPicked = true;
+	active = true;
 	return true;
 }
 

@@ -74,7 +74,6 @@ bool EntityManager::CleanUp()
 	}
 
 	entities.Clear();
-
 	return ret;
 }
 

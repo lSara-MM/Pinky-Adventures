@@ -23,7 +23,6 @@ public:
 	bool Update();
 
 	bool CleanUp();
-
 public:
 
 	bool isPicked;

@@ -143,6 +143,8 @@ bool Player::Awake() {
 	jump = 2;
 	grav = GRAVITY_Y;
 	contador = 0; //contador tiempo conejo esta saltando (cambio gravedad)
+	
+	score = 0;
 	return true;
 }
 
@@ -176,7 +178,6 @@ bool Player::Start() {
 
 bool Player::Update()
 {
-	
 	// Move camera with player
 	int maxR = -position.x * app->win->GetScale() + 300;
 	if (-maxR < app->scene->maxCameraPosRigth - app->render->camera.w && -maxR > app->scene->maxCameraPosLeft)
@@ -184,6 +185,7 @@ bool Player::Update()
 		app->render->camera.x = maxR;
 	}
 
+	LOG("Score: %d", score);
 
 	currentAnimation = &idleAnim;
 	// L07 DONE 5: Add physics to the player - updated player position using physics
@@ -296,8 +298,11 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 
 		case ColliderType::COIN:
 			LOG("Collision COIN");
-			app->audio->PlayFx(pickCoinFxId);
+			
 			app->audio->PlayFx(fxCoin);
+
+			score += 10;
+
 
 			app->scene->listCoins.start->data->isPicked = false;
 			app->scene->listCoins.start = app->scene->listCoins.start->next;
@@ -307,8 +312,9 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 
 		case ColliderType::GEM:
 			LOG("Collision GEM");
+			score += 100;
 			app->audio->PlayFx(pickGemFxId);
-			//app->scene->gem->isPicked = false;
+			app->scene->gem->isPicked = false;
 			break;
 
 		case ColliderType::PLATFORM:

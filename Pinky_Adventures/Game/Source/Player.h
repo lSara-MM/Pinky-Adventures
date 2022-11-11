@@ -43,7 +43,7 @@ public:
 	Animation hurtAnim;
 	Animation deathAnim;
 
-	int jump, speed, width, height;;
+	int jump, speed, width, height;
 	bool ded;
 	bool ani;
 	float grav;
@@ -51,6 +51,8 @@ public:
 	int contador;
 	//bool colliding;
 	PhysBody* pbody;
+	
+	int score;
 
 private:
 

@@ -21,8 +21,6 @@ Coin::Coin() : Entity(EntityType::COIN)
 	coinAnim.PushBack({ 48, 0, 16, 16 });
 
 	coinAnim.speed = 0.1f;
-
-
 }
 
 Coin::~Coin() {}
@@ -47,6 +45,7 @@ bool Coin::Start() {
 	pbody->ctype = ColliderType::COIN;
 	pbody->body->SetFixedRotation(true);
 	isPicked = true;
+	active = true;
 	return true;
 }
 
@@ -69,7 +68,6 @@ bool Coin::Update()
 	SDL_Rect rect = currentAnimCoin->GetCurrentFrame();
 	app->render->DrawTexture(texture, position.x, position.y, &rect);
 
-	
 	return true;
 }
 
