@@ -43,6 +43,7 @@ bool Input::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool Input::Start()
 {
+	godMode = false;
 	SDL_StopTextInput();
 	return true;
 }

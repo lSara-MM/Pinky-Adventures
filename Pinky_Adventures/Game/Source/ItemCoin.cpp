@@ -1,4 +1,4 @@
-#include "Item.h"
+#include "ItemCoin.h"
 #include "App.h"
 #include "Textures.h"
 #include "Audio.h"
@@ -11,7 +11,7 @@
 
 #include "EntityManager.h"
 
-Item::Item() : Entity(EntityType::ITEM)
+Coin::Coin() : Entity(EntityType::COIN)
 {
 	name.Create("item");
 
@@ -22,11 +22,12 @@ Item::Item() : Entity(EntityType::ITEM)
 
 	coinAnim.speed = 0.1f;
 
+
 }
 
-Item::~Item() {}
+Coin::~Coin() {}
 
-bool Item::Awake() {
+bool Coin::Awake() {
 
 	position.x = parameters.attribute("x").as_int();
 	position.y = parameters.attribute("y").as_int();
@@ -35,22 +36,21 @@ bool Item::Awake() {
 	return true;
 }
 
-bool Item::Start() {
+bool Coin::Start() {
 
 	//initilize textures
 	texture = app->tex->Load(texturePath);
 	
 	// L07 DONE 4: Add a physics to an item - initialize the physics body
-	
+
 	pbody = app->physics->CreateCircleSensor(position.x + 8, position.y + 8, 8, bodyType::STATIC);
+	pbody->ctype = ColliderType::COIN;
 	pbody->body->SetFixedRotation(true);
-	// L07 DONE 7: Assign collider type
-	pbody->ctype = ColliderType::ITEM;
 	isPicked = true;
 	return true;
 }
 
-bool Item::Update()
+bool Coin::Update()
 {
 	// L07 DONE 4: Add a physics to an item - update the position of the object from the physics.  
 
@@ -64,16 +64,16 @@ bool Item::Update()
 		return true;
 	}
 
-	currentAnimation = &coinAnim;
-	currentAnimation->Update();
-	SDL_Rect rect = currentAnimation->GetCurrentFrame();
+	currentAnimCoin = &coinAnim;
+	currentAnimCoin->Update();
+	SDL_Rect rect = currentAnimCoin->GetCurrentFrame();
 	app->render->DrawTexture(texture, position.x, position.y, &rect);
 
 	
 	return true;
 }
 
-bool Item::CleanUp()
+bool Coin::CleanUp()
 {
 	isPicked = false;
 	app->tex->UnLoad(texture);

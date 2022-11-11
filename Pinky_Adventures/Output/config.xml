@@ -68,7 +68,8 @@
 		<item  name="coin" x="832" y="256" texturepath="Assets/Maps/coin.png"/>
 		<item  name="coin" x="848" y="240" texturepath="Assets/Maps/coin.png"/>
 
-		<item  name="gem" x="2080" y="298" texturepath="Assets/Maps/gems.png"/>
+		<!--GEM-->
+		<item2  name="gem" x="2073" y="292" texturepath="Assets/Maps/gems.png"/>
 		
 	
 

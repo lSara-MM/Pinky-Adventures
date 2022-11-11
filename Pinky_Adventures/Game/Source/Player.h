@@ -6,7 +6,8 @@
 #include "SDL/include/SDL.h"
 
 #include "Animation.h"
-#include "Item.h"
+#include "ItemCoin.h"
+#include "ItemGem.h"
 
 struct SDL_Texture;
 
@@ -62,8 +63,10 @@ private:
 
 	PhysBody* camerabody;
 
-	int pickCoinFxId;
-	const char* fxPath;
+	uint pickCoinFxId;
+	uint pickGemFxId;
+	const char* fxCoin;	
+	const char* fxGem;
 };
 
 #endif // __PLAYER_H__

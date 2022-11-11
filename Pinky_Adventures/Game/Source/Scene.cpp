@@ -35,11 +35,13 @@ bool Scene::Awake(pugi::xml_node& config)
 	for (pugi::xml_node itemNode = config.child("item"); itemNode; itemNode = itemNode.next_sibling("item"))
 	{
 
-		Item* item = (Item*)app->entityManager->CreateEntity(EntityType::ITEM);
+		Coin* item = (Coin*)app->entityManager->CreateEntity(EntityType::COIN);
 		item->parameters = itemNode;
-		listCoins.Add(item);
+			listCoins.Add(item);
 	}
 
+	gem = (Gem*)app->entityManager->CreateEntity(EntityType::GEM);
+	gem->parameters = config.child("item2");
 	//L02: DONE 3: Instantiate the player using the entity manager
 	player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
 	player->parameters = config.child("player");
@@ -50,6 +52,8 @@ bool Scene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool Scene::Start()
 {
+	app->render->camera.x = 0;
+	app->render->camera.y = 0;
 	contadorT = 0;
 	//app->physics->Enable();
 	//app->physics->Start();
@@ -99,6 +103,7 @@ bool Scene::PreUpdate()
 // Called each loop iteration
 bool Scene::Update(float dt)
 {
+	int a = 3 * app->win->GetScale();
 	// L03: DONE 3: Request App to Load / Save when pressing the keys F5 (save) / F6 (load)
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 		app->SaveGameRequest();
@@ -107,16 +112,16 @@ bool Scene::Update(float dt)
 		app->LoadGameRequest();
 
 	if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-		app->render->camera.y += 1;
+		app->render->camera.y += a;
 
 	if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-		app->render->camera.y -= 1;
+		app->render->camera.y -= a;
 
 	if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		app->render->camera.x += 1;
+		app->render->camera.x += a;
 
 	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		app->render->camera.x -= 1;
+		app->render->camera.x -= a;
 
 
 	app->render->DrawRectangle(bgColor, 88, 141, 190);//orden importa
@@ -177,11 +182,6 @@ bool Scene::CleanUp()
 	LOG("Freeing scene");
 	
 	player->Disable();
-
-	app->render->camera.x = 0;
-	app->render->camera.y = 0;
-
-
 	app->physics->Disable();
 	//app->map->CleanUp();per algun motiu no pilla algo del tileset i peta
 	app->map->UnloadCollisions();
