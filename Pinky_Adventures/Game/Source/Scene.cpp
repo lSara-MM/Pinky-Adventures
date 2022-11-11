@@ -50,6 +50,7 @@ bool Scene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool Scene::Start()
 {
+	contadorT = 0;
 	//app->physics->Enable();
 	//app->physics->Start();
 	
@@ -138,6 +139,10 @@ bool Scene::Update(float dt)
 		app->fade->FadingToBlack(this, (Module*)app->iScene, 90);
 
 	if (player->ded == true) {
+		contadorT++;
+	}
+
+	if (player->ded == true && contadorT == 80) {
 		app->fade->FadingToBlack(this, (Module*)app->iScene, 90);
 	}
 
@@ -178,7 +183,8 @@ bool Scene::CleanUp()
 
 
 	app->physics->Disable();
-
+	//app->map->CleanUp();per algun motiu no pilla algo del tileset i peta
 	app->map->UnloadCollisions();
+
 	return true;
 }

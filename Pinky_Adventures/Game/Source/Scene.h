@@ -43,7 +43,7 @@ public:
 	//Item* coin;
 	List<Item*> listCoins;
 	//ListItem<Item*>* coins;
-
+	int contadorT;
 	int maxCameraPosLeft;
 	int maxCameraPosRigth;
 

@@ -76,6 +76,6 @@ bool Item::Update()
 bool Item::CleanUp()
 {
 	isPicked = false;
-
+	app->tex->UnLoad(texture);
 	return true;
 }

@@ -50,12 +50,12 @@ Player::Player() : Entity(EntityType::PLAYER)
 	jumpAnim.speed = 0.07f;
 
 	deathAnim.PushBack({ 4, 4, 21, 29 });
-	deathAnim.PushBack({ 36, 2, 22, 29 });
-	deathAnim.PushBack({ 68, 12, 25, 20 });
-	deathAnim.PushBack({ 99, 22, 29, 11 });
-	deathAnim.PushBack({ 129, 21, 35, 12 });
-	deathAnim.PushBack({ 170, 20, 25, 13 });
-	deathAnim.PushBack({ 202, 18, 25, 15 });
+	deathAnim.PushBack({ 36, 2, 25, 28 });
+	deathAnim.PushBack({ 65, 4, 25, 28 });
+	deathAnim.PushBack({ 99, 4, 29, 29 });
+	deathAnim.PushBack({ 129, 4, 35, 29 });
+	deathAnim.PushBack({ 170, 4, 25, 29 });
+	deathAnim.PushBack({ 202, 4, 25, 29 });
 
 
 	deathAnim.speed = 0.1f;
@@ -258,12 +258,16 @@ bool Player::CleanUp()
 	width = parameters.attribute("width").as_int();
 	height = parameters.attribute("height").as_int();
 	jump = 1;
-	
+
+	app->tex->UnLoad(texture);
+
+	pbody->body->GetWorld()->DestroyBody(pbody->body);
+
 	// no fan res(?)
 	/*pbody->body->SetActive(false);
 	pbody->~PhysBody();*/
 	//app->physics->world->DestroyBody(pbody->body);fent world public,r
-	delete pbody; //tampoc
+	//delete pbody; //tampoc
 	return true;
 }
 
@@ -293,7 +297,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 
 		case ColliderType::SPIKE:
 			LOG("Collision SPIKE");
-			//ded = true;
+			ded = true;
 		
 			break;
 

@@ -31,7 +31,8 @@
 	</introScene>
 
 	<scene>
-		<player x="120" y="260" texturepath="Assets/Textures/character.png" velocity="5" width="20" height="30"/>
+		<player x="120" y="260" texturepath="Assets/Textures/character.png" velocity="5" width="20" height="27"/>
+		<!--height estava a 30 però no sembla que toqui el terra, amb aquest valor queda millor-->
 	
 		<!--COINS-->
 		<item  name="coin" x="208" y="272" texturepath="Assets/Maps/coin.png"/>
