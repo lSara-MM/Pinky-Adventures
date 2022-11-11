@@ -44,12 +44,16 @@ bool Scene::Awake(pugi::xml_node& config)
 	player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
 	player->parameters = config.child("player");
 
+	audioPath = config.child("lvl1").attribute("audioPath").as_string();
+
 	return ret;
 }
 
 // Called before the first frame
 bool Scene::Start()
 {
+
+
 	contadorT = 0;
 	//app->physics->Enable();
 	//app->physics->Start();
@@ -83,6 +87,8 @@ bool Scene::Start()
 		player->Enable();
 	}
 	
+	app->audio->PlayMusic(audioPath, 0);
+
 	secret = false;
 	//player->Start();
 	
@@ -135,8 +141,11 @@ bool Scene::Update(float dt)
 	app->entityManager->Update(dt);	// millor que posar-ho individual
 	//player->Update();
 
-	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT)
+	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) {
 		app->fade->FadingToBlack(this, (Module*)app->iScene, 90);
+		app->audio->PauseMusic();
+	}
+	
 
 	if (player->ded == true) {
 		contadorT++;
@@ -149,6 +158,7 @@ bool Scene::Update(float dt)
 	if (player->position.x > 624 && player->position.x < 895 && player->position.y > 224)
 	{
 		secret = true;
+	
 	}
 	
 	//app->render->DrawTexture(img, 380, 100); // Placeholder not needed any more
@@ -181,6 +191,7 @@ bool Scene::CleanUp()
 	app->render->camera.x = 0;
 	app->render->camera.y = 0;
 
+	app->audio->PauseMusic();
 
 	app->physics->Disable();
 	//app->map->CleanUp();per algun motiu no pilla algo del tileset i peta

@@ -131,6 +131,11 @@ bool Player::Awake() {
 	speed = parameters.attribute("velocity").as_int();
 	width = parameters.attribute("width").as_int();
 	height = parameters.attribute("height").as_int();
+	coinPath = parameters.attribute("audiopathCoin").as_string();
+	jumpPath= parameters.attribute("audiopathJump").as_string();
+	landPath = parameters.attribute("audiopathLand").as_string();
+	deathPath = parameters.attribute("audiopathDeath").as_string();
+
 	jump = 2;
 	grav = GRAVITY_Y;
 	contador = 0; //contador tiempo conejo esta saltando (cambio gravedad)
@@ -150,6 +155,11 @@ bool Player::Start() {
 
 	// L07 DONE 7: Assign collider type
 	pbody->ctype = ColliderType::PLAYER;
+
+	fxCoin = app->audio->LoadFx(coinPath);
+	fxJump = app->audio->LoadFx(jumpPath);
+	fxLand = app->audio->LoadFx(landPath);
+	fxDeath = app->audio->LoadFx(deathPath);
 
 	ded = false;
 	ani = true;
@@ -181,7 +191,8 @@ bool Player::Update()
 		
 		currentAnimation = &jumpAnim;
 		jump--;
-		contador = 20;
+		contador = 20;//era 
+		app->audio->PlayFx(fxJump);
 		//pbody->body->ApplyForce(b2Vec2(0, -800.0f), pbody->body->GetWorldCenter(), true);
 		
 	}
@@ -258,7 +269,9 @@ bool Player::CleanUp()
 	width = parameters.attribute("width").as_int();
 	height = parameters.attribute("height").as_int();
 	jump = 1;
-
+	coinPath = parameters.attribute("audiopathCoin").as_string();
+	jumpPath = parameters.attribute("audiopathJump").as_string();
+	landPath = parameters.attribute("audiopathLand").as_string();
 	app->tex->UnLoad(texture);
 
 	pbody->body->GetWorld()->DestroyBody(pbody->body);
@@ -280,7 +293,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	{
 		case ColliderType::ITEM:
 			LOG("Collision ITEM");
-			app->audio->PlayFx(pickCoinFxId);
+			app->audio->PlayFx(fxCoin);
 
 			app->scene->listCoins.start->data->isPicked = false;
 			app->scene->listCoins.start = app->scene->listCoins.start->next;
@@ -293,12 +306,13 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			if (jump == 0) {
 				jump += 2;
 			}
+			app->audio->PlayFx(fxLand);
 			break;
 
 		case ColliderType::SPIKE:
 			LOG("Collision SPIKE");
 			ded = true;
-		
+			app->audio->PlayFx(fxDeath);
 			break;
 
 		case ColliderType::CHANGE:

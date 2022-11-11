@@ -56,6 +56,15 @@ private:
 	//L02: DONE 1: Declare player parameters
 	SDL_Texture* texture;
 	const char* texturePath;
+	const char* coinPath;
+	const char* jumpPath;
+	const char* landPath;
+	const char* deathPath;
+
+	uint fxCoin = 0;
+	uint fxJump = 0;
+	uint fxLand = 0;
+	uint fxDeath = 0;
 
 	// L07 DONE 5: Add physics to the player - declare a Physics body
 	//PhysBody* pbody;

@@ -52,6 +52,8 @@ public:
 
 	SDL_Rect bgColor;
 
+	const char* audioPath;
+
 private:
 	SDL_Texture* img;
 };

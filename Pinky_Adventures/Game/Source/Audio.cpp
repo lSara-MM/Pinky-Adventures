@@ -55,6 +55,8 @@ bool Audio::Awake(pugi::xml_node& config)
 		ret = true;
 	}
 
+	Mix_Volume(-1, config.child("music").attribute("volume").as_int()); //no entenc perquè no canvia volum
+
 	return ret;
 }
 
@@ -175,4 +177,11 @@ bool Audio::PlayFx(unsigned int id, int repeat)
 	}
 
 	return ret;
+}
+
+bool Audio::PauseMusic()
+{
+	Mix_PauseMusic();
+
+	return true;
 }
