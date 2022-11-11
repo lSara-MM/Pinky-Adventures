@@ -553,6 +553,17 @@ bool Map::Load()
     c68->ctype = ColliderType::CHANGE;
     listBodies.Add(c68);
 
+    PhysBody* c69 = app->physics->CreateRectangle(240 + 64 / 2, 383 + 1 / 2, 64, 1, bodyType::STATIC);
+    c69->ctype = ColliderType::FALL;
+    listBodies.Add(c69);
+
+    PhysBody* c70 = app->physics->CreateRectangle(1040 + 224 / 2, 382 + 1 / 2, 224, 1, bodyType::STATIC);
+    c70->ctype = ColliderType::FALL;
+    listBodies.Add(c70);
+
+   
+
+
 
     PhysBody* c = app->physics->CreateRectangle(2, 0, 0, 1000, bodyType::STATIC);//limit mapa
     c->ctype = ColliderType::PLATFORM;

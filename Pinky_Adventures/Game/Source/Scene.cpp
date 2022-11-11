@@ -95,13 +95,15 @@ bool Scene::Start()
 	}
 	
 
-	app->audio->PlayMusic(audioPath, 0);
+	//app->audio->PlayMusic(audioPath, 0);
 
 	secret = false;
 
 	//player->Start();
 
-	app->audio->PlayMusic(musicBg); //nose que pasa que de repent ha dixat de funcionar despues del fade to black 2
+	app->audio->PlayMusic(musicBg,0); //nose que pasa que de repent ha dixat de funcionar despues del fade to black 2
+	//passava amb el tetris, posar a 0 el fade ho arregla
+
 	mute = false;
 
 	return true;

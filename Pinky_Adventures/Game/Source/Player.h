@@ -64,7 +64,7 @@ private:
 	const char* landPath;
 	const char* deathPath;
 
-	uint fxCoin = 0;
+	
 	uint fxJump = 0;
 	uint fxLand = 0;
 	uint fxDeath = 0;

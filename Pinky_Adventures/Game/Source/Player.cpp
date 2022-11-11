@@ -165,7 +165,7 @@ bool Player::Start() {
 	// L07 DONE 7: Assign collider type
 	pbody->ctype = ColliderType::PLAYER;
 
-	fxCoin = app->audio->LoadFx(coinPath);
+	//fxCoin = app->audio->LoadFx(coinPath);
 	fxJump = app->audio->LoadFx(jumpPath);
 	fxLand = app->audio->LoadFx(landPath);
 	fxDeath = app->audio->LoadFx(deathPath);
@@ -299,7 +299,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		case ColliderType::COIN:
 			LOG("Collision COIN");
 			
-			app->audio->PlayFx(fxCoin);
+			app->audio->PlayFx(pickCoinFxId);
 
 			score += 10;
 
@@ -326,6 +326,12 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			break;
 
 		case ColliderType::SPIKE:
+			LOG("Collision SPIKE");
+			ded = true;
+			app->audio->PlayFx(fxDeath);
+			break;
+
+		case ColliderType::FALL://el collider no l'he fet sensor per tal de veure al player morir
 			LOG("Collision SPIKE");
 			ded = true;
 			app->audio->PlayFx(fxDeath);
