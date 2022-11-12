@@ -138,7 +138,7 @@ bool Render::DrawTexture(SDL_Texture* texture, int x, int y, const SDL_Rect* sec
 
 	if(SDL_RenderCopyEx(renderer, texture, section, &rect, angle, p, flip) != 0)
 	{
-		LOG("Cannot blit to screen. SDL_RenderCopy error: %s", SDL_GetError());
+		LOG("Cannot blit to screen. SDL_RenderCopy error: %s,  %s", SDL_GetError(), texture);
 		ret = false;
 	}
 
@@ -248,3 +248,50 @@ bool Render::SaveState(pugi::xml_node& data)
 
 	return true;
 }
+
+/*
+bool Render::TextDraw(const char* text, int x, int y, int red, int green, int blue, int alpha, int size)
+{
+	bool ret = true;
+	ttf_font = TTF_OpenFont("Assets/font_tetris.ttf", size);
+	if (!ttf_font)
+	{
+		LOG("Cannot open font. TTF_OpenFont error: %s", TTF_GetError());
+		ret = false;
+	}
+	SDL_Color ttf_color;
+	ttf_color.r = red;
+	ttf_color.g = green;
+	ttf_color.b = blue;
+	ttf_color.a = alpha;
+
+	SDL_Rect ttf_rect;
+	ttf_surface = TTF_RenderText_Solid(ttf_font, text, ttf_color);
+	ttf_texture = SDL_CreateTextureFromSurface(render, ttf_surface);
+
+	if (ttf_surface == nullptr)
+	{
+		LOG("Cannot open font. SDL_Surface* error: %s", SDL_GetError());
+		ret = false;
+	}
+	else
+	{
+		ttf_rect.x = x * SCREEN_SIZE;
+		ttf_rect.y = y * SCREEN_SIZE;
+		ttf_rect.w = ttf_surface->w * SCREEN_SIZE;
+		ttf_rect.h = ttf_surface->h * SCREEN_SIZE;
+
+		SDL_FreeSurface(ttf_surface);
+		if (SDL_RenderCopy(render, ttf_texture, NULL, &ttf_rect) != 0)
+		{
+			LOG("Cannot render text to screen. SDL_RenderCopy error: %s", SDL_GetError());
+			ret = false;
+		}
+		SDL_DestroyTexture(ttf_texture);
+		ttf_texture = nullptr;
+		TTF_CloseFont(ttf_font);
+	}
+
+	return ret;
+}
+*/

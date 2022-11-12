@@ -32,15 +32,7 @@ bool IntroScene::Awake(pugi::xml_node& config)
 
 	// iterate all objects in the IntroScene
 	// Check https://pugixml.org/docs/quickstart.html#access
-	/*for (pugi::xml_node itemNode = config.child("item"); itemNode; itemNode = itemNode.next_sibling("item"))
-	{
-		Coin* item = (Coin*)app->entityManager->CreateEntity(EntityType::COIN);
-		item->parameters = itemNode;
-	}*/
-
-
-	imagePath = config.attribute("imagePath").as_string();
-
+	bgPath = config.attribute("background").as_string();
 	musicIntro = config.attribute("audioIntroPath").as_string();
 
 	return ret;
@@ -49,28 +41,17 @@ bool IntroScene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool IntroScene::Start()
 {
-	//img = app->tex->Load("Assets/Textures/test.png");
-	//app->audio->PlayMusic("Assets/Audio/Music/music_spy.ogg");
+	// L04: DONE 7: Set the window title with map/tileset info
+	SString title("Pinky Adventures: width- %d, height- %d", app->win->GetWidth(), app->win->GetHeight());
+
+	app->win->SetTitle(title.GetString());
+
+	bgTexture = app->tex->Load(bgPath);
+	p2sTexture = app->tex->Load("Assets/Maps/press2start.png");
 	
-	// L03: DONE: Load map
-	//app->map->Load();
-
-	//// L04: DONE 7: Set the window title with map/tileset info
-	//SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d",
-	//	app->map->mapData.width,
-	//	app->map->mapData.height,
-	//	app->map->mapData.tileWidth,
-	//	app->map->mapData.tileHeight,
-	//	app->map->mapData.tilesets.Count());
-
-	//app->win->SetTitle(title.GetString());
-
-	app->dScene->active = false;
+	app->audio->PlayMusic(musicIntro);
 	//img = app->tex->Load("Assets/center.png");
-	image = app->tex->Load(imagePath);
-
-	app->audio->PlayMusic(musicIntro, 0);
-
+	//img = app->tex->Load("Assets/bggatto.jpg");
 	return true;
 }
 
@@ -104,7 +85,7 @@ bool IntroScene::Update(float dt)
 			app->render->camera.x -= a;
 	}
 	
-	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
 		app->fade->FadingToBlack(this, (Module*)app->scene, 90);
 
 	return true;
@@ -118,8 +99,19 @@ bool IntroScene::PostUpdate()
 	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
 
-	app->render->DrawTexture(image, 0, 0);
+	app->render->DrawTexture(bgTexture, 0, 0);
 
+	if (v_start < 100)
+	{
+		app->render->DrawTexture(p2sTexture, 100, 350);
+	}
+
+	if (v_start == 150)
+		v_start = 0;
+	
+	v_start++;
+
+	
 	return ret;
 }
 
@@ -129,9 +121,8 @@ bool IntroScene::CleanUp()
 	LOG("Freeing IntroScene");
 	app->audio->PauseMusic();
 
-	app->tex->UnLoad(image);
-
-	app->physics->Enable();
+	app->tex->UnLoad(bgTexture);
+	app->tex->UnLoad(p2sTexture);
 
 	return true;
 }

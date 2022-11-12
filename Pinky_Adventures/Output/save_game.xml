@@ -8,7 +8,7 @@
 	<introScene />
 	<scene />
 	<entitymanager>
-		<player x="120" y="262" />
+		<player x="120" y="260" />
 	</entitymanager>
 	<map />
 	<deathScene />

@@ -37,6 +37,8 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	bool Lose();
+
 public:
 
 	//L02: DONE 3: Declare a Player attribute 
@@ -52,26 +54,34 @@ public:
 	//active = false;
 
 	SDL_Rect bgColor;
+	int posx1, posx2, posx3;
+	bool end;
+private:
+	ListItem<Coin*>* originList;
 
+	SDL_Texture* loseTexture;
+	SDL_Texture* button1;
+	SDL_Texture* button2;
 	SDL_Texture* BACK1;
 	SDL_Texture* BACK2;
 	SDL_Texture* BACK3;
 
-	int posx1, posx2, posx3;
+	bool mute;
+	const char* musicPathBg;
+	const char* musicLosePath;
 
-	const char* audioPath;
+
+	const char* audioLosePath;
 	const char* back1Path;
 	const char* back2Path;
 	const char* back3Path;
+	const char* losePath;
+	const char* but1Path;
+	const char* but2Path;
 
-	bool end;
+	bool retry;
 
-private:
-	SDL_Texture* img;
-	bool mute;
-	const char* musicBg;
-	ListItem<Coin*>* originList;
-	
+	bool musLose;
 };
 
 #endif // __SCENE_H__

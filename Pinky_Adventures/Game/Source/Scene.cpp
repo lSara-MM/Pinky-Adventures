@@ -52,9 +52,13 @@ bool Scene::Awake(pugi::xml_node& config)
 	back1Path = config.attribute("background1").as_string();
 	back2Path = config.attribute("background2").as_string();
 	back3Path = config.attribute("background3").as_string();
+	losePath = config.attribute("losebackground").as_string();
+	but1Path = config.attribute("losebutton1").as_string();
+	but2Path = config.attribute("losebutton2").as_string();
 
 	// music
-	musicBg = config.attribute("music").as_string();
+	musicPathBg = config.attribute("music").as_string();
+	musicLosePath = config.attribute("musicLose").as_string();
 
 	originList = listCoins.start;
 
@@ -64,6 +68,8 @@ bool Scene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool Scene::Start()
 {
+	app->physics->Enable();
+	app->entityManager->Start();
 
 	app->render->camera.x = 0;
 	app->render->camera.y = 0;
@@ -73,8 +79,6 @@ bool Scene::Start()
 	posx3 = 0;
 
 	contadorT = 0;
-
-	app->entityManager->Start();
 
 	// L03: DONE: Load map
 	app->map->Load();
@@ -103,18 +107,20 @@ bool Scene::Start()
 	BACK1 = app->tex->Load(back1Path);
 	BACK2 = app->tex->Load(back2Path);
 	BACK3 = app->tex->Load(back3Path);
-	
+	loseTexture = app->tex->Load(losePath);
+	button1 = app->tex->Load(but1Path);
+	button2 = app->tex->Load(but2Path);
+
 	//app->audio->PlayMusic(audioPath, 0);
 
-	secret = false;
-	end = false;
-	//player->Start();
-
-	app->audio->PlayMusic(musicBg,0); //nose que pasa que de repent ha dixat de funcionar despues del fade to black 2
+	app->audio->PlayMusic(musicPathBg, 0); //nose que pasa que de repent ha dixat de funcionar despues del fade to black 2
 	//passava amb el tetris, posar a 0 el fade ho arregla
-
+	
+	retry = true;
+	musLose = false;
 	mute = false;
 
+	app->input->godMode = true;	// TO CHANGE WHEN RELEASE
 	return true;
 }
 
@@ -135,9 +141,8 @@ bool Scene::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		app->LoadGameRequest();
 
-	app->input->godMode = true;	// TO CHANGE WHEN RELEASE
 	// GodMode
-	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)//canvi valors per tal que siguin iguals al que demana
+	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) //canvi valors per tal que siguin iguals al que demana
 		app->input->godMode = !app->input->godMode;
 
 	// Show collisions
@@ -188,7 +193,10 @@ bool Scene::Update(float dt)
 
 		// Borrar al final
 		if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
+		{
+			app->audio->PauseMusic();
 			app->fade->FadingToBlack(this, (Module*)app->iScene, 90);
+		}
 
 	}
 	
@@ -203,16 +211,14 @@ bool Scene::Update(float dt)
 	}
 	if (-maxR < app->scene->maxCameraPosRigth - app->render->camera.w && -maxR > app->scene->maxCameraPosLeft)
 	{
-		posx2 = maxR*0.2f;//ajustar velocitat com es prefereixi, o posar-les diferents entre els backgrounds
+		posx2 = maxR*0.2f; //ajustar velocitat com es prefereixi, o posar-les diferents entre els backgrounds
 	}
 	if (-maxR < app->scene->maxCameraPosRigth - app->render->camera.w && -maxR > app->scene->maxCameraPosLeft)
 	{
 		posx3 = -maxR*0.2f;
 	}
 	app->render->DrawTexture(BACK1, posx1, -380, &bgColor,1.0f,NULL, NULL, NULL);
-
 	app->render->DrawTexture(BACK3, posx3, -380, &bgColor, 1.0f, NULL, NULL, NULL);
-
 	app->render->DrawTexture(BACK2, posx2, -380, &bgColor, 1.0f, NULL, NULL, NULL);
 
 	
@@ -225,43 +231,22 @@ bool Scene::Update(float dt)
 		app->map->DrawSecret();
 	}
 
-	
-	app->entityManager->Update(dt);	// millor que posar-ho individual
-	//player->Update();
-
-
-	if (end == true) {//condició victòria
-		app->fade->FadingToBlack(this, (Module*)app->iScene, 90);
-		app->audio->PauseMusic();//no acaba d'anar bé
-	}
-
-
-	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) {
-		app->fade->FadingToBlack(this, (Module*)app->iScene, 90);
-		app->audio->PauseMusic();
-	}
-	
+	app->entityManager->Update(dt);	
 
 
 	if (player->ded == true) {
 		contadorT++;
 	}
 
-	if (player->ded == true && contadorT == 80) {
-		app->fade->FadingToBlack(this, (Module*)app->dScene, 90);
+	if (player->ded == true && (player->ani == false || contadorT == 80)) 
+	{
+		Lose();
 	}
 
 	if (player->position.x > 624 && player->position.x < 895 && player->position.y > 224)
 	{
 		secret = true;
-	
 	}
-	
-
-	
-	//app->render->DrawTexture(img, 380, 100); // Placeholder not needed any more
-	// Draw map
-	
 
 	app->map->DrawPlatformCollider();
 
@@ -290,7 +275,6 @@ bool Scene::CleanUp()
 	player->Disable();
 
 
-
 	app->render->camera.x = 0;
 	app->render->camera.y = 0;
 
@@ -298,6 +282,10 @@ bool Scene::CleanUp()
 	app->tex->UnLoad(BACK1);
 	app->tex->UnLoad(BACK2);
 	app->tex->UnLoad(BACK3);
+
+	app->tex->UnLoad(loseTexture);
+	app->tex->UnLoad(button1);
+	app->tex->UnLoad(button2);
 	
 	// Reset items
 	ListItem<Entity*>* item;
@@ -314,6 +302,48 @@ bool Scene::CleanUp()
 	app->physics->Disable();
 	//app->map->CleanUp();per algun motiu no pilla algo del tileset i peta
 	app->map->UnloadCollisions();
+
+	return true;
+}
+
+bool Scene::Lose()
+{
+	if (musLose == false)
+	{
+		app->audio->PauseMusic();
+		musLose = true;
+		app->audio->PlayMusic(musicLosePath, 0);
+	}
+
+	app->render->camera.x = 0;
+	app->render->camera.y = 0;
+	player->Disable();
+	app->render->DrawTexture(loseTexture, 0, 0);
+
+	// retry
+	if (retry == true)
+	{
+		app->render->DrawTexture(button1, 32, 53);
+	}
+	else
+	{
+		app->render->DrawTexture(button2, 344, 53);
+	}
+	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN && retry == true)
+	{
+		app->audio->PauseMusic();
+		app->fade->FadingToBlack(this, (Module*)app->scene, 90);
+	}
+	// non retry
+	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN && retry == false)
+	{
+		app->audio->PauseMusic();
+		app->fade->FadingToBlack(this, (Module*)app->iScene, 90);
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN ||
+		app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
+		retry = !retry;
 
 	return true;
 }

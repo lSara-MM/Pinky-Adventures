@@ -41,11 +41,16 @@ public:
 	Player* player;
 
 private:
-	SDL_Texture* image;
 
 	const char* musicIntro;
-
 	const char* imagePath;
+
+	SDL_Texture* bgTexture;
+	const char* bgPath;
+
+	SDL_Texture* p2sTexture;
+	int v_start = 0;
+
 
 };
 
