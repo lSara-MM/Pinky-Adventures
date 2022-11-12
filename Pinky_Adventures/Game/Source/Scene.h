@@ -60,6 +60,9 @@ public:
 	int posx1, posx2, posx3;
 
 	const char* audioPath;
+	const char* back1Path;
+	const char* back2Path;
+	const char* back3Path;
 
 private:
 	SDL_Texture* img;

@@ -47,9 +47,11 @@ bool Scene::Awake(pugi::xml_node& config)
 	player->parameters = config.child("player");
 
 
-	audioPath = config.child("lvl1").attribute("audioPath").as_string();
+	//audioPath = config.child("lvl1").attribute("audioPath").as_string();
 
-
+	back1Path = config.attribute("background1").as_string();
+	back2Path = config.attribute("background2").as_string();
+	back3Path = config.attribute("background3").as_string();
 
 	// music
 	musicBg = config.attribute("music").as_string();
@@ -97,11 +99,10 @@ bool Scene::Start()
 	if (player->active == false) {
 		player->Enable();
 	}
-	
-	BACK1 = app->tex->Load("Assets/Maps/clouds_bg.png");
-	BACK2 = app->tex->Load("Assets/Maps/clouds_mg_1.png");
-	BACK3 = app->tex->Load("Assets/Maps/clouds_mg_2.png");
-		 
+
+	BACK1 = app->tex->Load(back1Path);
+	BACK2 = app->tex->Load(back2Path);
+	BACK3 = app->tex->Load(back3Path);
 	
 	//app->audio->PlayMusic(audioPath, 0);
 
@@ -191,15 +192,15 @@ bool Scene::Update(float dt)
 	int maxR = -player->position.x * app->win->GetScale() + 300;
 	if (-maxR < app->scene->maxCameraPosRigth - app->render->camera.w && -maxR > app->scene->maxCameraPosLeft)
 	{
-		posx1 = maxR*0.1f;
+		posx1 = maxR*0.2f;
 	}
 	if (-maxR < app->scene->maxCameraPosRigth - app->render->camera.w && -maxR > app->scene->maxCameraPosLeft)
 	{
-		posx2 = maxR*0.1f;
+		posx2 = maxR*0.2f;//ajustar velocitat com es prefereixi, o posar-les diferents entre els backgrounds
 	}
 	if (-maxR < app->scene->maxCameraPosRigth - app->render->camera.w && -maxR > app->scene->maxCameraPosLeft)
 	{
-		posx3 = -maxR*0.1f;
+		posx3 = -maxR*0.2f;
 	}
 	app->render->DrawTexture(BACK1, posx1, -380, &bgColor,1.0f,NULL, NULL, NULL);
 

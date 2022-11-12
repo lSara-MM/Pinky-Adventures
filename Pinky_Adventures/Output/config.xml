@@ -31,7 +31,8 @@
 	</introScene>
 
 
-	<scene music="Assets/Audio/Music/Lvl1.ogg">
+	<scene music="Assets/Audio/Music/Lvl1.ogg" background1 ="Assets/Maps/clouds_bg.png" background2 ="Assets/Maps/clouds_mg_1.png" 
+		   background3 ="Assets/Maps/clouds_mg_2.png">
 
 		<player x="120" y="260" 
 				texturepath="Assets/Textures/character.png" 
