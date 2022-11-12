@@ -66,9 +66,9 @@ bool Scene::Start()
 	app->render->camera.x = 0;
 	app->render->camera.y = 0;
 
-	posx1 = app->render->camera.x;
-	posx2 = -app->render->camera.x;
-	posx3 = app->render->camera.x;
+	posx1 = 0;
+	posx2 = 0;
+	posx3 = 0;
 
 	contadorT = 0;
 
@@ -92,7 +92,7 @@ bool Scene::Start()
 	maxCameraPosLeft = 0;
 	maxCameraPosRigth = app->map->mapData.width * app->map->mapData.tileWidth * app->win->GetScale();
 
-	bgColor = { 0, 0, app->win->GetWidth() * app->win->GetScale() + 100,  app->win->GetHeight() };
+	bgColor = { 0, 0, app->win->GetWidth() * app->win->GetScale() + 800,  app->win->GetHeight() };
 
 	if (player->active == false) {
 		player->Enable();
@@ -188,22 +188,40 @@ bool Scene::Update(float dt)
 
 	//app->render->DrawRectangle(bgColor, 88, 141, 190);
 
-
+	int maxR = -player->position.x * app->win->GetScale() + 300;
+	if (-maxR < app->scene->maxCameraPosRigth - app->render->camera.w && -maxR > app->scene->maxCameraPosLeft)
+	{
+		posx1 = maxR*0.1f;
+	}
+	if (-maxR < app->scene->maxCameraPosRigth - app->render->camera.w && -maxR > app->scene->maxCameraPosLeft)
+	{
+		posx2 = maxR*0.1f;
+	}
+	if (-maxR < app->scene->maxCameraPosRigth - app->render->camera.w && -maxR > app->scene->maxCameraPosLeft)
+	{
+		posx3 = -maxR*0.1f;
+	}
 	app->render->DrawTexture(BACK1, posx1, -380, &bgColor,1.0f,NULL, NULL, NULL);
 
-	app->render->DrawTexture(BACK2, posx1, -380, &bgColor, 1.0f, NULL, NULL, NULL);
+	app->render->DrawTexture(BACK3, posx3, -380, &bgColor, 1.0f, NULL, NULL, NULL);
 
-	app->render->DrawTexture(BACK3, posx1, -380, &bgColor, 1.0f, NULL, NULL, NULL);
+	app->render->DrawTexture(BACK2, posx2, -380, &bgColor, 1.0f, NULL, NULL, NULL);
 
-
-	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && player->ded == false) {
 	
-		
-	}
 
-	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && player->ded == false) {
-		
-	}
+
+	//if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && player->ded == false) {
+	//
+	//	posx1 -= 5;
+	//	posx2 -= 5;
+	//	posx3 += 5;
+	//}
+
+	//if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && player->ded == false) {
+	//	posx1 += 5;
+	//	posx2 += 5;
+	//	posx3 -= 5;
+	//}
 
 
 	if (secret == false) {
@@ -276,7 +294,9 @@ bool Scene::CleanUp()
 	app->render->camera.y = 0;
 
 	app->audio->PauseMusic();
-
+	app->tex->UnLoad(BACK1);
+	app->tex->UnLoad(BACK2);
+	app->tex->UnLoad(BACK3);
 	
 	// Reset items
 	ListItem<Entity*>* item;
