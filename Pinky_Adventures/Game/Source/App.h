@@ -20,7 +20,7 @@ class EntityManager;
 class Map;
 //L07 DONE 2: Add Physics module
 class Physics;
-
+class DeathScene;
 class IntroScene;
 class FadeToBlack;
 
@@ -94,7 +94,7 @@ public:
 	Map* map;
 	//L07 DONE 2: Add Physics module
 	Physics* physics;
-
+	DeathScene* dScene;
 	IntroScene* iScene;
 	FadeToBlack* fade;
 

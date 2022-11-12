@@ -11,7 +11,7 @@
 
 #include "IntroScene.h"
 #include "FadeToBlack.h"
-
+#include "DeathScene.h"
 #include "Defs.h"
 #include "Log.h"
 
@@ -33,7 +33,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	scene = new Scene();
 	entityManager = new EntityManager();
 	map = new Map();
-
+	dScene = new DeathScene();
 	iScene = new IntroScene();
 	fade = new FadeToBlack();
 
@@ -50,6 +50,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(entityManager);
 	AddModule(map);
 
+	AddModule(dScene);
 	AddModule(fade);
 	// Render last to swap buffer
 	AddModule(render);

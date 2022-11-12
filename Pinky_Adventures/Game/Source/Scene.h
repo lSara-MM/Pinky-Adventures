@@ -64,11 +64,14 @@ public:
 	const char* back2Path;
 	const char* back3Path;
 
+	bool end;
+
 private:
 	SDL_Texture* img;
 	bool mute;
 	const char* musicBg;
 	ListItem<Coin*>* originList;
+	
 };
 
 #endif // __SCENE_H__

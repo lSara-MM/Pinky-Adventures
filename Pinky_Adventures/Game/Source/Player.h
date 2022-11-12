@@ -51,7 +51,7 @@ public:
 	int contador;
 	//bool colliding;
 	PhysBody* pbody;
-	
+	uint fxDeath;
 	int score;
 
 private:
@@ -68,7 +68,7 @@ private:
 	
 	uint fxJump;
 	uint fxLand;
-	uint fxDeath;
+	
 	uint fxSecret;
 
 	// L07 DONE 5: Add physics to the player - declare a Physics body

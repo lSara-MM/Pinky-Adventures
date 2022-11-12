@@ -2,6 +2,7 @@
 	<app>
 		<title>Pinky Adventures :D</title>
 		<organization>UPC</organization>
+		
 	</app>
 
 	<renderer>
@@ -18,7 +19,7 @@
 	</window>
 
 	<audio>
-		<music volume="60"/>
+		<music volume="128"/>
 		<fx volume="128"/>
 	</audio>
 
@@ -27,9 +28,8 @@
 	<fadeToBlack>
 	</fadeToBlack>
 
-	<introScene>
-	</introScene>
-
+	<introScene imagePath = "Assets/bggatto.jpg" audioIntroPath ="Assets/Audio/Music/music_intro.wav"/>
+	
 
 	<scene music="Assets/Audio/Music/Lvl1.ogg" background1 ="Assets/Maps/clouds_bg.png" background2 ="Assets/Maps/clouds_mg_1.png" 
 		   background3 ="Assets/Maps/clouds_mg_2.png">
@@ -94,5 +94,7 @@
 			<spikes x1="" y1="" x2=""/>
 		</map1>
 	</map>
+
+	<deathScene path="Assets/LoseBg.jpg" audioDeathPath="Assets/Audio/Music/music_death.ogg"/>
 
 </config>

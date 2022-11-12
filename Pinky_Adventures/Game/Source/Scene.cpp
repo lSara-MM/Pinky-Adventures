@@ -107,7 +107,7 @@ bool Scene::Start()
 	//app->audio->PlayMusic(audioPath, 0);
 
 	secret = false;
-
+	end = false;
 	//player->Start();
 
 	app->audio->PlayMusic(musicBg,0); //nose que pasa que de repent ha dixat de funcionar despues del fade to black 2
@@ -146,11 +146,14 @@ bool Scene::Update(float dt)
 
 	// Instant win
 	if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
-		player->ded = true;
+		end = true;
 
 	// Instant lose
-	if (app->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN) {
 		player->ded = true;
+		app->audio->PlayFx(player->fxDeath);
+	}
+		
 
 	// Mute / unmute
 	if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
@@ -214,21 +217,6 @@ bool Scene::Update(float dt)
 
 	
 
-
-	//if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && player->ded == false) {
-	//
-	//	posx1 -= 5;
-	//	posx2 -= 5;
-	//	posx3 += 5;
-	//}
-
-	//if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && player->ded == false) {
-	//	posx1 += 5;
-	//	posx2 += 5;
-	//	posx3 -= 5;
-	//}
-
-
 	if (secret == false) {
 		app->map->Draw();
 	}
@@ -240,6 +228,12 @@ bool Scene::Update(float dt)
 	
 	app->entityManager->Update(dt);	// millor que posar-ho individual
 	//player->Update();
+
+
+	if (end == true) {//condició victòria
+		app->fade->FadingToBlack(this, (Module*)app->iScene, 90);
+		app->audio->PauseMusic();//no acaba d'anar bé
+	}
 
 
 	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_REPEAT) {
@@ -254,7 +248,7 @@ bool Scene::Update(float dt)
 	}
 
 	if (player->ded == true && contadorT == 80) {
-		app->fade->FadingToBlack(this, (Module*)app->iScene, 90);
+		app->fade->FadingToBlack(this, (Module*)app->dScene, 90);
 	}
 
 	if (player->position.x > 624 && player->position.x < 895 && player->position.y > 224)
@@ -262,6 +256,8 @@ bool Scene::Update(float dt)
 		secret = true;
 	
 	}
+	
+
 	
 	//app->render->DrawTexture(img, 380, 100); // Placeholder not needed any more
 	// Draw map

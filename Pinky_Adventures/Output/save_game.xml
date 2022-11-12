@@ -8,11 +8,12 @@
 	<introScene />
 	<scene />
 	<entitymanager>
-		<player x="539" y="209" />
+		<player x="120" y="262" />
 	</entitymanager>
 	<map />
+	<deathScene />
 	<fadeToBlack />
 	<renderer>
-		<camera x="-350" y="0" />
+		<camera x="0" y="0" />
 	</renderer>
 </save_state>

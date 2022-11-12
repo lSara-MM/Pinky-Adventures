@@ -4,30 +4,29 @@
 #include "Audio.h"
 #include "Render.h"
 #include "Window.h"
-#include "IntroScene.h"
+#include "DeathScene.h"
 #include "Scene.h"
 #include "EntityManager.h"
 #include "Map.h"
 #include "Physics.h"
 #include "FadeToBlack.h"
-#include "DeathScene.h"
 
 #include "Defs.h"
 #include "Log.h"
 
-IntroScene::IntroScene() : Module()
+DeathScene::DeathScene() : Module()
 {
-	name.Create("introScene");
+	name.Create("deathScene");
 }
 
 // Destructor
-IntroScene::~IntroScene()
+DeathScene::~DeathScene()
 {}
 
 // Called before render is available
-bool IntroScene::Awake(pugi::xml_node& config)
+bool DeathScene::Awake(pugi::xml_node& config)
 {
-	LOG("Loading IntroScene");
+	LOG("Loading DeathScene");
 	bool ret = true;
 
 	// iterate all objects in the IntroScene
@@ -38,58 +37,38 @@ bool IntroScene::Awake(pugi::xml_node& config)
 		item->parameters = itemNode;
 	}*/
 
-
-	imagePath = config.attribute("imagePath").as_string();
-
-	musicIntro = config.attribute("audioIntroPath").as_string();
-
+	deathPath = config.attribute("path").as_string();
+	musicDeath = config.attribute("audioDeathPath").as_string();
 	return ret;
 }
 
 // Called before the first frame
-bool IntroScene::Start()
+bool DeathScene::Start()
 {
-	//img = app->tex->Load("Assets/Textures/test.png");
-	//app->audio->PlayMusic("Assets/Audio/Music/music_spy.ogg");
-	
-	// L03: DONE: Load map
-	//app->map->Load();
 
-	//// L04: DONE 7: Set the window title with map/tileset info
-	//SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d",
-	//	app->map->mapData.width,
-	//	app->map->mapData.height,
-	//	app->map->mapData.tileWidth,
-	//	app->map->mapData.tileHeight,
-	//	app->map->mapData.tilesets.Count());
-
-	//app->win->SetTitle(title.GetString());
-
-	app->dScene->active = false;
-	//img = app->tex->Load("Assets/center.png");
-	image = app->tex->Load(imagePath);
-
-	app->audio->PlayMusic(musicIntro, 0);
+	Death = app->tex->Load(deathPath);
+	//img = { 0, 0, app->win->GetWidth(),  app->win->GetHeight() };
+	app->audio->PlayMusic(musicDeath,0);
 
 	return true;
 }
 
 // Called each loop iteration
-bool IntroScene::PreUpdate()
+bool DeathScene::PreUpdate()
 {
 	return true;
 }
 
 // Called each loop iteration
-bool IntroScene::Update(float dt)
+bool DeathScene::Update(float dt)
 {
 	// L03: DONE 3: Request App to Load / Save when pressing the keys F5 (save) / F6 (load)
-	int a = 3 * app->win->GetScale();
+	//int a = 3 * app->win->GetScale();
 
 	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		app->LoadGameRequest();
 
-	if (app->input->godMode == true)
+	/*if (app->input->godMode == true)
 	{
 		if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
 			app->render->camera.y += a;
@@ -102,36 +81,33 @@ bool IntroScene::Update(float dt)
 
 		if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
 			app->render->camera.x -= a;
-	}
-	
-	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
-		app->fade->FadingToBlack(this, (Module*)app->scene, 90);
+	}*/
+
+	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
+		app->fade->FadingToBlack(this, (Module*)app->iScene, 90);
 
 	return true;
 }
 
 // Called each loop iteration
-bool IntroScene::PostUpdate()
+bool DeathScene::PostUpdate()
 {
 	bool ret = true;
 
-	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
 
-	app->render->DrawTexture(image, 0, 0);
+	app->render->DrawTexture(Death, -260, -250);//no m'ha sortit reescalar-lo
 
 	return ret;
 }
 
 // Called before quitting
-bool IntroScene::CleanUp()
+bool DeathScene::CleanUp()
 {
 	LOG("Freeing IntroScene");
 	app->audio->PauseMusic();
-
-	app->tex->UnLoad(image);
-
-	app->physics->Enable();
+	app->tex->UnLoad(Death);
 
 	return true;
 }

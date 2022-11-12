@@ -1,5 +1,5 @@
-#ifndef __INTROSCENE_H__
-#define __INTROSCENE_H__
+#ifndef __DEATHSCENE_H__
+#define __DEATHSCENE_H__
 
 #include "Module.h"
 #include "Player.h"
@@ -8,14 +8,14 @@
 
 struct SDL_Texture;
 
-class IntroScene : public Module
+class DeathScene : public Module
 {
 public:
 
-	IntroScene();
+	DeathScene();
 
 	// Destructor
-	virtual ~IntroScene();
+	virtual ~DeathScene();
 
 	// Called before render is available
 	bool Awake(pugi::xml_node& config);
@@ -41,12 +41,14 @@ public:
 	Player* player;
 
 private:
-	SDL_Texture* image;
+	
+	SDL_Rect img;
 
-	const char* musicIntro;
+	SDL_Texture* Death;
 
-	const char* imagePath;
+	const char* musicDeath;
 
+	const char* deathPath;
 };
 
 #endif // __INTROSCENE_H__
