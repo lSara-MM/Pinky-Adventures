@@ -37,6 +37,7 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	void Debug();
 	bool Lose();
 
 public:

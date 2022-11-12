@@ -133,77 +133,10 @@ bool Scene::PreUpdate()
 // Called each loop iteration
 bool Scene::Update(float dt)
 {
-	int a = 3 * app->win->GetScale();
-	// L03: DONE 3: Request App to Load / Save when pressing the keys F5 (save) / F6 (load)
-	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
-		app->SaveGameRequest();
-
-	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
-		app->LoadGameRequest();
-
-	// GodMode
-	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) //canvi valors per tal que siguin iguals al que demana
-		app->input->godMode = !app->input->godMode;
-
-	// Show collisions
-	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
-		app->physics->collisions = !app->physics->collisions;
-
-	// Instant win
-	if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
-		end = true;
-
-	// Instant lose
-	if (app->input->GetKey(SDL_SCANCODE_F4) == KEY_DOWN) {
-		player->ded = true;
-		app->audio->PlayFx(player->fxDeath);
-	}
-		
-
-	// Mute / unmute
-	if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
-		mute = !mute;
-
-	
-
-	if (app->input->godMode == true)
-	{
-		// Free camera
-		if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-			app->render->camera.y += a;
-
-		if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-			app->render->camera.y -= a;
-
-		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-			app->render->camera.x += a;
-
-		if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-			app->render->camera.x -= a;
-
-		// Reset camera
-		if (app->input->GetKey(SDL_SCANCODE_C) == KEY_REPEAT)
-		{
-			int maxR = -player->position.x * app->win->GetScale() + 300;
-
-			app->render->camera.x = maxR;
-		}
-
-
-
-		// Borrar al final
-		if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
-		{
-			app->audio->PauseMusic();
-			app->fade->FadingToBlack(this, (Module*)app->iScene, 90);
-		}
-
-	}
-	
-	(mute) ? app->audio->PauseMusic() : app->audio->ResumeMusic();
-
+	Debug();
 	//app->render->DrawRectangle(bgColor, 88, 141, 190);
 
+	// parallax
 	int maxR = -player->position.x * app->win->GetScale() + 300;
 	if (-maxR < app->scene->maxCameraPosRigth - app->render->camera.w && -maxR > app->scene->maxCameraPosLeft)
 	{
@@ -304,6 +237,80 @@ bool Scene::CleanUp()
 	app->map->UnloadCollisions();
 
 	return true;
+}
+
+void Scene::Debug()
+{
+	int a = 3 * app->win->GetScale();
+
+	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_REPEAT)
+	{
+		app->fade->FadingToBlack(this, (Module*)app->scene, 0);
+	}
+	// L03: DONE 3: Request App to Load / Save when pressing the keys F5 (save) / F6 (load)
+	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
+		app->SaveGameRequest();
+
+	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
+		app->LoadGameRequest();
+
+	// Instant win
+	if (app->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN)
+		end = true;
+	// Instant lose
+	if (app->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) {
+		player->ded = true;
+		app->audio->PlayFx(player->fxDeath);
+	}
+
+	// GodMode
+	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) //canvi valors per tal que siguin iguals al que demana
+		app->input->godMode = !app->input->godMode;
+
+	// Show collisions
+	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
+		app->physics->collisions = !app->physics->collisions;
+
+
+	// Mute / unmute
+	if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
+		mute = !mute;
+
+
+
+	if (app->input->godMode == true)
+	{
+		// Free camera
+		if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+			app->render->camera.y += a;
+
+		if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+			app->render->camera.y -= a;
+
+		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+			app->render->camera.x += a;
+
+		if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+			app->render->camera.x -= a;
+
+		// Reset camera
+		if (app->input->GetKey(SDL_SCANCODE_C) == KEY_REPEAT)
+		{
+			int maxR = -player->position.x * app->win->GetScale() + 300;
+			app->render->camera.x = maxR;
+		}
+
+		// Borrar al final
+		if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
+		{
+			app->audio->PauseMusic();
+			app->fade->FadingToBlack(this, (Module*)app->iScene, 90);
+		}
+
+	}
+
+	(mute) ? app->audio->PauseMusic() : app->audio->ResumeMusic();
+
 }
 
 bool Scene::Lose()

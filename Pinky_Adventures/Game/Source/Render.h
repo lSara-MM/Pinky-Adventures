@@ -54,8 +54,8 @@ public:
 	SDL_Color background;
 
 	// Rendering text
-	SDL_Surface* ttf_surface = nullptr;
-	SDL_Texture* ttf_texture = nullptr;
+	//SDL_Surface* ttf_surface = nullptr;
+	//SDL_Texture* ttf_texture = nullptr;
 	//TTF_Font* ttf_font = nullptr;	// de moment dona error, no se perque no es pot montar be la llibreria :/
 };
 
