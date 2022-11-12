@@ -10,7 +10,7 @@
 #include "Map.h"
 #include "Physics.h"
 #include "FadeToBlack.h"
-#include "DeathScene.h"
+
 
 #include "Defs.h"
 #include "Log.h"
@@ -49,7 +49,7 @@ bool IntroScene::Start()
 	bgTexture = app->tex->Load(bgPath);
 	p2sTexture = app->tex->Load("Assets/Maps/press2start.png");
 	
-	app->audio->PlayMusic(musicIntro);
+	app->audio->PlayMusic(musicIntro,0);
 	//img = app->tex->Load("Assets/center.png");
 	//img = app->tex->Load("Assets/bggatto.jpg");
 	return true;

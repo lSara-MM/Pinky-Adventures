@@ -49,7 +49,6 @@
     <ClCompile Include="Source\ItemGem.cpp">
       <Filter>Modules\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Source\DeathScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Player.h" />
@@ -127,7 +126,6 @@
     <ClInclude Include="Source\ItemGem.h">
       <Filter>Modules\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Source\DeathScene.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Utils">
