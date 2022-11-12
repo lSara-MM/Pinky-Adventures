@@ -53,6 +53,12 @@ public:
 
 	SDL_Rect bgColor;
 
+	SDL_Texture* BACK1;
+	SDL_Texture* BACK2;
+	SDL_Texture* BACK3;
+
+	int posx1, posx2, posx3;
+
 	const char* audioPath;
 
 private:

@@ -66,6 +66,10 @@ bool Scene::Start()
 	app->render->camera.x = 0;
 	app->render->camera.y = 0;
 
+	posx1 = app->render->camera.x;
+	posx2 = -app->render->camera.x;
+	posx3 = app->render->camera.x;
+
 	contadorT = 0;
 
 	app->entityManager->Start();
@@ -94,7 +98,11 @@ bool Scene::Start()
 		player->Enable();
 	}
 	
-
+	BACK1 = app->tex->Load("Assets/Maps/clouds_bg.png");
+	BACK2 = app->tex->Load("Assets/Maps/clouds_mg_1.png");
+	BACK3 = app->tex->Load("Assets/Maps/clouds_mg_2.png");
+		 
+	
 	//app->audio->PlayMusic(audioPath, 0);
 
 	secret = false;
@@ -178,7 +186,25 @@ bool Scene::Update(float dt)
 	
 	(mute) ? app->audio->PauseMusic() : app->audio->ResumeMusic();
 
-	app->render->DrawRectangle(bgColor, 88, 141, 190);
+	//app->render->DrawRectangle(bgColor, 88, 141, 190);
+
+
+	app->render->DrawTexture(BACK1, posx1, -380, &bgColor,1.0f,NULL, NULL, NULL);
+
+	app->render->DrawTexture(BACK2, posx1, -380, &bgColor, 1.0f, NULL, NULL, NULL);
+
+	app->render->DrawTexture(BACK3, posx1, -380, &bgColor, 1.0f, NULL, NULL, NULL);
+
+
+	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && player->ded == false) {
+	
+		
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && player->ded == false) {
+		
+	}
+
 
 	if (secret == false) {
 		app->map->Draw();
