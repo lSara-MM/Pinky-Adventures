@@ -119,6 +119,7 @@ bool App::Start()
 
 	scene->active = false;
 	entityManager->active = false;
+	dScene->active = false;
 
 	while (item != NULL && ret == true)
 	{
