@@ -504,7 +504,7 @@ bool Map::Load()
     PhysBody* c54 = app->physics->CreateRectangle(2048 + 80 / 2, 320 + 16 / 2, 80, 16, bodyType::STATIC);
     c54->ctype = ColliderType::PLATFORM;
     listBodies.Add(c54);
-    PhysBody* c55 = app->physics->CreateRectangle(2112 + 16 / 2, 0 + 320 / 2, 16, 320, bodyType::STATIC);
+    PhysBody* c55 = app->physics->CreateRectangle(2112 + 16 / 2, -80 + 400 / 2, 16, 400, bodyType::STATIC);
     c55->ctype = ColliderType::PLATFORM;
     listBodies.Add(c55);
     PhysBody* c56 = app->physics->CreateRectangle(2128 + 16 / 2, 0 + 16 / 2, 16, 16, bodyType::STATIC);

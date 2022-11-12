@@ -139,6 +139,7 @@ bool Player::Awake() {
 	jumpPath= parameters.attribute("audiopathJump").as_string();
 	landPath = parameters.attribute("audiopathLand").as_string();
 	deathPath = parameters.attribute("audiopathDeath").as_string();
+	secretPath = parameters.attribute("audiopathSecret").as_string();
 
 	jump = 2;
 	grav = GRAVITY_Y;
@@ -169,6 +170,7 @@ bool Player::Start() {
 	fxJump = app->audio->LoadFx(jumpPath);
 	fxLand = app->audio->LoadFx(landPath);
 	fxDeath = app->audio->LoadFx(deathPath);
+	fxSecret = app->audio->LoadFx(secretPath);
 
 	ded = false;
 	ani = true;
@@ -200,7 +202,7 @@ bool Player::Update()
 		
 		currentAnimation = &jumpAnim;
 		jump--;
-		contador = 20;//era 
+		contador = 20;
 		app->audio->PlayFx(fxJump);
 		//pbody->body->ApplyForce(b2Vec2(0, -800.0f), pbody->body->GetWorldCenter(), true);
 		
@@ -282,6 +284,7 @@ bool Player::CleanUp()
 	coinPath = parameters.attribute("audiopathCoin").as_string();
 	jumpPath = parameters.attribute("audiopathJump").as_string();
 	landPath = parameters.attribute("audiopathLand").as_string();
+	secretPath = parameters.attribute("audiopathSecret").as_string();
 	app->tex->UnLoad(texture);
 	pbody->body->GetWorld()->DestroyBody(pbody->body);
 
@@ -327,19 +330,27 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 
 		case ColliderType::SPIKE:
 			LOG("Collision SPIKE");
-			ded = true;
-			app->audio->PlayFx(fxDeath);
+			if (app->input->godMode == false) {
+				ded = true;
+				app->audio->PlayFx(fxDeath);
+			}
 			break;
 
 		case ColliderType::FALL://el collider no l'he fet sensor per tal de veure al player morir
 			LOG("Collision SPIKE");
-			ded = true;
-			app->audio->PlayFx(fxDeath);
+			if (app->input->godMode == false) {
+				ded = true;
+				app->audio->PlayFx(fxDeath);
+			}
 			break;
 
 		case ColliderType::CHANGE:
 			LOG("Collision CHANGE");
-			app->scene->secret = true;
+			if (app->scene->secret == false) {
+				app->scene->secret = true;
+				app->audio->PlayFx(fxSecret);
+			}
+			
 			break;
 
 		case ColliderType::UNKNOWN:

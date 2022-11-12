@@ -63,11 +63,13 @@ private:
 	const char* jumpPath;
 	const char* landPath;
 	const char* deathPath;
+	const char* secretPath;
 
 	
-	uint fxJump = 0;
-	uint fxLand = 0;
-	uint fxDeath = 0;
+	uint fxJump;
+	uint fxLand;
+	uint fxDeath;
+	uint fxSecret;
 
 	// L07 DONE 5: Add physics to the player - declare a Physics body
 	//PhysBody* pbody;
