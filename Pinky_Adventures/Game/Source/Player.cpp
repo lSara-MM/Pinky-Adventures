@@ -197,8 +197,19 @@ bool Player::Update()
 	//b2Vec2 velcam = b2Vec2(0, 0);
 	//L02: DONE 4: modify the position of the player using arrow keys and render the texture
 
-	
-	if ((app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_W) == KEY_DOWN) && jump > 0 && ded == false) {
+	if (app->input->godMode == true) {
+		pbody->body->SetGravityScale(-1);//no fa res, única manera he vist modificar gravetat és directament al define
+	}
+
+	if (app->input->godMode == true && app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
+		vel = b2Vec2(0, -speed);
+	}
+
+	if (app->input->godMode == true && app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
+		vel = b2Vec2(0, speed);
+	}
+
+	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN  && jump > 0 && ded == false) {
 		
 		currentAnimation = &jumpAnim;
 		jump--;
@@ -224,6 +235,8 @@ bool Player::Update()
 		currentAnimation = &forwardAnim;
 	}
 
+	
+
 	else if (ded == true) {
 		currentAnimation = &deathAnim;
 	}
@@ -248,9 +261,18 @@ bool Player::Update()
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - width/2;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - height/2;
 
+	//if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {
+	//	position.x = parameters.attribute("x").as_int();
+	//	position.y = parameters.attribute("y").as_int();
+	//	pbody->body->SetTransform(b2Vec2(parameters.attribute("x").as_float()+width/2, parameters.attribute("y").as_float()+ height / 2),pbody->body->GetAngle());
+	//}//no el posa al principi i desapareix¿?
+
 	currentAnimation->Update();
 
 	SDL_Rect rect = currentAnimation->GetCurrentFrame();
+
+
+	
 
 	if (ded == false) {
 
@@ -266,6 +288,7 @@ bool Player::Update()
 		
 		ani = false;
 	}
+
 
 	return true;
 }

@@ -137,15 +137,15 @@ bool Scene::Update(float dt)
 
 	app->input->godMode = true;	// TO CHANGE WHEN RELEASE
 	// GodMode
-	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)//canvi valors per tal que siguin iguals al que demana
 		app->input->godMode = !app->input->godMode;
 
 	// Show collisions
-	if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
 		app->physics->collisions = !app->physics->collisions;
 
 	// Instant win
-	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 		player->ded = true;
 
 	// Instant lose
@@ -155,6 +155,8 @@ bool Scene::Update(float dt)
 	// Mute / unmute
 	if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
 		mute = !mute;
+
+	
 
 	if (app->input->godMode == true)
 	{
@@ -178,6 +180,8 @@ bool Scene::Update(float dt)
 
 			app->render->camera.x = maxR;
 		}
+
+
 
 		// Borrar al final
 		if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
