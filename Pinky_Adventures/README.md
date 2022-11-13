@@ -67,3 +67,6 @@ This project is licensed under an unmodified MIT license, which is an OSI-certif
 {AdditionalLicenses}
 Assets Gems
 @danimaccari -> https://dani-maccari.itch.io/
+
+Font (pcsenior)
+[ codeman38 | cody@zone38.net | http://www.zone38.net/ ]
