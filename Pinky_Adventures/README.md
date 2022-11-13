@@ -15,7 +15,7 @@ Simple platformer for the first assignment of Game Development.
  
 ## Controls
 
-### Player
+###Player
 
 * Move right -> D
 
@@ -23,7 +23,7 @@ Simple platformer for the first assignment of Game Development.
 
 * Jump -> SPACE
 
-### Menus
+###Menus
 
 * Accept -> Enter
 
@@ -31,7 +31,7 @@ Simple platformer for the first assignment of Game Development.
 
 * Move left -> A
 
-### Debug
+###Debug
 
 * Start at level 1 -> F1
 
@@ -53,6 +53,7 @@ Simple platformer for the first assignment of Game Development.
 
 	* Descend -> S (ONLY IN GOD MODE)
 
+Can go through platforms when jumping from below -> implemented horizontally (can go through the wall from left but not right) in the secret area
 
 ## Developers
 
@@ -65,8 +66,14 @@ Simple platformer for the first assignment of Game Development.
 This project is licensed under an unmodified MIT license, which is an OSI-certified license that allows static linking with closed source software. Check [LICENSE](LICENSE) for further details.
 
 {AdditionalLicenses}
+Assets Character
+https://craftpix.net/file-licenses/
+
 Assets Gems
 @danimaccari -> https://dani-maccari.itch.io/
+
+Pixel art background
+https://wallpaperaccess.com/anime-pixel-art
 
 Font (pcsenior)
 [ codeman38 | cody@zone38.net | http://www.zone38.net/ ]
