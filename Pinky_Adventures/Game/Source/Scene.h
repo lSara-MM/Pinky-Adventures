@@ -71,7 +71,6 @@ private:
 	const char* musicPathBg;
 	const char* musicLosePath;
 
-
 	const char* audioLosePath;
 	const char* back1Path;
 	const char* back2Path;
@@ -80,8 +79,9 @@ private:
 	const char* but1Path;
 	const char* but2Path;
 
-	bool retry;
+	PhysBody* ghostCollider;
 
+	bool retry;
 	bool musLose;
 };
 

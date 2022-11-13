@@ -83,7 +83,8 @@ bool Scene::Start()
 	// L03: DONE: Load map
 	app->map->Load();
 	secret = false;
-	
+	ghostCollider = app->physics->CreateRectangle(890, 240, 10, 16 * app->win->GetScale(), bodyType::STATIC);
+
 	// L04: DONE 7: Set the window title with map/tileset info
 	SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d",
 		app->map->mapData.width,
@@ -158,10 +159,12 @@ bool Scene::Update(float dt)
 
 	if (secret == false) {
 		app->map->Draw();
+		ghostCollider->body->SetActive(true);
 	}
 	
 	else if (secret == true) {
 		app->map->DrawSecret();
+		ghostCollider->body->SetActive(false);
 	}
 
 	app->entityManager->Update(dt);	
