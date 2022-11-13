@@ -199,7 +199,10 @@ bool Player::Update()
 	//L02: DONE 4: modify the position of the player using arrow keys and render the texture
 
 	if (app->input->godMode == true) {
-		pbody->body->SetGravityScale(-1);//no fa res, única manera he vist modificar gravetat és directament al define
+
+		pbody->body->SetGravityScale(-60.0);
+
+
 	}
 
 	if (app->input->godMode == true && app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
@@ -207,7 +210,7 @@ bool Player::Update()
 	}
 
 	if (app->input->godMode == true && app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
-		vel = b2Vec2(0, speed);
+		vel = b2Vec2(0, 15);
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN  && jump > 0 && ded == false) {
