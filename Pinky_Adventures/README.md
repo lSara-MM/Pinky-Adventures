@@ -1,26 +1,64 @@
-# {Project Name}
+# {Pinky Adventures}
 
 ## Description
 
-{project description}
+Simple platformer for the first assignment of Game Development.
+
 
 ## Key Features
 
- - {Feature01}
- - {Feature02}
- - {Feature03}
- - {Feature04}
+* Double jump, which resets if you hit any platform, allowing to jump between walls.
+
+* Merciless, any hit will kill you!
+
+* Collect the coins to get some points.
  
 ## Controls
 
- - {ControlsScheme}
+###Player
+
+* Move right -> D
+
+* Move left -> A
+
+* Jump -> SPACE
+
+###Menus
+
+* Accept -> Enter
+
+* Move right -> D
+
+* Move left -> A
+
+###Debug
+
+* Start at level 1 -> F1
+
+* Start from the beginning of the current level -> F3
+
+* Save the current game state -> F5
+
+* Load the previous state -> F6
+
+* Instant win -> F7
+
+* Instant lose -> F8
+
+* View colliders -> F9
+
+* God mode (fly and cannot be killed) -> F10
+
+	* Go upwards -> W (ONLY IN GOD MODE)
+
+	* Descend -> S (ONLY IN GOD MODE)
+
 
 ## Developers
 
- - {Dev01} - {Role(s)}
- - {Dev02} - {Role(s)}
- - {Dev03} - {Role(s)}
- - {Dev04} - {Role(s)}
+* [Sara Qiao Martínez Mauri](https://github.com/lSara-MM)
+* [Andreu Nosàs Soler](https://github.com/AndyCubico)
+ 
 
 ## License
 
