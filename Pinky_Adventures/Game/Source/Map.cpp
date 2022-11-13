@@ -37,37 +37,22 @@ void Map::Draw()
     if(mapLoaded == false)
         return;
 
-    /*
-    // L04: DONE 6: Iterate all tilesets and draw all their 
-    // images in 0,0 (you should have only one tileset for now)
-
-    ListItem<TileSet*>* tileset;
-    tileset = mapData.tilesets.start;
-
-    while (tileset != NULL) {
-        app->render->DrawTexture(tileset->data->texture,0,0);
-        tileset = tileset->next;
-    }
-    */
-
-    // L05: DONE 5: Prepare the loop to draw all tiles in a layer + DrawTexture()
-
     ListItem<MapLayer*>* mapLayerItem;
     mapLayerItem = mapData.maplayers.start;
 
     while (mapLayerItem != NULL) {
 
-        //L06: DONE 7: use GetProperty method to ask each layer if your “Draw” property is true.
+       
         if (mapLayerItem->data->properties.GetProperty("Draw") != NULL && mapLayerItem->data->properties.GetProperty("Draw")->value) {
             
             for (int x = 0; x < mapLayerItem->data->width; x++)
             {
                 for (int y = 0; y < mapLayerItem->data->height; y++)
                 {
-                    // L05: DONE 9: Complete the draw function
+                   
                     int gid = mapLayerItem->data->Get(x, y);
 
-                    //L06: DONE 3: Obtain the tile set using GetTilesetFromTileId
+              
                     TileSet* tileset = GetTilesetFromTileId(gid);
 
                     SDL_Rect r = tileset->GetTileRect(gid);
@@ -97,17 +82,17 @@ void Map::DrawSecret()
 
     while (mapLayerItem != NULL) {
 
-        //L06: DONE 7: use GetProperty method to ask each layer if your “Draw” property is true.
+      
         if (mapLayerItem->data->properties.GetProperty("Secret") != NULL && mapLayerItem->data->properties.GetProperty("Secret")->value ) {
 
             for (int x = 0; x < mapLayerItem->data->width; x++)
             {
                 for (int y = 0; y < mapLayerItem->data->height; y++)
                 {
-                    // L05: DONE 9: Complete the draw function
+                
                     int gid = mapLayerItem->data->Get(x, y);
 
-                    //L06: DONE 3: Obtain the tile set using GetTilesetFromTileId
+                   
                     TileSet* tileset = GetTilesetFromTileId(gid);
 
                     SDL_Rect r = tileset->GetTileRect(gid);
@@ -182,7 +167,7 @@ void Map::DrawPlatformCollider() {
 
 }
 
-// L05: DONE 8: Create a method that translates x,y coordinates from map positions to world positions
+
 iPoint Map::MapToWorld(int x, int y) const
 {
     iPoint ret;
@@ -199,7 +184,7 @@ SDL_Rect TileSet::GetTileRect(int gid) const
     SDL_Rect rect = { 0 };
     int relativeIndex = gid - firstgid;
 
-    // L05: DONE 7: Get relative Tile rectangle
+   
     rect.w = tileWidth;
     rect.h = tileHeight;
     rect.x = margin + (tileWidth + spacing) * (relativeIndex % columns);
@@ -209,7 +194,7 @@ SDL_Rect TileSet::GetTileRect(int gid) const
 }
 
 
-// L06: DONE 2: Pick the right Tileset based on a tile id
+
 TileSet* Map::GetTilesetFromTileId(int gid) const
 {
     ListItem<TileSet*>* item = mapData.tilesets.start;
@@ -233,7 +218,7 @@ bool Map::CleanUp()
 {
     LOG("Unloading map");
 
-    // L04: DONE 2: Make sure you clean up any memory allocated from tilesets/map
+   
 	ListItem<TileSet*>* item;
 	item = mapData.tilesets.start;
 
@@ -244,7 +229,7 @@ bool Map::CleanUp()
 	}
 	//mapData.tilesets.Clear();
 
-    // L05: DONE 2: clean up all layer data
+
     // Remove all layers
     ListItem<MapLayer*>* layerItem;
     layerItem = mapData.maplayers.start;
@@ -268,7 +253,7 @@ bool Map::CleanUp()
     return true;
 }
 
-bool Map::UnloadCollisions()    //nose perque no fa res xd
+bool Map::UnloadCollisions()   
 {
     ListItem<PhysBody*>* bodyItem;
     bodyItem = listBodies.start;
@@ -310,14 +295,11 @@ bool Map::Load()
         ret = LoadTileSet(mapFileXML);
     }
 
-    // L05: DONE 4: Iterate all layers and load each of them
     if (ret == true)
     {
         ret = LoadAllLayers(mapFileXML.child("map"));
     }
 
-    
-    
     PhysBody* c1 = app->physics->CreateRectangle(1 + 240 / 2, 290 + 95 / 2, 240, 95, bodyType::STATIC);
     c1->ctype = ColliderType::PLATFORM;
 
@@ -561,26 +543,14 @@ bool Map::Load()
     c70->ctype = ColliderType::FALL;
     listBodies.Add(c70);
 
-   
-
-
-
-    PhysBody* c = app->physics->CreateRectangle(2, 0, 0, 1000, bodyType::STATIC);//limit mapa
+    PhysBody* c = app->physics->CreateRectangle(2, 0, 0, 1000, bodyType::STATIC);//límit mapa
     c->ctype = ColliderType::PLATFORM;
     listBodies.Add(c);
 
-    //listBodies
-    /*listBodies.Add(c1);
-    listBodies.Add(c2);
-    listBodies.Add(c3);
-    listBodies.Add(c);*/
-
-    //LoadSpikes(mapFileXML.child("map")); PORQUE NO VAAA, PUTO PETA
 
     if(ret == true)
     {
-        // L04: DONE 5: LOG all the data loaded iterate all tilesets and LOG everything
-       
+
         LOG("Successfully parsed map XML file :%s", mapFileName.GetString());
         LOG("width : %d height : %d",mapData.width,mapData.height);
         LOG("tile_width : %d tile_height : %d",mapData.tileWidth, mapData.tileHeight);
@@ -597,7 +567,6 @@ bool Map::Load()
             tileset = tileset->next;
         }
 
-        // L05: DONE 4: LOG the info for each loaded layer
         ListItem<MapLayer*>* mapLayer;
         mapLayer = mapData.maplayers.start;
 
@@ -615,7 +584,6 @@ bool Map::Load()
     return ret;
 }
 
-// L04: DONE 3: Implement LoadMap to load the map properties
 bool Map::LoadMap(pugi::xml_node mapFile)
 {
     bool ret = true;
@@ -638,7 +606,7 @@ bool Map::LoadMap(pugi::xml_node mapFile)
     return ret;
 }
 
-// L04: DONE 4: Implement the LoadTileSet function to load the tileset properties
+
 bool Map::LoadTileSet(pugi::xml_node mapFile){
 
     bool ret = true; 
@@ -648,7 +616,7 @@ bool Map::LoadTileSet(pugi::xml_node mapFile){
     {
         TileSet* set = new TileSet();
 
-        // L04: DONE 4: Load Tileset attributes
+       
         set->name = tileset.attribute("name").as_string();
         set->firstgid = tileset.attribute("firstgid").as_int();
         set->margin = tileset.attribute("margin").as_int();
@@ -658,7 +626,7 @@ bool Map::LoadTileSet(pugi::xml_node mapFile){
         set->columns = tileset.attribute("columns").as_int();
         set->tilecount = tileset.attribute("tilecount").as_int();
 
-        // L04: DONE 4: Load Tileset image
+    
         SString tmp("%s%s", mapFolder.GetString(), tileset.child("image").attribute("source").as_string());
         set->texture = app->tex->Load(tmp.GetString());
 
@@ -668,7 +636,7 @@ bool Map::LoadTileSet(pugi::xml_node mapFile){
     return ret;
 }
 
-// L05: DONE 3: Implement a function that loads a single layer layer
+
 bool Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 {
     bool ret = true;
@@ -679,12 +647,10 @@ bool Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
     layer->width = node.attribute("width").as_int();
     layer->height = node.attribute("height").as_int();
 
-    //L06: DONE 6 Call Load Propoerties
+
     LoadProperties(node, layer->properties);
 
     //LoadGidValue(node, layer->gids);
-
-
 
     //Reserve the memory for the data 
     layer->data = new uint[layer->width * layer->height];
@@ -702,7 +668,6 @@ bool Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
     return ret;
 }
 
-// L05: DONE 4: Iterate all layers and load each of them
 bool Map::LoadAllLayers(pugi::xml_node mapNode) {
     bool ret = true;
 
@@ -719,7 +684,7 @@ bool Map::LoadAllLayers(pugi::xml_node mapNode) {
     return ret;
 }
 
-// L06: DONE 6: Load a group of properties from a node and fill a list with it
+
 bool Map::LoadProperties(pugi::xml_node& node, Properties& properties)
 {
     bool ret = false;
@@ -728,7 +693,7 @@ bool Map::LoadProperties(pugi::xml_node& node, Properties& properties)
     {
         Properties::Property* p = new Properties::Property();
         p->name = propertieNode.attribute("name").as_string();
-        p->value = propertieNode.attribute("value").as_bool(); // (!!) I'm assuming that all values are bool !!
+        p->value = propertieNode.attribute("value").as_bool(); 
         
         properties.list.Add(p);
     }
@@ -737,7 +702,6 @@ bool Map::LoadProperties(pugi::xml_node& node, Properties& properties)
 }
 
 
-// L06: DONE 7: Ask for the value of a custom property
 Properties::Property* Properties::GetProperty(const char* name)
 {
     ListItem<Property*>* item = list.start;
@@ -809,44 +773,6 @@ bool Map::LoadSpikes(pugi::xml_node mapNode)
             }
             i++;
         }
-    }
-
-    {
-        /*pugi::xml_node layerNode = mapNode.find_child_by_attribute("map1.2", "134", "24");
-        MapLayer map1 = layerNode.;*/
-
-        //while (mapLayerItem->data->name == "map1.2") {
-
-        //    //if (tileset->data->firstgid == 243)
-        //    //{
-        //        //L06: DONE 7: use GetProperty method to ask each layer if your “Draw” property is true.
-        //        for (int x = 0; x < mapLayerItem->data->width; x++)
-        //        {
-        //            for (int y = 0; y < mapLayerItem->data->height; y++)
-        //            {
-        //                // L05: DONE 9: Complete the draw function
-        //                int gid = mapLayerItem->data->Get(x, y);
-
-        //                //L06: DONE 3: Obtain the tile set using GetTilesetFromTileId
-        //                TileSet* tileset = GetTilesetFromTileId(gid);
-
-        //                SDL_Rect r = tileset->GetTileRect(gid);
-        //                iPoint pos = MapToWorld(x, y);
-
-        //                bodyItem->data = app->physics->CreateRectangle(pos.x, pos.y, r.w, r.h, bodyType::STATIC);
-        //                bodyItem->data->ctype = ColliderType::PLATFORM;
-        //                /*app->render->DrawTexture(tileset->texture,
-        //                    pos.x,
-        //                    pos.y,
-        //                    &r);*/
-        //            }
-        //        }
-
-        //        tileset = tileset->next;
-        //        mapLayerItem = mapLayerItem->next;
-
-        //   // } 
-        //}
     }
 
     return ret;

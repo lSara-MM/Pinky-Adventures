@@ -21,7 +21,7 @@ Player::Player() : Entity(EntityType::PLAYER)
 {
 	name.Create("Player");
 
-	// idle animation (arcade sprite sheet)
+	
 	idleAnim.PushBack({ 8, 39, 17, 28 });
 	idleAnim.PushBack({ 40, 39, 17, 28 });
 	idleAnim.PushBack({ 71, 38, 18, 29 });
@@ -29,7 +29,7 @@ Player::Player() : Entity(EntityType::PLAYER)
 
 	idleAnim.speed = 0.1f;
 
-	// walk forward animation (arcade sprite sheet)
+	
 	forwardAnim.PushBack({ 8, 142, 17, 27 });
 	forwardAnim.PushBack({ 40, 141, 17, 28 });
 	forwardAnim.PushBack({ 72, 141, 17, 28 });
@@ -39,7 +39,7 @@ Player::Player() : Entity(EntityType::PLAYER)
 
 	forwardAnim.speed = 0.1f;
 
-	// TODO 4: Make ryu walk backwards with the correct animations
+
 	jumpAnim.PushBack({ 8, 73, 17, 28 });
 	jumpAnim.PushBack({ 38, 75, 20, 26 });
 	jumpAnim.PushBack({ 104, 71, 17, 30 });
@@ -120,11 +120,7 @@ Player::~Player() {
 
 bool Player::Awake() {
 
-	//L02: DONE 1: Initialize Player parameters
-	//pos = position;
-	//texturePath = "Assets/Textures/player/idle1.png";
-
-	//L02: DONE 5: Get Player parameters from XML
+	
 	position.x = parameters.attribute("x").as_int();
 	position.y = parameters.attribute("y").as_int();
 	
@@ -143,7 +139,7 @@ bool Player::Awake() {
 
 	jump = 2;
 	grav = GRAVITY_Y;
-	contador = 0; //contador tiempo conejo esta saltando (cambio gravedad)
+	contador = 0;//temps salta player
 	
 	score = 0;
 	return true;
@@ -151,22 +147,22 @@ bool Player::Awake() {
 
 bool Player::Start() {
 
-	//initilize textures
+	
 	texture = app->tex->Load(texturePath);
 
 	pickCoinFxId = app->audio->LoadFx(fxCoin);
 	pickGemFxId = app->audio->LoadFx(fxGem);
 
-	// L07 DONE 5: Add physics to the player - initialize physics body
+	
 	pbody = app->physics->CreateRectangle(position.x + width / 2, position.y + height / 2, width, height, bodyType::DYNAMIC);
 	pbody->body->SetFixedRotation(true);
-	// L07 DONE 6: Assign player class (using "this") to the listener of the pbody. This makes the Physics module to call the OnCollision method
+	
 	pbody->listener = this; 
 
-	// L07 DONE 7: Assign collider type
+	
 	pbody->ctype = ColliderType::PLAYER;
 
-	//fxCoin = app->audio->LoadFx(coinPath);
+	
 	fxJump = app->audio->LoadFx(jumpPath);
 	fxLand = app->audio->LoadFx(landPath);
 	fxDeath = app->audio->LoadFx(deathPath);
@@ -175,7 +171,7 @@ bool Player::Start() {
 	i = app->scene->listCoins.start;
 	ded = false;
 	ani = true;
-	//camerabody = app->physics->CreateRectangle(app->render->camera.x + width / 2, app->render->camera.x + height / 2, width, height, bodyType::KINEMATIC);
+	
 	return true;
 }
 
@@ -191,12 +187,16 @@ bool Player::Update()
 	LOG("Score: %d", score);
 
 	currentAnimation = &idleAnim;
-	// L07 DONE 5: Add physics to the player - updated player position using physics
+	
 
 	b2Vec2 vel = b2Vec2(0, grav); 
 
-	//b2Vec2 velcam = b2Vec2(0, 0);
-	//L02: DONE 4: modify the position of the player using arrow keys and render the texture
+	if (app->input->godMode == false) {
+
+		pbody->body->SetGravityScale(0.0);
+
+
+	}
 
 	if (app->input->godMode == true) {
 
@@ -219,23 +219,21 @@ bool Player::Update()
 		jump--;
 		contador = 20;
 		app->audio->PlayFx(fxJump);
-		//pbody->body->ApplyForce(b2Vec2(0, -800.0f), pbody->body->GetWorldCenter(), true);
+		
 		
 	}
 	
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && ded == false) {
 		flipType = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;
 		vel = b2Vec2(-speed, grav);
-		/*if (app->render->camera.x <= -10) {
-			velcam = b2Vec2(speed, 0);
-		}*/
+		
 		currentAnimation = &forwardAnim;
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && ded == false) {
 		flipType = SDL_RendererFlip::SDL_FLIP_NONE;
 		vel = b2Vec2(speed, grav);
-		//velcam = b2Vec2(-speed, 0);
+	
 		currentAnimation = &forwardAnim;
 	}
 
@@ -256,7 +254,7 @@ bool Player::Update()
 	//Set the velocity of the pbody of the player
 	pbody->body->SetLinearVelocity(vel);
 
-	//camerabody->body->SetLinearVelocity(velcam);
+	
 
 	//Update player position in pixels
 
@@ -308,10 +306,10 @@ bool Player::CleanUp()
 	return true;
 }
 
-// L07 DONE 6: Define OnCollision function for the player. Check the virtual function on Entity class
+
 void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 
-	// L07 DONE 7: Detect the type of collision
+	
 
  	switch (physB->ctype)
 	{
@@ -358,7 +356,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			}
 			break;
 
-		case ColliderType::FALL://el collider no l'he fet sensor per tal de veure al player morir
+		case ColliderType::FALL:
 			LOG("Collision SPIKE");
 			if (app->input->godMode == false) {
 				ded = true;

@@ -36,10 +36,9 @@ private:
 	Animation* currentAnimGem;
 	Animation GemAnim;
 
-	//DONE 4: Add a physics to an item
+	
 	PhysBody* pbody;
 
-	//List<PhysBody*> listItems;
 };
 
 #endif // __ITEMGEM_H__

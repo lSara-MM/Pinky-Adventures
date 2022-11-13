@@ -56,7 +56,7 @@ public:
 		return true;
 	}
 
-	// L03: DONE 2: Create new virtual methods to LoadState / SaveState
+	//virtual methods to LoadState / SaveState
 	virtual bool LoadState(pugi::xml_node&)
 	{
 		return true;
@@ -83,7 +83,7 @@ public:
 
 	void Module::Disable()
 	{
-		// TODO 0: Call CleanUp() for disabling a module
+		
 		if (active)
 		{
 			active = false;

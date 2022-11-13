@@ -42,7 +42,7 @@ public:
 	// Set background color
 	void SetBackgroundColor(SDL_Color color);
 
-	// L03: DONE 6: Declare Load / Save methods
+	//Load / Save methods
 	bool LoadState(pugi::xml_node&);
 	bool SaveState(pugi::xml_node&);
 
@@ -56,7 +56,7 @@ public:
 	// Rendering text
 	//SDL_Surface* ttf_surface = nullptr;
 	//SDL_Texture* ttf_texture = nullptr;
-	//TTF_Font* ttf_font = nullptr;	// de moment dona error, no se perque no es pot montar be la llibreria :/
+	//TTF_Font* ttf_font = nullptr;	// 
 };
 
 #endif // __RENDER_H__

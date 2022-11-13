@@ -40,7 +40,7 @@ bool LogoScene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool LogoScene::Start()
 {
-	// L04: DONE 7: Set the window title with map/tileset info
+
 	SString title("UPC - CITM");
 
 	app->win->SetTitle(title.GetString());
@@ -60,7 +60,7 @@ bool LogoScene::PreUpdate()
 // Called each loop iteration
 bool LogoScene::Update(float dt)
 {
-	// L03: DONE 3: Request App to Load / Save when pressing the keys F5 (save) / F6 (load)
+
 	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		app->LoadGameRequest();
 	

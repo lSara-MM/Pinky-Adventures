@@ -32,24 +32,23 @@ bool IntroScene::Awake(pugi::xml_node& config)
 	// Check https://pugixml.org/docs/quickstart.html#access
 	bgPath = config.attribute("background").as_string();
 	musicIntro = config.attribute("audioIntroPath").as_string();
-
+	p2sPath = config.attribute("p2sPath").as_string();
 	return ret;
 }
 
 // Called before the first frame
 bool IntroScene::Start()
 {
-	// L04: DONE 7: Set the window title with map/tileset info
+	
 	SString title("Pinky Adventures: width- %d, height- %d", app->win->GetWidth(), app->win->GetHeight());
 
 	app->win->SetTitle(title.GetString());
 
 	bgTexture = app->tex->Load(bgPath);
-	p2sTexture = app->tex->Load("Assets/Maps/press2start.png");
+	p2sTexture = app->tex->Load(p2sPath);
 	
 	app->audio->PlayMusic(musicIntro, 0);
-	//img = app->tex->Load("Assets/center.png");
-	//img = app->tex->Load("Assets/bggatto.jpg");
+
 	return true;
 }
 
@@ -62,7 +61,7 @@ bool IntroScene::PreUpdate()
 // Called each loop iteration
 bool IntroScene::Update(float dt)
 {
-	// L03: DONE 3: Request App to Load / Save when pressing the keys F5 (save) / F6 (load)
+	
 	int a = 3 * app->win->GetScale();
 
 	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)

@@ -5,14 +5,15 @@
 	<textures />
 	<audio />
 	<:anonymous />
+	<logoScene />
 	<introScene />
 	<scene />
 	<entitymanager>
-		<player x="443" y="262" />
+		<player x="553" y="212" />
 	</entitymanager>
 	<map />
 	<fadeToBlack />
 	<renderer>
-		<camera x="-586" y="0" />
+		<camera x="-806" y="0" />
 	</renderer>
 </save_state>

@@ -35,10 +35,8 @@ private:
 	Animation* currentAnimCoin;
 	Animation coinAnim;
 
-	//DONE 4: Add a physics to an item
 	PhysBody* pbody;
 	
-	//List<PhysBody*> listItems;
 };
 
 #endif // __ITEMCOIN_H__

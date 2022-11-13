@@ -37,7 +37,6 @@ public:
 
 public:
 
-	//L02: DONE 3: Declare a Player attribute 
 	Player* player;
 
 private:
@@ -47,6 +46,7 @@ private:
 
 	SDL_Texture* bgTexture;
 	const char* bgPath;
+	const char* p2sPath;
 
 	SDL_Texture* p2sTexture;
 	int v_start = 0;

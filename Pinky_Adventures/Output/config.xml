@@ -30,7 +30,7 @@
 	<logoScene background="Assets/Maps/logo_bg.png" audioLogoPath ="Assets/Audio/Music/music_logo.ogg"/>
 	
 	
-	<introScene background="Assets/Maps/intro_bg.png" audioIntroPath ="Assets/Audio/Music/music_intro.ogg"/>
+	<introScene background="Assets/Maps/intro_bg.png" audioIntroPath ="Assets/Audio/Music/music_intro.ogg" p2sPath ="Assets/Maps/press2start.png"/>
 	
 
 	<scene music="Assets/Audio/Music/lvl_1.ogg" musicLose="Assets/Audio/Music/the_end.ogg" 

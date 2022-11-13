@@ -39,8 +39,6 @@ bool Coin::Start() {
 
 	//initilize textures
 	texture = app->tex->Load(texturePath);
-	
-	// L07 DONE 4: Add a physics to an item - initialize the physics body
 
 	pbody = app->physics->CreateCircleSensor(position.x + 8, position.y + 8, 8, bodyType::STATIC, ID);
 	pbody->ctype = ColliderType::COIN;
@@ -52,10 +50,6 @@ bool Coin::Start() {
 
 bool Coin::Update()
 {
-	// L07 DONE 4: Add a physics to an item - update the position of the object from the physics.  
-
-	//position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - 16;
-	//position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - 16;
 
 	if (isPicked == false)
 	{
