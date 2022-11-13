@@ -193,8 +193,6 @@ bool Player::Update()
 	if (app->input->godMode == false) {
 
 		pbody->body->SetGravityScale(0.0);
-
-
 	}
 
 	if (app->input->godMode == true) {
@@ -288,12 +286,12 @@ bool Player::CleanUp()
 	height = parameters.attribute("height").as_int();
 	jump = 2;
 
-	texturePath = parameters.attribute("texturepath").as_string();
+	/*texturePath = parameters.attribute("texturepath").as_string();
 	fxCoin = parameters.attribute("audiopathCoin").as_string();
 	fxGem = parameters.attribute("audiopathGem").as_string();
 	jumpPath = parameters.attribute("audiopathJump").as_string();
 	landPath = parameters.attribute("audiopathLand").as_string();
-	secretPath = parameters.attribute("audiopathSecret").as_string();
+	secretPath = parameters.attribute("audiopathSecret").as_string();*/
 	app->tex->UnLoad(texture);
 	pbody->body->GetWorld()->DestroyBody(pbody->body);
 

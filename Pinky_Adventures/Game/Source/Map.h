@@ -140,7 +140,7 @@ public:
 
 	bool UnloadCollisions();
 
-	bool LoadSpikes(pugi::xml_node mapNode);
+	//bool LoadSpikes(pugi::xml_node mapNode);
 
 private:
 
@@ -154,8 +154,6 @@ private:
 
 
 	TileSet* GetTilesetFromTileId(int gid) const;
-
-
 	bool LoadProperties(pugi::xml_node& node, Properties& properties);
 
 
