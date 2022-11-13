@@ -65,6 +65,9 @@ bool IntroScene::Update(float dt)
 	// L03: DONE 3: Request App to Load / Save when pressing the keys F5 (save) / F6 (load)
 	int a = 3 * app->win->GetScale();
 
+	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+		app->fade->FadingToBlack(this, (Module*)app->scene, 90);
+
 	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		app->LoadGameRequest();
 

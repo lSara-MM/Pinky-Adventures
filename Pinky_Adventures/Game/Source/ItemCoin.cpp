@@ -64,11 +64,13 @@ bool Coin::Update()
 		return true;
 	}
 
-	currentAnimCoin = &coinAnim;
-	currentAnimCoin->Update();
-	SDL_Rect rect = currentAnimCoin->GetCurrentFrame();
-	app->render->DrawTexture(texture, position.x, position.y, &rect);
-
+	if ((ID <= 9 || ID >= 25) || (ID > 9 && ID < 25 && app->scene->secret == true))
+	{
+		currentAnimCoin = &coinAnim;
+		currentAnimCoin->Update();
+		SDL_Rect rect = currentAnimCoin->GetCurrentFrame();
+		app->render->DrawTexture(texture, position.x, position.y, &rect);
+	}
 	return true;
 }
 
