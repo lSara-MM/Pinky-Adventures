@@ -30,6 +30,7 @@ bool Coin::Awake() {
 	position.x = parameters.attribute("x").as_int();
 	position.y = parameters.attribute("y").as_int();
 	texturePath = parameters.attribute("texturepath").as_string();
+	ID = parameters.attribute("id").as_int();
 
 	return true;
 }
@@ -41,7 +42,7 @@ bool Coin::Start() {
 	
 	// L07 DONE 4: Add a physics to an item - initialize the physics body
 
-	pbody = app->physics->CreateCircleSensor(position.x + 8, position.y + 8, 8, bodyType::STATIC);
+	pbody = app->physics->CreateCircleSensor(position.x + 8, position.y + 8, 8, bodyType::STATIC, ID);
 	pbody->ctype = ColliderType::COIN;
 	pbody->body->SetFixedRotation(true);
 	isPicked = true;

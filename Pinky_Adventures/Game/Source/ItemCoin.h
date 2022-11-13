@@ -26,7 +26,7 @@ public:
 public:
 
 	bool isPicked;
-
+	int ID;
 private:
 
 	SDL_Texture* texture;
@@ -37,7 +37,7 @@ private:
 
 	//DONE 4: Add a physics to an item
 	PhysBody* pbody;
-
+	
 	//List<PhysBody*> listItems;
 };
 

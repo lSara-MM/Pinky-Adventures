@@ -37,7 +37,7 @@ bool Scene::Awake(pugi::xml_node& config)
 
 		Coin* item = (Coin*)app->entityManager->CreateEntity(EntityType::COIN);
 		item->parameters = itemNode;
-			listCoins.Add(item);
+		listCoins.Add(item);
 	}
 
 	gem = (Gem*)app->entityManager->CreateEntity(EntityType::GEM);

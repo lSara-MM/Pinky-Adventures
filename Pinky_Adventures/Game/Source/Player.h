@@ -4,6 +4,7 @@
 #include "Entity.h"
 #include "Point.h"
 #include "SDL/include/SDL.h"
+#include "List.h"
 
 #include "Animation.h"
 #include "ItemCoin.h"
@@ -80,6 +81,8 @@ private:
 	uint pickGemFxId;
 	const char* fxCoin;	
 	const char* fxGem;
+
+	ListItem<Coin*>* i;
 };
 
 #endif // __PLAYER_H__

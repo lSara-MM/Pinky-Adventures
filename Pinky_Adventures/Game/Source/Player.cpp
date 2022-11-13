@@ -172,6 +172,7 @@ bool Player::Start() {
 	fxDeath = app->audio->LoadFx(deathPath);
 	fxSecret = app->audio->LoadFx(secretPath);
 
+	i = app->scene->listCoins.start;
 	ded = false;
 	ani = true;
 	//camerabody = app->physics->CreateRectangle(app->render->camera.x + width / 2, app->render->camera.x + height / 2, width, height, bodyType::KINEMATIC);
@@ -272,8 +273,6 @@ bool Player::Update()
 	SDL_Rect rect = currentAnimation->GetCurrentFrame();
 
 
-	
-
 	if (ded == false) {
 
 		app->render->DrawTexture(texture, position.x, position.y, &rect, 1.0f, NULL, NULL, NULL, flipType);
@@ -321,7 +320,6 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 
  	switch (physB->ctype)
 	{
-
 		case ColliderType::COIN:
 			LOG("Collision COIN");
 			
@@ -329,12 +327,17 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 
 			score += 10;
 
+			for (app->scene->listCoins.start; app->scene->listCoins.start->next != NULL;  app->scene->listCoins.start = app->scene->listCoins.start->next)
+			{
+				if (app->scene->listCoins.start->data->ID == physB->id)
+				{
+					app->scene->listCoins.start->data->isPicked = false;
+					break;
+				}
+			}
 
-			app->scene->listCoins.start->data->isPicked = false;
-			app->scene->listCoins.start = app->scene->listCoins.start->next;
- 			//app->scene->coin->isPicked = false;	// exception
-			//app->entityManager->entities.start->data->Disable(); // apaga el modulo entero
-			break;
+			app->scene->listCoins.start = i;
+ 			break;
 
 		case ColliderType::GEM:
 			LOG("Collision GEM");
