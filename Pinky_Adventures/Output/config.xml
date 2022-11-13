@@ -135,7 +135,7 @@
 		<!--//goal-->
 
 		<!--GEM-->
-		<item2  name="gem" x="2073" y="290" texturepath="Assets/Maps/gems.png"/>
+		<item2  name="gem" x="2072" y="285" texturepath="Assets/Maps/gems.png"/>
 		
 	</scene>
 
