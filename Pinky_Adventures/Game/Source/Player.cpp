@@ -286,7 +286,7 @@ bool Player::CleanUp()
 	speed = parameters.attribute("velocity").as_int();
 	width = parameters.attribute("width").as_int();
 	height = parameters.attribute("height").as_int();
-	jump = 1;
+	jump = 2;
 
 	texturePath = parameters.attribute("texturepath").as_string();
 	fxCoin = parameters.attribute("audiopathCoin").as_string();

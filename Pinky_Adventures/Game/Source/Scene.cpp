@@ -182,6 +182,7 @@ bool Scene::PostUpdate()
 bool Scene::CleanUp()
 {
 	LOG("Freeing scene");
+
 	app->render->camera.x = 0;
 	app->render->camera.y = 0;
 
@@ -210,7 +211,7 @@ bool Scene::CleanUp()
 	listCoins.start = originList;
 
 	app->physics->Disable();
-	//app->map->CleanUp();per algun motiu no pilla algo del tileset i peta
+	//app->map->CleanUp();
 	app->map->UnloadCollisions();
 
 	return true;
