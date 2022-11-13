@@ -29,7 +29,6 @@ bool Scene::Awake(pugi::xml_node& config)
 	LOG("Loading Scene");
 	bool ret = true;
 
-
 	// iterate all objects in the scene
 	// Check https://pugixml.org/docs/quickstart.html#access
 	for (pugi::xml_node itemNode = config.child("item"); itemNode; itemNode = itemNode.next_sibling("item"))
@@ -42,12 +41,9 @@ bool Scene::Awake(pugi::xml_node& config)
 
 	gem = (Gem*)app->entityManager->CreateEntity(EntityType::GEM);
 	gem->parameters = config.child("item2");
-	//L02: DONE 3: Instantiate the player using the entity manager
+
 	player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
 	player->parameters = config.child("player");
-
-
-	//audioPath = config.child("lvl1").attribute("audioPath").as_string();
 
 	back1Path = config.attribute("background1").as_string();
 	back2Path = config.attribute("background2").as_string();
@@ -80,7 +76,7 @@ bool Scene::Start()
 
 	contadorT = 0;
 
-	// L03: DONE: Load map
+	// Load map
 	app->map->Load();
 	secret = false;
 	ghostCollider = app->physics->CreateRectangle(890, 240, 10, 16 * app->win->GetScale(), bodyType::STATIC);
@@ -95,7 +91,7 @@ bool Scene::Start()
 
 	app->win->SetTitle(title.GetString());
 	
-	// cammera 
+	// camera 
 	maxCameraPosLeft = 0;
 	maxCameraPosRigth = app->map->mapData.width * app->map->mapData.tileWidth * app->win->GetScale();
 
@@ -105,6 +101,7 @@ bool Scene::Start()
 		player->Enable();
 	}
 
+	// Background
 	BACK1 = app->tex->Load(back1Path);
 	BACK2 = app->tex->Load(back2Path);
 	BACK3 = app->tex->Load(back3Path);
@@ -112,16 +109,11 @@ bool Scene::Start()
 	button1 = app->tex->Load(but1Path);
 	button2 = app->tex->Load(but2Path);
 
-	//app->audio->PlayMusic(audioPath, 0);
-
-	app->audio->PlayMusic(musicPathBg, 0); //nose que pasa que de repent ha dixat de funcionar despues del fade to black 2
-	//passava amb el tetris, posar a 0 el fade ho arregla
-	
+	app->audio->PlayMusic(musicPathBg, 0);
 	retry = true;
 	musLose = false;
 	mute = false;
 	end = false;
-	app->input->godMode = false;	// TO CHANGE WHEN RELEASE
 	return true;
 }
 
@@ -135,22 +127,16 @@ bool Scene::PreUpdate()
 bool Scene::Update(float dt)
 {
 	Debug();
-	//app->render->DrawRectangle(bgColor, 88, 141, 190);
 
-	// parallax
+	// Background parallax
 	int maxR = -player->position.x * app->win->GetScale() + 300;
 	if (-maxR < app->scene->maxCameraPosRigth - app->render->camera.w && -maxR > app->scene->maxCameraPosLeft)
-	{
 		posx1 = maxR*0.2f;
-	}
 	if (-maxR < app->scene->maxCameraPosRigth - app->render->camera.w && -maxR > app->scene->maxCameraPosLeft)
-	{
-		posx2 = maxR*0.2f; //ajustar velocitat com es prefereixi, o posar-les diferents entre els backgrounds
-	}
+		posx2 = maxR*0.2f; 
 	if (-maxR < app->scene->maxCameraPosRigth - app->render->camera.w && -maxR > app->scene->maxCameraPosLeft)
-	{
 		posx3 = -maxR*0.2f;
-	}
+
 	app->render->DrawTexture(BACK1, posx1, -380, &bgColor,1.0f,NULL, NULL, NULL);
 	app->render->DrawTexture(BACK3, posx3, -380, &bgColor, 1.0f, NULL, NULL, NULL);
 	app->render->DrawTexture(BACK2, posx2, -380, &bgColor, 1.0f, NULL, NULL, NULL);
@@ -169,25 +155,16 @@ bool Scene::Update(float dt)
 
 	app->entityManager->Update(dt);	
 
-
-	if (player->ded == true) {
+	// Win/Lose logic
+	if (player->ded == true)
 		contadorT++;
-	}
 
 	if (player->ded == true && (player->ani == false || contadorT == 80)) 
-	{
 		Lose();
-	}
 
 	if (player->position.x > 624 && player->position.x < 895 && player->position.y > 224)
-	{
 		secret = true;
-	}
 
-	
-	//app->map->DrawPlatformCollider();
-
-	
 	if (end == true) {
 		app->audio->PauseMusic();
 		app->fade->FadingToBlack(this, (Module*)app->iScene, 90);
@@ -203,7 +180,6 @@ bool Scene::PostUpdate()
 	
 	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
-
 	
 	return ret;
 }
@@ -218,9 +194,6 @@ bool Scene::CleanUp()
 	app->audio->PauseMusic();
 	player->Disable();
 
-
-	app->render->camera.x = 0;
-	app->render->camera.y = 0;
 
 	app->audio->PauseMusic();
 	app->tex->UnLoad(BACK1);
@@ -242,7 +215,6 @@ bool Scene::CleanUp()
 	}
 	listCoins.start = originList;
 
-
 	app->physics->Disable();
 	//app->map->CleanUp();per algun motiu no pilla algo del tileset i peta
 	app->map->UnloadCollisions();
@@ -254,13 +226,12 @@ void Scene::Debug()
 {
 	int a = 3 * app->win->GetScale();
 
+	// Start again level
 	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
-	{
 		app->fade->FadingToBlack(this, (Module*)app->scene, 0);
-	}
 
 
-	// L03: DONE 3: Request App to Load / Save when pressing the keys F5 (save) / F6 (load)
+	// Load / Save - keys F5 (save) / F6 (load)
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 		app->SaveGameRequest();
 
@@ -277,20 +248,18 @@ void Scene::Debug()
 	}
 
 	// GodMode
-	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) //canvi valors per tal que siguin iguals al que demana
+	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
 		app->input->godMode = !app->input->godMode;
 
 	// Show collisions
 	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
 		app->physics->collisions = !app->physics->collisions;
 
-
 	// Mute / unmute
 	if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
 		mute = !mute;
 
-
-
+	// God mode functions
 	if (app->input->godMode == true)
 	{
 		// Free camera
@@ -312,18 +281,9 @@ void Scene::Debug()
 			int maxR = -player->position.x * app->win->GetScale() + 300;
 			app->render->camera.x = maxR;
 		}
-
-		// Borrar al final
-		if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN)
-		{
-			app->audio->PauseMusic();
-			app->fade->FadingToBlack(this, (Module*)app->iScene, 90);
-		}
-
 	}
 
 	(mute) ? app->audio->PauseMusic() : app->audio->ResumeMusic();
-
 }
 
 bool Scene::Lose()
@@ -342,13 +302,10 @@ bool Scene::Lose()
 
 	// retry
 	if (retry == true)
-	{
 		app->render->DrawTexture(button1, 32, 53);
-	}
 	else
-	{
 		app->render->DrawTexture(button2, 344, 53);
-	}
+
 	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN && retry == true)
 	{
 		app->audio->PauseMusic();

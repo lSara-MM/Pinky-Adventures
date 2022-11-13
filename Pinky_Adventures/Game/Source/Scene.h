@@ -42,22 +42,20 @@ public:
 
 public:
 
-	//L02: DONE 3: Declare a Player attribute 
 	Player* player;
 	Gem* gem;
 	List<Coin*> listCoins;
-	//ListItem<Item*>* coins;
-	int contadorT;
+	
 	int maxCameraPosLeft;
 	int maxCameraPosRigth;
-
-	bool secret; //mapa secreto activo o no
-	//active = false;
+	bool secret;
 
 	SDL_Rect bgColor;
 	int posx1, posx2, posx3;
 	bool end;
 private:
+	int contadorT;
+	
 	ListItem<Coin*>* originList;
 
 	SDL_Texture* loseTexture;
@@ -71,7 +69,6 @@ private:
 	const char* musicPathBg;
 	const char* musicLosePath;
 
-	const char* audioLosePath;
 	const char* back1Path;
 	const char* back2Path;
 	const char* back3Path;
