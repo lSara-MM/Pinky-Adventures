@@ -215,9 +215,7 @@ bool Player::Update()
 		currentAnimation = &jumpAnim;
 		jump--;
 		contador = 20;
-		app->audio->PlayFx(fxJump);
-		
-		
+		app->audio->PlayFx(fxJump);		
 	}
 	
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && ded == false) {
@@ -251,7 +249,6 @@ bool Player::Update()
 	//Set the velocity of the pbody of the player
 	pbody->body->SetLinearVelocity(vel);
 
-	
 
 	//Update player position in pixels
 
@@ -305,8 +302,6 @@ bool Player::CleanUp()
 
 
 void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
-
-	
 
  	switch (physB->ctype)
 	{

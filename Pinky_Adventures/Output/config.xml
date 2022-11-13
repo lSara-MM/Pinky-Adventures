@@ -22,15 +22,13 @@
 		<fx volume="128"/>
 	</audio>
 
-	<!-- L02: DONE: Add an element for the entity manager and add the player parameters -->
-
 	<fadeToBlack>
 	</fadeToBlack>
 
 	<logoScene background="Assets/Maps/logo_bg.png" audioLogoPath ="Assets/Audio/Music/music_logo.ogg"/>
 	
 	
-	<introScene background="Assets/Maps/intro_bg.png" audioIntroPath ="Assets/Audio/Music/music_intro.ogg" p2sPath ="Assets/Maps/press2start.png"/>
+	<introScene background="Assets/Maps/intro_bg.png" audioIntroPath ="Assets/Audio/Music/music_intro.ogg" p2sPath ="Assets/Maps/press2start.png"/>/>
 	
 
 	<scene music="Assets/Audio/Music/lvl_1.ogg" musicLose="Assets/Audio/Music/the_end.ogg" 
@@ -48,10 +46,6 @@
 				audiopathSecret ="Assets/Audio/Fx/sfx_secret.wav"
 				audiopathLoseB=""/>
 
-		<!--<scene music="Assets/Audio/Music/Lvl1.ogg">-->
-		
-		<!--height estava a 30 però no sembla que toqui el terra, amb aquest valor queda millor-->
-	
 		<!--COINS-->
 		<item  name="coin" x="208" y="272" id="1" texturepath="Assets/Maps/coin.png"/>
 		
@@ -141,7 +135,7 @@
 		<!--//goal-->
 
 		<!--GEM-->
-		<item2  name="gem" x="2073" y="292" texturepath="Assets/Maps/gems.png"/>
+		<item2  name="gem" x="2073" y="290" texturepath="Assets/Maps/gems.png"/>
 		
 	</scene>
 
@@ -150,7 +144,6 @@
 		<mapfile path="Assets/Maps/map1.tmx"/>
 
 		<map1>
-			<spikes x1="" y1="" x2=""/>
 		</map1>
 	</map>
 

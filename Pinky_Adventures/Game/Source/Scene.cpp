@@ -19,11 +19,9 @@ Scene::Scene() : Module()
 	name.Create("scene");
 }
 
-// Destructor
 Scene::~Scene()
 {}
 
-// Called before render is available
 bool Scene::Awake(pugi::xml_node& config)
 {
 	LOG("Loading Scene");
@@ -61,7 +59,6 @@ bool Scene::Awake(pugi::xml_node& config)
 	return ret;
 }
 
-// Called before the first frame
 bool Scene::Start()
 {
 	app->physics->Enable();
@@ -117,13 +114,11 @@ bool Scene::Start()
 	return true;
 }
 
-// Called each loop iteration
 bool Scene::PreUpdate()
 {
 	return true;
 }
 
-// Called each loop iteration
 bool Scene::Update(float dt)
 {
 	Debug();
@@ -173,7 +168,6 @@ bool Scene::Update(float dt)
 	return true;
 }
 
-// Called each loop iteration
 bool Scene::PostUpdate()
 {
 	bool ret = true;
