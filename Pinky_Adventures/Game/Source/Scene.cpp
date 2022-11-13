@@ -78,7 +78,7 @@ bool Scene::Start()
 	secret = false;
 	ghostCollider = app->physics->CreateRectangle(890, 240, 10, 16 * app->win->GetScale(), bodyType::STATIC);
 
-	// L04: DONE 7: Set the window title with map/tileset info
+	
 	SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d",
 		app->map->mapData.width,
 		app->map->mapData.height,
@@ -161,7 +161,7 @@ bool Scene::Update(float dt)
 		secret = true;
 
 	if (end == true) {
-		app->audio->PauseMusic();
+		//app->audio->PauseMusic();
 		app->fade->FadingToBlack(this, (Module*)app->iScene, 90);
 	}
 
@@ -189,8 +189,6 @@ bool Scene::CleanUp()
 	app->audio->PauseMusic();
 	player->Disable();
 
-
-	app->audio->PauseMusic();
 	app->tex->UnLoad(BACK1);
 	app->tex->UnLoad(BACK2);
 	app->tex->UnLoad(BACK3);
@@ -213,6 +211,8 @@ bool Scene::CleanUp()
 	app->physics->Disable();
 	//app->map->CleanUp();
 	app->map->UnloadCollisions();
+
+
 
 	return true;
 }
