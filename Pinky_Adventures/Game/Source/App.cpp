@@ -9,6 +9,7 @@
 #include "Map.h"
 #include "Physics.h"
 
+#include "LogoScene.h"
 #include "IntroScene.h"
 #include "FadeToBlack.h"
 
@@ -34,6 +35,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	entityManager = new EntityManager();
 	map = new Map();
 	
+	lScene = new LogoScene();
 	iScene = new IntroScene();
 	fade = new FadeToBlack();
 
@@ -45,12 +47,14 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(audio);
 	//L07 DONE 2: Add Physics module
 	AddModule(physics);
+
+	AddModule(lScene);
 	AddModule(iScene);
 	AddModule(scene);
+
 	AddModule(entityManager);
 	AddModule(map);
 
-	
 	AddModule(fade);
 	// Render last to swap buffer
 	AddModule(render);
@@ -117,6 +121,7 @@ bool App::Start()
 	ListItem<Module*>* item;
 	item = modules.start;
 
+	iScene->active = false;
 	scene->active = false;
 	entityManager->active = false;
 	

@@ -27,9 +27,11 @@
 	<fadeToBlack>
 	</fadeToBlack>
 
-	<introScene background="Assets/Maps/intro_bg.png" audioIntroPath ="Assets/Audio/Music/music_intro.wav"/>
-
-
+	<logoScene background="Assets/Maps/logo_bg.png" audioLogoPath ="Assets/Audio/Music/music_logo.ogg"/>
+	
+	
+	<introScene background="Assets/Maps/intro_bg.png" audioIntroPath ="Assets/Audio/Music/music_intro.ogg"/>
+	
 
 	<scene music="Assets/Audio/Music/lvl_1.ogg" musicLose="Assets/Audio/Music/the_end.ogg" 
 		   background1 ="Assets/Maps/clouds_bg.png" background2 ="Assets/Maps/clouds_mg_1.png" background3 ="Assets/Maps/clouds_mg_2.png" 

@@ -239,8 +239,6 @@ bool Player::Update()
 		currentAnimation = &forwardAnim;
 	}
 
-	
-
 	else if (ded == true) {
 		currentAnimation = &deathAnim;
 	}
@@ -264,12 +262,6 @@ bool Player::Update()
 
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - width/2;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - height/2;
-
-	//if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN) {
-	//	position.x = parameters.attribute("x").as_int();
-	//	position.y = parameters.attribute("y").as_int();
-	//	pbody->body->SetTransform(b2Vec2(parameters.attribute("x").as_float()+width/2, parameters.attribute("y").as_float()+ height / 2),pbody->body->GetAngle());
-	//}//no el posa al principi i desapareix¿?
 
 	currentAnimation->Update();
 

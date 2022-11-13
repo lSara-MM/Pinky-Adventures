@@ -4,11 +4,9 @@
 #include "Audio.h"
 #include "Render.h"
 #include "Window.h"
+
 #include "IntroScene.h"
 #include "Scene.h"
-#include "EntityManager.h"
-#include "Map.h"
-#include "Physics.h"
 #include "FadeToBlack.h"
 
 
@@ -49,7 +47,7 @@ bool IntroScene::Start()
 	bgTexture = app->tex->Load(bgPath);
 	p2sTexture = app->tex->Load("Assets/Maps/press2start.png");
 	
-	app->audio->PlayMusic(musicIntro,0);
+	app->audio->PlayMusic(musicIntro, 0);
 	//img = app->tex->Load("Assets/center.png");
 	//img = app->tex->Load("Assets/bggatto.jpg");
 	return true;
@@ -67,24 +65,31 @@ bool IntroScene::Update(float dt)
 	// L03: DONE 3: Request App to Load / Save when pressing the keys F5 (save) / F6 (load)
 	int a = 3 * app->win->GetScale();
 
+	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+		app->fade->FadingToBlack(this, (Module*)app->scene, 90);
+
 	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		app->LoadGameRequest();
 
-	if (app->input->godMode == true)
+
+	if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+		app->render->camera.y += a;
+
+	if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+		app->render->camera.y -= a;
+
+	if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+		app->render->camera.x += a;
+
+	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+		app->render->camera.x -= a;
+
+	if (app->input->GetKey(SDL_SCANCODE_C) == KEY_REPEAT)
 	{
-		if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-			app->render->camera.y += a;
-
-		if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-			app->render->camera.y -= a;
-
-		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-			app->render->camera.x += a;
-
-		if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-			app->render->camera.x -= a;
+		app->render->camera.x = 0;
+		app->render->camera.y = 0;
 	}
-	
+
 	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
 		app->fade->FadingToBlack(this, (Module*)app->scene, 90);
 

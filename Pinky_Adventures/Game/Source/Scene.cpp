@@ -120,7 +120,7 @@ bool Scene::Start()
 	musLose = false;
 	mute = false;
 	end = false;
-	app->input->godMode = true;	// TO CHANGE WHEN RELEASE
+	app->input->godMode = false;	// TO CHANGE WHEN RELEASE
 	return true;
 }
 
