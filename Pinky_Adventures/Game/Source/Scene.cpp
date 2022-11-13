@@ -119,7 +119,7 @@ bool Scene::Start()
 	retry = true;
 	musLose = false;
 	mute = false;
-
+	end = false;
 	app->input->godMode = true;	// TO CHANGE WHEN RELEASE
 	return true;
 }
@@ -181,7 +181,14 @@ bool Scene::Update(float dt)
 		secret = true;
 	}
 
-	app->map->DrawPlatformCollider();
+	
+	//app->map->DrawPlatformCollider();
+
+	
+	if (end == true) {
+		app->audio->PauseMusic();
+		app->fade->FadingToBlack(this, (Module*)app->iScene, 90);
+	}
 
 	return true;
 }
@@ -194,6 +201,7 @@ bool Scene::PostUpdate()
 	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
 
+	
 	return ret;
 }
 
