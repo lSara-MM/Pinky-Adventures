@@ -15,7 +15,7 @@ Simple platformer for the first assignment of Game Development.
  
 ## Controls
 
-###Player
+### Player
 
 * Move right -> D
 
@@ -23,7 +23,7 @@ Simple platformer for the first assignment of Game Development.
 
 * Jump -> SPACE
 
-###Menus
+### Menus
 
 * Accept -> Enter
 
@@ -31,7 +31,7 @@ Simple platformer for the first assignment of Game Development.
 
 * Move left -> A
 
-###Debug
+### Debug
 
 * Start at level 1 -> F1
 
