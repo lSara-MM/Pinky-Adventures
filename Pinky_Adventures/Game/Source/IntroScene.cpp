@@ -61,33 +61,12 @@ bool IntroScene::PreUpdate()
 // Called each loop iteration
 bool IntroScene::Update(float dt)
 {
-	
-	int a = 3 * app->win->GetScale();
 
 	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 		app->fade->FadingToBlack(this, (Module*)app->scene, 5);
 
 	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		app->LoadGameRequest();
-
-
-	if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
-		app->render->camera.y += a;
-
-	if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
-		app->render->camera.y -= a;
-
-	if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
-		app->render->camera.x += a;
-
-	if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
-		app->render->camera.x -= a;
-
-	if (app->input->GetKey(SDL_SCANCODE_C) == KEY_REPEAT)
-	{
-		app->render->camera.x = 0;
-		app->render->camera.y = 0;
-	}
 
 	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
 		app->fade->FadingToBlack(this, (Module*)app->scene, 90);
