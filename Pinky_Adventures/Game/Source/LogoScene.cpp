@@ -68,7 +68,7 @@ bool LogoScene::Update(float dt)
 		app->fade->FadingToBlack(this, (Module*)app->iScene, 90);
 
 	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
-		app->fade->FadingToBlack(this, (Module*)app->scene, 90);
+		app->fade->FadingToBlack(this, (Module*)app->scene, 5);
 
 	return true;
 }

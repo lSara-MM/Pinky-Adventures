@@ -66,7 +66,7 @@ bool IntroScene::Update(float dt)
 	int a = 3 * app->win->GetScale();
 
 	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
-		app->fade->FadingToBlack(this, (Module*)app->scene, 90);
+		app->fade->FadingToBlack(this, (Module*)app->scene, 5);
 
 	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		app->LoadGameRequest();
