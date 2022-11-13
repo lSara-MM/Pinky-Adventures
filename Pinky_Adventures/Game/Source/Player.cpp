@@ -341,7 +341,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			score += 100;
 			app->audio->PlayFx(pickGemFxId);
 			app->scene->gem->isPicked = false;
-			//app->scene->end = true;
+			app->scene->end = true;
 			break;
 
 		case ColliderType::PLATFORM:

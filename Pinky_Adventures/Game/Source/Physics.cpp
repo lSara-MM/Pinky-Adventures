@@ -72,7 +72,7 @@ bool Physics::PreUpdate()
 	return ret;
 }
 
-PhysBody* Physics::CreateRectangle(int x, int y, int width, int height, bodyType type)
+PhysBody* Physics::CreateRectangle(int x, int y, int width, int height, bodyType type, int id)
 {
 	b2BodyDef body;
 
@@ -99,10 +99,11 @@ PhysBody* Physics::CreateRectangle(int x, int y, int width, int height, bodyType
 	pbody->width = width * 0.5f;
 	pbody->height = height * 0.5f;
 
+
 	return pbody;
 }
 
-PhysBody* Physics::CreateCircle(int x, int y, int radious, bodyType type)
+PhysBody* Physics::CreateCircle(int x, int y, int radious, bodyType type, int id)
 {
 	// Create BODY at position x,y
 	b2BodyDef body;
@@ -136,11 +137,12 @@ PhysBody* Physics::CreateCircle(int x, int y, int radious, bodyType type)
 	pbody->width = radious * 0.5f;
 	pbody->height = radious * 0.5f;
 
+	pbody->id = id;
 	// Return our PhysBody class
 	return pbody;
 }
 
-PhysBody* Physics::CreateRectangleSensor(int x, int y, int width, int height, bodyType type)
+PhysBody* Physics::CreateRectangleSensor(int x, int y, int width, int height, bodyType type, int id)
 {
 	// Create BODY at position x,y
 	b2BodyDef body;
@@ -172,11 +174,12 @@ PhysBody* Physics::CreateRectangleSensor(int x, int y, int width, int height, bo
 	pbody->width = width;
 	pbody->height = height;
 
+	pbody->id = id;
 	// Return our PhysBody class
 	return pbody;
 }
 
-PhysBody* Physics::CreateCircleSensor(int x, int y, int radious, bodyType type)
+PhysBody* Physics::CreateCircleSensor(int x, int y, int radious, bodyType type, int id)
 {
 	// Create BODY at position x,y
 	b2BodyDef body;
@@ -210,11 +213,12 @@ PhysBody* Physics::CreateCircleSensor(int x, int y, int radious, bodyType type)
 	pbody->width = radious * 0.5f;
 	pbody->height = radious * 0.5f;
 
+	pbody->id = id;
 	// Return our PhysBody class
 	return pbody;
 }
 
-PhysBody* Physics::CreateChain(int x, int y, int* points, int size, bodyType type)
+PhysBody* Physics::CreateChain(int x, int y, int* points, int size, bodyType type, int id)
 {
 	// Create BODY at position x,y
 	b2BodyDef body;
@@ -252,6 +256,7 @@ PhysBody* Physics::CreateChain(int x, int y, int* points, int size, bodyType typ
 	b->SetUserData(pbody);
 	pbody->width = pbody->height = 0;
 
+	pbody->id = id;
 	// Return our PhysBody class
 	return pbody;
 }

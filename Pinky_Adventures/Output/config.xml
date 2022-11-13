@@ -51,37 +51,92 @@
 		<!--height estava a 30 però no sembla que toqui el terra, amb aquest valor queda millor-->
 	
 		<!--COINS-->
-		<item  name="coin" x="208" y="272" texturepath="Assets/Maps/coin.png"/>
+		<item  name="coin" x="208" y="272" id="1" texturepath="Assets/Maps/coin.png"/>
 		
-		<item  name="coin" x="368" y="240" texturepath="Assets/Maps/coin.png"/>
-		<item  name="coin" x="384" y="240" texturepath="Assets/Maps/coin.png"/>
-		<item  name="coin" x="400" y="240" texturepath="Assets/Maps/coin.png"/>
+		<item  name="coin" x="368" y="240" id="2" texturepath="Assets/Maps/coin.png"/>
+		<item  name="coin" x="384" y="240" id="3" texturepath="Assets/Maps/coin.png"/>
+		<item  name="coin" x="400" y="240" id="4" texturepath="Assets/Maps/coin.png"/>
 		
-		<item  name="coin" x="544" y="208" texturepath="Assets/Maps/coin.png"/>
-		<item  name="coin" x="560" y="208" texturepath="Assets/Maps/coin.png"/>
+		<item  name="coin" x="544" y="208" id="5" texturepath="Assets/Maps/coin.png"/>
+		<item  name="coin" x="560" y="208" id="6" texturepath="Assets/Maps/coin.png"/>
 		
-		<item  name="coin" x="688" y="128" texturepath="Assets/Maps/coin.png"/>
-		<item  name="coin" x="704" y="128" texturepath="Assets/Maps/coin.png"/>
+		<item  name="coin" x="688" y="128" id="7" texturepath="Assets/Maps/coin.png"/>
+		<item  name="coin" x="704" y="128" id="8" texturepath="Assets/Maps/coin.png"/>
 
-		<item  name="coin" x="800" y="128" texturepath="Assets/Maps/coin.png"/>
+		<item  name="coin" x="800" y="128" id="9" texturepath="Assets/Maps/coin.png"/>
 		
-		<item  name="coin" x="672" y="320" texturepath="Assets/Maps/coin.png"/>
-		<item  name="coin" x="688" y="320" texturepath="Assets/Maps/coin.png"/>
-		<item  name="coin" x="704" y="320" texturepath="Assets/Maps/coin.png"/>
-		<item  name="coin" x="720" y="320" texturepath="Assets/Maps/coin.png"/>
-		<item  name="coin" x="672" y="336" texturepath="Assets/Maps/coin.png"/>
-		<item  name="coin" x="688" y="336" texturepath="Assets/Maps/coin.png"/>
-		<item  name="coin" x="704" y="336" texturepath="Assets/Maps/coin.png"/>
-		<item  name="coin" x="720" y="336" texturepath="Assets/Maps/coin.png"/>
+		<!--secret-->
+		<item  name="coin" x="672" y="320" id="10" texturepath="Assets/Maps/coin.png"/>
+		<item  name="coin" x="688" y="320" id="11" texturepath="Assets/Maps/coin.png"/>
+		<item  name="coin" x="704" y="320" id="12" texturepath="Assets/Maps/coin.png"/>
+		<item  name="coin" x="720" y="320" id="13" texturepath="Assets/Maps/coin.png"/>
+		<item  name="coin" x="672" y="336" id="14" texturepath="Assets/Maps/coin.png"/>
+		<item  name="coin" x="688" y="336" id="15" texturepath="Assets/Maps/coin.png"/>
+		<item  name="coin" x="704" y="336" id="16" texturepath="Assets/Maps/coin.png"/>
+		<item  name="coin" x="720" y="336" id="17" texturepath="Assets/Maps/coin.png"/>
 
-		<item  name="coin" x="752" y="320" texturepath="Assets/Maps/coin.png"/>
-		<item  name="coin" x="768" y="320" texturepath="Assets/Maps/coin.png"/>
+		<item  name="coin" x="752" y="320" id="18" texturepath="Assets/Maps/coin.png"/>
+		<item  name="coin" x="768" y="320" id="19" texturepath="Assets/Maps/coin.png"/>
 
-		<item  name="coin" x="784" y="304" texturepath="Assets/Maps/coin.png"/>
-		<item  name="coin" x="800" y="288" texturepath="Assets/Maps/coin.png"/>
-		<item  name="coin" x="816" y="272" texturepath="Assets/Maps/coin.png"/>
-		<item  name="coin" x="832" y="256" texturepath="Assets/Maps/coin.png"/>
-		<item  name="coin" x="848" y="240" texturepath="Assets/Maps/coin.png"/>
+		<item  name="coin" x="784" y="304" id="20" texturepath="Assets/Maps/coin.png"/>
+		<item  name="coin" x="800" y="288" id="21" texturepath="Assets/Maps/coin.png"/>
+		<item  name="coin" x="816" y="272" id="22" texturepath="Assets/Maps/coin.png"/>
+		<item  name="coin" x="832" y="256" id="23" texturepath="Assets/Maps/coin.png"/>
+		<item  name="coin" x="848" y="240" id="24" texturepath="Assets/Maps/coin.png"/>
+		<!--//secret-->
+		
+		<item  name="coin" x="960" y="320" id="25" texturepath="Assets/Maps/coin.png"/>
+		<item  name="coin" x="976" y="320" id="26" texturepath="Assets/Maps/coin.png"/>
+		<item  name="coin" x="992" y="320" id="27" texturepath="Assets/Maps/coin.png"/>
+		
+		<!--3 plat-->
+		<item  name="coin" x="1072" y="288" id="28" texturepath="Assets/Maps/coin.png"/>
+		<item  name="coin" x="1088" y="288" id="29" texturepath="Assets/Maps/coin.png"/>
+
+		<item  name="coin" x="1136" y="256" id="30" texturepath="Assets/Maps/coin.png"/>
+		<item  name="coin" x="1152" y="256" id="31" texturepath="Assets/Maps/coin.png"/>
+		
+		<item  name="coin" x="1200" y="224" id="32" texturepath="Assets/Maps/coin.png"/>
+		<item  name="coin" x="1216" y="224" id="33" texturepath="Assets/Maps/coin.png"/>
+		<!--//3 plat-->
+		
+		<!--jumping wall 1-->
+		<item  name="coin" x="1424" y="224" id="34" texturepath="Assets/Maps/coin.png"/>
+		<item  name="coin" x="1456" y="192" id="35" texturepath="Assets/Maps/coin.png"/>
+		<item  name="coin" x="1424" y="160" id="36" texturepath="Assets/Maps/coin.png"/>
+		<item  name="coin" x="1456" y="112" id="37" texturepath="Assets/Maps/coin.png"/>
+		<item  name="coin" x="1424" y="80" id="38" texturepath="Assets/Maps/coin.png"/>
+		<!--//jumping wall 1-->
+
+		<item  name="coin" x="1568" y="64" id="39" texturepath="Assets/Maps/coin.png"/>
+		<item  name="coin" x="1584" y="64" id="40" texturepath="Assets/Maps/coin.png"/>
+
+		<item  name="coin" x="1728" y="144" id="41" texturepath="Assets/Maps/coin.png"/>
+		<item  name="coin" x="1744" y="144" id="42" texturepath="Assets/Maps/coin.png"/>
+		
+		<item  name="coin" x="1808" y="224" id="43" texturepath="Assets/Maps/coin.png"/>
+
+		<!--jumping wall 2-->
+		<item  name="coin" x="2016" y="272" id="44" texturepath="Assets/Maps/coin.png"/>
+		<item  name="coin" x="1984" y="224" id="45" texturepath="Assets/Maps/coin.png"/>
+		<item  name="coin" x="2016" y="192" id="46" texturepath="Assets/Maps/coin.png"/>
+		<item  name="coin" x="1984" y="160" id="47" texturepath="Assets/Maps/coin.png"/>
+		<item  name="coin" x="2016" y="128" id="48" texturepath="Assets/Maps/coin.png"/>
+		<item  name="coin" x="1984" y="96" id="49" texturepath="Assets/Maps/coin.png"/>
+		<item  name="coin" x="2016" y="64" id="50" texturepath="Assets/Maps/coin.png"/>
+		<!--//jumping wall 2-->
+
+		<!--goal-->
+		<item  name="coin" x="2064" y="272" id="50" texturepath="Assets/Maps/coin.png"/>
+		<item  name="coin" x="2080" y="272" id="51" texturepath="Assets/Maps/coin.png"/>
+		<item  name="coin" x="2096" y="272" id="52" texturepath="Assets/Maps/coin.png"/>
+
+		<item  name="coin" x="2064" y="288" id="53" texturepath="Assets/Maps/coin.png"/>
+		<item  name="coin" x="2064" y="304" id="54" texturepath="Assets/Maps/coin.png"/>
+		
+		<item  name="coin" x="2096" y="288" id="55" texturepath="Assets/Maps/coin.png"/>
+		<item  name="coin" x="2096" y="304" id="56" texturepath="Assets/Maps/coin.png"/>
+		<!--//goal-->
 
 		<!--GEM-->
 		<item2  name="gem" x="2073" y="292" texturepath="Assets/Maps/gems.png"/>

@@ -54,6 +54,7 @@ public:
 	b2Body* body;
 	Entity* listener;
 	ColliderType ctype;
+	int id;
 };
 
 // Module --------------------------------------
@@ -72,11 +73,11 @@ public:
 	bool CleanUp();
 
 	// Create basic physics objects
-	PhysBody* CreateRectangle(int x, int y, int width, int height, bodyType type);
-	PhysBody* CreateCircle(int x, int y, int radious, bodyType type);
-	PhysBody* CreateRectangleSensor(int x, int y, int width, int height, bodyType type);
-	PhysBody* CreateChain(int x, int y, int* points, int size, bodyType type);
-	PhysBody* CreateCircleSensor(int x, int y, int radious, bodyType type);
+	PhysBody* CreateRectangle(int x, int y, int width, int height, bodyType type, int id = 0);
+	PhysBody* CreateCircle(int x, int y, int radious, bodyType type, int id = 0);
+	PhysBody* CreateRectangleSensor(int x, int y, int width, int height, bodyType type, int id = 0);
+	PhysBody* CreateChain(int x, int y, int* points, int size, bodyType type, int id = 0);
+	PhysBody* CreateCircleSensor(int x, int y, int radious, bodyType type, int id = 0);
 	// b2ContactListener ---
 	void BeginContact(b2Contact* contact);
 
