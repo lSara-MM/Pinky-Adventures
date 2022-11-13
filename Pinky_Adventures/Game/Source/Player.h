@@ -59,7 +59,6 @@ private:
 
 	SDL_Texture* texture;
 	const char* texturePath;
-	const char* coinPath;
 	const char* jumpPath;
 	const char* landPath;
 	const char* deathPath;

@@ -131,7 +131,6 @@ bool Player::Awake() {
 	speed = parameters.attribute("velocity").as_int();
 	width = parameters.attribute("width").as_int();
 	height = parameters.attribute("height").as_int();
-	coinPath = parameters.attribute("audiopathCoin").as_string();
 	jumpPath= parameters.attribute("audiopathJump").as_string();
 	landPath = parameters.attribute("audiopathLand").as_string();
 	deathPath = parameters.attribute("audiopathDeath").as_string();
@@ -201,8 +200,6 @@ bool Player::Update()
 	if (app->input->godMode == true) {
 
 		pbody->body->SetGravityScale(-60.0);
-
-
 	}
 
 	if (app->input->godMode == true && app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
@@ -289,14 +286,14 @@ bool Player::CleanUp()
 {
 	position.x = parameters.attribute("x").as_int();
 	position.y = parameters.attribute("y").as_int();
-	texturePath = parameters.attribute("texturepath").as_string();
-	fxCoin = parameters.attribute("audiopathCoin").as_string();
-	fxGem = parameters.attribute("audiopathGem").as_string();
 	speed = parameters.attribute("velocity").as_int();
 	width = parameters.attribute("width").as_int();
 	height = parameters.attribute("height").as_int();
 	jump = 1;
-	coinPath = parameters.attribute("audiopathCoin").as_string();
+
+	texturePath = parameters.attribute("texturepath").as_string();
+	fxCoin = parameters.attribute("audiopathCoin").as_string();
+	fxGem = parameters.attribute("audiopathGem").as_string();
 	jumpPath = parameters.attribute("audiopathJump").as_string();
 	landPath = parameters.attribute("audiopathLand").as_string();
 	secretPath = parameters.attribute("audiopathSecret").as_string();
