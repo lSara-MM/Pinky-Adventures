@@ -100,6 +100,7 @@
     <ClCompile Include="Source\IntroScene.cpp" />
     <ClCompile Include="Source\ItemCoin.cpp" />
     <ClCompile Include="Source\ItemGem.cpp" />
+    <ClCompile Include="Source\LogoScene.cpp" />
     <ClCompile Include="Source\Main.cpp" />
     <ClCompile Include="Source\App.cpp" />
     <ClCompile Include="Source\Audio.cpp" />
@@ -118,6 +119,7 @@
     <ClInclude Include="Source\IntroScene.h" />
     <ClInclude Include="Source\ItemCoin.h" />
     <ClInclude Include="Source\ItemGem.h" />
+    <ClInclude Include="Source\LogoScene.h" />
     <ClInclude Include="Source\Map.h" />
     <ClInclude Include="Source\Physics.h" />
     <ClInclude Include="Source\Player.h" />
