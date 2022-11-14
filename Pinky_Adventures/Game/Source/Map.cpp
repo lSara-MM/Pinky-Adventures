@@ -493,8 +493,8 @@ bool Map::Load()
     c56->ctype = ColliderType::PLATFORM;
     listBodies.Add(c56);
 
-    
-
+    /*
+    {
     PhysBody* c57 = app->physics->CreateRectangle(160 + 16 / 2, 272 + 12, 16, 8, bodyType::STATIC);
     c57->ctype = ColliderType::SPIKE;
     listBodies.Add(c57);
@@ -531,6 +531,7 @@ bool Map::Load()
     PhysBody* c67 = app->physics->CreateRectangle(1504 + 528 / 2, 361 + 16 / 2, 528, 16, bodyType::STATIC);
     c67->ctype = ColliderType::SPIKE;
     listBodies.Add(c67);
+    */
     PhysBody* c68 = app->physics->CreateRectangleSensor(641 + 1 / 2, 320 + 32 / 2, 1, 32, bodyType::STATIC);
     c68->ctype = ColliderType::CHANGE;
     listBodies.Add(c68);
@@ -547,6 +548,7 @@ bool Map::Load()
     c->ctype = ColliderType::PLATFORM;
     listBodies.Add(c);
 
+    LoadSpikes(mapFileXML.child("map"));
 
     if(ret == true)
     {
@@ -719,61 +721,64 @@ Properties::Property* Properties::GetProperty(const char* name)
     return p;
 }
 
-//bool Map::LoadSpikes(pugi::xml_node mapNode)
-//{
-//    bool ret = true;
-//
-//    ListItem<MapLayer*>* mapLayerItem;
-//    mapLayerItem = mapData.maplayers.start;
-//
-//    ListItem<TileSet*>* tileset;
-//    //tileset = mapData.tilesets.Find(tileset);
-//    tileset = mapData.tilesets.start;
-//
-//    //ListItem<PhysBody*>* bodyItem;
-//    //bodyItem = listBodies.start;
-//    
-//    //pugi::xml_node layerNode = mapNode.child("layer");
-//
-//    MapLayer* mapLayer = new MapLayer();
-//    mapLayer->data = new uint[mapLayer->width * mapLayer->height];
-//    memset(mapLayer->data, 0, mapLayer->width * mapLayer->height);
-//
-//    pugi::xml_node tile;
-//    int i = 0;
-//    for (pugi::xml_node layerNode = mapNode.child("layer"); layerNode && ret; layerNode = layerNode.next_sibling("layer"))
-//    {
-//        int i = 0;
-//        for (tile = layerNode.child("data").child("tile"); tile && ret; tile = tile.next_sibling("tile"))
-//        {
-//            if (tile.attribute("gid").as_int() == 243)
-//            {
-//                // mapLayer->data[i]
-//                for (int x = 0; x < mapLayerItem->data->width; x++)
-//                {
-//                    for (int y = 0; y < mapLayerItem->data->height; y++)
-//                    {
-//                        // L05: DONE 9: Complete the draw function
-//                        int gid = mapLayerItem->data->Get(x, y);
-//
-//                        //L06: DONE 3: Obtain the tile set using GetTilesetFromTileId
-//                        TileSet* tileset = GetTilesetFromTileId(gid);
-//
-//                        SDL_Rect r = tileset->GetTileRect(gid);
-//                        iPoint pos = MapToWorld(x, y);
-//
-//                        PhysBody* spikeCollision = app->physics->CreateRectangle(pos.x, pos.y, r.w, r.h, bodyType::STATIC);
-//                        spikeCollision->ctype = ColliderType::SPIKE;
-//                        
-//                        listBodies.Add(spikeCollision);
-//                       
-//                    }
-//                }
-//                //mapLayer->data[i] = tile.attribute("gid").as_int(); 
-//            }
-//            i++;
-//        }
-//    }
-//
-//    return ret;
-//}
+bool Map::LoadSpikes(pugi::xml_node mapNode)
+{
+    bool ret = true;
+
+    {
+        //ListItem<MapLayer*>* mapLayerItem;
+        //mapLayerItem = mapData.maplayers.start;
+
+        //ListItem<TileSet*>* tileset;
+        ////tileset = mapData.tilesets.Find(tileset);
+        //tileset = mapData.tilesets.start;
+
+        ////ListItem<PhysBody*>* bodyItem;
+        ////bodyItem = listBodies.start;
+        //
+        ////pugi::xml_node layerNode = mapNode.child("layer");
+
+        //MapLayer* mapLayer = new MapLayer();
+        //mapLayer->data = new uint[mapLayer->width * mapLayer->height];
+        //memset(mapLayer->data, 0, mapLayer->width * mapLayer->height);
+
+        //pugi::xml_node tile;
+        //int i = 0;
+        //for (pugi::xml_node layerNode = mapNode.child("layer"); layerNode && ret; layerNode = layerNode.next_sibling("layer"))
+        //{
+        //    int i = 0;
+        //    for (tile = layerNode.child("data").child("tile"); tile && ret; tile = tile.next_sibling("tile"))
+        //    {
+        //        if (tile.attribute("gid").as_int() == 243)
+        //        {
+        //            // mapLayer->data[i]
+        //            for (int x = 0; x < mapLayerItem->data->width; x++)
+        //            {
+        //                for (int y = 0; y < mapLayerItem->data->height; y++)
+        //                {
+        //                    // L05: DONE 9: Complete the draw function
+        //                    //int gid = mapLayerItem->data->Get(x, y);
+
+        //                    //L06: DONE 3: Obtain the tile set using GetTilesetFromTileId
+        //                    TileSet* tileset = GetTilesetFromTileId(243);
+
+        //                    SDL_Rect r = tileset->GetTileRect(243);
+        //                    iPoint pos = MapToWorld(x, y + 16/2);
+
+        //                    PhysBody* spikeCollision = app->physics->CreateRectangle(pos.x, pos.y, r.w, r.h, bodyType::STATIC);
+        //                    spikeCollision->ctype = ColliderType::SPIKE;
+        //                    
+        //                    listBodies.Add(spikeCollision);
+        //                   
+        //                }
+        //            }
+        //            mapLayer->data[i] = tile.attribute("gid").as_int(); 
+        //        }
+        //        i++;
+        //    }
+        //}
+    }
+
+
+    return ret;
+}
