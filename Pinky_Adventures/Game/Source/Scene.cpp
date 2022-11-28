@@ -46,14 +46,8 @@ bool Scene::Awake(pugi::xml_node& config)
 	back1Path = config.attribute("background1").as_string();
 	back2Path = config.attribute("background2").as_string();
 	back3Path = config.attribute("background3").as_string();
-	losePath = config.attribute("losebackground").as_string();
-	but1Path = config.attribute("losebutton1").as_string();
-	but2Path = config.attribute("losebutton2").as_string();
-
-	// music
+	
 	musicPathBg = config.attribute("music").as_string();
-	musicLosePath = config.attribute("musicLose").as_string();
-
 	originList = listCoins.start;
 
 	return ret;
@@ -102,13 +96,9 @@ bool Scene::Start()
 	BACK1 = app->tex->Load(back1Path);
 	BACK2 = app->tex->Load(back2Path);
 	BACK3 = app->tex->Load(back3Path);
-	loseTexture = app->tex->Load(losePath);
-	button1 = app->tex->Load(but1Path);
-	button2 = app->tex->Load(but2Path);
 
 	app->audio->PlayMusic(musicPathBg, 0);
-	retry = true;
-	musLose = false;
+	
 	mute = false;
 	end = false;
 	return true;
@@ -136,8 +126,6 @@ bool Scene::Update(float dt)
 	app->render->DrawTexture(BACK3, posx3, -380, &bgColor, 1.0f, NULL, NULL, NULL);
 	app->render->DrawTexture(BACK2, posx2, -380, &bgColor, 1.0f, NULL, NULL, NULL);
 
-	
-
 	if (secret == false) {
 		app->map->Draw();
 		ghostCollider->body->SetActive(true);
@@ -155,7 +143,7 @@ bool Scene::Update(float dt)
 		contadorT++;
 
 	if (player->ded == true && (player->ani == false || contadorT == 80)) 
-		Lose();
+		app->fade->FadingToBlack(this, (Module*)app->loseScene, 90);
 
 	if (player->position.x > 624 && player->position.x < 895 && player->position.y > 224)
 		secret = true;
@@ -192,10 +180,6 @@ bool Scene::CleanUp()
 	app->tex->UnLoad(BACK1);
 	app->tex->UnLoad(BACK2);
 	app->tex->UnLoad(BACK3);
-
-	app->tex->UnLoad(loseTexture);
-	app->tex->UnLoad(button1);
-	app->tex->UnLoad(button2);
 	
 	// Reset items
 	ListItem<Entity*>* item;
@@ -211,8 +195,6 @@ bool Scene::CleanUp()
 	app->physics->Disable();
 	//app->map->CleanUp();
 	app->map->UnloadCollisions();
-
-
 
 	return true;
 }
@@ -279,43 +261,4 @@ void Scene::Debug()
 	}
 
 	(mute) ? app->audio->PauseMusic() : app->audio->ResumeMusic();
-}
-
-bool Scene::Lose()
-{
-	if (musLose == false)
-	{
-		app->audio->PauseMusic();
-		musLose = true;
-		app->audio->PlayMusic(musicLosePath, 0);
-	}
-
-	app->render->camera.x = 0;
-	app->render->camera.y = 0;
-	player->Disable();
-	app->render->DrawTexture(loseTexture, 0, 0);
-
-	// retry
-	if (retry == true)
-		app->render->DrawTexture(button1, 32, 53);
-	else
-		app->render->DrawTexture(button2, 344, 53);
-
-	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN && retry == true)
-	{
-		app->audio->PauseMusic();
-		app->fade->FadingToBlack(this, (Module*)app->scene, 90);
-	}
-	// non retry
-	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN && retry == false)
-	{
-		app->audio->PauseMusic();
-		app->fade->FadingToBlack(this, (Module*)app->iScene, 90);
-	}
-
-	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN ||
-		app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
-		retry = !retry;
-
-	return true;
 }

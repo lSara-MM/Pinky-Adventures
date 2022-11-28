@@ -11,6 +11,7 @@
 
 #include "LogoScene.h"
 #include "IntroScene.h"
+#include "LoseScene.h"
 #include "FadeToBlack.h"
 
 #include "Defs.h"
@@ -37,6 +38,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	
 	lScene = new LogoScene();
 	iScene = new IntroScene();
+	loseScene = new LoseScene();
 	fade = new FadeToBlack();
 
 	// Ordered for awake / Start / Update
@@ -51,6 +53,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(lScene);
 	AddModule(iScene);
 	AddModule(scene);
+	AddModule(loseScene);
 
 	AddModule(entityManager);
 	AddModule(map);
@@ -86,7 +89,6 @@ bool App::Awake()
 {
 	bool ret = false;
 
-	
 	ret = LoadConfig();
 
 	if (ret == true)
@@ -120,8 +122,8 @@ bool App::Start()
 
 	iScene->active = false;
 	scene->active = false;
+	loseScene->active = false;
 	entityManager->active = false;
-	
 
 	while (item != NULL && ret == true)
 	{
@@ -132,7 +134,6 @@ bool App::Start()
 		item = item->next;
 	}
 
-	
 	return ret;
 }
 
@@ -162,11 +163,9 @@ bool App::Update()
 bool App::LoadConfig()
 {
 	bool ret = false;
-
 	
 	pugi::xml_parse_result parseResult = configFile.load_file("config.xml");
 
-	
 	if (parseResult) {
 		ret = true;
 		configNode = configFile.child("config");
@@ -186,7 +185,6 @@ void App::PrepareUpdate()
 
 void App::FinishUpdate()
 {
-
 	if (loadGameRequested == true) LoadFromFile();
 	if (saveGameRequested == true) SaveToFile();
 }

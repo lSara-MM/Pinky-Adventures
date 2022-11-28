@@ -140,7 +140,7 @@ public:
 
 	bool UnloadCollisions();
 
-	bool LoadSpikes(pugi::xml_node mapNode);
+	bool LoadSpikes();
 
 private:
 

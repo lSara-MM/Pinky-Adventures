@@ -22,12 +22,13 @@ class Map;
 class Physics;
 class LogoScene;
 class IntroScene;
+class LoseScene;
 class FadeToBlack;
+
 
 class App
 {
 public:
-
 	// Constructor
 	App(int argc, char* args[]);
 
@@ -96,6 +97,7 @@ public:
 	Physics* physics;
 	LogoScene* lScene;
 	IntroScene* iScene;
+	LoseScene* loseScene;
 	FadeToBlack* fade;
 
 private:

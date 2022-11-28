@@ -38,7 +38,6 @@ public:
 	bool CleanUp();
 
 	void Debug();
-	bool Lose();
 
 public:
 
@@ -58,28 +57,18 @@ private:
 	
 	ListItem<Coin*>* originList;
 
-	SDL_Texture* loseTexture;
-	SDL_Texture* button1;
-	SDL_Texture* button2;
 	SDL_Texture* BACK1;
 	SDL_Texture* BACK2;
 	SDL_Texture* BACK3;
 
 	bool mute;
 	const char* musicPathBg;
-	const char* musicLosePath;
 
 	const char* back1Path;
 	const char* back2Path;
 	const char* back3Path;
-	const char* losePath;
-	const char* but1Path;
-	const char* but2Path;
-
+	
 	PhysBody* ghostCollider;
-
-	bool retry;
-	bool musLose;
 };
 
 #endif // __SCENE_H__

@@ -50,6 +50,7 @@
       <Filter>Modules\Core</Filter>
     </ClCompile>
     <ClCompile Include="Source\LogoScene.cpp" />
+    <ClCompile Include="Source\LoseScene.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Player.h" />
@@ -128,6 +129,7 @@
       <Filter>Modules\Core</Filter>
     </ClInclude>
     <ClInclude Include="Source\LogoScene.h" />
+    <ClInclude Include="Source\LoseScene.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Utils">

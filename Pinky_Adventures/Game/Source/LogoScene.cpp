@@ -40,9 +40,7 @@ bool LogoScene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool LogoScene::Start()
 {
-
 	SString title("UPC - CITM");
-
 	app->win->SetTitle(title.GetString());
 
 	logoTexture = app->tex->Load(logoPath);	
@@ -60,7 +58,6 @@ bool LogoScene::PreUpdate()
 // Called each loop iteration
 bool LogoScene::Update(float dt)
 {
-
 	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 		app->LoadGameRequest();
 	
