@@ -6,6 +6,7 @@
 #include "SDL/include/SDL.h"
 
 #include "Animation.h"
+#include "List.h"
 
 struct SDL_Texture;
 
@@ -23,6 +24,8 @@ public:
 	bool Update();
 
 	bool CleanUp();
+
+	void SpawnCoins();
 public:
 
 	bool isPicked;
@@ -35,8 +38,9 @@ private:
 	Animation* currentAnimCoin;
 	Animation coinAnim;
 
+	int ids[100];
 	PhysBody* pbody;
-	
+	List<PhysBody*> listCoins;
 };
 
 #endif // __ITEMCOIN_H__

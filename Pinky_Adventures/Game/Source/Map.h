@@ -5,6 +5,9 @@
 #include "List.h"
 #include "Point.h"
 
+#include "EntityManager.h"
+#include "ItemCoin.h"
+
 #include "PugiXml\src\pugixml.hpp"
 
 // L04: DONE 2: Create a struct to hold information for a TileSet
@@ -142,6 +145,7 @@ public:
 
 	bool LoadSpikes();
 
+	friend class Coin;
 private:
 
 	bool LoadMap(pugi::xml_node mapFile);
@@ -156,7 +160,6 @@ private:
 	TileSet* GetTilesetFromTileId(int gid) const;
 	bool LoadProperties(pugi::xml_node& node, Properties& properties);
 
-
 public: 
 
 	MapData mapData;
@@ -164,6 +167,7 @@ public:
 
 private:
 
+	Coin* coins;
     SString mapFileName;
 	SString mapFolder;
     bool mapLoaded;

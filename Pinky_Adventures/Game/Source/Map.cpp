@@ -65,9 +65,7 @@ void Map::Draw()
                 }
             }
         }
-
         mapLayerItem = mapLayerItem->next;
-
     }
     
 }
@@ -113,7 +111,6 @@ void Map::DrawSecret()
 }
 
 void Map::DrawPlatformCollider() {
-
 
     ListItem<MapLayer*>* mapLayerItem;
     mapLayerItem = mapData.maplayers.start;
@@ -337,6 +334,7 @@ bool Map::Load()
     
     DrawPlatformCollider();
     LoadSpikes();
+    //coins->SpawnCoins();
 
     PhysBody* c68 = app->physics->CreateRectangleSensor(641 + 1 / 2, 320 + 32 / 2, 1, 32, bodyType::STATIC);
     c68->ctype = ColliderType::CHANGE;

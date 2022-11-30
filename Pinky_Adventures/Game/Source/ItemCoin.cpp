@@ -9,6 +9,7 @@
 #include "Point.h"
 #include "Physics.h"
 
+#include "Map.h"
 #include "EntityManager.h"
 
 Coin::Coin() : Entity(EntityType::COIN)
@@ -50,7 +51,6 @@ bool Coin::Start() {
 
 bool Coin::Update()
 {
-
 	if (isPicked == false)
 	{
 		active = false;
@@ -73,4 +73,51 @@ bool Coin::CleanUp()
 	isPicked = false;
 	app->tex->UnLoad(texture);
 	return true;
+}
+
+void Coin::SpawnCoins() {
+
+	ListItem<MapLayer*>* mapLayerItem;
+	mapLayerItem = app->map->mapData.maplayers.start;
+
+	ListItem<PhysBody*>* bodyItem;
+	bodyItem = listCoins.start;
+
+	int contador = 0;
+
+	while (mapLayerItem != NULL) {
+
+		if (mapLayerItem->data->name == "coins") {
+
+			for (int x = 0; x < mapLayerItem->data->width; x++)
+			{
+				for (int y = 0; y < mapLayerItem->data->height; y++)
+				{
+
+					int gid = mapLayerItem->data->Get(x, y);
+
+					if (gid == 248)
+					{
+						TileSet* tileset = app->map->GetTilesetFromTileId(gid);
+
+						SDL_Rect r = tileset->GetTileRect(gid);
+
+						iPoint pos = app->map->MapToWorld(x, y);
+
+						PhysBody* collider;
+						
+						//ID = parameters.attribute("id").as_int();
+						collider = app->physics->CreateCircleSensor(pos.x + r.w / 2, pos.y + r.h / 2, 8, bodyType::STATIC, ID);
+						isPicked = true;
+						active = true;
+						collider->body->SetFixedRotation(true);
+						collider->ctype = ColliderType::COIN;
+
+						listCoins.Add(collider);
+					}
+				}
+			}
+		}
+		mapLayerItem = mapLayerItem->next;
+	}
 }

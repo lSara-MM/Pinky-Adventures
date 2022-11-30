@@ -39,7 +39,6 @@ bool IntroScene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool IntroScene::Start()
 {
-	
 	SString title("Pinky Adventures: width- %d, height- %d", app->win->GetWidth(), app->win->GetHeight());
 
 	app->win->SetTitle(title.GetString());
@@ -61,7 +60,6 @@ bool IntroScene::PreUpdate()
 // Called each loop iteration
 bool IntroScene::Update(float dt)
 {
-
 	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 		app->fade->FadingToBlack(this, (Module*)app->scene, 5);
 
@@ -94,7 +92,6 @@ bool IntroScene::PostUpdate()
 	
 	v_start++;
 
-	
 	return ret;
 }
 
