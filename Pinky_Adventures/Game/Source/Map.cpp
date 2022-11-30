@@ -1,6 +1,7 @@
 
 #include "App.h"
 #include "Render.h"
+#include "Window.h"
 #include "Textures.h"
 #include "Map.h"
 #include "Physics.h"
@@ -141,7 +142,7 @@ void Map::DrawPlatformCollider() {
 
                         PhysBody* collider;
 
-                        collider = app->physics->CreateRectangle(pos.x + r.w / 2, pos.y + r.h / 2, r.w, r.h, bodyType::STATIC);
+                        collider = app->physics->CreateRectangle(pos.x + r.w * 0.5 , pos.y + r.h * 0.5 , r.w, r.h, bodyType::STATIC);
 
                         collider->ctype = ColliderType::PLATFORM;
 
