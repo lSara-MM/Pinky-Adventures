@@ -94,7 +94,7 @@ bool LoseScene::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN && retry == true)
 	{
 		app->audio->PauseMusic();
-		app->fade->FadingToBlack(this, (Module*)app->scene, 90);
+		app->fade->FadingToBlack(this, (Module*)app->scene, 45);
 	}
 	// non retry
 	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN && retry == false)

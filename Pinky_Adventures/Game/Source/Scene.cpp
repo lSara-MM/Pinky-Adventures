@@ -143,7 +143,7 @@ bool Scene::Update(float dt)
 		contadorT++;
 
 	if (player->ded == true && (player->ani == false || contadorT == 80)) 
-		app->fade->FadingToBlack(this, (Module*)app->loseScene, 90);
+		app->fade->FadingToBlack(this, (Module*)app->loseScene, 45);
 
 	if (player->position.x > 624 && player->position.x < 895 && player->position.y > 224)
 		secret = true;
