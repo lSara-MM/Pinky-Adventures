@@ -27,7 +27,6 @@ public:
 	bool Update();
 
 	bool CleanUp();
-
 	
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 
@@ -75,8 +74,6 @@ private:
 	uint pickGemFxId;
 	const char* fxCoin;	
 	const char* fxGem;
-
-	ListItem<Coin*>* i;
 };
 
 #endif // __PLAYER_H__

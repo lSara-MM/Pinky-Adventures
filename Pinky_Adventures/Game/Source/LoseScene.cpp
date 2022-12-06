@@ -42,7 +42,6 @@ bool LoseScene::Awake(pugi::xml_node& config)
 // Called before the first frame
 bool LoseScene::Start()
 {
-
 	SString title("You lost");
 	app->win->SetTitle(title.GetString());
 

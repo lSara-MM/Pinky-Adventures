@@ -38,11 +38,14 @@ public:
 	bool CleanUp();
 
 	void Debug();
+	bool InitEntities();
 
 public:
 
 	Player* player;
 	Gem* gem;
+	Coin* coins;
+
 	List<Coin*> listCoins;
 	
 	int maxCameraPosLeft;
@@ -52,11 +55,11 @@ public:
 	SDL_Rect bgColor;
 	int posx1, posx2, posx3;
 	bool end;
+
+	pugi::xml_node sceneNode;
 private:
 	int contadorT;
 	
-	ListItem<Coin*>* originList;
-
 	SDL_Texture* BACK1;
 	SDL_Texture* BACK2;
 	SDL_Texture* BACK3;

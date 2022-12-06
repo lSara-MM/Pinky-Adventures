@@ -10,6 +10,7 @@
 
 #include "Physics.h"
 #include "FadeToBlack.h"
+#include "ItemCoin.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -29,26 +30,19 @@ bool Scene::Awake(pugi::xml_node& config)
 
 	// iterate all objects in the scene
 	// Check https://pugixml.org/docs/quickstart.html#access
-	for (pugi::xml_node itemNode = config.child("item"); itemNode; itemNode = itemNode.next_sibling("item"))
+	/*for (pugi::xml_node itemNode = config.child("item"); itemNode; itemNode = itemNode.next_sibling("item"))
 	{
 
 		Coin* item = (Coin*)app->entityManager->CreateEntity(EntityType::COIN);
 		item->parameters = itemNode;
 		listCoins.Add(item);
-	}
-
-	gem = (Gem*)app->entityManager->CreateEntity(EntityType::GEM);
-	gem->parameters = config.child("item2");
-
-	player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
-	player->parameters = config.child("player");
+	}*/
 
 	back1Path = config.attribute("background1").as_string();
 	back2Path = config.attribute("background2").as_string();
 	back3Path = config.attribute("background3").as_string();
 	
 	musicPathBg = config.attribute("music").as_string();
-	originList = listCoins.start;
 
 	return ret;
 }
@@ -56,8 +50,6 @@ bool Scene::Awake(pugi::xml_node& config)
 bool Scene::Start()
 {
 	app->physics->Enable();
-	app->entityManager->Start();
-
 	app->render->camera.x = 0;
 	app->render->camera.y = 0;
 
@@ -66,9 +58,14 @@ bool Scene::Start()
 	posx3 = 0;
 
 	contadorT = 0;
-
+	
 	// Load map
 	app->map->Load();
+
+	InitEntities();
+	app->entityManager->Enable();
+
+
 	secret = false;
 	ghostCollider = app->physics->CreateRectangle(890, 240, 10, 16 * app->win->GetScale(), bodyType::STATIC);
 
@@ -88,10 +85,7 @@ bool Scene::Start()
 
 	bgColor = { 0, 0, app->win->GetWidth() * app->win->GetScale() + 800,  app->win->GetHeight() };
 
-	if (player->active == false) {
-		player->Enable();
-	}
-
+	
 	// Background
 	BACK1 = app->tex->Load(back1Path);
 	BACK2 = app->tex->Load(back2Path);
@@ -136,7 +130,7 @@ bool Scene::Update(float dt)
 		ghostCollider->body->SetActive(false);
 	}
 
-	app->entityManager->Update(dt);	
+	//app->entityManager->Update(dt);	
 
 	// Win/Lose logic
 	if (player->ded == true)
@@ -176,25 +170,16 @@ bool Scene::CleanUp()
 
 	app->audio->PauseMusic();
 	player->Disable();
+	gem->Disable();
+	listCoins.Clear();
 
 	app->tex->UnLoad(BACK1);
 	app->tex->UnLoad(BACK2);
 	app->tex->UnLoad(BACK3);
 	
-	// Reset items
-	ListItem<Entity*>* item;
-	Entity* pEntity = NULL;
-
-	for (item = app->entityManager->entities.start; item != NULL; item = item->next)
-	{
-		pEntity = item->data;
-		pEntity->active = true;
-	}
-	listCoins.start = originList;
-
+	app->entityManager->Disable();
 	app->physics->Disable();
-	//app->map->CleanUp();
-	app->map->UnloadCollisions();
+	app->map->CleanUp();
 
 	return true;
 }
@@ -261,4 +246,18 @@ void Scene::Debug()
 	}
 
 	(mute) ? app->audio->PauseMusic() : app->audio->ResumeMusic();
+}
+
+bool Scene::InitEntities()
+{
+	gem = (Gem*)app->entityManager->CreateEntity(EntityType::GEM);
+	gem->parameters = sceneNode.child("item2");
+	gem->Awake();
+
+	player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
+	player->parameters = sceneNode.child("player");
+	player->Awake();
+	coins->SpawnCoins();
+
+	return true;
 }

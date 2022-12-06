@@ -38,7 +38,6 @@ private:
 	Animation* currentAnimCoin;
 	Animation coinAnim;
 
-	int ids[100];
 	PhysBody* pbody;
 	List<PhysBody*> listCoins;
 };

@@ -104,6 +104,7 @@ bool App::Awake()
 			if (item->data->active == true)
 			{
 				pugi::xml_node node = configNode.child(item->data->name.GetString());
+				if (strcmp(item->data->name.GetString(), "scene") == 0) { app->scene->sceneNode = node; }
 				ret = item->data->Awake(node);
 			}
 			item = item->next;

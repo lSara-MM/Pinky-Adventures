@@ -112,6 +112,7 @@ Player::Player() : Entity(EntityType::PLAYER)
 
 		//deathAnim.speed = 0.1f;
 	}
+	active = true;
 }
 
 Player::~Player() {
@@ -120,10 +121,9 @@ Player::~Player() {
 
 bool Player::Awake() {
 
-	
 	position.x = parameters.attribute("x").as_int();
 	position.y = parameters.attribute("y").as_int();
-	
+
 	texturePath = parameters.attribute("texturepath").as_string();
 	fxCoin = parameters.attribute("audiopathCoin").as_string();
 	fxGem = parameters.attribute("audiopathGem").as_string();
@@ -131,14 +131,14 @@ bool Player::Awake() {
 	speed = parameters.attribute("velocity").as_int();
 	width = parameters.attribute("width").as_int();
 	height = parameters.attribute("height").as_int();
-	jumpPath= parameters.attribute("audiopathJump").as_string();
+	jumpPath = parameters.attribute("audiopathJump").as_string();
 	landPath = parameters.attribute("audiopathLand").as_string();
 	deathPath = parameters.attribute("audiopathDeath").as_string();
 	secretPath = parameters.attribute("audiopathSecret").as_string();
 
 	jump = 2;
 	grav = GRAVITY_Y;
-	contador = 0;//temps salta player
+	contador = 0; //temps salta player
 	
 	score = 0;
 	return true;
@@ -146,7 +146,6 @@ bool Player::Awake() {
 
 bool Player::Start() {
 
-	
 	texture = app->tex->Load(texturePath);
 
 	pickCoinFxId = app->audio->LoadFx(fxCoin);
@@ -158,16 +157,13 @@ bool Player::Start() {
 	
 	pbody->listener = this; 
 
-	
 	pbody->ctype = ColliderType::PLAYER;
-
 	
 	fxJump = app->audio->LoadFx(jumpPath);
 	fxLand = app->audio->LoadFx(landPath);
 	fxDeath = app->audio->LoadFx(deathPath);
 	fxSecret = app->audio->LoadFx(secretPath);
 
-	i = app->scene->listCoins.start;
 	ded = false;
 	ani = true;
 	
@@ -273,7 +269,6 @@ bool Player::Update()
 		ani = false;
 	}
 
-
 	return true;
 }
 
@@ -281,17 +276,7 @@ bool Player::CleanUp()
 {
 	position.x = parameters.attribute("x").as_int();
 	position.y = parameters.attribute("y").as_int();
-	speed = parameters.attribute("velocity").as_int();
-	width = parameters.attribute("width").as_int();
-	height = parameters.attribute("height").as_int();
-	jump = 2;
 
-	/*texturePath = parameters.attribute("texturepath").as_string();
-	fxCoin = parameters.attribute("audiopathCoin").as_string();
-	fxGem = parameters.attribute("audiopathGem").as_string();
-	jumpPath = parameters.attribute("audiopathJump").as_string();
-	landPath = parameters.attribute("audiopathLand").as_string();
-	secretPath = parameters.attribute("audiopathSecret").as_string();*/
 	app->tex->UnLoad(texture);
 	pbody->body->GetWorld()->DestroyBody(pbody->body);
 
@@ -305,21 +290,21 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 	{
 		case ColliderType::COIN:
 			LOG("Collision COIN");
-			
-			app->audio->PlayFx(pickCoinFxId);
-
-			score += 10;
-
-			for (app->scene->listCoins.start; app->scene->listCoins.start->next != NULL;  app->scene->listCoins.start = app->scene->listCoins.start->next)
 			{
-				if (app->scene->listCoins.start->data->ID == physB->id)
+				app->audio->PlayFx(pickCoinFxId);
+
+				score += 10;
+				ListItem<Coin*>* i = app->scene->listCoins.start;
+
+				for (i; i->next != NULL; i = i->next)
 				{
-					app->scene->listCoins.start->data->isPicked = false;
-					break;
+					if (i->data->ID == physB->id)
+					{
+						i->data->isPicked = false;
+						break;
+					}
 				}
 			}
-
-			app->scene->listCoins.start = i;
  			break;
 
 		case ColliderType::GEM:

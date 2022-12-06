@@ -81,7 +81,6 @@ Entity* EntityManager::CreateEntity(EntityType type)
 {
 	Entity* entity = nullptr; 
 
-
 	switch (type)
 	{
 

@@ -43,7 +43,6 @@ void Map::Draw()
 
     while (mapLayerItem != NULL) {
 
-       
         if (mapLayerItem->data->properties.GetProperty("Draw") != NULL && mapLayerItem->data->properties.GetProperty("Draw")->value) {
             
             for (int x = 0; x < mapLayerItem->data->width; x++)
@@ -81,16 +80,13 @@ void Map::DrawSecret()
 
     while (mapLayerItem != NULL) {
 
-      
         if (mapLayerItem->data->properties.GetProperty("Secret") != NULL && mapLayerItem->data->properties.GetProperty("Secret")->value ) {
 
             for (int x = 0; x < mapLayerItem->data->width; x++)
             {
                 for (int y = 0; y < mapLayerItem->data->height; y++)
-                {
-                
+                {                
                     int gid = mapLayerItem->data->Get(x, y);
-
                    
                     TileSet* tileset = GetTilesetFromTileId(gid);
 
@@ -104,11 +100,8 @@ void Map::DrawSecret()
                 }
             }
         }
-
         mapLayerItem = mapLayerItem->next;
-
     }
-
 }
 
 void Map::DrawPlatformCollider() {
@@ -119,17 +112,14 @@ void Map::DrawPlatformCollider() {
     ListItem<PhysBody*>* bodyItem;
     bodyItem = listBodies.start;
 
-    int contador = 0;
-
     while (mapLayerItem != NULL) {
 
-        if (mapLayerItem->data->properties.GetProperty("Block") != NULL && mapLayerItem->data->properties.GetProperty("Block")->value) {
+        if (mapLayerItem->data->name == "collisionsTerrain") {
 
             for (int x = 0; x < mapLayerItem->data->width; x++)
             {
                 for (int y = 0; y < mapLayerItem->data->height; y++)
                 {
-
                     int gid = mapLayerItem->data->Get(x, y);
 
                     if (gid == 244)
@@ -155,9 +145,8 @@ void Map::DrawPlatformCollider() {
     }
 }
 
-bool Map::LoadSpikes()
+void Map::DrawSpikes()
 {
-    bool ret = true;
 
     ListItem<MapLayer*>* mapLayerItem;
     mapLayerItem = mapData.maplayers.start;
@@ -165,17 +154,13 @@ bool Map::LoadSpikes()
     ListItem<PhysBody*>* bodyItem;
     bodyItem = listBodies.start;
 
-    int contador = 0;
-
     while (mapLayerItem != NULL) {
-
-        if (mapLayerItem->data->properties.GetProperty("Spike") != NULL && mapLayerItem->data->properties.GetProperty("Spike")->value) {
+        if (mapLayerItem->data->name == "collisionsSpike") {
 
             for (int x = 0; x < mapLayerItem->data->width; x++)
             {
                 for (int y = 0; y < mapLayerItem->data->height; y++)
                 {
-
                     int gid = mapLayerItem->data->Get(x, y);
 
                     if (gid == 245)
@@ -199,8 +184,6 @@ bool Map::LoadSpikes()
         }
         mapLayerItem = mapLayerItem->next;
     }
-
-    return ret;
 }
 
 iPoint Map::MapToWorld(int x, int y) const
@@ -250,55 +233,20 @@ TileSet* Map::GetTilesetFromTileId(int gid) const
 bool Map::CleanUp()
 {
     LOG("Unloading map");
-
    
 	ListItem<TileSet*>* item;
 	item = mapData.tilesets.start;
 
 	while (item != NULL)
 	{
+        app->tex->UnLoad(item->data->texture);
 		RELEASE(item->data);
 		item = item->next;
 	}
-	//mapData.tilesets.Clear();
-
+	mapData.tilesets.Clear();
 
     // Remove all layers
-    ListItem<MapLayer*>* layerItem;
-    layerItem = mapData.maplayers.start;
-
-    while (layerItem != NULL)
-    {
-        RELEASE(layerItem->data);
-        layerItem = layerItem->next;
-    }
-
-
-    ListItem<PhysBody*>* bodyItem;
-    bodyItem = listBodies.start;
-
-    while (bodyItem != NULL)
-    {
-        RELEASE(bodyItem->data);
-        bodyItem = bodyItem->next;
-    }
-
-    return true;
-}
-
-bool Map::UnloadCollisions()   
-{
-    ListItem<PhysBody*>* bodyItem;
-    bodyItem = listBodies.start;
-
-    while (bodyItem != NULL)
-    {
-      
-       // bodyItem->data->body->GetWorld()->DestroyBody(bodyItem->data->body);
-        RELEASE(bodyItem->data);
-        bodyItem = bodyItem->next;
-    }
-    
+    mapData.maplayers.Clear();
     listBodies.Clear();
 
     return true;
@@ -334,8 +282,7 @@ bool Map::Load()
     }
     
     DrawPlatformCollider();
-    LoadSpikes();
-    //coins->SpawnCoins();
+    DrawSpikes();
 
     PhysBody* c68 = app->physics->CreateRectangleSensor(641 + 1 / 2, 320 + 32 / 2, 1, 32, bodyType::STATIC);
     c68->ctype = ColliderType::CHANGE;
@@ -410,7 +357,6 @@ bool Map::LoadMap(pugi::xml_node mapFile)
     return ret;
 }
 
-
 bool Map::LoadTileSet(pugi::xml_node mapFile){
 
     bool ret = true; 
@@ -419,7 +365,6 @@ bool Map::LoadTileSet(pugi::xml_node mapFile){
     for (tileset = mapFile.child("map").child("tileset"); tileset && ret; tileset = tileset.next_sibling("tileset"))
     {
         TileSet* set = new TileSet();
-
        
         set->name = tileset.attribute("name").as_string();
         set->firstgid = tileset.attribute("firstgid").as_int();
@@ -488,7 +433,6 @@ bool Map::LoadAllLayers(pugi::xml_node mapNode) {
     return ret;
 }
 
-
 bool Map::LoadProperties(pugi::xml_node& node, Properties& properties)
 {
     bool ret = false;
@@ -504,7 +448,6 @@ bool Map::LoadProperties(pugi::xml_node& node, Properties& properties)
 
     return ret;
 }
-
 
 Properties::Property* Properties::GetProperty(const char* name)
 {

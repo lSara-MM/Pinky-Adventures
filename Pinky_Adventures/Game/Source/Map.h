@@ -140,10 +140,7 @@ public:
 	iPoint MapToWorld(int x, int y) const;
 	
 	void DrawPlatformCollider();
-
-	bool UnloadCollisions();
-
-	bool LoadSpikes();
+	void DrawSpikes();
 
 	friend class Coin;
 private:
@@ -161,13 +158,10 @@ private:
 	bool LoadProperties(pugi::xml_node& node, Properties& properties);
 
 public: 
-
 	MapData mapData;
 	List<PhysBody*> listBodies;
 
 private:
-
-	Coin* coins;
     SString mapFileName;
 	SString mapFolder;
     bool mapLoaded;

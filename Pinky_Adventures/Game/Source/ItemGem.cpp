@@ -26,6 +26,8 @@ Gem::Gem() : Entity(EntityType::GEM)
 	GemAnim.PushBack({ 0, 0, 32, 32 });
 
 	GemAnim.speed = 0.1f;
+
+	active = true;
 }
 
 Gem::~Gem() {}
@@ -76,5 +78,7 @@ bool Gem::CleanUp()
 {
 	isPicked = false;
 	app->tex->UnLoad(texture);
+	pbody->body->GetWorld()->DestroyBody(pbody->body);
+
 	return true;
 }
