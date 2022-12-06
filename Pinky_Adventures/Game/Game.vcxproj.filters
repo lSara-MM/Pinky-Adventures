@@ -18,9 +18,6 @@
     <ClCompile Include="Source\Audio.cpp">
       <Filter>Modules\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Source\EntityManager.cpp">
-      <Filter>Modules\Core</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Input.cpp">
       <Filter>Modules\Core</Filter>
     </ClCompile>
@@ -51,6 +48,12 @@
     </ClCompile>
     <ClCompile Include="Source\LogoScene.cpp" />
     <ClCompile Include="Source\LoseScene.cpp" />
+    <ClCompile Include="Source\EntityManager.cpp">
+      <Filter>Modules\Entities</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Pathfinding.cpp">
+      <Filter>Modules\Entities</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Player.h" />
@@ -91,9 +94,6 @@
     <ClInclude Include="Source\Audio.h">
       <Filter>Modules\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Source\EntityManager.h">
-      <Filter>Modules\Core</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Input.h">
       <Filter>Modules\Core</Filter>
     </ClInclude>
@@ -112,9 +112,6 @@
     <ClInclude Include="Source\Window.h">
       <Filter>Modules\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Entity.h">
-      <Filter>Modules</Filter>
-    </ClInclude>
     <ClInclude Include="Source\Module.h">
       <Filter>Modules</Filter>
     </ClInclude>
@@ -130,6 +127,15 @@
     </ClInclude>
     <ClInclude Include="Source\LogoScene.h" />
     <ClInclude Include="Source\LoseScene.h" />
+    <ClInclude Include="Source\EntityManager.h">
+      <Filter>Modules\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Entity.h">
+      <Filter>Modules\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Pathfinding.h">
+      <Filter>Modules\Entities</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Utils">
@@ -146,6 +152,9 @@
     </Filter>
     <Filter Include="App\PugiXml">
       <UniqueIdentifier>{f869ed14-2d64-47b5-90d6-187a9d357b60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Entities">
+      <UniqueIdentifier>{232a7a67-5c13-49f5-b915-a198ac08296f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

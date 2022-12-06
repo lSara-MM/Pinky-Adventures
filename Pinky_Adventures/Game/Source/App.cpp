@@ -7,6 +7,7 @@
 #include "Scene.h"
 #include "EntityManager.h"
 #include "Map.h"
+#include "Pathfinding.h"
 #include "Physics.h"
 
 #include "LogoScene.h"
@@ -32,10 +33,11 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	audio = new Audio();
 	
 	physics = new Physics();
-	scene = new Scene();
+	pathfinding = new PathFinding();
 	entityManager = new EntityManager();
 	map = new Map();
 	
+	scene = new Scene();
 	lScene = new LogoScene();
 	iScene = new IntroScene();
 	loseScene = new LoseScene();
@@ -49,6 +51,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(audio);
 
 	AddModule(physics);
+	AddModule(pathfinding);
 
 	AddModule(lScene);
 	AddModule(iScene);
