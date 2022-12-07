@@ -54,6 +54,7 @@
     <ClCompile Include="Source\Pathfinding.cpp">
       <Filter>Modules\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Enemy.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Player.h" />
@@ -136,6 +137,7 @@
     <ClInclude Include="Source\Pathfinding.h">
       <Filter>Modules\Entities</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Enemy.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Utils">

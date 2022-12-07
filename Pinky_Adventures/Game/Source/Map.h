@@ -142,6 +142,8 @@ public:
 	void DrawPlatformCollider();
 	void DrawSpikes();
 
+	bool CreateWalkabilityMap(int& width, int& height, uchar** buffer) const;
+
 	friend class Coin;
 private:
 
