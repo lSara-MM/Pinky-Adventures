@@ -44,7 +44,14 @@
 			audiopathDeath ="Assets/Audio/Fx/sfx_vaporizing.wav"
 			audiopathSecret ="Assets/Audio/Fx/sfx_secret.wav"
 			audiopathLoseB=""/>
-
+		
+	<enemy x_E="100" y_E="260"
+			texturepath_E="Assets/Textures/character.png"
+			velocity_E="5" widthE="20" height_E="27"
+			audiopathJump_E ="Assets/Audio/Fx/sfx_jump.wav "
+			audiopathLand_E ="Assets/Audio/Fx/sfx_landing.wav"
+			audiopathDeath_E ="Assets/Audio/Fx/sfx_vaporizing.wav"/>
+		
 	<!--COINS-->
 	<item name="coin" texturepath="Assets/Maps/coin.png"/>
 

@@ -3,6 +3,7 @@
 
 #include "Module.h"
 #include "Player.h"
+#include "Enemy.h"
 #include "ItemCoin.h"
 #include "ItemGem.h"
 
@@ -45,6 +46,7 @@ public:
 	Player* player;
 	Gem* gem;
 	Coin* coins;
+	Enemy* enemy;
 
 	List<Coin*> listCoins;
 	

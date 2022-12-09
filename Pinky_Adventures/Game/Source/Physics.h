@@ -31,6 +31,7 @@ enum class ColliderType {
 	SPIKE,
 	CHANGE,
 	FALL,
+	ENEMY,
 	UNKNOWN
 	// ..
 };

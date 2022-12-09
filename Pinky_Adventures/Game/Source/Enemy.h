@@ -4,8 +4,11 @@
 #include "Entity.h"
 #include "Point.h"
 #include "SDL/include/SDL.h"
+#include "List.h"
 
 #include "Animation.h"
+#include "ItemCoin.h"
+#include "ItemGem.h"
 
 struct SDL_Texture;
 
@@ -24,10 +27,28 @@ public:
 	bool Update();
 
 	bool CleanUp();
+
+	void State(iPoint posPlayer, iPoint posEnemy);
+
 public:
 
-	bool isPicked;
+	// The pointer to the current player animation
+	// It will be switched depending on the player's movement direction
+	Animation* currentAnimation = nullptr;
 
+	// A set of animations
+	Animation idleAnim;
+	Animation forwardAnim;
+	Animation jumpAnim;
+	Animation deathAnim;
+
+	SDL_RendererFlip flipType;
+
+
+	int jump, speed, width, height;
+
+	bool idle;
+	bool chase;
 
 private:
 
@@ -42,10 +63,17 @@ private:
 	Animation WalkingEnemyAnim;
 	Animation FlyingEnemyAnim;
 
-	bool idle;
-	bool chase;
 
 	PhysBody* pbody;
+
+	SDL_Texture* texture;
+	const char* texturePath;
+	const char* jumpPath;
+	const char* landPath;
+	const char* deathPath;
+
+	uint fxJump;
+	uint fxLand;
 
 };
 

@@ -8,6 +8,7 @@
 #include "EntityManager.h"
 #include "Map.h"
 
+#include "Pathfinding.h"
 #include "Physics.h"
 #include "FadeToBlack.h"
 #include "ItemCoin.h"
@@ -106,7 +107,7 @@ bool Scene::PreUpdate()
 bool Scene::Update(float dt)
 {
 	Debug();
-
+	
 	// Background parallax
 	int maxR = -player->position.x * app->win->GetScale() + 300;
 	if (-maxR < app->scene->maxCameraPosRigth - app->render->camera.w && -maxR > app->scene->maxCameraPosLeft)
@@ -146,6 +147,23 @@ bool Scene::Update(float dt)
 		//app->audio->PauseMusic();
 		app->fade->FadingToBlack(this, (Module*)app->iScene, 90);
 	}
+
+
+
+
+	/*enemy->State(player->position, enemy->position);
+
+	if (enemy->chase) {
+		
+		app->pathfinding->CreatePath(enemy->position, player->position);
+
+	}
+
+	if (enemy->idle) {
+
+		app->pathfinding->ClearLastPath();
+
+	}*/
 
 	return true;
 }
@@ -258,6 +276,10 @@ bool Scene::InitEntities()
 	player->parameters = sceneNode.child("player");
 	player->Awake();
 	coins->SpawnCoins();
+
+	/*enemy = (Enemy*)app->entityManager->CreateEntity(EntityType::ENEMY);
+	enemy->parameters = sceneNode.child("enemy");
+	enemy->Awake();*/
 
 	return true;
 }

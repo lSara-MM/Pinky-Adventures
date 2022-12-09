@@ -6,6 +6,7 @@
 #include "Map.h"
 #include "Physics.h"
 
+#include "Pathfinding.h"
 #include "Defs.h"
 #include "Log.h"
 
@@ -323,9 +324,7 @@ bool Map::Load()
     {
         ret = LoadAllLayers(mapFileXML.child("map"));
     }
-    
-    DrawPlatformCollider();
-    DrawSpikes();
+  
 
     PhysBody* c68 = app->physics->CreateRectangleSensor(641 + 1 / 2, 320 + 32 / 2, 1, 32, bodyType::STATIC);
     c68->ctype = ColliderType::CHANGE;
@@ -374,6 +373,21 @@ bool Map::Load()
     if(mapFileXML) mapFileXML.reset();
 
     mapLoaded = ret;
+
+
+    DrawPlatformCollider();
+    DrawSpikes();
+
+    int w, h;
+    uchar* data = NULL;
+
+    //walkability map aquí o a start scene?
+    bool retWalkMap = CreateWalkabilityMap(w, h, &data);
+    if (retWalkMap) app->pathfinding->SetMap(w, h, data);
+
+    RELEASE_ARRAY(data);
+    //
+
 
     return ret;
 }

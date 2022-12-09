@@ -44,10 +44,15 @@
  <tileset firstgid="248" name="coin" tilewidth="16" tileheight="16" tilecount="4" columns="4">
   <image source="coin.png" trans="ff00ff" width="64" height="16"/>
  </tileset>
- <objectgroup id="5" name="Object Layer 1"/>
+ <objectgroup id="5" name="Object Layer 1">
+  <properties>
+   <property name="Navigation" type="bool" value="false"/>
+  </properties>
+ </objectgroup>
  <layer id="6" name="map1.1" width="134" height="24">
   <properties>
    <property name="Draw" type="bool" value="true"/>
+   <property name="Navigation" type="bool" value="false"/>
   </properties>
   <data>
    <tile/>
@@ -3271,6 +3276,7 @@
  <layer id="1" name="map1.2" width="134" height="24" visible="0">
   <properties>
    <property name="Draw" type="bool" value="false"/>
+   <property name="Navigation" type="bool" value="false"/>
    <property name="Secret" type="bool" value="true"/>
   </properties>
   <data>
@@ -6495,6 +6501,7 @@
  <layer id="4" name="collisionsTerrain" width="134" height="24" visible="0" opacity="0.7">
   <properties>
    <property name="Draw" type="bool" value="false"/>
+   <property name="Navigation" type="bool" value="false"/>
   </properties>
   <data>
    <tile/>
@@ -9717,7 +9724,7 @@
  </layer>
  <layer id="10" name="pathFly1" width="134" height="24" visible="0">
   <properties>
-   <property name="Navigation" type="bool" value="true"/>
+   <property name="Navigation" type="bool" value="false"/>
   </properties>
   <data>
    <tile gid="246"/>
@@ -16164,6 +16171,7 @@
  <layer id="7" name="collisionsSpike" width="134" height="24" visible="0" opacity="0.7">
   <properties>
    <property name="Draw" type="bool" value="false"/>
+   <property name="Navigation" type="bool" value="false"/>
   </properties>
   <data>
    <tile/>
@@ -19387,6 +19395,7 @@
  <layer id="9" name="coins" width="134" height="24">
   <properties>
    <property name="Draw" type="bool" value="false"/>
+   <property name="Navigation" type="bool" value="false"/>
   </properties>
   <data>
    <tile/>
