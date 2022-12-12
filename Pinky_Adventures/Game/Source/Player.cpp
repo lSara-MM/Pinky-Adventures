@@ -274,9 +274,6 @@ bool Player::Update()
 
 bool Player::CleanUp()
 {
-	position.x = parameters.attribute("x").as_int();
-	position.y = parameters.attribute("y").as_int();
-
 	app->tex->UnLoad(texture);
 	pbody->body->GetWorld()->DestroyBody(pbody->body);
 

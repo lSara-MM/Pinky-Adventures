@@ -246,7 +246,7 @@ PhysBody* Physics::CreateChain(int x, int y, int* points, int size, bodyType typ
 	b->CreateFixture(&fixture);
 
 	// Clean-up temp array
-	delete p;
+	delete[] p;
 
 	// Create our custom PhysBody class
 	PhysBody* pbody = new PhysBody();

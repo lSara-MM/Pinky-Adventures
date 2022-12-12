@@ -290,9 +290,31 @@ bool Map::CleanUp()
 	mapData.tilesets.Clear();
 
     // Remove all layers
+    ListItem<MapLayer*>* layerItem;
+    layerItem = mapData.maplayers.start;
+
+    while (layerItem != NULL)
+    {
+        RELEASE(layerItem->data);
+        layerItem = layerItem->next;
+    }
     mapData.maplayers.Clear();
+
+    ListItem<PhysBody*>* bodyItem;
+    bodyItem = listBodies.start;
+
+    while (bodyItem != NULL)
+    {
+        app->render->name;
+        //RELEASE(bodyItem->data);
+        //bodyItem->data->body->GetWorld()->DestroyBody(bodyItem->data->body);
+        app->render->active;
+        delete bodyItem->data;
+        bodyItem = bodyItem->next;
+    }
     listBodies.Clear();
 
+    app->render->active;
     return true;
 }
 
