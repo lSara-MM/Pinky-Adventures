@@ -47,8 +47,11 @@ public:
 
 	int jump, speed, width, height;
 
+	float grav;
 	bool idle;
 	bool chase;
+
+	PhysBody* pbody;
 
 private:
 
@@ -64,7 +67,7 @@ private:
 	Animation FlyingEnemyAnim;
 
 
-	PhysBody* pbody;
+	
 
 	SDL_Texture* texture;
 	const char* texturePath;

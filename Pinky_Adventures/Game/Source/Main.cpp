@@ -31,22 +31,15 @@ int main()
 	_CrtMemCheckpoint(&sNew); //take a snapshot 
 	if (_CrtMemDifference(&sDiff, &sOld, &sNew)) // if there is a difference
 	{
-		LOG(L"-----------_CrtMemDumpStatistics ---------");
+		//LOG(L"-----------_CrtMemDumpStatistics ---------");
 		_CrtMemDumpStatistics(&sDiff);
-		OutputDebugString(L"-----------_CrtMemDumpAllObjectsSince ---------");
+		//OutputDebugString(L"-----------_CrtMemDumpAllObjectsSince ---------");
 		_CrtMemDumpAllObjectsSince(&sOld);
-		OutputDebugString(L"-----------_CrtDumpMemoryLeaks ---------");
+		//OutputDebugString(L"-----------_CrtDumpMemoryLeaks ---------");
 		_CrtDumpMemoryLeaks();
 	}
 	return 0;
 }
-
-
-
-
-
-
-
 
 
 enum MainState

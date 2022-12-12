@@ -149,21 +149,31 @@ bool Scene::Update(float dt)
 	}
 
 
+	iPoint position_P;
+	position_P.x= METERS_TO_PIXELS(player->pbody->body->GetTransform().p.x) - player->width / 2;
+	position_P.y = METERS_TO_PIXELS(player->pbody->body->GetTransform().p.y) - player->height / 2;
 
 
-	/*enemy->State(player->position, enemy->position);
+	
+	iPoint position_E;
+	position_E.x = METERS_TO_PIXELS(enemy->pbody->body->GetTransform().p.x) - player->width / 2;
+	position_E.y = METERS_TO_PIXELS(enemy->pbody->body->GetTransform().p.y) - player->height / 2;
+
+	enemy->State(position_P, position_E);
+
 
 	if (enemy->chase) {
 		
-		app->pathfinding->CreatePath(enemy->position, player->position);
+		app->pathfinding->CreatePath(position_E, position_P);
 
 	}
+
 
 	if (enemy->idle) {
 
 		app->pathfinding->ClearLastPath();
 
-	}*/
+	}
 
 	return true;
 }
@@ -275,11 +285,14 @@ bool Scene::InitEntities()
 	player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
 	player->parameters = sceneNode.child("player");
 	player->Awake();
-	coins->SpawnCoins();
 
-	/*enemy = (Enemy*)app->entityManager->CreateEntity(EntityType::ENEMY);
+	
+
+	enemy = (Enemy*)app->entityManager->CreateEntity(EntityType::ENEMY);
 	enemy->parameters = sceneNode.child("enemy");
-	enemy->Awake();*/
+	enemy->Awake();
+
+	coins->SpawnCoins();
 
 	return true;
 }

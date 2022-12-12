@@ -90,7 +90,6 @@ bool Enemy::Start() {
 	pbody = app->physics->CreateRectangle(position.x + width / 2, position.y + height / 2, width, height, bodyType::DYNAMIC);
 	pbody->body->SetFixedRotation(true);
 
-	pbody->listener = this;
 
 	pbody->ctype = ColliderType::ENEMY;
 
@@ -102,14 +101,29 @@ bool Enemy::Start() {
 	chase = false;
 
 	
-
 	return true;
 }
 
 bool Enemy::Update()
 {
 
+	currentAnimation = &idleAnim;
+	b2Vec2 vel = b2Vec2(0, grav);
 
+	//Set the velocity of the pbody of the player
+	pbody->body->SetLinearVelocity(vel);
+
+
+	//Update player position in pixels
+
+	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - width / 2;
+	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - height / 2;
+
+	currentAnimation->Update();
+
+	SDL_Rect rect = currentAnimation->GetCurrentFrame();
+
+	app->render->DrawTexture(texture, position.x, position.y, &rect, 1.0f, NULL, NULL, NULL, flipType);
 	
 	return true;
 }
@@ -117,7 +131,7 @@ bool Enemy::Update()
 bool Enemy::CleanUp()
 {
 	
-	//pbody->body->GetWorld()->DestroyBody(pbody->body);
+	pbody->body->GetWorld()->DestroyBody(pbody->body);
 
 	return true;
 }
