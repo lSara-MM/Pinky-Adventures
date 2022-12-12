@@ -61,7 +61,19 @@ bool Scene::Start()
 	contadorT = 0;
 	
 	// Load map
-	app->map->Load();
+	bool retLoad = app->map->Load();
+
+	//walkability només de walking enemy per ara
+	if (retLoad) {
+		int w, h;
+		uchar* data = NULL;
+
+		bool retWalkMap = app->map->CreateWalkabilityMap(w, h, &data);
+		if (retWalkMap) app->pathfinding->SetMap(w, h, data);
+
+		RELEASE_ARRAY(data);
+
+	}
 
 	InitEntities();
 	app->entityManager->Enable();
@@ -149,6 +161,8 @@ bool Scene::Update(float dt)
 	}
 
 
+	//intent de pathfinding
+
 	iPoint position_P;
 	position_P.x = player->pbody->body->GetTransform().p.x;
 	position_P.y = player->pbody->body->GetTransform().p.y;
@@ -167,6 +181,14 @@ bool Scene::Update(float dt)
 		
 		app->pathfinding->CreatePath(position_E, position_P);
 
+		const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
+		for (uint i = 0; i < path->Count(); ++i)
+		{
+			iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+
+			enemy->pbody->body->SetTransform(b2Vec2{ PIXEL_TO_METERS(pos.x),PIXEL_TO_METERS(pos.y) }, 0);
+		}
+
 	}
 
 
@@ -175,6 +197,8 @@ bool Scene::Update(float dt)
 		app->pathfinding->ClearLastPath();
 
 	}
+
+
 
 	return true;
 }
