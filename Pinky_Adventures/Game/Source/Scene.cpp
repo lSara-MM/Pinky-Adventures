@@ -150,14 +150,15 @@ bool Scene::Update(float dt)
 
 
 	iPoint position_P;
-	position_P.x= METERS_TO_PIXELS(player->pbody->body->GetTransform().p.x) - player->width / 2;
-	position_P.y = METERS_TO_PIXELS(player->pbody->body->GetTransform().p.y) - player->height / 2;
+	position_P.x = player->pbody->body->GetTransform().p.x;
+	position_P.y = player->pbody->body->GetTransform().p.y;
 
 
 	
 	iPoint position_E;
-	position_E.x = METERS_TO_PIXELS(enemy->pbody->body->GetTransform().p.x) - player->width / 2;
-	position_E.y = METERS_TO_PIXELS(enemy->pbody->body->GetTransform().p.y) - player->height / 2;
+	position_E.x = enemy->pbody->body->GetTransform().p.x;
+	position_E.y = enemy->pbody->body->GetTransform().p.y;
+
 
 	enemy->State(position_P, position_E);
 
