@@ -54,21 +54,17 @@ public:
 	int score;
 
 private:
-
-
 	SDL_Texture* texture;
 	const char* texturePath;
 	const char* jumpPath;
 	const char* landPath;
 	const char* deathPath;
 	const char* secretPath;
-
 	
 	uint fxJump;
 	uint fxLand;
 	
 	uint fxSecret;
-
 
 	uint pickCoinFxId;
 	uint pickGemFxId;

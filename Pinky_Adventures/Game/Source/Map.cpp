@@ -132,20 +132,29 @@ void Map::DrawSecret()
                 {                
                     int gid = mapLayerItem->data->Get(x, y);
                    
-                    TileSet* tileset = GetTilesetFromTileId(gid);
+                    if (gid == 248 && a == false)
+                    {
+                        coins->CreateCoins(gid, x, y);
+                    }
+                    else if (gid != 248)
+                    {
+                        TileSet* tileset = GetTilesetFromTileId(gid);
 
-                    SDL_Rect r = tileset->GetTileRect(gid);
-                    iPoint pos = MapToWorld(x, y);
+                        SDL_Rect r = tileset->GetTileRect(gid);
+                        iPoint pos = MapToWorld(x, y);
 
-                    app->render->DrawTexture(tileset->texture,
-                        pos.x,
-                        pos.y,
-                        &r);
+                        app->render->DrawTexture(tileset->texture,
+                            pos.x,
+                            pos.y,
+                            &r);
+                    }
+                    
                 }
             }
         }
         mapLayerItem = mapLayerItem->next;
     }
+    a = true;
 }
 
 void Map::DrawPlatformCollider() {
@@ -191,7 +200,6 @@ void Map::DrawPlatformCollider() {
 
 void Map::DrawSpikes()
 {
-
     ListItem<MapLayer*>* mapLayerItem;
     mapLayerItem = mapData.maplayers.start;
 
@@ -277,17 +285,18 @@ TileSet* Map::GetTilesetFromTileId(int gid) const
 bool Map::CleanUp()
 {
     LOG("Unloading map");
-   
-	ListItem<TileSet*>* item;
-	item = mapData.tilesets.start;
+    a = false;
 
-	while (item != NULL)
-	{
+    ListItem<TileSet*>* item;
+    item = mapData.tilesets.start;
+
+    while (item != NULL)
+    {
         app->tex->UnLoad(item->data->texture);
-		RELEASE(item->data);
-		item = item->next;
-	}
-	mapData.tilesets.Clear();
+        RELEASE(item->data);
+        item = item->next;
+    }
+    mapData.tilesets.Clear();
 
     // Remove all layers
     ListItem<MapLayer*>* layerItem;
@@ -463,7 +472,6 @@ bool Map::LoadTileSet(pugi::xml_node mapFile){
 
     return ret;
 }
-
 
 bool Map::LoadLayer(pugi::xml_node& node, MapLayer* layer)
 {

@@ -50,6 +50,8 @@ bool Scene::Awake(pugi::xml_node& config)
 
 bool Scene::Start()
 {
+	coinIDset = 1;
+
 	app->physics->Enable();
 	app->render->camera.x = 0;
 	app->render->camera.y = 0;
@@ -77,7 +79,6 @@ bool Scene::Start()
 
 	InitEntities();
 	app->entityManager->Enable();
-
 
 	secret = false;
 	ghostCollider = app->physics->CreateRectangle(890, 240, 10, 16 * app->win->GetScale(), bodyType::STATIC);
@@ -274,9 +275,9 @@ bool Scene::InitEntities()
 
 	
 
-	enemy = (Enemy*)app->entityManager->CreateEntity(EntityType::ENEMY);
-	enemy->parameters = sceneNode.child("enemy");
-	enemy->Awake();
+	//enemy = (Enemy*)app->entityManager->CreateEntity(EntityType::ENEMY);
+	//enemy->parameters = sceneNode.child("enemy");
+	//enemy->Awake();
 
 	coins->SpawnCoins();
 

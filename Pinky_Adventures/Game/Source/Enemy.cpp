@@ -19,7 +19,7 @@
 
 Enemy::Enemy() : Entity(EntityType::ENEMY)
 {
-	name.Create("Enemy");
+	name.Create("enemy");
 
 
 	idleAnim.PushBack({ 8, 39, 17, 28 });
@@ -81,6 +81,7 @@ bool Enemy::Awake() {
 	landPath = parameters.attribute("audiopathLand_E").as_string();
 	deathPath = parameters.attribute("audiopathDeath_E").as_string();
 
+	grav = GRAVITY_Y;
 	return true;
 }
 
@@ -91,23 +92,19 @@ bool Enemy::Start() {
 	pbody = app->physics->CreateRectangle(position.x + width / 2, position.y + height / 2, width, height, bodyType::DYNAMIC);
 	pbody->body->SetFixedRotation(true);
 
-
 	pbody->ctype = ColliderType::ENEMY;
 
 	fxJump = app->audio->LoadFx(jumpPath);
 	fxLand = app->audio->LoadFx(landPath);
 
 	idle = true;
-
 	chase = false;
-
 	
 	return true;
 }
 
 bool Enemy::Update()
 {
-
 	currentAnimation = &idleAnim;
 	b2Vec2 vel = b2Vec2(0, grav);
 
@@ -126,13 +123,14 @@ bool Enemy::Update()
 	position_E.x = pbody->body->GetTransform().p.x;
 	position_E.y = pbody->body->GetTransform().p.y;
 
-
 	State(position_P, position_E);
 
+	
 
 	if (chase) {
 
 		app->pathfinding->CreatePath(position_E, position_P);
+		
 
 		const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
 
@@ -199,7 +197,8 @@ bool Enemy::CleanUp()
 
 void Enemy::State(iPoint posPlayer, iPoint posEnemy)
 {
-
+	a++;
+	LOG("num ene: %d", a);
 	if (posPlayer.DistanceTo(posEnemy) <= 20) {
 
 		idle = false;

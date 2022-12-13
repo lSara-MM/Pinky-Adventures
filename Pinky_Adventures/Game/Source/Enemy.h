@@ -53,6 +53,8 @@ public:
 
 	PhysBody* pbody;
 
+	int a = 0;
+
 private:
 
 	SDL_Texture* textureWalkingEnemy;

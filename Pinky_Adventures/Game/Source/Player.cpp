@@ -291,11 +291,11 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 				score += 10;
 				ListItem<Coin*>* i = app->scene->listCoins.start;
 
-				for (i; i->next != NULL; i = i->next)
+				for (i; i != NULL; i = i->next)
 				{
 					if (i->data->ID == physB->id)
 					{
-						i->data->isPicked = false;
+ 						i->data->isPicked = false;
 						break;
 					}
 				}

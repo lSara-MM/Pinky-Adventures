@@ -167,6 +167,8 @@ private:
     SString mapFileName;
 	SString mapFolder;
     bool mapLoaded;
+	Coin* coins;
+	bool a = false;
 };
 
 #endif // __MAP_H__

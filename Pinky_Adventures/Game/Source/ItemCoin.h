@@ -26,6 +26,7 @@ public:
 	bool CleanUp();
 
 	void SpawnCoins();
+	void CreateCoins(int gid_, int x_, int y_);
 public:
 
 	bool isPicked;
