@@ -161,69 +161,6 @@ bool Scene::Update(float dt)
 	}
 
 
-	//intent de pathfinding
-
-	iPoint position_P;
-	position_P.x = player->pbody->body->GetTransform().p.x;
-	position_P.y = player->pbody->body->GetTransform().p.y;
-
-
-	
-	iPoint position_E;
-	position_E.x = enemy->pbody->body->GetTransform().p.x;
-	position_E.y = enemy->pbody->body->GetTransform().p.y;
-
-
-	enemy->State(position_P, position_E);
-
-	
-	if (enemy->chase) {
-		
-		app->pathfinding->CreatePath(position_E, position_P);
-
-		const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
-
-		for (uint i = 0; i < path->Count(); ++i)
-		{
-			iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
-
-			//enemy->pbody->body->SetTransform(b2Vec2{ PIXEL_TO_METERS(pos.x),PIXEL_TO_METERS(pos.y) }, 0); faria tps
-
-			if (pos.x < position_E.x) {
-				enemy->flipType = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;
-				//enemy->vel = b2Vec2(-enemy->speed, GRAVITY_Y);
-
-				enemy->currentAnimation = &enemy->forwardAnim;
-			}
-
-			if (pos.x > position_E.x) {
-
-				//enemy->vel = b2Vec2(enemy->speed, GRAVITY_Y);
-				enemy->currentAnimation = &enemy->forwardAnim;
-
-			}
-
-			if (pos.y > position_E.y) {
-
-				enemy->currentAnimation = &enemy->jumpAnim;
-
-				enemy->pbody->body->ApplyForceToCenter(b2Vec2{ 0,10 }, 1);
-
-			}
-		}
-
-	}
-
-
-	if (enemy->idle) {
-
-		enemy->currentAnimation = &enemy->idleAnim;
-		app->pathfinding->ClearLastPath();
-
-	}
-
-
-
 	return true;
 }
 

@@ -9,6 +9,7 @@
 #include "Point.h"
 #include "Physics.h"
 #include "Window.h"
+#include "Pathfinding.h"
 
 #include "FadeToBlack.h"
 #include "Map.h"
@@ -113,6 +114,66 @@ bool Enemy::Update()
 	//Set the velocity of the pbody of the player
 	pbody->body->SetLinearVelocity(vel);
 
+	//intent de pathfinding
+
+	iPoint position_P;
+	position_P.x = app->scene->player->pbody->body->GetTransform().p.x;
+	position_P.y = app->scene->player->pbody->body->GetTransform().p.y;
+
+
+
+	iPoint position_E;
+	position_E.x = pbody->body->GetTransform().p.x;
+	position_E.y = pbody->body->GetTransform().p.y;
+
+
+	State(position_P, position_E);
+
+
+	if (chase) {
+
+		app->pathfinding->CreatePath(position_E, position_P);
+
+		const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
+
+		for (uint i = 0; i < path->Count(); ++i)
+		{
+			iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
+
+			//enemy->pbody->body->SetTransform(b2Vec2{ PIXEL_TO_METERS(pos.x),PIXEL_TO_METERS(pos.y) }, 0); faria tps
+
+			if (pos.x < position_E.x) {
+				flipType = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;
+				vel = b2Vec2(speed, GRAVITY_Y);
+
+				currentAnimation = &forwardAnim;
+			}
+
+			if (pos.x > position_E.x) {
+
+				vel = b2Vec2(speed, GRAVITY_Y);
+				currentAnimation = &forwardAnim;
+
+			}
+
+			if (pos.y > position_E.y) {
+
+				currentAnimation = &jumpAnim;
+
+				pbody->body->ApplyForceToCenter(b2Vec2{ 0,10 }, 1);
+
+			}
+		}
+
+	}
+
+
+	if (idle) {
+
+		currentAnimation = &idleAnim;
+		app->pathfinding->ClearLastPath();
+
+	}
 
 	//Update player position in pixels
 
