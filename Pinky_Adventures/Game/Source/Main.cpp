@@ -12,36 +12,6 @@
 
 #include <stdlib.h>
 
-
-#include "windows.h"
-#define _CRTDBG_MAP_ALLOC //to get more details
-#include <stdlib.h>  
-#include <crtdbg.h>   //for malloc and free
-int main()
-{
-	_CrtMemState sOld;
-	_CrtMemState sNew;
-	_CrtMemState sDiff;
-	_CrtMemCheckpoint(&sOld); //take a snapshot
-	char* s = new char[17];
-	strcpy_s(s, 17, "stackoverflow_pb");
-	char* ss = new char[14];
-	strcpy_s(ss, 14, "stackoverflow");
-	delete[] ss;
-	_CrtMemCheckpoint(&sNew); //take a snapshot 
-	if (_CrtMemDifference(&sDiff, &sOld, &sNew)) // if there is a difference
-	{
-		//LOG(L"-----------_CrtMemDumpStatistics ---------");
-		_CrtMemDumpStatistics(&sDiff);
-		//OutputDebugString(L"-----------_CrtMemDumpAllObjectsSince ---------");
-		_CrtMemDumpAllObjectsSince(&sOld);
-		//OutputDebugString(L"-----------_CrtDumpMemoryLeaks ---------");
-		_CrtDumpMemoryLeaks();
-	}
-	return 0;
-}
-
-
 enum MainState
 {
 	CREATE = 1,
@@ -139,5 +109,6 @@ int main(int argc, char* args[])
 	LOG("... Bye! :)\n");
 	delete app;
 	// Dump memory leaks
+
 	return result;
 }

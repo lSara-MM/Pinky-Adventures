@@ -179,8 +179,6 @@ bool Player::Update()
 		app->render->camera.x = maxR;
 	}
 
-	LOG("Score: %d", score);
-
 	currentAnimation = &idleAnim;
 	
 
@@ -313,7 +311,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			break;
 
 		case ColliderType::PLATFORM:
-			LOG("Collision PLATFORM");
+			//LOG("Collision PLATFORM");
 			if (jump == 0) {
 				jump += 2;
 			}
@@ -329,7 +327,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			break;
 
 		case ColliderType::FALL:
-			LOG("Collision SPIKE");
+			LOG("Collision FALL");
 			if (app->input->godMode == false) {
 				ded = true;
 				app->audio->PlayFx(fxDeath);
