@@ -46,7 +46,7 @@
 			audiopathSecret ="Assets/Audio/Fx/sfx_secret.wav"
 			audiopathLoseB=""/>
 		
-	<enemy x_E="100" y_E="260"
+	<enemy x_E="400" y_E="260"
 			texturepath_E="Assets/Textures/character.png"
 			velocity_E="2" width_E="20" height_E="27"
 			audiopathJump_E ="Assets/Audio/Fx/sfx_jump.wav "

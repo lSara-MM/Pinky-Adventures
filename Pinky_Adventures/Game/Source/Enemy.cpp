@@ -121,8 +121,8 @@ bool Enemy::Update()
 	position_E.y = pbody->body->GetTransform().p.y;
 	*/
 	
-	iPoint position_P = app->map->WorldToMap(app->scene->player->pbody->body->GetPosition().x, app->scene->player->pbody->body->GetPosition().y);
-	iPoint position_E = app->map->WorldToMap(pbody->body->GetPosition().x, pbody->body->GetPosition().y);
+	iPoint position_P = app->map->WorldToMap(METERS_TO_PIXELS(app->scene->player->pbody->body->GetPosition().x), METERS_TO_PIXELS(app->scene->player->pbody->body->GetPosition().y));
+	iPoint position_E = app->map->WorldToMap(METERS_TO_PIXELS(pbody->body->GetPosition().x), METERS_TO_PIXELS(pbody->body->GetPosition().y));
 
 	State(position_P, position_E);
 
@@ -137,7 +137,6 @@ bool Enemy::Update()
 			TileSet * tileset = app->map->GetTilesetFromTileId(enGID);
 			SDL_Rect r = tileset->GetTileRect(enGID);
 			app->render->DrawTexture(tileset->texture, pos.x, pos.y, &r);
-			//enemy->pbody->body->SetTransform(b2Vec2{ PIXEL_TO_METERS(pos.x),PIXEL_TO_METERS(pos.y) }, 0); faria tps
 
 			if (pos.x < position_E.x) {
 				flipType = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;

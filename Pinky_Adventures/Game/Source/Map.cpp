@@ -286,12 +286,16 @@ iPoint Map::WorldToMap(int x, int y)
 {
     iPoint ret(0, 0);
 
-    if (mapData.type == MAPTYPE_ORTHOGONAL)
+    ret.x = x / mapData.tileWidth;
+
+    ret.y = y / mapData.tileHeight;
+
+ /*  if (mapData.type == MAPTYPE_ORTHOGONAL)
     {
         ret.x = x / mapData.tileWidth;
         ret.y = y / mapData.tileHeight;
     }
-    else if (mapData.type == MAPTYPE_ISOMETRIC)
+   else if (mapData.type == MAPTYPE_ISOMETRIC)
     {
         float halfWidth = mapData.tileWidth * 0.5f;
         float halfHeight = mapData.tileHeight * 0.5f;
@@ -302,7 +306,7 @@ iPoint Map::WorldToMap(int x, int y)
     {
         LOG("Unknown map type");
         ret.x = x; ret.y = y;
-    }
+    }*/
 
     return ret;
 }
