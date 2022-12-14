@@ -273,11 +273,9 @@ bool Scene::InitEntities()
 	player->parameters = sceneNode.child("player");
 	player->Awake();
 
-	
-
-	//enemy = (Enemy*)app->entityManager->CreateEntity(EntityType::ENEMY);
-	//enemy->parameters = sceneNode.child("enemy");
-	//enemy->Awake();
+	enemy = (Enemy*)app->entityManager->CreateEntity(EntityType::ENEMY);
+	enemy->parameters = sceneNode.child("enemy");
+	enemy->Awake();
 
 	coins->SpawnCoins();
 
