@@ -51,7 +51,9 @@ public:
 	bool chase;
 
 	PhysBody* pbody;
-
+	
+	iPoint pos_Player;
+	iPoint pos_Enemy;
 	int a = 0;
 
 private:

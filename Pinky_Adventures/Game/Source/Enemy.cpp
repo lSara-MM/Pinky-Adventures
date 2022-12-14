@@ -84,7 +84,7 @@ bool Enemy::Awake() {
 }
 
 bool Enemy::Start() {
-
+	
 	texture = app->tex->Load(texturePath);
 	//enemyPath = app->tex->Load();
 	pbody = app->physics->CreateRectangle(position.x + width / 2, position.y + height / 2, width, height, bodyType::DYNAMIC);
@@ -120,15 +120,18 @@ bool Enemy::Update()
 	position_E.x = pbody->body->GetTransform().p.x;
 	position_E.y = pbody->body->GetTransform().p.y;
 	*/
-	
+	/*
 	iPoint position_P = app->map->WorldToMap(METERS_TO_PIXELS(app->scene->player->pbody->body->GetPosition().x), METERS_TO_PIXELS(app->scene->player->pbody->body->GetPosition().y));
-	iPoint position_E = app->map->WorldToMap(METERS_TO_PIXELS(pbody->body->GetPosition().x), METERS_TO_PIXELS(pbody->body->GetPosition().y));
+	iPoint position_E = app->map->WorldToMap(METERS_TO_PIXELS(pbody->body->GetPosition().x), METERS_TO_PIXELS(pbody->body->GetPosition().y));*/
 
-	State(position_P, position_E);
+	pos_Enemy = app->map->WorldToMap(METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - width / 2, METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - height / 2);
+	pos_Player = app->map->WorldToMap(app->scene->player->position.x, app->scene->player->position.y);
+
+	State(pos_Player, pos_Enemy);
 
 	if (chase) {
 
-		app->pathfinding->CreatePath(position_E, position_P);
+		app->pathfinding->CreatePath(pos_Enemy, pos_Player);
 		const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
 
 		for (uint i = 0; i < path->Count(); ++i)
@@ -138,14 +141,14 @@ bool Enemy::Update()
 			SDL_Rect r = tileset->GetTileRect(enGID);
 			app->render->DrawTexture(tileset->texture, pos.x, pos.y, &r);
 
-			if (pos.x < position_E.x) {
+			if (pos.x > pos_Enemy.x) {
 				flipType = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;
 				vel = b2Vec2(-speed, GRAVITY_Y);
 
 				currentAnimation = &forwardAnim;
 			}
 
-			if (pos.x > position_E.x) {
+			if (pos.x < pos_Enemy.x) {
 
 				flipType = SDL_RendererFlip::SDL_FLIP_NONE;
 				vel = b2Vec2(speed, GRAVITY_Y);
