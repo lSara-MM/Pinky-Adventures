@@ -138,23 +138,24 @@ public:
 
 	// L05: DONE 8: Create a method that translates x,y coordinates from map positions to world positions
 	iPoint MapToWorld(int x, int y) const;
-	
+	iPoint WorldToMap(int x, int y);
+
 	void DrawPlatformCollider();
 	void DrawSpikes();
+	void DrawPaths();
 
 	bool CreateWalkabilityMap(int& width, int& height, uchar** buffer) const;
 
 	friend class Coin;
+	friend class Enemy;
 private:
 
 	bool LoadMap(pugi::xml_node mapFile);
 
-	
 	bool LoadTileSet(pugi::xml_node mapFile);
 
 	bool LoadLayer(pugi::xml_node& node, MapLayer* layer);
 	bool LoadAllLayers(pugi::xml_node mapNode);
-
 
 	TileSet* GetTilesetFromTileId(int gid) const;
 	bool LoadProperties(pugi::xml_node& node, Properties& properties);
@@ -168,7 +169,7 @@ private:
 	SString mapFolder;
     bool mapLoaded;
 	Coin* coins;
-	bool a = false;
+	bool secretCoins = false;
 };
 
 #endif // __MAP_H__

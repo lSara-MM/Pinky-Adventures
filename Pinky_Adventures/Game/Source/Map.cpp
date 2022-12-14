@@ -132,11 +132,11 @@ void Map::DrawSecret()
                 {                
                     int gid = mapLayerItem->data->Get(x, y);
                    
-                    if (gid == 248 && a == false)
+                    if (gid == 248 && secretCoins == false)
                     {
                         coins->CreateCoins(gid, x, y);
                     }
-                    else if (gid != 248)
+                    else if (gid != 248 && gid != 0)
                     {
                         TileSet* tileset = GetTilesetFromTileId(gid);
 
@@ -148,13 +148,12 @@ void Map::DrawSecret()
                             pos.y,
                             &r);
                     }
-                    
                 }
             }
         }
         mapLayerItem = mapLayerItem->next;
     }
-    a = true;
+    secretCoins = true;
 }
 
 void Map::DrawPlatformCollider() {
@@ -238,12 +237,72 @@ void Map::DrawSpikes()
     }
 }
 
+void Map::DrawPaths()
+{
+    if (mapLoaded == false)
+        return;
+
+    ListItem<MapLayer*>* mapLayerItem;
+    mapLayerItem = mapData.maplayers.start;
+
+    while (mapLayerItem != NULL) {
+
+        if (mapLayerItem->data->properties.GetProperty("Navigation") != NULL && mapLayerItem->data->properties.GetProperty("Navigation")->value) {
+
+            for (int x = 0; x < mapLayerItem->data->width; x++)
+            {
+                for (int y = 0; y < mapLayerItem->data->height; y++)
+                {
+                    int gid = mapLayerItem->data->Get(x, y);
+
+                    if (gid != 0)
+                    {
+                        TileSet* tileset = GetTilesetFromTileId(gid);
+
+                        SDL_Rect r = tileset->GetTileRect(gid);
+                        iPoint pos = MapToWorld(x, y);
+
+                        app->render->DrawTexture(tileset->texture, pos.x, pos.y, &r);
+                    }
+                }
+            }
+        }
+        mapLayerItem = mapLayerItem->next;
+    }
+}
+
+
 iPoint Map::MapToWorld(int x, int y) const
 {
     iPoint ret;
 
     ret.x = x * mapData.tileWidth;
     ret.y = y * mapData.tileHeight;
+
+    return ret;
+}
+
+iPoint Map::WorldToMap(int x, int y)
+{
+    iPoint ret(0, 0);
+
+    if (mapData.type == MAPTYPE_ORTHOGONAL)
+    {
+        ret.x = x / mapData.tileWidth;
+        ret.y = y / mapData.tileHeight;
+    }
+    else if (mapData.type == MAPTYPE_ISOMETRIC)
+    {
+        float halfWidth = mapData.tileWidth * 0.5f;
+        float halfHeight = mapData.tileHeight * 0.5f;
+        ret.x = int((x / halfWidth + y / halfHeight) / 2);
+        ret.y = int((y / halfHeight - x / halfWidth) / 2);
+    }
+    else
+    {
+        LOG("Unknown map type");
+        ret.x = x; ret.y = y;
+    }
 
     return ret;
 }
@@ -285,7 +344,7 @@ TileSet* Map::GetTilesetFromTileId(int gid) const
 bool Map::CleanUp()
 {
     LOG("Unloading map");
-    a = false;
+    secretCoins = false;
 
     ListItem<TileSet*>* item;
     item = mapData.tilesets.start;
@@ -552,3 +611,4 @@ Properties::Property* Properties::GetProperty(const char* name)
 
     return p;
 }
+

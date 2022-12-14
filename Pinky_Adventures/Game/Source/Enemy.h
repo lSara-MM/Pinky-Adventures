@@ -44,7 +44,6 @@ public:
 
 	SDL_RendererFlip flipType;
 
-
 	int jump, speed, width, height;
 
 	float grav;
@@ -69,7 +68,8 @@ private:
 	Animation FlyingEnemyAnim;
 
 
-	
+	SDL_Texture* enemyPathTex;
+	int enGID = 244;	// red square
 
 	SDL_Texture* texture;
 	const char* texturePath;
@@ -79,7 +79,6 @@ private:
 
 	uint fxJump;
 	uint fxLand;
-
 };
 
 #endif // __ITEMGEM_H__

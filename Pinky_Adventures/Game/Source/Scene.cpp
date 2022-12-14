@@ -44,7 +44,6 @@ bool Scene::Awake(pugi::xml_node& config)
 	back3Path = config.attribute("background3").as_string();
 	
 	musicPathBg = config.attribute("music").as_string();
-
 	return ret;
 }
 
@@ -74,7 +73,6 @@ bool Scene::Start()
 		if (retWalkMap) app->pathfinding->SetMap(w, h, data);
 
 		RELEASE_ARRAY(data);
-
 	}
 
 	InitEntities();
@@ -99,7 +97,6 @@ bool Scene::Start()
 
 	bgColor = { 0, 0, app->win->GetWidth() * app->win->GetScale() + 800,  app->win->GetHeight() };
 
-	
 	// Background
 	BACK1 = app->tex->Load(back1Path);
 	BACK2 = app->tex->Load(back2Path);
@@ -119,8 +116,6 @@ bool Scene::PreUpdate()
 
 bool Scene::Update(float dt)
 {
-	Debug();
-	
 	// Background parallax
 	int maxR = -player->position.x * app->win->GetScale() + 300;
 	if (-maxR < app->scene->maxCameraPosRigth - app->render->camera.w && -maxR > app->scene->maxCameraPosLeft)
@@ -144,7 +139,7 @@ bool Scene::Update(float dt)
 		ghostCollider->body->SetActive(false);
 	}
 
-	//app->entityManager->Update(dt);	
+	Debug();
 
 	// Win/Lose logic
 	if (player->ded == true)
@@ -160,7 +155,6 @@ bool Scene::Update(float dt)
 		//app->audio->PauseMusic();
 		app->fade->FadingToBlack(this, (Module*)app->iScene, 90);
 	}
-
 
 	return true;
 }
@@ -226,11 +220,16 @@ void Scene::Debug()
 
 	// GodMode
 	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
+	{
 		app->input->godMode = !app->input->godMode;
-
+		drawPaths = !drawPaths;
+	}
 	// Show collisions
 	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
+	{
 		app->physics->collisions = !app->physics->collisions;
+		drawPaths = !drawPaths;
+	}
 
 	// Mute / unmute
 	if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
@@ -259,6 +258,9 @@ void Scene::Debug()
 			app->render->camera.x = maxR;
 		}
 	}
+
+	if (drawPaths)
+		app->map->DrawPaths();
 
 	(mute) ? app->audio->PauseMusic() : app->audio->ResumeMusic();
 }

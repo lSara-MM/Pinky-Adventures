@@ -13,8 +13,6 @@
 
 #include "FadeToBlack.h"
 #include "Map.h"
-#include "ItemCoin.h"
-#include "ItemGem.h"
 #include "EntityManager.h"
 
 Enemy::Enemy() : Entity(EntityType::ENEMY)
@@ -88,7 +86,7 @@ bool Enemy::Awake() {
 bool Enemy::Start() {
 
 	texture = app->tex->Load(texturePath);
-
+	//enemyPath = app->tex->Load();
 	pbody = app->physics->CreateRectangle(position.x + width / 2, position.y + height / 2, width, height, bodyType::DYNAMIC);
 	pbody->body->SetFixedRotation(true);
 
@@ -113,29 +111,32 @@ bool Enemy::Update()
 
 	//intent de pathfinding
 
+	/*
 	iPoint position_P;
 	position_P.x = app->scene->player->pbody->body->GetTransform().p.x;
 	position_P.y = app->scene->player->pbody->body->GetTransform().p.y;
 
-
-
 	iPoint position_E;
 	position_E.x = pbody->body->GetTransform().p.x;
 	position_E.y = pbody->body->GetTransform().p.y;
+	*/
+	
+	iPoint position_P = app->map->MapToWorld(app->scene->player->position.x, app->scene->player->position.y);
+	iPoint position_E = app->map->MapToWorld(position.x, position.y);
 
 	State(position_P, position_E);
 
 	if (chase) {
 
 		app->pathfinding->CreatePath(position_E, position_P);
-		
-
 		const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
 
 		for (uint i = 0; i < path->Count(); ++i)
 		{
 			iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
-
+			TileSet * tileset = app->map->GetTilesetFromTileId(enGID);
+			SDL_Rect r = tileset->GetTileRect(enGID);
+			app->render->DrawTexture(tileset->texture, pos.x, pos.y, &r);
 			//enemy->pbody->body->SetTransform(b2Vec2{ PIXEL_TO_METERS(pos.x),PIXEL_TO_METERS(pos.y) }, 0); faria tps
 
 			if (pos.x < position_E.x) {

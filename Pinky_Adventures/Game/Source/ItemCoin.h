@@ -34,13 +34,11 @@ public:
 private:
 
 	SDL_Texture* texture;
-	const char* texturePath;
 
 	Animation* currentAnimCoin;
 	Animation coinAnim;
 
 	PhysBody* pbody;
-	List<PhysBody*> listCoins;
 };
 
 #endif // __ITEMCOIN_H__

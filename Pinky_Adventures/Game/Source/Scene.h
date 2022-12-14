@@ -75,6 +75,8 @@ private:
 	const char* back3Path;
 	
 	PhysBody* ghostCollider;
+
+	bool drawPaths;
 };
 
 #endif // __SCENE_H__

@@ -42,10 +42,6 @@ bool Coin::Update()
 		pbody->body->SetActive(false);
 		return true;
 	}
-	else
-	{
-		LOG("coin %d", ID);
-	}
 
 	currentAnimCoin = &coinAnim;
 	currentAnimCoin->Update();
@@ -98,9 +94,7 @@ void Coin::CreateCoins(int gid_, int x_, int y_) {
 	Coin* item = (Coin*)app->entityManager->CreateEntity(EntityType::COIN);
 
 	TileSet* tileset = app->map->GetTilesetFromTileId(gid_);
-
 	SDL_Rect r = tileset->GetTileRect(gid_);
-
 	iPoint pos = app->map->MapToWorld(x_, y_);
 
 	//PhysBody* collider;
@@ -109,14 +103,13 @@ void Coin::CreateCoins(int gid_, int x_, int y_) {
 	item->position = pos;
 
 	item->pbody = app->physics->CreateCircleSensor(pos.x + r.w / 2, pos.y + r.h / 2, 8, bodyType::STATIC, item->ID);
-	item->texturePath = "Assets/Maps/coin.png";
 	item->pbody->ctype = ColliderType::COIN;
 	item->pbody->body->SetFixedRotation(true);
 	item->active = true;
 	item->isPicked = true;
 	app->scene->coinIDset++;
-
-	item->texture = app->tex->Load(item->texturePath);
+	
+	item->texture = tileset->texture;
 	app->scene->listCoins.Add(item);
 }
 

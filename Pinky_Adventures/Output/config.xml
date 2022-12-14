@@ -2,6 +2,7 @@
 	<app>
 		<title>Pinky Adventures :D</title>
 		<organization>UPC</organization>
+		<frcap value = "16"/>
 	</app>
 
 	<renderer>
@@ -53,7 +54,6 @@
 			audiopathDeath_E ="Assets/Audio/Fx/sfx_vaporizing.wav"/>
 		
 	<!--COINS-->
-	<item name="coin" texturepath="Assets/Maps/coin.png"/>
 
 	<!--GEM-->
 	<item2  name="gem" x="2072" y="285" texturepath="Assets/Maps/gems.png"/>
