@@ -47,7 +47,7 @@
 		
 	<enemy x_E="100" y_E="260"
 			texturepath_E="Assets/Textures/character.png"
-			velocity_E="5" width_E="20" height_E="27"
+			velocity_E="2" width_E="20" height_E="27"
 			audiopathJump_E ="Assets/Audio/Fx/sfx_jump.wav "
 			audiopathLand_E ="Assets/Audio/Fx/sfx_landing.wav"
 			audiopathDeath_E ="Assets/Audio/Fx/sfx_vaporizing.wav"/>

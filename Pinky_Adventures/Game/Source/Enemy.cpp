@@ -125,8 +125,6 @@ bool Enemy::Update()
 
 	State(position_P, position_E);
 
-	
-
 	if (chase) {
 
 		app->pathfinding->CreatePath(position_E, position_P);
@@ -142,25 +140,26 @@ bool Enemy::Update()
 
 			if (pos.x < position_E.x) {
 				flipType = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;
-				vel = b2Vec2(speed, GRAVITY_Y);
+				vel = b2Vec2(-speed, GRAVITY_Y);
 
 				currentAnimation = &forwardAnim;
 			}
 
 			if (pos.x > position_E.x) {
 
+				flipType = SDL_RendererFlip::SDL_FLIP_NONE;
 				vel = b2Vec2(speed, GRAVITY_Y);
 				currentAnimation = &forwardAnim;
 
 			}
 
-			if (pos.y > position_E.y) {
+			/*if (pos.y >= position_E.y) {
 
 				currentAnimation = &jumpAnim;
 
-				pbody->body->ApplyForceToCenter(b2Vec2{ 0,10 }, 1);
+				pbody->body->ApplyForceToCenter(b2Vec2{ 0,100 }, 1);
 
-			}
+			}*/
 		}
 
 	}
@@ -174,6 +173,8 @@ bool Enemy::Update()
 	}
 
 	//Update player position in pixels
+	
+	pbody->body->SetLinearVelocity(vel);
 
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - width / 2;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - height / 2;
@@ -199,7 +200,7 @@ void Enemy::State(iPoint posPlayer, iPoint posEnemy)
 {
 	a++;
 	LOG("num ene: %d", a);
-	if (posPlayer.DistanceTo(posEnemy) <= 20) {
+	if (posPlayer.DistanceTo(posEnemy) <= 50) {
 
 		idle = false;
 		chase = true;
