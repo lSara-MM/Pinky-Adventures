@@ -121,8 +121,8 @@ bool Enemy::Update()
 	position_E.y = pbody->body->GetTransform().p.y;
 	*/
 	
-	iPoint position_P = app->map->MapToWorld(app->scene->player->position.x, app->scene->player->position.y);
-	iPoint position_E = app->map->MapToWorld(position.x, position.y);
+	iPoint position_P = app->map->WorldToMap(app->scene->player->pbody->body->GetPosition().x, app->scene->player->pbody->body->GetPosition().y);
+	iPoint position_E = app->map->WorldToMap(pbody->body->GetPosition().x, pbody->body->GetPosition().y);
 
 	State(position_P, position_E);
 
