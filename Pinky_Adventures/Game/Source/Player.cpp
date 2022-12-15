@@ -57,10 +57,11 @@ Player::Player() : Entity(EntityType::PLAYER)
 	deathAnim.PushBack({ 129, 4, 35, 29 });
 	deathAnim.PushBack({ 170, 4, 25, 29 });
 	deathAnim.PushBack({ 202, 4, 25, 29 });
+	deathAnim.PushBack({ 0, 0, 0, 0 });
 
 
 	deathAnim.speed = 0.1f;
-
+	deathAnim.loop = false;
 
 	attackAnim.PushBack({ 8, 107, 17, 28 });
 	attackAnim.PushBack({ 38, 108, 20, 27 });
@@ -70,57 +71,7 @@ Player::Player() : Entity(EntityType::PLAYER)
 	attackAnim.speed = 0.1f;
 	attackAnim.loop = false;
 
-	{
-		//// Idle
-		//idleAnim.PushBack({ 160, 137, 32, 34 });
-		//idleAnim.PushBack({ 192, 137, 32, 34 });
-		//idleAnim.PushBack({ 224, 137, 32, 34 });
-		//idleAnim.PushBack({ 256, 137, 32, 34 });
 
-		//idleAnim.speed = 0.15f;
-
-		//// Walk
-		//forwardAnim.PushBack({ 192, 68, 32, 34 });
-		//forwardAnim.PushBack({ 224, 68, 32, 34 });
-		//forwardAnim.PushBack({ 256, 68, 32, 34 });
-		//forwardAnim.PushBack({ 288, 68, 32, 34 });
-		//forwardAnim.PushBack({ 320, 68, 32, 34 });
-		//forwardAnim.PushBack({ 352, 68, 32, 34 });
-
-		//forwardAnim.speed = 0.1f;
-
-		//// Jump
-		//jumpAnim.PushBack({ 0, 171, 32, 34 });
-		//jumpAnim.PushBack({ 32, 171, 32, 34 });
-		//jumpAnim.PushBack({ 64, 171, 32, 34 });
-		//jumpAnim.PushBack({ 128, 171, 32, 34 });
-		//jumpAnim.PushBack({ 160, 171, 32, 34 });
-		//jumpAnim.PushBack({ 192, 171, 32, 34 });
-		//jumpAnim.PushBack({ 224, 171, 32, 34 });
-		//jumpAnim.PushBack({ 256, 171, 32, 34 });
-
-		//jumpAnim.speed = 0.1f;
-
-		//// Hurt
-		//hurtAnim.PushBack({ 0, 137, 32, 34 });
-		//hurtAnim.PushBack({ 32, 137, 32, 34 });
-		//hurtAnim.PushBack({ 64, 137, 32, 34 });
-		//hurtAnim.PushBack({ 128, 137, 32, 34 });
-
-		//hurtAnim.speed = 0.1f;
-
-		//// Hurt
-		//deathAnim.PushBack({ 0, 103, 32, 34 });
-		//deathAnim.PushBack({ 32, 103, 32, 34 });
-		//deathAnim.PushBack({ 64, 103, 32, 34 });
-		//deathAnim.PushBack({ 128, 103, 32, 34 });
-		//deathAnim.PushBack({ 160, 103, 32, 34 });
-		//deathAnim.PushBack({ 192, 103, 32, 34 });
-		//deathAnim.PushBack({ 224, 103, 32, 34 });
-		//deathAnim.PushBack({ 256, 103, 32, 34 });
-
-		//deathAnim.speed = 0.1f;
-	}
 	active = true;
 }
 
@@ -234,7 +185,6 @@ bool Player::Update()
 	}
 
 	
-
 	else if (ded == true) {
 		currentAnimation = &deathAnim;
 	}
@@ -263,21 +213,8 @@ bool Player::Update()
 
 	SDL_Rect rect = currentAnimation->GetCurrentFrame();
 
+	app->render->DrawTexture(texture, position.x, position.y, &rect, 1.0f, NULL, NULL, NULL, flipType);
 
-	if (ded == false) {
-
-		app->render->DrawTexture(texture, position.x, position.y, &rect, 1.0f, NULL, NULL, NULL, flipType);
-	}
-
-	else if (ded == true && currentAnimation->current_frame != 0 && ani == true) {
-
-		app->render->DrawTexture(texture, position.x, position.y, &rect, 1.0f, NULL, NULL, NULL, flipType);
-	}
-
-	else if (ded == true && currentAnimation->current_frame == 0 && ani == true) {
-		
-		ani = false;
-	}
 
 	return true;
 }

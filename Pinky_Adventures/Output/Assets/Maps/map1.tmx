@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="134" height="24" tilewidth="16" tileheight="16" infinite="0" nextlayerid="14" nextobjectid="1">
+<map version="1.9" tiledversion="1.9.2" orientation="orthogonal" renderorder="right-down" width="134" height="24" tilewidth="16" tileheight="16" infinite="0" nextlayerid="15" nextobjectid="1">
  <tileset firstgid="1" name="Terrain_(16x16)" tilewidth="16" tileheight="16" tilecount="242" columns="22">
   <image source="Terrain_(16x16).png" width="352" height="176"/>
   <wangsets>
@@ -49,7 +49,7 @@
    <property name="Navigation" type="bool" value="false"/>
   </properties>
  </objectgroup>
- <layer id="6" name="map1.1" width="134" height="24" visible="0">
+ <layer id="6" name="map1.1" width="134" height="24">
   <properties>
    <property name="Draw" type="bool" value="true"/>
    <property name="Navigation" type="bool" value="false"/>
@@ -3018,10 +3018,10 @@
    <tile gid="30"/>
    <tile gid="30"/>
    <tile gid="31"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="243"/>
+   <tile gid="243"/>
+   <tile gid="243"/>
+   <tile gid="243"/>
    <tile gid="29"/>
    <tile gid="30"/>
    <tile gid="30"/>
@@ -3068,20 +3068,20 @@
    <tile gid="30"/>
    <tile gid="30"/>
    <tile gid="31"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="243"/>
+   <tile gid="243"/>
+   <tile gid="243"/>
+   <tile gid="243"/>
+   <tile gid="243"/>
+   <tile gid="243"/>
+   <tile gid="243"/>
+   <tile gid="243"/>
+   <tile gid="243"/>
+   <tile gid="243"/>
+   <tile gid="243"/>
+   <tile gid="243"/>
+   <tile gid="243"/>
+   <tile gid="243"/>
    <tile gid="29"/>
    <tile gid="30"/>
    <tile gid="30"/>
@@ -3152,10 +3152,10 @@
    <tile gid="52"/>
    <tile gid="52"/>
    <tile gid="53"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="101"/>
+   <tile gid="102"/>
+   <tile gid="102"/>
+   <tile gid="103"/>
    <tile gid="51"/>
    <tile gid="52"/>
    <tile gid="52"/>
@@ -3202,20 +3202,20 @@
    <tile gid="52"/>
    <tile gid="52"/>
    <tile gid="53"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="101"/>
+   <tile gid="102"/>
+   <tile gid="102"/>
+   <tile gid="102"/>
+   <tile gid="102"/>
+   <tile gid="102"/>
+   <tile gid="102"/>
+   <tile gid="102"/>
+   <tile gid="102"/>
+   <tile gid="102"/>
+   <tile gid="102"/>
+   <tile gid="102"/>
+   <tile gid="102"/>
+   <tile gid="103"/>
    <tile gid="51"/>
    <tile gid="52"/>
    <tile gid="52"/>
@@ -3273,7 +3273,7 @@
    <tile gid="53"/>
   </data>
  </layer>
- <layer id="1" name="map1.2" width="134" height="24">
+ <layer id="1" name="map1.2" width="134" height="24" visible="0">
   <properties>
    <property name="Draw" type="bool" value="false"/>
    <property name="Navigation" type="bool" value="false"/>
@@ -6243,10 +6243,10 @@
    <tile gid="30"/>
    <tile gid="30"/>
    <tile gid="31"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="243"/>
+   <tile gid="243"/>
+   <tile gid="243"/>
+   <tile gid="243"/>
    <tile gid="29"/>
    <tile gid="30"/>
    <tile gid="30"/>
@@ -6293,20 +6293,20 @@
    <tile gid="30"/>
    <tile gid="30"/>
    <tile gid="31"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="243"/>
+   <tile gid="243"/>
+   <tile gid="243"/>
+   <tile gid="243"/>
+   <tile gid="243"/>
+   <tile gid="243"/>
+   <tile gid="243"/>
+   <tile gid="243"/>
+   <tile gid="243"/>
+   <tile gid="243"/>
+   <tile gid="243"/>
+   <tile gid="243"/>
+   <tile gid="243"/>
+   <tile gid="243"/>
    <tile gid="29"/>
    <tile gid="30"/>
    <tile gid="30"/>
@@ -6377,10 +6377,10 @@
    <tile gid="52"/>
    <tile gid="52"/>
    <tile gid="53"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="101"/>
+   <tile gid="102"/>
+   <tile gid="102"/>
+   <tile gid="103"/>
    <tile gid="51"/>
    <tile gid="52"/>
    <tile gid="52"/>
@@ -6427,20 +6427,20 @@
    <tile gid="52"/>
    <tile gid="52"/>
    <tile gid="53"/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="101"/>
+   <tile gid="102"/>
+   <tile gid="102"/>
+   <tile gid="102"/>
+   <tile gid="102"/>
+   <tile gid="102"/>
+   <tile gid="102"/>
+   <tile gid="102"/>
+   <tile gid="102"/>
+   <tile gid="102"/>
+   <tile gid="102"/>
+   <tile gid="102"/>
+   <tile gid="102"/>
+   <tile gid="103"/>
    <tile gid="51"/>
    <tile gid="52"/>
    <tile gid="52"/>
@@ -6498,7 +6498,7 @@
    <tile gid="53"/>
   </data>
  </layer>
- <layer id="4" name="collisionsTerrain" width="134" height="24" visible="0" opacity="0.7">
+ <layer id="4" name="collisionsTerrain" width="134" height="24" opacity="0.7">
   <properties>
    <property name="Draw" type="bool" value="false"/>
    <property name="Navigation" type="bool" value="false"/>
@@ -12691,10 +12691,10 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="245"/>
+   <tile gid="245"/>
+   <tile gid="245"/>
+   <tile gid="245"/>
    <tile/>
    <tile/>
    <tile/>
@@ -12741,20 +12741,20 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="245"/>
+   <tile gid="245"/>
+   <tile gid="245"/>
+   <tile gid="245"/>
+   <tile gid="245"/>
+   <tile gid="245"/>
+   <tile gid="245"/>
+   <tile gid="245"/>
+   <tile gid="245"/>
+   <tile gid="245"/>
+   <tile gid="245"/>
+   <tile gid="245"/>
+   <tile gid="245"/>
+   <tile gid="245"/>
    <tile/>
    <tile/>
    <tile/>
