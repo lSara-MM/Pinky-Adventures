@@ -12946,10 +12946,10 @@
    <tile/>
   </data>
  </layer>
- <layer id="11" name="pathGround1" width="134" height="24">
+ <layer id="11" name="pathGround1" width="134" height="24" visible="0">
   <properties>
    <property name="Draw" type="bool" value="false"/>
-   <property name="Navigation" type="bool" value="true"/>
+   <property name="Navigation" type="bool" value="false"/>
   </properties>
   <data>
    <tile/>
@@ -16170,10 +16170,10 @@
    <tile/>
   </data>
  </layer>
- <layer id="10" name="pathFly1" width="134" height="24" visible="0">
+ <layer id="10" name="pathFly1" width="134" height="24">
   <properties>
    <property name="Draw" type="bool" value="false"/>
-   <property name="Navigation" type="bool" value="false"/>
+   <property name="Navigation" type="bool" value="true"/>
   </properties>
   <data>
    <tile gid="246"/>
@@ -18454,38 +18454,38 @@
    <tile/>
    <tile/>
    <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
-   <tile/>
+   <tile gid="246"/>
+   <tile gid="246"/>
+   <tile gid="246"/>
+   <tile gid="246"/>
+   <tile gid="246"/>
+   <tile gid="246"/>
+   <tile gid="246"/>
+   <tile gid="246"/>
+   <tile gid="246"/>
+   <tile gid="246"/>
+   <tile gid="246"/>
+   <tile gid="246"/>
+   <tile gid="246"/>
+   <tile gid="246"/>
+   <tile gid="246"/>
+   <tile gid="246"/>
+   <tile gid="246"/>
+   <tile gid="246"/>
+   <tile gid="246"/>
+   <tile gid="246"/>
+   <tile gid="246"/>
+   <tile gid="246"/>
+   <tile gid="246"/>
+   <tile gid="246"/>
+   <tile gid="246"/>
+   <tile gid="246"/>
+   <tile gid="246"/>
+   <tile gid="246"/>
+   <tile gid="246"/>
+   <tile gid="246"/>
+   <tile gid="246"/>
+   <tile gid="246"/>
    <tile/>
    <tile/>
    <tile/>

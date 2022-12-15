@@ -20,45 +20,12 @@ Enemy::Enemy() : Entity(EntityType::ENEMY)
 	name.Create("enemy");
 
 
-	idleAnim.PushBack({ 8, 39, 17, 28 });
-	idleAnim.PushBack({ 40, 39, 17, 28 });
-	idleAnim.PushBack({ 71, 38, 18, 29 });
-	idleAnim.PushBack({ 102, 38, 20, 29 });
+	idleAnim.PushBack({ 0, 3, 16, 11 });
+	idleAnim.PushBack({ 0, 20, 16, 7 });
+	idleAnim.PushBack({ 0, 35, 16, 10 });
+	idleAnim.PushBack({ 0, 49, 16, 13 });
 
 	idleAnim.speed = 0.1f;
-
-
-	forwardAnim.PushBack({ 8, 142, 17, 27 });
-	forwardAnim.PushBack({ 40, 141, 17, 28 });
-	forwardAnim.PushBack({ 72, 141, 17, 28 });
-	forwardAnim.PushBack({ 103, 142, 18, 27 });
-	forwardAnim.PushBack({ 136, 141, 17, 28 });
-	forwardAnim.PushBack({ 168, 141, 17, 28 });
-
-	forwardAnim.speed = 0.1f;
-
-
-	jumpAnim.PushBack({ 8, 73, 17, 28 });
-	jumpAnim.PushBack({ 38, 75, 20, 26 });
-	jumpAnim.PushBack({ 104, 71, 17, 30 });
-	jumpAnim.PushBack({ 135, 69, 18, 29 });
-	jumpAnim.PushBack({ 166, 71, 20, 29 });
-	jumpAnim.PushBack({ 197, 74, 22, 27 });
-	jumpAnim.PushBack({ 231, 75, 18, 26 });
-
-	jumpAnim.speed = 0.07f;
-
-	deathAnim.PushBack({ 4, 4, 21, 29 });
-	deathAnim.PushBack({ 36, 2, 25, 28 });
-	deathAnim.PushBack({ 65, 4, 25, 28 });
-	deathAnim.PushBack({ 99, 4, 29, 29 });
-	deathAnim.PushBack({ 129, 4, 35, 29 });
-	deathAnim.PushBack({ 170, 4, 25, 29 });
-	deathAnim.PushBack({ 202, 4, 25, 29 });
-
-
-	deathAnim.speed = 0.1f;
-	
 
 	active = true;
 }
@@ -70,7 +37,7 @@ bool Enemy::Awake() {
 	position.x = parameters.attribute("x_E").as_int();
 	position.y = parameters.attribute("y_E").as_int();
 
-	texturePath = parameters.attribute("texturepath_E").as_string();
+	texturePathFlyingEnemy = parameters.attribute("texturepath_E").as_string();
 
 	speed = parameters.attribute("velocity_E").as_int();
 	width = parameters.attribute("width_E").as_int();
@@ -79,15 +46,20 @@ bool Enemy::Awake() {
 	landPath = parameters.attribute("audiopathLand_E").as_string();
 	deathPath = parameters.attribute("audiopathDeath_E").as_string();
 
+	detectionDistance = parameters.attribute("detectionDistance").as_int();
+
 	grav = GRAVITY_Y;
 	return true;
 }
 
 bool Enemy::Start() {
 	
-	texture = app->tex->Load(texturePath);
-	//enemyPath = app->tex->Load();
+	textureFlyingEnemy = app->tex->Load(texturePathFlyingEnemy);
+
 	pbody = app->physics->CreateRectangle(position.x + width / 2, position.y + height / 2, width, height, bodyType::DYNAMIC);
+
+	pbody->body->SetGravityScale(0);
+
 	pbody->body->SetFixedRotation(true);
 
 	pbody->ctype = ColliderType::ENEMY;
@@ -104,7 +76,7 @@ bool Enemy::Start() {
 bool Enemy::Update()
 {
 	currentAnimation = &idleAnim;
-	b2Vec2 vel = b2Vec2(0, grav);
+	b2Vec2 vel = b2Vec2(0, 0);
 
 	//Set the velocity of the pbody of the player
 	pbody->body->SetLinearVelocity(vel);
@@ -119,8 +91,44 @@ bool Enemy::Update()
 	if (chase) {
 
 		app->pathfinding->CreatePath(pos_Enemy, pos_Player);
+
 		const DynArray<iPoint>* path = app->pathfinding->GetLastPath();
 
+		if (path->At(0) != NULL) {
+
+			iPoint pos = app->map->MapToWorld(path->At(0)->x, path->At(0)->y);
+
+			if (pos.x < pos_Enemy.x) {
+
+				flipType = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;
+				vel = b2Vec2(-speed, 0);
+
+			}
+
+			if (pos.x > pos_Enemy.x) {
+
+				flipType = SDL_RendererFlip::SDL_FLIP_NONE;
+				vel = b2Vec2(speed, 0);
+
+
+			}
+
+			if (pos.y < pos_Enemy.y) {
+
+				vel = b2Vec2(0, -speed);
+
+			}
+
+			if (pos.y > pos_Enemy.y) {
+
+
+				vel = b2Vec2(0, speed);
+
+			}
+		}
+		
+
+		//DEBUG
 		for (uint i = 0; i < path->Count(); ++i)
 		{
 			iPoint pos = app->map->MapToWorld(path->At(i)->x, path->At(i)->y);
@@ -128,28 +136,6 @@ bool Enemy::Update()
 			SDL_Rect r = tileset->GetTileRect(enGID);
 			app->render->DrawTexture(tileset->texture, pos.x, pos.y, &r);
 
-			if (pos.x < pos_Enemy.x) {
-				flipType = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;
-				vel = b2Vec2(-speed, GRAVITY_Y);
-
-				currentAnimation = &forwardAnim;
-			}
-
-			if (pos.x > pos_Enemy.x) {
-
-				flipType = SDL_RendererFlip::SDL_FLIP_NONE;
-				vel = b2Vec2(speed, GRAVITY_Y);
-				currentAnimation = &forwardAnim;
-
-			}
-
-			/*if (pos.y >= position_E.y) {
-
-				currentAnimation = &jumpAnim;
-
-				pbody->body->ApplyForceToCenter(b2Vec2{ 0,100 }, 1);
-
-			}*/
 		}
 
 	}
@@ -157,7 +143,6 @@ bool Enemy::Update()
 
 	if (idle) {
 
-		currentAnimation = &idleAnim;
 		app->pathfinding->ClearLastPath();
 
 	}
@@ -173,7 +158,7 @@ bool Enemy::Update()
 
 	SDL_Rect rect = currentAnimation->GetCurrentFrame();
 
-	app->render->DrawTexture(texture, position.x, position.y, &rect, 1.0f, NULL, NULL, NULL, flipType);
+	app->render->DrawTexture(textureFlyingEnemy, position.x, position.y, &rect, 1.0f, NULL, NULL, NULL, flipType);
 	
 	return true;
 }
@@ -188,11 +173,12 @@ bool Enemy::CleanUp()
 
 void Enemy::State(iPoint posPlayer, iPoint posEnemy)
 {
-	if (posPlayer.DistanceTo(posEnemy) <= 50) {
+	if (posPlayer.DistanceTo(posEnemy) <= detectionDistance) {
 
 		idle = false;
 		chase = true;
 	}
+
 	else {
 		idle = true;
 		chase = false;

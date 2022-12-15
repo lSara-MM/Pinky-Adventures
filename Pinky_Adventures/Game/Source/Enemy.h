@@ -55,6 +55,8 @@ public:
 	iPoint pos_Player;
 	iPoint pos_Enemy;
 
+	int detectionDistance;
+
 private:
 
 	SDL_Texture* textureWalkingEnemy;

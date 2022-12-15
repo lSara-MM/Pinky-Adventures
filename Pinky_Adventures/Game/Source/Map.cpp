@@ -59,7 +59,7 @@ bool Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
                 int tileId = layer->Get(x, y);
 
                 TileSet* tileset = (tileId > 0) ? GetTilesetFromTileId(tileId) : NULL;
-                if (tileId == 247) {
+                if (tileId == 246) {
                     map[i] = 1;
                 }
 
