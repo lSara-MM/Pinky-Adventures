@@ -85,7 +85,7 @@ public:
 public:
 	// Debug mode
 	bool collisions;
-	
+	float frameRate;
 private:
 
 	// Box2D World

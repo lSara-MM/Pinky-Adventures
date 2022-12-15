@@ -54,7 +54,6 @@ public:
 	
 	iPoint pos_Player;
 	iPoint pos_Enemy;
-	int a = 0;
 
 private:
 

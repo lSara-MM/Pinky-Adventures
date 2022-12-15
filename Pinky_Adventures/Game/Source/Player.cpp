@@ -182,7 +182,7 @@ bool Player::Update()
 	}
 
 	if (contador != 0) {
-		grav = -GRAVITY_Y;
+		grav = -GRAVITY_Y / 3;
 		currentAnimation = &jumpAnim;
 		contador--;
 	}

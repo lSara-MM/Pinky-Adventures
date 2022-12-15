@@ -105,6 +105,8 @@ bool Scene::Start()
 	
 	mute = false;
 	end = false;
+	drawPaths = false;
+	frame30 = false;
 	return true;
 }
 
@@ -227,6 +229,13 @@ void Scene::Debug()
 		app->audio->PlayFx(player->fxDeath);
 	}
 
+	// Show collisions
+	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
+	{
+		app->physics->collisions = !app->physics->collisions;
+		drawPaths = !drawPaths;
+	}
+
 	// GodMode
 	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) 
 	{ 
@@ -235,12 +244,13 @@ void Scene::Debug()
 		drawPaths = !drawPaths;
 	}
 
-	// Show collisions
-	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
+	// Enable/Disable FPS cap to 30
+	if (app->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
 	{
-		app->physics->collisions = !app->physics->collisions;
-		drawPaths = !drawPaths;
+		frame30 = !frame30;
+		LOG("frame rate: %d", app->physics->frameRate);
 	}
+	(frame30) ? app->physics->frameRate = 60.0f : app->physics->frameRate = 30.0f;
 
 	// Mute / unmute
 	if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)

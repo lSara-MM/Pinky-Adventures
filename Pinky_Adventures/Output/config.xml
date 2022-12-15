@@ -37,7 +37,7 @@
 
 	<player x="120" y="260"
 			texturepath="Assets/Textures/pinky_2.0.png"
-			velocity="5" width="20" height="27"
+			velocity="3" width="20" height="27"
 			audiopathCoin="Assets/Audio/Fx/Coin.wav"
 			audiopathGem="Assets/Audio/Fx/Gem.wav"
 			audiopathJump ="Assets/Audio/Fx/sfx_jump.wav "

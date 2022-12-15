@@ -188,17 +188,12 @@ bool Enemy::CleanUp()
 
 void Enemy::State(iPoint posPlayer, iPoint posEnemy)
 {
-	a++;
-	LOG("num ene: %d", a);
 	if (posPlayer.DistanceTo(posEnemy) <= 50) {
 
 		idle = false;
 		chase = true;
-
 	}
-
 	else {
-
 		idle = true;
 		chase = false;
 	}

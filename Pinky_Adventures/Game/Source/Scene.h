@@ -77,6 +77,7 @@ private:
 	PhysBody* ghostCollider;
 
 	bool drawPaths;
+	bool frame30;
 };
 
 #endif // __SCENE_H__
