@@ -6,7 +6,7 @@
 	</app>
 
 	<renderer>
-		<vsync value="true"/>
+		<vsync value="false"/>
 		<camera x="0" y="0"/>
 	</renderer>
 

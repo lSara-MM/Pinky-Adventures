@@ -3,6 +3,8 @@
 
 #include "Module.h"
 #include "List.h"
+#include "PerfTimer.h"
+#include "Timer.h"
 
 #include "PugiXml/src/pugixml.hpp"
 
@@ -111,15 +113,31 @@ private:
 
 	List<Module*> modules;
 
+	// Time control
+	uint frames;
+	float dt;
+
+	Timer timer;
+	PerfTimer ptimer;
+
+	Timer startupTime;
+	Timer frameTime;
+	Timer lastSecFrameTime;
+
+	uint64 frameCount = 0;
+	uint32 framesPerSecond = 0;
+	uint32 lastSecFrameCount = 0;
+
+	float averageFps = 0.0f;
+	float secondsSinceStartup = 0.0f;
+
+	uint32 maxFrameDuration = 0;
+
 
 	// xml_document to store the config file and
 	// xml_node(s) to read specific branches of the xml
 	pugi::xml_document configFile;
 	pugi::xml_node configNode;
-
-	uint frames;
-	float dt;
-
 
     bool saveGameRequested;
 	bool loadGameRequested;

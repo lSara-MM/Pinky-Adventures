@@ -70,7 +70,6 @@ private:
 	Animation FlyingEnemyAnim;
 
 
-	SDL_Texture* enemyPathTex;
 	int enGID = 244;	// red square
 
 	SDL_Texture* texture;

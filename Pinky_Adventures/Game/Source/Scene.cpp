@@ -64,7 +64,7 @@ bool Scene::Start()
 	// Load map
 	bool retLoad = app->map->Load();
 
-	//walkability només de walking enemy per ara
+	// Create walkability map
 	if (retLoad) {
 		int w, h;
 		uchar* data = NULL;
@@ -80,7 +80,6 @@ bool Scene::Start()
 
 	secret = false;
 	ghostCollider = app->physics->CreateRectangle(890, 240, 10, 16 * app->win->GetScale(), bodyType::STATIC);
-
 	
 	SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d",
 		app->map->mapData.width,
@@ -116,14 +115,25 @@ bool Scene::PreUpdate()
 
 bool Scene::Update(float dt)
 {
-	// Background parallax
+	// Move camera with player
+	float speed = 1 * dt;
+	player->dt = dt;
 	int maxR = -player->position.x * app->win->GetScale() + 300;
+	if (!app->input->godMode)
+	{
+		if (-maxR < maxCameraPosRigth - app->render->camera.w && -maxR > maxCameraPosLeft)
+		{
+			app->render->camera.x = ceil(maxR);
+		}
+	}
+
+	// Background parallax
 	if (-maxR < app->scene->maxCameraPosRigth - app->render->camera.w && -maxR > app->scene->maxCameraPosLeft)
-		posx1 = maxR*0.2f;
+		posx1 = maxR * 0.2f;
 	if (-maxR < app->scene->maxCameraPosRigth - app->render->camera.w && -maxR > app->scene->maxCameraPosLeft)
-		posx2 = maxR*0.2f; 
+		posx2 = maxR * 0.2f;
 	if (-maxR < app->scene->maxCameraPosRigth - app->render->camera.w && -maxR > app->scene->maxCameraPosLeft)
-		posx3 = -maxR*0.2f;
+		posx3 = -maxR * 0.2f;
 
 	app->render->DrawTexture(BACK1, posx1, -380, &bgColor,1.0f,NULL, NULL, NULL);
 	app->render->DrawTexture(BACK3, posx3, -380, &bgColor, 1.0f, NULL, NULL, NULL);
@@ -201,7 +211,6 @@ void Scene::Debug()
 	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
 		app->fade->FadingToBlack(this, (Module*)app->scene, 0);
 
-
 	// Load / Save - keys F5 (save) / F6 (load)
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 		app->SaveGameRequest();
@@ -219,11 +228,13 @@ void Scene::Debug()
 	}
 
 	// GodMode
-	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
-	{
-		app->input->godMode = !app->input->godMode;
+	if (app->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN) 
+	{ 
+		app->input->godMode = !app->input->godMode; 
+		app->physics->collisions = !app->physics->collisions;
 		drawPaths = !drawPaths;
 	}
+
 	// Show collisions
 	if (app->input->GetKey(SDL_SCANCODE_F9) == KEY_DOWN)
 	{
@@ -236,7 +247,7 @@ void Scene::Debug()
 		mute = !mute;
 
 	// God mode functions
-	if (app->input->godMode == true)
+	if (app->input->godMode)
 	{
 		// Free camera
 		if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)

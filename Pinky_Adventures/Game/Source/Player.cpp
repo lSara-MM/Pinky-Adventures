@@ -110,7 +110,6 @@ bool Player::Start() {
 
 	pickCoinFxId = app->audio->LoadFx(fxCoin);
 	pickGemFxId = app->audio->LoadFx(fxGem);
-
 	
 	pbody = app->physics->CreateRectangle(position.x + width / 2, position.y + height / 2, width, height, bodyType::DYNAMIC);
 	pbody->body->SetFixedRotation(true);
@@ -133,15 +132,8 @@ bool Player::Start() {
 
 bool Player::Update()
 {
-	// Move camera with player
-	int maxR = -position.x * app->win->GetScale() + 300;
-	if (-maxR < app->scene->maxCameraPosRigth - app->render->camera.w && -maxR > app->scene->maxCameraPosLeft)
-	{
-		app->render->camera.x = maxR;
-	}
-
 	currentAnimation = &idleAnim;
-	
+
 	b2Vec2 vel = b2Vec2(0, grav); 
 
 	if (app->input->godMode == false) {
@@ -203,9 +195,7 @@ bool Player::Update()
 	//Set the velocity of the pbody of the player
 	pbody->body->SetLinearVelocity(vel);
 
-
 	//Update player position in pixels
-
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - width/2;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - height/2;
 
@@ -216,6 +206,11 @@ bool Player::Update()
 	app->render->DrawTexture(texture, position.x, position.y, &rect, 1.0f, NULL, NULL, NULL, flipType);
 
 
+	if (app->input->godMode || app->physics->collisions)
+		app->render->DrawLine(position.x + pbody->width / 2, position.y + pbody->height / 2,
+			position.x + METERS_TO_PIXELS(vel.x / (pbody->width / 2))+ pbody->width / 2,
+			position.y + METERS_TO_PIXELS(vel.y / (pbody->height / 2))+ pbody->width / 2, 
+			0, 0, 255);
 	return true;
 }
 

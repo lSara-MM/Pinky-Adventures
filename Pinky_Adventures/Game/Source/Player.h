@@ -17,7 +17,7 @@ class Player : public Entity
 public:
 
 	Player();
-	
+
 	virtual ~Player();
 
 	bool Awake();
@@ -27,7 +27,7 @@ public:
 	bool Update();
 
 	bool CleanUp();
-	
+
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 
 public:
@@ -54,6 +54,7 @@ public:
 	uint fxDeath;
 	int score;
 
+	float dt;
 private:
 	SDL_Texture* texture;
 	const char* texturePath;

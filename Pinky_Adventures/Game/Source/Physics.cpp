@@ -265,7 +265,7 @@ bool Physics::PostUpdate()
 	bool ret = true;
 	
 	//  Iterate all objects in the world and draw the bodies
-	if (collisions || app->input->godMode)
+	if (collisions)
 	{
 		for (b2Body* b = world->GetBodyList(); b; b = b->GetNext())
 		{

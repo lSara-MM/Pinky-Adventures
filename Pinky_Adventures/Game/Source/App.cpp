@@ -24,6 +24,7 @@
 // Constructor
 App::App(int argc, char* args[]) : argc(argc), args(args)
 {
+	// Measure the amount of ms that takes to execute the App constructor
 	frames = 0;
 
 	input = new Input();
@@ -90,36 +91,44 @@ void App::AddModule(Module* module)
 // Called before render is available
 bool App::Awake()
 {
+	// Measure the amount of ms that takes to execute the Awake
+	timer = Timer();
+
 	bool ret = false;
 
 	ret = LoadConfig();
 
 	if (ret == true)
 	{
-		title = configNode.child("app").child("title").child_value(); 
+		title = configNode.child("app").child("title").child_value();
+		// Read from config file framerate cap
+		maxFrameDuration = configNode.child("app").child("frcap").attribute("value").as_int();
 
 		ListItem<Module*>* item;
 		item = modules.start;
 
 		while (item != NULL && ret == true)
 		{
-		
-			if (item->data->active == true)
-			{
-				pugi::xml_node node = configNode.child(item->data->name.GetString());
-				if (strcmp(item->data->name.GetString(), "scene") == 0) { app->scene->sceneNode = node; }
-				ret = item->data->Awake(node);
-			}
+			pugi::xml_node node = configNode.child(item->data->name.GetString());
+			if (strcmp(item->data->name.GetString(), "scene") == 0) { app->scene->sceneNode = node; }
+			ret = item->data->Awake(node);
+
 			item = item->next;
 		}
 	}
 
+	LOG("---------------- Time Awake: %f/n", timer.ReadMSec());
 	return ret;
 }
 
 // Called before the first frame
 bool App::Start()
 {
+	// Measure the amount of ms that takes to execute the App Start()
+	timer.Start();
+	startupTime.Start();
+	lastSecFrameTime.Start();
+
 	bool ret = true;
 	ListItem<Module*>* item;
 	item = modules.start;
@@ -138,6 +147,7 @@ bool App::Start()
 		item = item->next;
 	}
 
+	LOG("----------------- Time Start(): %f", timer.ReadMSec());
 	return ret;
 }
 
@@ -184,6 +194,7 @@ bool App::LoadConfig()
 
 void App::PrepareUpdate()
 {
+	frameTime.Start();
 }
 
 
@@ -191,6 +202,41 @@ void App::FinishUpdate()
 {
 	if (loadGameRequested == true) LoadFromFile();
 	if (saveGameRequested == true) SaveToFile();
+
+	// Time control maths
+	// Amount of frames since startup
+	frameCount++;
+	// Amount of time since game start (use a low resolution timer)
+	secondsSinceStartup = startupTime.ReadSec();
+	// Amount of ms took the last update
+	dt = frameTime.ReadMSec();
+	// Amount of frames during the last second
+	lastSecFrameCount++;
+
+	if (lastSecFrameTime.ReadMSec() > 1000) {
+		lastSecFrameTime.Start();
+		framesPerSecond = lastSecFrameCount;
+		lastSecFrameCount = 0;
+		// Average FPS for the whole game life
+		averageFps = (averageFps + framesPerSecond) / 2;
+	}
+
+	// Use SDL_Delay to make sure you get your capped framerate
+	// Measure accurately the amount of time SDL_Delay() actually waits compared to what was expected
+	float delay = float(maxFrameDuration) - dt;
+
+	PerfTimer delayTimer = PerfTimer();
+	delayTimer.Start();
+	if (maxFrameDuration > 0 && delay > 0)
+	{
+		SDL_Delay(delay);
+		LOG("We waited for %f milliseconds and the real delay is % f", delay, delayTimer.ReadMs());
+		dt = maxFrameDuration;
+	}
+	else
+	{
+		LOG("No wait");
+	}
 }
 
 // Call modules before each loop iteration
