@@ -61,6 +61,15 @@ Player::Player() : Entity(EntityType::PLAYER)
 
 	deathAnim.speed = 0.1f;
 
+
+	attackAnim.PushBack({ 8, 107, 17, 28 });
+	attackAnim.PushBack({ 38, 108, 20, 27 });
+	attackAnim.PushBack({ 73, 108, 18, 27 });
+	attackAnim.PushBack({ 104, 107, 17, 28 });
+
+	attackAnim.speed = 0.1f;
+	attackAnim.loop = false;
+
 	{
 		//// Idle
 		//idleAnim.PushBack({ 160, 137, 32, 34 });
@@ -166,6 +175,7 @@ bool Player::Start() {
 
 	ded = false;
 	ani = true;
+	attack = false;
 	
 	return true;
 }
@@ -181,7 +191,6 @@ bool Player::Update()
 
 	currentAnimation = &idleAnim;
 	
-
 	b2Vec2 vel = b2Vec2(0, grav); 
 
 	if (app->input->godMode == false) {
@@ -224,6 +233,8 @@ bool Player::Update()
 		currentAnimation = &forwardAnim;
 	}
 
+	
+
 	else if (ded == true) {
 		currentAnimation = &deathAnim;
 	}
@@ -237,6 +248,7 @@ bool Player::Update()
 	if (contador == 0) {
 		grav = GRAVITY_Y;
 	}
+
 
 	//Set the velocity of the pbody of the player
 	pbody->body->SetLinearVelocity(vel);

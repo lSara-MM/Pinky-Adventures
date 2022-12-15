@@ -41,10 +41,12 @@ public:
 	Animation jumpAnim;
 	Animation hurtAnim;
 	Animation deathAnim;
+	Animation attackAnim;
 
 	int jump, speed, width, height;
 	bool ded;
 	bool ani;
+	bool attack;
 	float grav;
 	SDL_RendererFlip flipType;
 	int contador;

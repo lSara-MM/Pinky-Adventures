@@ -36,7 +36,7 @@
 	   background1 ="Assets/Maps/clouds_bg.png" background2 ="Assets/Maps/clouds_mg_1.png" background3 ="Assets/Maps/clouds_mg_2.png">
 
 	<player x="120" y="260"
-			texturepath="Assets/Textures/character.png"
+			texturepath="Assets/Textures/pinky_2.0.png"
 			velocity="5" width="20" height="27"
 			audiopathCoin="Assets/Audio/Fx/Coin.wav"
 			audiopathGem="Assets/Audio/Fx/Gem.wav"
@@ -46,7 +46,7 @@
 			audiopathSecret ="Assets/Audio/Fx/sfx_secret.wav"
 			audiopathLoseB=""/>
 		
-	<enemy x_E="400" y_E="260"
+	<enemy x_E="100" y_E="260"
 			texturepath_E="Assets/Textures/character.png"
 			velocity_E="2" width_E="20" height_E="27"
 			audiopathJump_E ="Assets/Audio/Fx/sfx_jump.wav "
