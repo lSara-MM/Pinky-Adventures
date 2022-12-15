@@ -58,6 +58,7 @@ public:
 	SDL_Rect bgColor;
 	int posx1, posx2, posx3;
 	bool end;
+	bool freeCam;
 
 	pugi::xml_node sceneNode;
 private:

@@ -143,37 +143,47 @@ bool Player::Update()
 
 	if (app->input->godMode == true) {
 
-		pbody->body->SetGravityScale(-60.0);
+		pbody->body->SetGravityScale(-30.f);
 	}
 
-	if (app->input->godMode == true && app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) {
+	if (app->input->godMode == true && app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) 
+	{
 		vel = b2Vec2(0, -speed);
+		app->scene->freeCam = false;
 	}
 
-	if (app->input->godMode == true && app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) {
+	if (app->input->godMode == true && app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) 
+	{
 		vel = b2Vec2(0, 15);
+		app->scene->freeCam = false;
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN  && jump > 0 && ded == false) {
-		
+	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN  && jump > 0 && ded == false && !app->input->godMode)
+	{
 		currentAnimation = &jumpAnim;
 		jump--;
 		contador = 20;
 		app->audio->PlayFx(fxJump);		
+
+		app->scene->freeCam = false;
 	}
 	
-	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && ded == false) {
+	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && ded == false) 
+	{
 		flipType = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;
 		vel = b2Vec2(-speed, grav);
 		
 		currentAnimation = &forwardAnim;
+		app->scene->freeCam = false;
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && ded == false) {
+	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && ded == false)
+	{
 		flipType = SDL_RendererFlip::SDL_FLIP_NONE;
 		vel = b2Vec2(speed, grav);
 	
 		currentAnimation = &forwardAnim;
+		app->scene->freeCam = false;
 	}
 
 	
@@ -182,7 +192,7 @@ bool Player::Update()
 	}
 
 	if (contador != 0) {
-		grav = -GRAVITY_Y / 3;
+		grav = -GRAVITY_Y / 2;
 		currentAnimation = &jumpAnim;
 		contador--;
 	}

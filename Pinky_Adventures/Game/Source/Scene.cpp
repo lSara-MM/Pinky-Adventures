@@ -107,6 +107,7 @@ bool Scene::Start()
 	end = false;
 	drawPaths = false;
 	frame30 = false;
+	freeCam = false;
 	return true;
 }
 
@@ -121,7 +122,7 @@ bool Scene::Update(float dt)
 	float speed = 1 * dt;
 	player->dt = dt;
 	int maxR = -player->position.x * app->win->GetScale() + 300;
-	if (!app->input->godMode)
+	if (!freeCam)
 	{
 		if (-maxR < maxCameraPosRigth - app->render->camera.w && -maxR > maxCameraPosLeft)
 		{
@@ -261,16 +262,25 @@ void Scene::Debug()
 	{
 		// Free camera
 		if (app->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
+		{
 			app->render->camera.y += a;
-
+			freeCam = true;
+		}
 		if (app->input->GetKey(SDL_SCANCODE_DOWN) == KEY_REPEAT)
+		{
 			app->render->camera.y -= a;
-
+			freeCam = true;
+		}
 		if (app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_REPEAT)
+		{
 			app->render->camera.x += a;
-
+			freeCam = true;
+		}
 		if (app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_REPEAT)
+		{
 			app->render->camera.x -= a;
+			freeCam = true;
+		}
 
 		// Reset camera
 		if (app->input->GetKey(SDL_SCANCODE_C) == KEY_REPEAT)
