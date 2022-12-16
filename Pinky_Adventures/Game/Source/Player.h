@@ -58,6 +58,7 @@ public:
 
 
 	int attackCooldown;
+	int contadorCooldown;
 	
 
 

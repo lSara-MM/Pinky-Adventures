@@ -56,6 +56,9 @@ public:
 	bool secret;
 
 	SDL_Rect bgColor;
+	SDL_Rect attackCajaNoCd;
+	SDL_Rect attackCajaCd;
+
 	int posx1, posx2, posx3;
 	bool end;
 	bool freeCam;
@@ -74,6 +77,9 @@ private:
 	const char* back1Path;
 	const char* back2Path;
 	const char* back3Path;
+
+	const char* attackIconPath;
+	SDL_Texture* attackIcon;
 	
 	PhysBody* ghostCollider;
 

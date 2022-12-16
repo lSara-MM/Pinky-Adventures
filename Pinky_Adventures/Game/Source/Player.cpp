@@ -106,6 +106,7 @@ bool Player::Awake() {
 	contador = 0; //temps salta player
 	
 	score = 0;
+
 	return true;
 }
 
@@ -127,6 +128,8 @@ bool Player::Start() {
 	fxLand = app->audio->LoadFx(landPath);
 	fxDeath = app->audio->LoadFx(deathPath);
 	fxSecret = app->audio->LoadFx(secretPath);
+
+	contadorCooldown = attackCooldown;
 
 	ded = false;
 	ani = true;
@@ -172,7 +175,7 @@ bool Player::Update()
 		app->scene->freeCam = false;
 	}
 	
-	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && ded == false) 
+	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && ded == false && attack == false)//per ara només pot atacar endavant
 	{
 		flipType = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;
 		vel = b2Vec2(-speed, grav);
@@ -201,7 +204,7 @@ bool Player::Update()
 	}
 
 
-	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN && ded == false && attack == false)
+	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN && ded == false && attack == false && contadorCooldown==attackCooldown)
 	{
 
 		b2PolygonShape box;
@@ -217,6 +220,7 @@ bool Player::Update()
 		pbody->body->CreateFixture(&fixtureAttack);
 
 		attack = true;
+		contadorCooldown = 0;
 	}
 
 	if (attack == true && ded == false){
@@ -239,6 +243,10 @@ bool Player::Update()
 			attack = false;
 		}
 
+	}
+
+	if (contadorCooldown != attackCooldown) {
+		contadorCooldown++;
 	}
 
 	if (ded == true) {

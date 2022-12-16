@@ -42,6 +42,7 @@ bool Scene::Awake(pugi::xml_node& config)
 	back1Path = config.attribute("background1").as_string();
 	back2Path = config.attribute("background2").as_string();
 	back3Path = config.attribute("background3").as_string();
+	attackIconPath = config.attribute("textureAttackPath").as_string();
 	
 	musicPathBg = config.attribute("music").as_string();
 	return ret;
@@ -96,10 +97,16 @@ bool Scene::Start()
 
 	bgColor = { 0, 0, app->win->GetWidth() * app->win->GetScale() + 800,  app->win->GetHeight() };
 
+	attackCajaNoCd = { 0, 0, 32,  32 };
+
+	attackCajaCd = { 128, 0, 32,  32 };
+
 	// Background
 	BACK1 = app->tex->Load(back1Path);
 	BACK2 = app->tex->Load(back2Path);
 	BACK3 = app->tex->Load(back3Path);
+
+	attackIcon = app->tex->Load(attackIconPath);
 
 	app->audio->PlayMusic(musicPathBg, 0);
 	
@@ -167,6 +174,18 @@ bool Scene::Update(float dt)
 	if (end == true) {
 		//app->audio->PauseMusic();
 		app->fade->FadingToBlack(this, (Module*)app->iScene, 90);
+	}
+
+	if (player->contadorCooldown==player->attackCooldown) {
+
+		app->render->DrawTexture(attackIcon, 0, 0, &attackCajaNoCd, 1.0f, NULL, NULL, NULL);
+
+	}
+
+	if (player->contadorCooldown != player->attackCooldown) {
+
+		app->render->DrawTexture(attackIcon, 0, 0, &attackCajaCd, 1.0f, NULL, NULL, NULL);
+
 	}
 
 	return true;
