@@ -341,6 +341,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 
 			LOG("Collision ENEMY");
 
+
 			if (attackState == true) {
 
 				if (flipType == SDL_RendererFlip::SDL_FLIP_HORIZONTAL) {
@@ -357,7 +358,8 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 				
 				app->audio->PlayFx(fxAttack);
 
-				app->scene->enemy->ded = true;
+				//app->scene->enemy->ded = true;
+
 
 			}
 

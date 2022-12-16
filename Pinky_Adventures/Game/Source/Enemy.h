@@ -60,6 +60,7 @@ public:
 	int jump, speed, width, height;
 	eState state;
 	eType type;
+	int ID;
 
 	float grav;
 	//bool idle;
@@ -68,8 +69,8 @@ public:
 	
 	iPoint pos_Player;
 	iPoint pos_Enemy;
-
-	bool ded;
+	iPoint pos_Origin;	// make the enemy return to the spawn point
+	bool origin;
 
 	int detectionDistance;
 private:

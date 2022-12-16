@@ -50,6 +50,9 @@ public:
 
 	List<Coin*> listCoins;
 	int coinIDset;
+
+	List<Enemy*> listEnemy;
+	int enemyIDset;
 	
 	int maxCameraPosLeft;
 	int maxCameraPosRigth;

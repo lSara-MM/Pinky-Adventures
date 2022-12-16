@@ -98,7 +98,7 @@ void Coin::CreateCoins(int gid_, int x_, int y_) {
 	iPoint pos = app->map->MapToWorld(x_, y_);
 
 	//PhysBody* collider;
-	item->ID = app->scene->coinIDset;
+	item->ID = app->scene->coinIDset++;
 
 	item->position = pos;
 
@@ -107,7 +107,6 @@ void Coin::CreateCoins(int gid_, int x_, int y_) {
 	item->pbody->body->SetFixedRotation(true);
 	item->active = true;
 	item->isPicked = true;
-	app->scene->coinIDset++;
 	
 	item->texture = tileset->texture;
 	app->scene->listCoins.Add(item);
