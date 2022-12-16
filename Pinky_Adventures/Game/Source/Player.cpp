@@ -225,12 +225,14 @@ bool Player::Update()
 
 		if (currentAnimation->HasFinished()) {
 
-			currentAnimation->Reset();
+			currentAnimation->Reset();//no va?
 
 			for (b2Fixture* f = pbody->body->GetFixtureList(); f; f = f->GetNext()) {
+
 				if (f->IsSensor()) {
+
 					pbody->body->DestroyFixture(f);
-					break;
+					
 				}
 			}
 
