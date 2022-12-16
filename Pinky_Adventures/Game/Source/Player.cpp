@@ -64,9 +64,11 @@ Player::Player() : Entity(EntityType::PLAYER)
 	deathAnim.loop = false;
 
 	attackAnim.PushBack({ 8, 107, 17, 28 });
-	attackAnim.PushBack({ 38, 108, 20, 27 });
-	attackAnim.PushBack({ 73, 108, 18, 27 });
-	attackAnim.PushBack({ 104, 107, 17, 28 });
+	attackAnim.PushBack({ 39, 109, 17, 26 });
+	attackAnim.PushBack({ 71, 108, 26, 27 });
+	attackAnim.PushBack({ 104, 109, 18, 26 });
+	attackAnim.PushBack({ 137, 108, 22, 27 });
+	attackAnim.PushBack({ 167, 109, 17, 26 });
 
 	attackAnim.speed = 0.1f;
 	attackAnim.loop = false;
@@ -95,6 +97,9 @@ bool Player::Awake() {
 	landPath = parameters.attribute("audiopathLand").as_string();
 	deathPath = parameters.attribute("audiopathDeath").as_string();
 	secretPath = parameters.attribute("audiopathSecret").as_string();
+
+
+	attackCooldown = parameters.attribute("attackCooldown").as_int();
 
 	jump = 2;
 	grav = GRAVITY_Y;
@@ -164,7 +169,6 @@ bool Player::Update()
 		jump--;
 		contador = 20;
 		app->audio->PlayFx(fxJump);		
-
 		app->scene->freeCam = false;
 	}
 	
@@ -186,11 +190,6 @@ bool Player::Update()
 		app->scene->freeCam = false;
 	}
 
-	
-	else if (ded == true) {
-		currentAnimation = &deathAnim;
-	}
-
 	if (contador != 0) {
 		grav = -GRAVITY_Y / 2;
 		currentAnimation = &jumpAnim;
@@ -201,6 +200,50 @@ bool Player::Update()
 		grav = GRAVITY_Y;
 	}
 
+
+	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN && ded == false && attack == false)
+	{
+
+		b2PolygonShape box;
+		box.SetAsBox(PIXEL_TO_METERS(15) * 0.5f, PIXEL_TO_METERS(15) * 0.5f, b2Vec2(PIXEL_TO_METERS(25) * 0.5f, 0), 0);
+
+		// Create FIXTURE
+		b2FixtureDef fixtureAttack;
+		fixtureAttack.shape = &box;
+		fixtureAttack.density = 1.0f;
+		fixtureAttack.isSensor = true;
+
+		// Add fixture to the BODY
+		pbody->body->CreateFixture(&fixtureAttack);
+
+		attack = true;
+	}
+
+	if (attack == true && ded == false){
+
+		currentAnimation = &attackAnim;
+
+		if (currentAnimation->HasFinished()) {
+
+			currentAnimation->Reset();
+
+			for (b2Fixture* f = pbody->body->GetFixtureList(); f; f = f->GetNext()) {
+				if (f->IsSensor()) {
+					pbody->body->DestroyFixture(f);
+					break;
+				}
+			}
+
+			attack = false;
+		}
+
+	}
+
+	if (ded == true) {
+
+		currentAnimation = &deathAnim;
+
+	}
 
 	//Set the velocity of the pbody of the player
 	pbody->body->SetLinearVelocity(vel);
@@ -255,6 +298,20 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 				}
 			}
  			break;
+
+		case ColliderType::ENEMY:
+			LOG("Collision ENEMY");
+
+			if (attack == true) {
+				app->scene->enemy->ded = true;
+			}
+
+			if (app->input->godMode == false) {
+				ded = true;
+				app->audio->PlayFx(fxDeath);
+			}
+
+			break;
 
 		case ColliderType::GEM:
 			LOG("Collision GEM");

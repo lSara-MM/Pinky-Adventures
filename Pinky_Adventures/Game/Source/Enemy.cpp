@@ -69,6 +69,7 @@ bool Enemy::Start() {
 
 	idle = true;
 	chase = false;
+	ded = false;
 	
 	return true;
 }

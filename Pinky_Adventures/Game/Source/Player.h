@@ -55,6 +55,12 @@ public:
 	int score;
 
 	float dt;
+
+
+	int attackCooldown;
+	
+
+
 private:
 	SDL_Texture* texture;
 	const char* texturePath;

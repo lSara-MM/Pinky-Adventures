@@ -55,6 +55,8 @@ public:
 	iPoint pos_Player;
 	iPoint pos_Enemy;
 
+	bool ded;
+
 	int detectionDistance;
 
 private:
