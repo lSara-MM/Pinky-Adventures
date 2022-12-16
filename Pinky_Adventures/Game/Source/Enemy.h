@@ -9,9 +9,23 @@
 #include "Animation.h"
 #include "ItemCoin.h"
 #include "ItemGem.h"
+#include "Physics.h"
 
 struct SDL_Texture;
 
+enum class eState
+{
+	IDLE,
+	CHASE,
+	DEAD,
+};
+
+enum class eType
+{
+	BASIC,	// Only walk (in case in future some enemies can attack or do special moves
+	FLYING, 
+	UNKNOWN
+};
 
 class Enemy : public Entity
 {
@@ -28,10 +42,9 @@ public:
 
 	bool CleanUp();
 
-	void State(iPoint posPlayer, iPoint posEnemy);
+	void State(iPoint posPlayer, iPoint posEnemy, b2Vec2 &vel);
 
 public:
-
 	// The pointer to the current player animation
 	// It will be switched depending on the player's movement direction
 	Animation* currentAnimation = nullptr;
@@ -45,11 +58,12 @@ public:
 	SDL_RendererFlip flipType;
 
 	int jump, speed, width, height;
+	eState state;
+	eType type;
 
 	float grav;
-	bool idle;
-	bool chase;
-
+	//bool idle;
+	//bool chase;
 	PhysBody* pbody;
 	
 	iPoint pos_Player;
@@ -58,7 +72,6 @@ public:
 	bool ded;
 
 	int detectionDistance;
-
 private:
 
 	SDL_Texture* textureWalkingEnemy;
@@ -71,7 +84,6 @@ private:
 	Animation* currentAnimFlyingEnemy;
 	Animation WalkingEnemyAnim;
 	Animation FlyingEnemyAnim;
-
 
 	int enGID = 244;	// red square
 

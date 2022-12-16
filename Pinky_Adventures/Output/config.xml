@@ -46,7 +46,7 @@
 			audiopathSecret ="Assets/Audio/Fx/sfx_secret.wav"
 			audiopathLoseB=""/>
 		
-	<enemy x_E="300" y_E="50" detectionDistance="25"
+	<enemy x_E="300" y_E="50" type_E="flying" detectionDistance="20"
 			texturepath_E="Assets/Textures/ss_duck.png"
 			velocity_E="1" width_E="16" height_E="12"
 			audiopathJump_E ="Assets/Audio/Fx/sfx_jump.wav "
