@@ -96,6 +96,9 @@ private:
 
 	uint fxJump;
 	uint fxLand;
+
+
+	iPoint posPath;
 };
 
 #endif // __ITEMGEM_H__

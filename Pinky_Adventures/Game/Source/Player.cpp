@@ -236,13 +236,11 @@ bool Player::Update()
 
 		}
 
-		// Create FIXTURE
 		b2FixtureDef fixtureAttack;
 		fixtureAttack.shape = &box;
 		fixtureAttack.density = 1.0f;
 		fixtureAttack.isSensor = true;
 
-		// Add fixture to the BODY
 		pbody->body->CreateFixture(&fixtureAttack);
 
 		attackState = true;

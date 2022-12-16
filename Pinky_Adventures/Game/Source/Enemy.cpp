@@ -212,22 +212,23 @@ void Enemy::State(iPoint posPlayer, iPoint posEnemy, b2Vec2 &vel)
 		app->pathfinding->CreatePath(pos_Enemy, pos_Player);
 		path = app->pathfinding->GetLastPath();
 
-		if (path->At(0) != NULL)
+		if (path->At(1) != NULL)
 		{
-			iPoint pos = app->map->MapToWorld(path->At(0)->x, path->At(0)->y);
+			 posPath = app->map->MapToWorld(path->At(1)->x, path->At(1)->y);
 
-			if (pos_Enemy.x < pos_Player.x) {
+			if (pos_Enemy.x < posPath.x) {
 				flipType = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;
 				vel = b2Vec2(speed, 0);
 			}
 
-			if (pos_Enemy.x > pos_Player.x) {
+			if (pos_Enemy.x > posPath.x) {
 				flipType = SDL_RendererFlip::SDL_FLIP_NONE;
 				vel = b2Vec2(-speed, 0);
 			}
 
-			if (pos_Enemy.y < pos_Player.y) { vel = b2Vec2(0, speed); }
-			if (pos_Enemy.y > pos_Player.y) { vel = b2Vec2(0, -speed); }
+			if (pos_Enemy.y < posPath.y) { vel = b2Vec2(0, speed); }
+			if (pos_Enemy.y > posPath.y) { vel = b2Vec2(0, -speed); }
+
 		}
 		break;
 
