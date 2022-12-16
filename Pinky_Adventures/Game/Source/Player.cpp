@@ -313,7 +313,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			LOG("Collision ENEMY");
 
 			if (attack == true) {
-				app->scene->enemy->ded = true;
+				//app->scene->enemy->ded = true;
 			}
 
 			if (app->input->godMode == false) {

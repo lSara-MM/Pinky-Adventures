@@ -7,6 +7,8 @@
 #include "DynArray.h"
 #include "List.h"
 
+#include "Enemy.h"
+
 #define DEFAULT_PATH_LENGTH 50
 #define INVALID_WALK_CODE 255
 

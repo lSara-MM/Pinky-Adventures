@@ -36,13 +36,11 @@ bool Enemy::Awake() {
 
 	position.x = parameters.attribute("x_E").as_int();
 	position.y = parameters.attribute("y_E").as_int();
-
-	if (parameters.attribute("type_E").as_string() == "basic")
-		type = eType::BASIC;
-	else if (parameters.attribute("type_E").as_string() == "flying")
-		type = eType::FLYING;
-	else
-		type = eType::UNKNOWN;
+	
+	SString typeConfig = parameters.attribute("type_E").as_string();
+	if (typeConfig == "basic") { type = eType::BASIC; }
+	else if (typeConfig == "flying") { type = eType::FLYING; }
+	else { type = eType::UNKNOWN; }
 
 	texturePathFlyingEnemy = parameters.attribute("texturepath_E").as_string();
 
@@ -55,6 +53,7 @@ bool Enemy::Awake() {
 
 	detectionDistance = parameters.attribute("detectionDistance").as_int();
 
+	pos_Origin = position;
 	grav = GRAVITY_Y;
 	return true;
 }
@@ -71,8 +70,8 @@ bool Enemy::Start() {
 	fxJump = app->audio->LoadFx(jumpPath);
 	fxLand = app->audio->LoadFx(landPath);
 	
-
-
+	ID = app->scene->enemyIDset++;
+	origin = true;
 	return true;
 }
 
@@ -250,9 +249,12 @@ void Enemy::State(iPoint posPlayer, iPoint posEnemy, b2Vec2 &vel)
 			app->render->DrawTexture(tileset->texture, pos.x, pos.y, &r);
 		}
 
-		app->render->DrawLine(pos_Enemy.x + pbody->width / 2, pos_Enemy.y + pbody->height / 2,
-			pos_Enemy.x + METERS_TO_PIXELS(vel.x / (pbody->width / 2)) + pbody->width / 2,
-			pos_Enemy.y + METERS_TO_PIXELS(vel.y / (pbody->height / 2)) + pbody->width / 2,
+		iPoint en = app->map->MapToWorld(pos_Enemy.x, pos_Enemy.y);
+		iPoint pl = app->map->MapToWorld(pos_Player.x, pos_Player.y);
+
+		app->render->DrawLine(en.x + pbody->width / 2, en.y + pbody->height / 2,
+			pl.x + METERS_TO_PIXELS(vel.x / (pbody->width / 2)) + pbody->width / 2,
+			pl.y + METERS_TO_PIXELS(vel.y / (pbody->height / 2)) + pbody->width / 2,
 			0, 255, 255);
 	}
 	
