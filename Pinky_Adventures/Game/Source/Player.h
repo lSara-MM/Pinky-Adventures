@@ -46,7 +46,8 @@ public:
 	int jump, speed, width, height;
 	bool ded;
 	bool ani;
-	bool attack;
+	bool attackState;
+
 	float grav;
 	SDL_RendererFlip flipType;
 	int contador;
@@ -69,7 +70,9 @@ private:
 	const char* landPath;
 	const char* deathPath;
 	const char* secretPath;
-	
+
+	int playerForce;//quan lluny envia enemic al donar-li
+
 	uint fxJump;
 	uint fxLand;
 	
@@ -79,6 +82,11 @@ private:
 	uint pickGemFxId;
 	const char* fxCoin;	
 	const char* fxGem;
+
+
+	uint fxAttack;
+	const char* attackPath;
+
 };
 
 #endif // __PLAYER_H__

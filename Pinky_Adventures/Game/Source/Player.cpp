@@ -98,8 +98,11 @@ bool Player::Awake() {
 	deathPath = parameters.attribute("audiopathDeath").as_string();
 	secretPath = parameters.attribute("audiopathSecret").as_string();
 
+	attackPath = parameters.attribute("audiopathAttack").as_string();
 
 	attackCooldown = parameters.attribute("attackCooldown").as_int();
+
+	playerForce = parameters.attribute("playerForce").as_int();
 
 	jump = 2;
 	grav = GRAVITY_Y;
@@ -129,11 +132,13 @@ bool Player::Start() {
 	fxDeath = app->audio->LoadFx(deathPath);
 	fxSecret = app->audio->LoadFx(secretPath);
 
+	fxAttack = app->audio->LoadFx(attackPath);
+
 	contadorCooldown = attackCooldown;
 
 	ded = false;
 	ani = true;
-	attack = false;
+	attackState = false;
 	
 	return true;
 }
@@ -175,9 +180,14 @@ bool Player::Update()
 		app->scene->freeCam = false;
 	}
 	
-	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && ded == false && attack == false)//per ara només pot atacar endavant
+	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && ded == false)
 	{
-		flipType = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;
+		if (!attackState) {
+
+			flipType = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;
+
+		}
+		
 		vel = b2Vec2(-speed, grav);
 		
 		currentAnimation = &forwardAnim;
@@ -186,7 +196,12 @@ bool Player::Update()
 
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && ded == false)
 	{
-		flipType = SDL_RendererFlip::SDL_FLIP_NONE;
+		if(!attackState){
+
+			flipType = SDL_RendererFlip::SDL_FLIP_NONE;
+
+		}
+
 		vel = b2Vec2(speed, grav);
 	
 		currentAnimation = &forwardAnim;
@@ -204,11 +219,22 @@ bool Player::Update()
 	}
 
 
-	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN && ded == false && attack == false && contadorCooldown==attackCooldown)
+	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN && ded == false && attackState == false && contadorCooldown==attackCooldown)
 	{
 
 		b2PolygonShape box;
-		box.SetAsBox(PIXEL_TO_METERS(15) * 0.5f, PIXEL_TO_METERS(15) * 0.5f, b2Vec2(PIXEL_TO_METERS(25) * 0.5f, 0), 0);
+
+		if (flipType == SDL_RendererFlip::SDL_FLIP_NONE) {
+
+			box.SetAsBox(PIXEL_TO_METERS(15) * 0.5f, PIXEL_TO_METERS(15) * 0.5f, b2Vec2(PIXEL_TO_METERS(25) * 0.5f, 0), 0);
+
+		}
+
+		else if (flipType == SDL_RendererFlip::SDL_FLIP_HORIZONTAL) {
+
+			box.SetAsBox(PIXEL_TO_METERS(15) * 0.5f, PIXEL_TO_METERS(15) * 0.5f, b2Vec2(-PIXEL_TO_METERS(25) * 0.5f, 0), 0);
+
+		}
 
 		// Create FIXTURE
 		b2FixtureDef fixtureAttack;
@@ -219,11 +245,11 @@ bool Player::Update()
 		// Add fixture to the BODY
 		pbody->body->CreateFixture(&fixtureAttack);
 
-		attack = true;
+		attackState = true;
 		contadorCooldown = 0;
 	}
 
-	if (attack == true && ded == false){
+	if (attackState == true && ded == false){
 
 		currentAnimation = &attackAnim;
 
@@ -240,13 +266,15 @@ bool Player::Update()
 				}
 			}
 
-			attack = false;
+			attackState = false;
 		}
 
 	}
 
 	if (contadorCooldown != attackCooldown) {
+
 		contadorCooldown++;
+
 	}
 
 	if (ded == true) {
@@ -310,15 +338,35 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
  			break;
 
 		case ColliderType::ENEMY:
+
 			LOG("Collision ENEMY");
 
-			if (attack == true) {
+			if (attackState == true) {
+
+				if (flipType == SDL_RendererFlip::SDL_FLIP_HORIZONTAL) {
+
+					app->scene->enemy->pbody->body->ApplyForceToCenter(b2Vec2(-playerForce, 0), 0);
+
+				}
+			
+				if (flipType == SDL_RendererFlip::SDL_FLIP_NONE) {
+
+					app->scene->enemy->pbody->body->ApplyForceToCenter(b2Vec2(playerForce, 0), 0);
+
+				}
+				
+				app->audio->PlayFx(fxAttack);
+
 				app->scene->enemy->ded = true;
+
 			}
 
-			if (app->input->godMode == false) {
+			if (app->input->godMode == false && attackState==false) {
+
 				ded = true;
+
 				app->audio->PlayFx(fxDeath);
+
 			}
 
 			break;
