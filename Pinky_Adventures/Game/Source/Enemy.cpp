@@ -80,9 +80,7 @@ bool Enemy::Awake() {
 
 	detectionDistance = parameters.attribute("detectionDistance").as_int();
 
-	isFlying = parameters.attribute("fly").as_bool();
-
-	pos_Origin = position;
+	originPos = position;
 	grav = GRAVITY_Y;
 	return true;
 }
@@ -94,10 +92,7 @@ bool Enemy::Start() {
 
 	pbody = app->physics->CreateRectangle(position.x + width / 2, position.y + height / 2, width, height, bodyType::DYNAMIC, ID);
 	
-	if (isFlying) {
-		pbody->body->SetGravityScale(0);
-	}
-	
+	if (type == eType::FLYING) { pbody->body->SetGravityScale(0); }
 
 	pbody->body->SetFixedRotation(true);
 	pbody->ctype = ColliderType::ENEMY;
@@ -119,40 +114,100 @@ bool Enemy::Update()
 {
 	b2Vec2 vel = b2Vec2(0, 0);
 
-	if (isFlying) {
-
-		currentAnimation = &idleFlyingEnemyAnim;
-		
-	}
-
-	else if(!isFlying){
-		currentAnimation = &idleWalkingEnemyAnim;
-		vel = b2Vec2(0, grav);
-	}
-
-
-	//Set the velocity of the pbody of the player
-	//pbody->body->SetLinearVelocity(vel);
-
-	//intent de pathfinding
-
 	pos_Enemy = app->map->WorldToMap(position.x, position.y);
 	pos_Player = app->map->WorldToMap(app->scene->player->position.x, app->scene->player->position.y);
-
+	pos_Origin = app->map->WorldToMap(originPos.x, originPos.y);
 
 	LOG("distance %d", pos_Player.DistanceTo(pos_Enemy));
-	if (state != eState::DEAD && pos_Player.DistanceTo(pos_Enemy) <= detectionDistance)
-	{
-		state = eState::CHASE;
-		LOG("PLAYER DETECTED");
-	}
-	else if (state != eState::DEAD)
-	{ 
-		state = eState::IDLE;
-		LOG("LOST PLAYER'S TRACK");
+
+	switch (state)
+	{	
+	case eState::IDLE:
+		if (pos_Player.DistanceTo(pos_Enemy) <= detectionDistance)
+		{
+			state = eState::CHASE;
+			LOG("PLAYER DETECTED");
+		}
+		
+		switch (type)
+		{
+		case eType::BASIC:
+			currentAnimation = &idleWalkingEnemyAnim;
+
+			LOG("position %d origin %d", position.x, pos_Origin.x);
+			vel = b2Vec2(0, grav);
+
+			/*if (position.x + dist > pos_Origin.x) {   d = true; }
+			else if (position.x + dist < pos_Origin.x && d == true) { vel = b2Vec2(speed, grav); }*/
+
+			//(app->pathfinding->IsWalkable(iPoint(pos_Enemy.x + 1, pos_Enemy.y))) ? speed : speed = -speed;
+			
+			/*if (position.x >= pos_Origin.x || position.x + 50 < pos_Origin.x)
+			{
+				flipType = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;
+				vel = b2Vec2(-speed, grav);
+			}
+
+			if (position.x < pos_Origin.x)
+			{
+				flipType = SDL_RendererFlip::SDL_FLIP_NONE;
+				vel = b2Vec2(speed, grav);
+			}*/
+
+			break;
+
+		case eType::FLYING:
+			currentAnimation = &idleFlyingEnemyAnim;
+			vel = b2Vec2(0, 0);
+			break;
+
+		case eType::UNKNOWN:
+			break;
+
+		default:
+			break;
+		}
+		break;
+
+	case eState::CHASE:
+		if (pos_Player.DistanceTo(pos_Enemy) > detectionDistance)
+		{
+			state = eState::RETURN;
+			LOG("LOST PLAYER'S TRACK");
+			break;
+		}
+
+		State(pos_Player, pos_Enemy, vel);
+		break;
+
+	case eState::DEAD:
+		//active = false;
+		flipType = SDL_RendererFlip::SDL_FLIP_VERTICAL;//no queda bé amb la snake
+
+		switch (type)
+		{
+		case eType::BASIC:
+			currentAnimation = &deathWalkEnemyAnim;
+			break;
+		case eType::FLYING:
+			currentAnimation = &deathFlyEnemyAnim;
+			break;
+		case eType::UNKNOWN:
+			break;
+		default:
+			break;
+		}
+		headSensor->body->SetActive(false);
+		break;
+
+	case eState::RETURN:
+		(pos_Enemy != pos_Origin) ? State(pos_Origin, pos_Enemy, vel) : state = eState ::IDLE;	// perque no vol tornar al seu punt d'origen :/
+		break;
+
+	default:
+		break;
 	}
 
-	State(pos_Player, pos_Enemy, vel);
 
 	//Update enemy position in pixels
 	pbody->body->SetLinearVelocity(vel);
@@ -184,114 +239,61 @@ void Enemy::State(iPoint posPlayer, iPoint posEnemy, b2Vec2 &vel)
 {
 	const DynArray<iPoint>* path = nullptr;
 
-	switch (state)
+	app->pathfinding->CreatePath(posEnemy, posPlayer);
+	path = app->pathfinding->GetLastPath();
+
+	if (path->At(1) != NULL)
 	{
-	case eState::IDLE:
+		posPath = app->map->MapToWorld(path->At(1)->x, path->At(1)->y);
+		posPath_0 = app->map->MapToWorld(path->At(0)->x, path->At(0)->y);
+
 		switch (type)
 		{
 		case eType::BASIC:
+			if (posPath_0.x < posPath.x) {
+
+				flipType = SDL_RendererFlip::SDL_FLIP_NONE;
+				currentAnimation = &ForwardWalkingEnemyAnim;
+
+				vel = b2Vec2(speed, grav);
+			}
+			else if (posPath_0.x > posPath.x) {
+
+				currentAnimation = &ForwardWalkingEnemyAnim;
+				flipType = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;
+
+				vel = b2Vec2(-speed, grav);
+			}
 			break;
+
 		case eType::FLYING:
-			pbody->body->SetLinearVelocity(b2Vec2(0, 0));
-			break;
-		case eType::UNKNOWN:
-			break;
-		default:
-			break;
-		}
-		break;
+			currentAnimation = &idleFlyingEnemyAnim;
 
-	case eState::CHASE:
+			if (posPath_0.x < posPath.x) {
 
-		/*app->pathfinding->CreatePath(pos_Enemy, pos_Player);
-		path = app->pathfinding->GetLastPath();
-
-		if (path->At(0) != NULL)
-		{
-			iPoint pos = app->map->MapToWorld(path->At(0)->x, path->At(0)->y);
-
-			if (pos_Enemy.x < pos_Player.x) {
 				flipType = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;
 				vel = b2Vec2(speed, 0);
 			}
+			else if (posPath_0.x > posPath.x) {
 
-			if (pos_Enemy.x > pos_Player.x) {
 				flipType = SDL_RendererFlip::SDL_FLIP_NONE;
 				vel = b2Vec2(-speed, 0);
 			}
-
-			if (pos_Enemy.y < pos_Player.y) { vel = b2Vec2(0, speed); }
-			if (pos_Enemy.y > pos_Player.y) { vel = b2Vec2(0, -speed); }
-		}*/
-
-		app->pathfinding->CreatePath(pos_Enemy, pos_Player);
-		path = app->pathfinding->GetLastPath();
-
-		if (path->At(1) != NULL)
-		{
-			 posPath = app->map->MapToWorld(path->At(1)->x, path->At(1)->y);
-			 posPath_0 = app->map->MapToWorld(path->At(0)->x, path->At(0)->y);
-
-			 if (isFlying) {
-
-				 if (posPath_0.x < posPath.x) {
-
-					 flipType = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;
-					 vel = b2Vec2(speed, 0);
-				 }
-				 else if (posPath_0.x > posPath.x) {
-
-					 flipType = SDL_RendererFlip::SDL_FLIP_NONE;
-					 vel = b2Vec2(-speed, 0);
-				 }
-				 else if (posPath_0.y < posPath.y)
-				 {
-					 vel = b2Vec2(0, speed);
-				 }
-				 else if (posPath_0.y > posPath.y) {
-					 vel = b2Vec2(0, -speed);
-				 }
+			else if (posPath_0.y < posPath.y)
+			{
+				vel = b2Vec2(0, speed);
 			}
+			else if (posPath_0.y > posPath.y) {
+				vel = b2Vec2(0, -speed);
+			}
+			break;
 
-			 else if(!isFlying) {
+		case eType::UNKNOWN:
+			break;
 
-				 if (posPath_0.x < posPath.x) {
-
-					 flipType = SDL_RendererFlip::SDL_FLIP_NONE;
-					 currentAnimation = &ForwardWalkingEnemyAnim;
-					
-					 vel = b2Vec2(speed, grav);
-				 }
-				 else if (posPath_0.x > posPath.x) {
-
-					 currentAnimation = &ForwardWalkingEnemyAnim;
-					 flipType = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;
-				
-					 vel = b2Vec2(-speed, grav);
-				 }
-				
-			 }
-			
+		default:
+			break;
 		}
-		break;
-
-	case eState::DEAD:
-		//active = false;
-		flipType = SDL_RendererFlip::SDL_FLIP_VERTICAL;//no queda bé amb la snake
-
-		if (isFlying) {
-			currentAnimation = &deathFlyEnemyAnim;
-		}
-
-		if (!isFlying) {
-			currentAnimation = &deathWalkEnemyAnim;
-		}
-		//pbody->body->SetActive(false);	// si no esta comentat lo bicho se queda mort a l'aire :/
-		headSensor->body->SetActive(false);
-		break;
-
-	default:
-		break;
 	}
 
 	//DEBUG
@@ -304,14 +306,9 @@ void Enemy::State(iPoint posPlayer, iPoint posEnemy, b2Vec2 &vel)
 			SDL_Rect r = tileset->GetTileRect(enGID);
 			app->render->DrawTexture(tileset->texture, pos.x, pos.y, &r);
 		}
-
-		iPoint en = app->map->MapToWorld(pos_Enemy.x, pos_Enemy.y);
-		iPoint pl = app->map->MapToWorld(pos_Player.x, pos_Player.y);
-
-		app->render->DrawLine(en.x + pbody->width / 2, en.y + pbody->height / 2,
-			pl.x + METERS_TO_PIXELS(vel.x / (pbody->width / 2)) + pbody->width / 2,
-			pl.y + METERS_TO_PIXELS(vel.y / (pbody->height / 2)) + pbody->width / 2,
-			0, 255, 255);
+		
+		SDL_Rect rect = { pos_Enemy.x - detectionDistance / 2, pos_Enemy.y - detectionDistance / 2, METERS_TO_PIXELS(detectionDistance),  METERS_TO_PIXELS(detectionDistance) };
+		app->render->DrawRectangle(rect, 255, 0, 100, 255, false);
 	}
 	
 }

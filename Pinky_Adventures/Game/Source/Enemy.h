@@ -18,6 +18,7 @@ enum class eState
 	IDLE,
 	CHASE,
 	DEAD,
+	RETURN
 };
 
 enum class eType
@@ -43,7 +44,6 @@ public:
 	bool CleanUp();
 
 	void State(iPoint posPlayer, iPoint posEnemy, b2Vec2 &vel);
-
 public:
 	// The pointer to the current player animation
 	// It will be switched depending on the player's movement direction
@@ -65,20 +65,17 @@ public:
 	int ID;
 
 	float grav;
-	//bool idle;
-	//bool chase;
 	PhysBody* pbody, *headSensor;
 
 	iPoint pos_Player;
 	iPoint pos_Enemy;
 	iPoint pos_Origin;	// make the enemy return to the spawn point
+	iPoint originPos;
 	bool origin;
 
 	int detectionDistance;
 
 	uint fxDeath_Enemy;
-
-	bool isFlying;
 
 private:
 
