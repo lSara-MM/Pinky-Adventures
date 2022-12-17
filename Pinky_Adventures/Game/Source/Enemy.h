@@ -50,9 +50,9 @@ public:
 	Animation* currentAnimation = nullptr;
 
 	// A set of animations
-	Animation idleAnim;
-	Animation forwardAnim;
-	Animation jumpAnim;
+	Animation idleFlyingEnemyAnim;
+	Animation idleWalkingEnemyAnim;
+	Animation ForwardWalkingEnemyAnim;
 	Animation deathAnim;
 
 	SDL_RendererFlip flipType;
@@ -74,14 +74,17 @@ public:
 
 	int detectionDistance;
 
-	uint fxDeathFlying_Enemy;
+	uint fxDeath_Enemy;
+
+	bool isFlying;
+
 private:
 
 	SDL_Texture* textureWalkingEnemy;
 	const char* texturePathWalkingEnemy;
 
-	SDL_Texture* textureFlyingEnemy;
-	const char* texturePathFlyingEnemy;
+	SDL_Texture* textureEnemy;
+	const char* texturePathEnemy;
 
 	Animation* currentAnimWalkingEnemy;
 	Animation* currentAnimFlyingEnemy;

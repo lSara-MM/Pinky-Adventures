@@ -354,7 +354,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 				
 				app->audio->PlayFx(fxAttack);
 
-				app->audio->PlayFx(app->scene->enemy->fxDeathFlying_Enemy);
+				app->audio->PlayFx(app->scene->enemy->fxDeath_Enemy);
 
 				//app->scene->enemy->ded = true;
 			}
@@ -380,7 +380,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 				}
 			}
 
-			app->audio->PlayFx(app->scene->enemy->fxDeathFlying_Enemy);
+			app->audio->PlayFx(app->scene->enemy->fxDeath_Enemy);
 
 			e->data->pbody->body->SetGravityScale(15);
 

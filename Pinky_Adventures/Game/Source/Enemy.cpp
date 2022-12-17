@@ -19,14 +19,37 @@ Enemy::Enemy() : Entity(EntityType::ENEMY)
 {
 	name.Create("enemy");
 
-	idleAnim.PushBack({ 0, 3, 16, 11 });
-	idleAnim.PushBack({ 0, 20, 16, 7 });
-	idleAnim.PushBack({ 0, 35, 16, 10 });
-	idleAnim.PushBack({ 0, 49, 16, 13 });
+	idleFlyingEnemyAnim.PushBack({ 0, 3, 16, 11 });
+	idleFlyingEnemyAnim.PushBack({ 0, 20, 16, 7 });
+	idleFlyingEnemyAnim.PushBack({ 0, 35, 16, 10 });
+	idleFlyingEnemyAnim.PushBack({ 0, 49, 16, 13 });
 
-	idleAnim.speed = 0.1f;
+	idleFlyingEnemyAnim.speed = 0.1f;
 
 	deathAnim.PushBack({ 0, 20, 16, 7 });
+
+
+	ForwardWalkingEnemyAnim.PushBack({ 128, 0, 16, 16 });
+	ForwardWalkingEnemyAnim.PushBack({ 144, 0, 16, 16 });
+	ForwardWalkingEnemyAnim.PushBack({ 160, 0, 16, 16 });
+	ForwardWalkingEnemyAnim.PushBack({ 176, 0, 16, 16 });
+	ForwardWalkingEnemyAnim.PushBack({ 192, 0, 16, 16 });
+	ForwardWalkingEnemyAnim.PushBack({ 208, 0, 16, 16 });
+	ForwardWalkingEnemyAnim.PushBack({ 224, 0, 16, 16 });
+	ForwardWalkingEnemyAnim.PushBack({ 240, 0, 16, 16 });
+
+	ForwardWalkingEnemyAnim.speed = 0.1f;
+
+	idleWalkingEnemyAnim.PushBack({ 128, 16, 16, 16 });
+	idleWalkingEnemyAnim.PushBack({ 144, 16, 16, 16 });
+	idleWalkingEnemyAnim.PushBack({ 160, 16, 16, 16 });
+	idleWalkingEnemyAnim.PushBack({ 176, 16, 16, 16 });
+	idleWalkingEnemyAnim.PushBack({ 192, 16, 16, 16 });
+	idleWalkingEnemyAnim.PushBack({ 208, 16, 16, 16 });
+	idleWalkingEnemyAnim.PushBack({ 224, 16, 16, 16 });
+	idleWalkingEnemyAnim.PushBack({ 240, 16, 16, 16 });
+
+	idleWalkingEnemyAnim.speed = 0.1f;
 
 	state = eState::IDLE;
 	active = true;
@@ -44,7 +67,7 @@ bool Enemy::Awake() {
 	else if (typeConfig == "flying") { type = eType::FLYING; }
 	else { type = eType::UNKNOWN; }
 
-	texturePathFlyingEnemy = parameters.attribute("texturepath_E").as_string();
+	texturePathEnemy = parameters.attribute("texturepath_E").as_string();
 
 	speed = parameters.attribute("velocity_E").as_int();
 	width = parameters.attribute("width_E").as_int();
@@ -55,6 +78,8 @@ bool Enemy::Awake() {
 
 	detectionDistance = parameters.attribute("detectionDistance").as_int();
 
+	isFlying = parameters.attribute("fly").as_bool();
+
 	pos_Origin = position;
 	grav = GRAVITY_Y;
 	return true;
@@ -62,21 +87,26 @@ bool Enemy::Awake() {
 
 bool Enemy::Start() {
 	
-	textureFlyingEnemy = app->tex->Load(texturePathFlyingEnemy);
+	textureEnemy = app->tex->Load(texturePathEnemy);
 	ID = app->scene->enemyIDset++;
 
 	pbody = app->physics->CreateRectangle(position.x + width / 2, position.y + height / 2, width, height, bodyType::DYNAMIC, ID);
-	pbody->body->SetGravityScale(0);
+	
+	if (isFlying) {
+		pbody->body->SetGravityScale(0);
+	}
+	
+
 	pbody->body->SetFixedRotation(true);
 	pbody->ctype = ColliderType::ENEMY;
 
-	headSensor = app->physics->CreateRectangleSensor((position.x + width / 2), (position.y + height / 2) - 7, width - 2, 3, bodyType::KINEMATIC, ID);
+	headSensor = app->physics->CreateRectangleSensor((position.x + width / 2), (position.y + height / 2) - 7, 3, 3, bodyType::KINEMATIC, ID);
 	headSensor->body->SetFixedRotation(true);
 	headSensor->ctype = ColliderType::ENEMY_WP;
 
 	fxJump = app->audio->LoadFx(jumpPath);
 	fxLand = app->audio->LoadFx(landPath);
-	fxDeathFlying_Enemy = app->audio->LoadFx(deathPath);
+	fxDeath_Enemy = app->audio->LoadFx(deathPath);
 	
 	origin = true;
 
@@ -85,8 +115,19 @@ bool Enemy::Start() {
 
 bool Enemy::Update()
 {
-	currentAnimation = &idleAnim;
 	b2Vec2 vel = b2Vec2(0, 0);
+
+	if (isFlying) {
+
+		currentAnimation = &idleFlyingEnemyAnim;
+		
+	}
+
+	else if(!isFlying){
+		currentAnimation = &idleWalkingEnemyAnim;
+		vel = b2Vec2(0, grav);
+	}
+
 
 	//Set the velocity of the pbody of the player
 	//pbody->body->SetLinearVelocity(vel);
@@ -124,14 +165,14 @@ bool Enemy::Update()
 
 	SDL_Rect rect = currentAnimation->GetCurrentFrame();
 
-	app->render->DrawTexture(textureFlyingEnemy, position.x, position.y, &rect, 1.0f, NULL, NULL, NULL, flipType);
+	app->render->DrawTexture(textureEnemy, position.x, position.y, &rect, 1.0f, NULL, NULL, NULL, flipType);
 	
 	return true;
 }
 
 bool Enemy::CleanUp()
 {
-	app->tex->UnLoad(textureFlyingEnemy);
+	app->tex->UnLoad(textureEnemy);
 	pbody->body->GetWorld()->DestroyBody(pbody->body);
 	headSensor->body->GetWorld()->DestroyBody(headSensor->body);
 	return true;
@@ -189,23 +230,46 @@ void Enemy::State(iPoint posPlayer, iPoint posEnemy, b2Vec2 &vel)
 			 posPath = app->map->MapToWorld(path->At(1)->x, path->At(1)->y);
 			 posPath_0 = app->map->MapToWorld(path->At(0)->x, path->At(0)->y);
 
-			if (posPath_0.x < posPath.x) {
+			 if (isFlying) {
 
-				flipType = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;
-				vel = b2Vec2(speed, 0);
-			}
-			else if (posPath_0.x > posPath.x) {
+				 if (posPath_0.x < posPath.x) {
 
-				flipType = SDL_RendererFlip::SDL_FLIP_NONE;
-				vel = b2Vec2(-speed, 0);
+					 flipType = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;
+					 vel = b2Vec2(speed, 0);
+				 }
+				 else if (posPath_0.x > posPath.x) {
+
+					 flipType = SDL_RendererFlip::SDL_FLIP_NONE;
+					 vel = b2Vec2(-speed, 0);
+				 }
+				 else if (posPath_0.y < posPath.y)
+				 {
+					 vel = b2Vec2(0, speed);
+				 }
+				 else if (posPath_0.y > posPath.y) {
+					 vel = b2Vec2(0, -speed);
+				 }
 			}
-			else if (posPath_0.y < posPath.y)
-			{ 
-				vel = b2Vec2(0, speed);
-			}
-			else if (posPath_0.y > posPath.y) {
-				vel = b2Vec2(0, -speed);
-			}
+
+			 else if(!isFlying) {
+
+				 if (posPath_0.x < posPath.x) {
+
+					 flipType = SDL_RendererFlip::SDL_FLIP_NONE;
+					 currentAnimation = &ForwardWalkingEnemyAnim;
+					
+					 vel = b2Vec2(speed, grav);
+				 }
+				 else if (posPath_0.x > posPath.x) {
+
+					 currentAnimation = &ForwardWalkingEnemyAnim;
+					 flipType = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;
+				
+					 vel = b2Vec2(-speed, grav);
+				 }
+				
+			 }
+			
 		}
 		break;
 
