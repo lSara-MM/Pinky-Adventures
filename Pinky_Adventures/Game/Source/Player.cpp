@@ -329,18 +329,32 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 
 			if (attackState == true) {
 
+				e = app->scene->listEnemies.start;
+
+				for (e; e != NULL; e = e->next)
+				{
+					if (e->data->ID == physB->id)
+					{
+						e->data->state = eState::DEAD;
+						break;
+					}
+				}
+
 				if (flipType == SDL_RendererFlip::SDL_FLIP_HORIZONTAL) {
 
-					app->scene->enemy->pbody->body->ApplyForceToCenter(b2Vec2(-playerForce, 0), 0);
+					e->data->pbody->body->ApplyForceToCenter(b2Vec2(-playerForce, 0), 0);
 				}
 
 				if (flipType == SDL_RendererFlip::SDL_FLIP_NONE) {
 
-					app->scene->enemy->pbody->body->ApplyForceToCenter(b2Vec2(playerForce, 0), 0);
+					e->data->pbody->body->ApplyForceToCenter(b2Vec2(playerForce, 0), 0);
 				}
 
+				e->data->pbody->body->SetGravityScale(15);
+				
 				app->audio->PlayFx(fxAttack);
 
+			
 				//app->scene->enemy->ded = true;
 			}
 
@@ -364,6 +378,9 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 					break;
 				}
 			}
+
+			e->data->pbody->body->SetGravityScale(15);
+
 			break;
 
 		case ColliderType::GEM:
