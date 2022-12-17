@@ -53,7 +53,7 @@ Enemy::Enemy() : Entity(EntityType::ENEMY)
 
 	deathWalkEnemyAnim.PushBack({ 128, 0, 16, 16 });
 
-	state = eState::IDLE;
+	state = eState::IDLE;//Com s'hauria de posar això al xml?
 	active = true;
 }
 

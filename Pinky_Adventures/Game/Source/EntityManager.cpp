@@ -147,6 +147,18 @@ bool EntityManager::LoadState(pugi::xml_node& data)
 	float y = data.child("player").attribute("y").as_int();
 
 	app->scene->player->pbody->body->SetTransform({ PIXEL_TO_METERS(x),PIXEL_TO_METERS(y) }, 0);
+	
+	ListItem<Enemy*>* e;
+
+	e = app->scene->listEnemies.start;
+
+	for (pugi::xml_node itemNode = app->scene->sceneNode.child("enemy"); itemNode; itemNode = itemNode.next_sibling("enemy"))
+	{
+		float x = data.child("enemy").attribute("x_E").as_int();
+		float y = data.child("enemy").attribute("y_E").as_int();
+		e->data->pbody->body->SetTransform({ PIXEL_TO_METERS(x),PIXEL_TO_METERS(y) }, 0);
+
+	}
 
 	return true;
 }
@@ -160,6 +172,19 @@ bool EntityManager::SaveState(pugi::xml_node& data)
 
 	player.append_attribute("y") = app->scene->player->position.y;
 
+
+	ListItem<Enemy*>* e;
+
+	e = app->scene->listEnemies.start;
+
+	for (e; e != NULL; e = e->next)
+	{
+		pugi::xml_node enemy = data.append_child("enemy");
+
+		enemy.append_attribute("x_E") = e->data->position.x;
+
+		enemy.append_attribute("y_E") = e->data->position.y;
+	}
 
 	return true;
 }

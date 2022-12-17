@@ -5,15 +5,20 @@
 	<textures />
 	<audio />
 	<:anonymous />
+	<pathfinding />
 	<logoScene />
 	<introScene />
 	<scene />
+	<loseScene />
 	<entitymanager>
-		<player x="553" y="212" />
+		<player x="463" y="260" />
+		<enemy x_E="309" y_E="79" />
+		<enemy x_E="449" y_E="247" />
+		<enemy x_E="95" y_E="271" />
 	</entitymanager>
 	<map />
 	<fadeToBlack />
 	<renderer>
-		<camera x="-806" y="0" />
+		<camera x="-626" y="0" />
 	</renderer>
 </save_state>
