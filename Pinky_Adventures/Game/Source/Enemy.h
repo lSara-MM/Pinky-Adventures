@@ -53,7 +53,9 @@ public:
 	Animation idleFlyingEnemyAnim;
 	Animation idleWalkingEnemyAnim;
 	Animation ForwardWalkingEnemyAnim;
-	Animation deathAnim;
+	Animation deathFlyEnemyAnim;
+
+	Animation deathWalkEnemyAnim;
 
 	SDL_RendererFlip flipType;
 

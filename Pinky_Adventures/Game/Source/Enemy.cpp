@@ -26,7 +26,7 @@ Enemy::Enemy() : Entity(EntityType::ENEMY)
 
 	idleFlyingEnemyAnim.speed = 0.1f;
 
-	deathAnim.PushBack({ 0, 20, 16, 7 });
+	deathFlyEnemyAnim.PushBack({ 0, 20, 16, 7 });
 
 
 	ForwardWalkingEnemyAnim.PushBack({ 128, 0, 16, 16 });
@@ -50,6 +50,8 @@ Enemy::Enemy() : Entity(EntityType::ENEMY)
 	idleWalkingEnemyAnim.PushBack({ 240, 16, 16, 16 });
 
 	idleWalkingEnemyAnim.speed = 0.1f;
+
+	deathWalkEnemyAnim.PushBack({ 128, 0, 16, 16 });
 
 	state = eState::IDLE;
 	active = true;
@@ -275,8 +277,15 @@ void Enemy::State(iPoint posPlayer, iPoint posEnemy, b2Vec2 &vel)
 
 	case eState::DEAD:
 		//active = false;
-		flipType = SDL_RendererFlip::SDL_FLIP_VERTICAL;
-		currentAnimation = &deathAnim;
+		flipType = SDL_RendererFlip::SDL_FLIP_VERTICAL;//no queda bé amb la snake
+
+		if (isFlying) {
+			currentAnimation = &deathFlyEnemyAnim;
+		}
+
+		if (!isFlying) {
+			currentAnimation = &deathWalkEnemyAnim;
+		}
 		//pbody->body->SetActive(false);	// si no esta comentat lo bicho se queda mort a l'aire :/
 		headSensor->body->SetActive(false);
 		break;
