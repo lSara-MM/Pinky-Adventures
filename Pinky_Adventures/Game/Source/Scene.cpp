@@ -325,9 +325,14 @@ bool Scene::InitEntities()
 	player->parameters = sceneNode.child("player");
 	player->Awake();
 
-	enemy = (Enemy*)app->entityManager->CreateEntity(EntityType::ENEMY);
-	enemy->parameters = sceneNode.child("enemy");
-	enemy->Awake();
+
+	for (pugi::xml_node itemNode = sceneNode.child("enemy"); itemNode; itemNode = itemNode.next_sibling("enemy"))
+	{
+		enemy = (Enemy*)app->entityManager->CreateEntity(EntityType::ENEMY);
+		enemy->parameters = itemNode;
+		enemy->Awake();
+		listEnemies.Add(enemy);
+	}
 
 	coins->SpawnCoins();
 

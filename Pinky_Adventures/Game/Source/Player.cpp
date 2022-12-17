@@ -183,9 +183,7 @@ bool Player::Update()
 	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && ded == false)
 	{
 		if (!attackState) {
-
 			flipType = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;
-
 		}
 		
 		vel = b2Vec2(-speed, grav);
@@ -197,9 +195,7 @@ bool Player::Update()
 	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && ded == false)
 	{
 		if(!attackState){
-
 			flipType = SDL_RendererFlip::SDL_FLIP_NONE;
-
 		}
 
 		vel = b2Vec2(speed, grav);
@@ -219,21 +215,18 @@ bool Player::Update()
 	}
 
 
-	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN && ded == false && attackState == false && contadorCooldown==attackCooldown)
+	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN && ded == false && attackState == false && contadorCooldown == attackCooldown)
 	{
-
 		b2PolygonShape box;
 
 		if (flipType == SDL_RendererFlip::SDL_FLIP_NONE) {
 
 			box.SetAsBox(PIXEL_TO_METERS(15) * 0.5f, PIXEL_TO_METERS(15) * 0.5f, b2Vec2(PIXEL_TO_METERS(25) * 0.5f, 0), 0);
-
 		}
 
 		else if (flipType == SDL_RendererFlip::SDL_FLIP_HORIZONTAL) {
 
 			box.SetAsBox(PIXEL_TO_METERS(15) * 0.5f, PIXEL_TO_METERS(15) * 0.5f, b2Vec2(-PIXEL_TO_METERS(25) * 0.5f, 0), 0);
-
 		}
 
 		b2FixtureDef fixtureAttack;
@@ -263,22 +256,16 @@ bool Player::Update()
 					
 				}
 			}
-
 			attackState = false;
 		}
-
 	}
 
 	if (contadorCooldown != attackCooldown) {
-
 		contadorCooldown++;
-
 	}
 
 	if (ded == true) {
-
 		currentAnimation = &deathAnim;
-
 	}
 
 	//Set the velocity of the pbody of the player
@@ -314,61 +301,69 @@ bool Player::CleanUp()
 
 void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 
- 	switch (physB->ctype)
+	ListItem<Coin*>* i;
+	ListItem<Enemy*>* e;
+
+	switch (physB->ctype)
 	{
 		case ColliderType::COIN:
 			LOG("Collision COIN");
+
+			app->audio->PlayFx(pickCoinFxId);
+
+			score += 10;
+			i = app->scene->listCoins.start;
+
+			for (i; i != NULL; i = i->next)
 			{
-				app->audio->PlayFx(pickCoinFxId);
-
-				score += 10;
-				ListItem<Coin*>* i = app->scene->listCoins.start;
-
-				for (i; i != NULL; i = i->next)
+				if (i->data->ID == physB->id)
 				{
-					if (i->data->ID == physB->id)
-					{
- 						i->data->isPicked = false;
-						break;
-					}
+					i->data->isPicked = false;
+					break;
 				}
 			}
- 			break;
+			break;
 
 		case ColliderType::ENEMY:
-
 			LOG("Collision ENEMY");
-
 
 			if (attackState == true) {
 
 				if (flipType == SDL_RendererFlip::SDL_FLIP_HORIZONTAL) {
 
 					app->scene->enemy->pbody->body->ApplyForceToCenter(b2Vec2(-playerForce, 0), 0);
-
 				}
-			
+
 				if (flipType == SDL_RendererFlip::SDL_FLIP_NONE) {
 
 					app->scene->enemy->pbody->body->ApplyForceToCenter(b2Vec2(playerForce, 0), 0);
-
 				}
-				
+
 				app->audio->PlayFx(fxAttack);
 
 				//app->scene->enemy->ded = true;
-
-
 			}
 
-			if (app->input->godMode == false && attackState==false) {
+			/*if (app->input->godMode == false && attackState==false) {
 
 				ded = true;
-
 				app->audio->PlayFx(fxDeath);
+			}*/
+			break;
 
+		case ColliderType::ENEMY_WP:
+			LOG("Collision ENEMY WEAKPOINT");
+			score += 50;
+			e = app->scene->listEnemies.start;
+
+ 			for (e; e != NULL; e = e->next)
+			{
+				if (e->data->ID == physB->id)
+				{
+					e->data->state = eState::DEAD;
+					break;
+				}
 			}
-
 			break;
 
 		case ColliderType::GEM:
@@ -409,12 +404,11 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 				app->scene->secret = true;
 				app->audio->PlayFx(fxSecret);
 			}
-			
+
 			break;
 
 		case ColliderType::UNKNOWN:
 			LOG("Collision UNKNOWN");
 			break;
 	}
-	
 }

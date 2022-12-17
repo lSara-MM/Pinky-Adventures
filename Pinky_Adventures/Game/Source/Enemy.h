@@ -65,8 +65,8 @@ public:
 	float grav;
 	//bool idle;
 	//bool chase;
-	PhysBody* pbody;
-	
+	PhysBody* pbody, *headSensor;
+
 	iPoint pos_Player;
 	iPoint pos_Enemy;
 	iPoint pos_Origin;	// make the enemy return to the spawn point
