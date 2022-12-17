@@ -99,6 +99,7 @@ private:
 
 
 	iPoint posPath;
+	iPoint posPath_0;
 };
 
 #endif // __ITEMGEM_H__

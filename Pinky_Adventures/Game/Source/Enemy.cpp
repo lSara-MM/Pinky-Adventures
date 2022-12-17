@@ -215,22 +215,23 @@ void Enemy::State(iPoint posPlayer, iPoint posEnemy, b2Vec2 &vel)
 		if (path->At(1) != NULL)
 		{
 			 posPath = app->map->MapToWorld(path->At(1)->x, path->At(1)->y);
+			 posPath_0 = app->map->MapToWorld(path->At(0)->x, path->At(0)->y);
 
-			if (pos_Enemy.x < posPath.x) {
+			if (posPath_0.x < posPath.x) {
 
 				flipType = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;
 				vel = b2Vec2(speed, 0);
 
 			}
 
-			else if (pos_Enemy.x > posPath.x) {
+			else if (posPath_0.x > posPath.x) {
 
 				flipType = SDL_RendererFlip::SDL_FLIP_NONE;
 				vel = b2Vec2(-speed, 0);
 
 			}
 
-			else if (pos_Enemy.y < posPath.y) 
+			else if (posPath_0.y < posPath.y)
 			{ 
 
 				vel = b2Vec2(0, speed);
@@ -238,7 +239,7 @@ void Enemy::State(iPoint posPlayer, iPoint posEnemy, b2Vec2 &vel)
 			}
 
 
-			else if (pos_Enemy.y > posPath.y) { 
+			else if (posPath_0.y > posPath.y) {
 
 				vel = b2Vec2(0, -speed);
 
