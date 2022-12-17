@@ -73,6 +73,8 @@ public:
 	bool origin;
 
 	int detectionDistance;
+
+	uint fxDeathFlying_Enemy;
 private:
 
 	SDL_Texture* textureWalkingEnemy;

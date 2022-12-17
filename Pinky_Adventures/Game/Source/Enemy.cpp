@@ -76,6 +76,7 @@ bool Enemy::Start() {
 
 	fxJump = app->audio->LoadFx(jumpPath);
 	fxLand = app->audio->LoadFx(landPath);
+	fxDeathFlying_Enemy = app->audio->LoadFx(deathPath);
 	
 	origin = true;
 
