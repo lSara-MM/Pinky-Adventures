@@ -73,8 +73,6 @@ bool Enemy::Awake() {
 	speed = parameters.attribute("velocity_E").as_int();
 	width = parameters.attribute("width_E").as_int();
 	height = parameters.attribute("height_E").as_int();
-	jumpPath = parameters.attribute("audiopathJump_E").as_string();
-	landPath = parameters.attribute("audiopathLand_E").as_string();
 	deathPath = parameters.attribute("audiopathDeath_E").as_string();
 
 	detectionDistance = parameters.attribute("detectionDistance").as_int();
@@ -104,8 +102,6 @@ bool Enemy::Start() {
 	headSensor->body->SetFixedRotation(true);
 	headSensor->ctype = ColliderType::ENEMY_WP;
 
-	fxJump = app->audio->LoadFx(jumpPath);
-	fxLand = app->audio->LoadFx(landPath);
 	fxDeath_Enemy = app->audio->LoadFx(deathPath);
 	
 	origin = true;

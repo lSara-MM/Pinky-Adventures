@@ -62,7 +62,7 @@ public:
 
 	SDL_RendererFlip flipType;
 
-	int jump, speed, width, height;
+	int speed, width, height;
 	eState state;
 	eType type;
 	int ID;
@@ -95,10 +95,6 @@ private:
 
 	int enGID = 244;	// red square
 
-	SDL_Texture* texture;
-	const char* texturePath;
-	const char* jumpPath;
-	const char* landPath;
 	const char* deathPath;
 
 	uint fxJump;

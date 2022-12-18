@@ -103,6 +103,8 @@ bool Player::Awake() {
 
 	playerForce = parameters.attribute("playerForce").as_int();
 
+	audiopathCd = parameters.attribute("audiopathCd").as_string();
+
 	jump = 2;
 	grav = GRAVITY_Y;
 	contador = 0; //temps salta player
@@ -132,6 +134,8 @@ bool Player::Start() {
 	fxSecret = app->audio->LoadFx(secretPath);
 
 	fxAttack = app->audio->LoadFx(attackPath);
+
+	attackCd = app->audio->LoadFx(audiopathCd);
 
 	contadorCooldown = attackCooldown;
 
@@ -263,8 +267,16 @@ bool Player::Update()
 		}
 	}
 
-	if (contadorCooldown != attackCooldown) {
+	if (contadorCooldown != attackCooldown) {//check if attack is on cooldown
+
 		contadorCooldown++;
+
+	}
+
+	if (contadorCooldown == attackCooldown-1) {
+
+		app->audio->PlayFx(attackCd);
+
 	}
 
 	if (ded == true) {

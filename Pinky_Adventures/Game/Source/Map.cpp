@@ -66,13 +66,8 @@ bool Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
                 else {
                     map[i] = 0;
 
-                }//mirant funció iswalkable, retorna que ho és si el valor de map és major a 0. 
+                }
                
-
-               /* if (tileset != NULL)
-                {
-                    map[i] = (tileId - tileset->firstgid) > 0 ? 0 : 1;
-                }*/
             }
         }
 

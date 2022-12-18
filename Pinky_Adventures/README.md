@@ -13,6 +13,9 @@ Simple platformer for the first assignment of Game Development.
 * Merciless, any hit will kill you!
 
 * Collect the coins to get some points.
+
+* Kill enemies by jumping onto them or use the special attack to kill them more safely, but remember, 
+  this attack has a cooldown! (red sword icon means it can be used, brown means it's on cd)
  
 ## Controls
 
