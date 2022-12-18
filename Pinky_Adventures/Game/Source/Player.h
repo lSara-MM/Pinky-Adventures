@@ -87,6 +87,10 @@ private:
 	uint fxAttack;
 	const char* attackPath;
 
+	const char* audiopathCd;
+	uint attackCd;
+
+
 };
 
 #endif // __PLAYER_H__

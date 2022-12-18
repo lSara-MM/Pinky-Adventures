@@ -45,6 +45,7 @@
 			audiopathDeath ="Assets/Audio/Fx/sfx_vaporizing.wav"
 			audiopathAttack="Assets/Audio/Fx/sfx_attack.wav"
 			audiopathSecret ="Assets/Audio/Fx/sfx_secret.wav"
+			audiopathCd ="Assets/Audio/Fx/sfx_Attack_Up.wav"
 			audiopathLoseB=""/>
 		
 	<enemy x_E="300" y_E="50" type_E="flying" detectionDistance="20" 
