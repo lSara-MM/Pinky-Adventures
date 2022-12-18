@@ -335,13 +335,15 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 				if (e->data->ID == physB->id)
 				{
 					e->data->state = eState::DEAD;
+					e->data->pbody->body->SetGravityScale(15);
 					app->scene->listEnemies.Del(e);
+
 					break;
 				}
 			}
 
 			app->audio->PlayFx(app->scene->enemy->fxDeath_Enemy);
-			e->data->pbody->body->SetGravityScale(15);
+			
 			break;
 
 		case ColliderType::ENEMY:
@@ -356,23 +358,23 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 					if (e->data->ID == physB->id)
 					{
 						e->data->state = eState::DEAD;
+
+						if (flipType == SDL_RendererFlip::SDL_FLIP_HORIZONTAL) {
+
+							e->data->pbody->body->ApplyForceToCenter(b2Vec2(-playerForce, 0), 0);
+						}
+
+						if (flipType == SDL_RendererFlip::SDL_FLIP_NONE) {
+
+							e->data->pbody->body->ApplyForceToCenter(b2Vec2(playerForce, 0), 0);
+						}
+
+						e->data->pbody->body->SetGravityScale(15);
 						app->scene->listEnemies.Del(e);
 						break;
 					}
 				}
 
-				if (flipType == SDL_RendererFlip::SDL_FLIP_HORIZONTAL) {
-
-					e->data->pbody->body->ApplyForceToCenter(b2Vec2(-playerForce, 0), 0);
-				}
-
-				if (flipType == SDL_RendererFlip::SDL_FLIP_NONE) {
-
-					e->data->pbody->body->ApplyForceToCenter(b2Vec2(playerForce, 0), 0);
-				}
-
-				e->data->pbody->body->SetGravityScale(15);
-				
 				app->audio->PlayFx(fxAttack);
 
 				app->audio->PlayFx(app->scene->enemy->fxDeath_Enemy);

@@ -35,7 +35,7 @@
 	<scene music="Assets/Audio/Music/lvl_1.ogg" textureAttackPath="Assets/Textures/attack.png"
 	   background1 ="Assets/Maps/clouds_bg.png" background2 ="Assets/Maps/clouds_mg_1.png" background3 ="Assets/Maps/clouds_mg_2.png">
 
-	<player x="120" y="260" attackCooldown="100" playerForce="200"
+	<player x="120" y="260" attackCooldown="100" playerForce="500"
 			texturepath="Assets/Textures/pinky_2.0.png"
 			velocity="3" width="20" height="27"
 			audiopathCoin="Assets/Audio/Fx/Coin.wav"
@@ -54,7 +54,14 @@
 			audiopathLand_E ="Assets/Audio/Fx/sfx_landing.wav"
 			audiopathDeath_E ="Assets/Audio/Fx/sfx_enemyFlyDeath.wav"/>
 
-	<enemy x_E="100" y_E="50" type_E="flying" detectionDistance="20"
+	<enemy x_E="1000" y_E="50" type_E="flying" detectionDistance="20"
+			texturepath_E="Assets/Textures/ss_duck.png"
+			velocity_E="1" width_E="16" height_E="12"
+			audiopathJump_E ="Assets/Audio/Fx/sfx_jump.wav "
+			audiopathLand_E ="Assets/Audio/Fx/sfx_landing.wav"
+			audiopathDeath_E ="Assets/Audio/Fx/sfx_enemyFlyDeath.wav"/>
+
+	<enemy x_E="1250" y_E="50" type_E="flying" detectionDistance="20"
 			texturepath_E="Assets/Textures/ss_duck.png"
 			velocity_E="1" width_E="16" height_E="12"
 			audiopathJump_E ="Assets/Audio/Fx/sfx_jump.wav "
@@ -68,7 +75,7 @@
 			audiopathLand_E ="Assets/Audio/Fx/sfx_landing.wav"
 			audiopathDeath_E ="Assets/Audio/Fx/sfx_enemyFlyDeath.wav"/>
 
-	<enemy x_E="900" y_E="50" type_E="basic" detectionDistance="10"
+	<enemy x_E="1600" y_E="50" type_E="basic" detectionDistance="10"
 		texturepath_E="Assets/Textures/ss_enemies.png"
 		velocity_E="2" width_E="16" height_E="16"
 		audiopathJump_E ="Assets/Audio/Fx/sfx_jump.wav "

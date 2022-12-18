@@ -248,10 +248,10 @@ void Enemy::CreatePath(iPoint posPlayer, iPoint posEnemy, b2Vec2 &vel)
 				vel = b2Vec2(-speed, grav);
 			}
 
-			else if (posPath_0.y < posPath.y || posPath_0.y > posPath.y)
+			/*else if (posPath_0.y < posPath.y || posPath_0.y > posPath.y)
 			{
 				pbody->body->ApplyForceToCenter(b2Vec2(0, -100), 0);
-			}
+			}*/
 			
 			break;
 
@@ -317,13 +317,13 @@ void Enemy::OnCollision(PhysBody* physA, PhysBody* physB) {
 	
 		case ColliderType::SPIKE:
 			LOG("Collision ENEMY SPIKE");
-		
-			pbody->body->ApplyForceToCenter(b2Vec2(0, -50), 0);
+		/*
+			pbody->body->ApplyForceToCenter(b2Vec2(0, -50), 0);*/
 			
 			break;
 
 		case ColliderType::FALL:
-			LOG("Collision ENEMY SPIKE");
+			LOG("Collision ENEMY FALL");
 
 			e = app->scene->listEnemies.start;
 
@@ -332,13 +332,13 @@ void Enemy::OnCollision(PhysBody* physA, PhysBody* physB) {
 				if (e->data->ID == physA->id)
 				{
 					e->data->state = eState::DEAD;
+					e->data->pbody->body->SetGravityScale(15);
 					break;
 				}
 			}
 
 			app->audio->PlayFx(app->scene->enemy->fxDeath_Enemy);
 
-			e->data->pbody->body->SetGravityScale(15);
 			
 			break;
 
