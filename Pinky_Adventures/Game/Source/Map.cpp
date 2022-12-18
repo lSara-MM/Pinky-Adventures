@@ -411,20 +411,260 @@ bool Map::Load()
         ret = LoadAllLayers(mapFileXML.child("map"));
     }
   
+    PhysBody * c1 = app->physics->CreateRectangle(1 + 240 / 2, 290 + 95 / 2, 240, 95, bodyType::STATIC);
+    c1->ctype = ColliderType::PLATFORM;
 
-    PhysBody* c68 = app->physics->CreateRectangleSensor(641 + 1 / 2, 320 + 32 / 2, 1, 32, bodyType::STATIC);
-    c68->ctype = ColliderType::CHANGE;
-    listBodies.Add(c68);
+    listBodies.Add(c1);
 
-    PhysBody* c69 = app->physics->CreateRectangle(240 + 64 / 2, 383 + 1 / 2, 64, 1, bodyType::STATIC);
+    PhysBody* c2 = app->physics->CreateRectangle(305 + 175 / 2, 290 + 95 / 2, 175, 95, bodyType::STATIC);
+    c2->ctype = ColliderType::PLATFORM;
+    listBodies.Add(c2);
+    PhysBody* c3 = app->physics->CreateRectangle(256, 704 + 32, 576, 64, bodyType::STATIC);
+    c3->ctype = ColliderType::PLATFORM;
+    listBodies.Add(c3);
+    PhysBody* c4 = app->physics->CreateRectangle(528 + 64 / 2, 240 + 32 / 2, 64, 32, bodyType::STATIC);
+    c4->ctype = ColliderType::PLATFORM;
+    listBodies.Add(c4);
+    PhysBody* c5 = app->physics->CreateRectangle(624 + 16 / 2, 368 + 16 / 2, 16, 16, bodyType::STATIC);
+    c5->ctype = ColliderType::PLATFORM;
+    listBodies.Add(c5);
+    PhysBody* c6 = app->physics->CreateRectangle(624 + 144 / 2, 352 + 16 / 2, 144, 16, bodyType::STATIC);
+    c6->ctype = ColliderType::PLATFORM;
+    listBodies.Add(c6);
+    PhysBody* c7 = app->physics->CreateRectangle(752 + 48 / 2, 336 + 16 / 2, 48, 16, bodyType::STATIC);
+    c7->ctype = ColliderType::PLATFORM;
+    listBodies.Add(c7);
+
+
+    PhysBody* c8 = app->physics->CreateRectangle(785 + 32 / 2, 320 + 16 / 2, 32, 16, bodyType::STATIC);
+    c8->ctype = ColliderType::PLATFORM;
+    listBodies.Add(c8);
+
+    PhysBody* c9 = app->physics->CreateRectangle(800 + 32 / 2, 304 + 16 / 2, 32, 16, bodyType::STATIC);
+    c9->ctype = ColliderType::PLATFORM;
+    listBodies.Add(c9);
+
+    PhysBody* c10 = app->physics->CreateRectangle(816 + 32 / 2, 288 + 16 / 2, 32, 16, bodyType::STATIC);
+    c10->ctype = ColliderType::PLATFORM;
+    listBodies.Add(c10);
+    PhysBody* c11 = app->physics->CreateRectangle(832 + 32 / 2, 272 + 16 / 2, 32, 16, bodyType::STATIC);
+    c11->ctype = ColliderType::PLATFORM;
+    listBodies.Add(c11);
+
+    PhysBody* c12 = app->physics->CreateRectangle(848 + 48 / 2, 256 + 16 / 2, 48, 16, bodyType::STATIC);
+    c12->ctype = ColliderType::PLATFORM;
+    listBodies.Add(c12);
+    PhysBody* c13 = app->physics->CreateRectangle(880 + 16 / 2, 256 + 96 / 2, 16, 96, bodyType::STATIC);
+    c13->ctype = ColliderType::PLATFORM;
+    listBodies.Add(c13);
+    PhysBody* c14 = app->physics->CreateRectangle(896 + 144 / 2, 336 + 16 / 2, 144, 16, bodyType::STATIC);
+    c14->ctype = ColliderType::PLATFORM;
+    listBodies.Add(c14);
+
+    PhysBody* c15 = app->physics->CreateRectangle(1024 + 16 / 2, 352 + 32 / 2, 16, 32, bodyType::STATIC);
+    c15->ctype = ColliderType::PLATFORM;
+    listBodies.Add(c15);
+
+    PhysBody* c16 = app->physics->CreateRectangle(656 + 64 / 2, 304 + 16 / 2, 64, 16, bodyType::STATIC);
+    c16->ctype = ColliderType::PLATFORM;
+    listBodies.Add(c16);
+
+    PhysBody* c17 = app->physics->CreateRectangle(704 + 32 / 2, 288 + 16 / 2, 32, 16, bodyType::STATIC);
+    c17->ctype = ColliderType::PLATFORM;
+    listBodies.Add(c17);
+
+    PhysBody* c18 = app->physics->CreateRectangle(720 + 32 / 2, 272 + 16 / 2, 32, 16, bodyType::STATIC);
+    c18->ctype = ColliderType::PLATFORM;
+    listBodies.Add(c18);
+    PhysBody* c19 = app->physics->CreateRectangle(736 + 48 / 2, 256 + 16 / 2, 48, 16, bodyType::STATIC);
+    c19->ctype = ColliderType::PLATFORM;
+    listBodies.Add(c19);
+    PhysBody* c20 = app->physics->CreateRectangle(768 + 32 / 2, 240 + 16 / 2, 32, 16, bodyType::STATIC);
+    c20->ctype = ColliderType::PLATFORM;
+    listBodies.Add(c20);
+    PhysBody* c21 = app->physics->CreateRectangle(784 + 32 / 2, 224 + 16 / 2, 32, 16, bodyType::STATIC);
+    c21->ctype = ColliderType::PLATFORM;
+    listBodies.Add(c21);
+    PhysBody* c22 = app->physics->CreateRectangle(816 + 80 / 2, 208 + 16 / 2, 80, 16, bodyType::STATIC);
+    c22->ctype = ColliderType::PLATFORM;
+    listBodies.Add(c22);
+    PhysBody* c24 = app->physics->CreateRectangle(832 + 64 / 2, 192 + 16 / 2, 64, 16, bodyType::STATIC);
+    c24->ctype = ColliderType::PLATFORM;
+    listBodies.Add(c24);
+    PhysBody* c25 = app->physics->CreateRectangle(640 + 208 / 2, 176 + 16 / 2, 208, 16, bodyType::STATIC);
+    c25->ctype = ColliderType::PLATFORM;
+    listBodies.Add(c25);
+    PhysBody* c26 = app->physics->CreateRectangle(640 + 16 / 2, 192 + 128 / 2, 16, 128, bodyType::STATIC);
+    c26->ctype = ColliderType::PLATFORM;
+    listBodies.Add(c26);
+
+    PhysBody* c27 = app->physics->CreateRectangle(1072 + 32 / 2, 320 + 32 / 2, 32, 32, bodyType::STATIC);
+    c27->ctype = ColliderType::PLATFORM;
+    listBodies.Add(c27);
+    PhysBody* c28 = app->physics->CreateRectangle(1200 + 32 / 2, 256 + 32 / 2, 32, 32, bodyType::STATIC);
+    c28->ctype = ColliderType::PLATFORM;
+    listBodies.Add(c28);
+    PhysBody* c29 = app->physics->CreateRectangle(1136 + 32 / 2, 288 + 32 / 2, 32, 32, bodyType::STATIC);
+    c29->ctype = ColliderType::PLATFORM;
+    listBodies.Add(c29);
+
+
+    PhysBody* c30 = app->physics->CreateRectangle(1264 + 16 / 2, 288 + 96 / 2, 16, 96, bodyType::STATIC);
+    c30->ctype = ColliderType::PLATFORM;
+    listBodies.Add(c30);
+    PhysBody* c31 = app->physics->CreateRectangle(1280 + 80 / 2, 288 + 16 / 2, 80, 16, bodyType::STATIC);
+    c31->ctype = ColliderType::PLATFORM;
+    listBodies.Add(c31);
+    PhysBody* c32 = app->physics->CreateRectangle(1344 + 80 / 2, 304 + 16 / 2, 80, 16, bodyType::STATIC);
+    c32->ctype = ColliderType::PLATFORM;
+    listBodies.Add(c32);
+    PhysBody* c33 = app->physics->CreateRectangle(1408 + 64 / 2, 320 + 16 / 2, 64, 16, bodyType::STATIC);
+    c33->ctype = ColliderType::PLATFORM;
+    listBodies.Add(c33);
+    PhysBody* c34 = app->physics->CreateRectangle(1392 + 32 / 2, 64 + 192 / 2, 32, 192, bodyType::STATIC);
+    c34->ctype = ColliderType::PLATFORM;
+    listBodies.Add(c34);
+
+
+    PhysBody* c35 = app->physics->CreateRectangle(1472 + 16 / 2, 64 + 272 / 2, 16, 272, bodyType::STATIC);
+    c35->ctype = ColliderType::PLATFORM;
+    listBodies.Add(c35);
+    PhysBody* c36 = app->physics->CreateRectangle(1488 + 16 / 2, 224 + 160 / 2, 16, 160, bodyType::STATIC);
+    c36->ctype = ColliderType::PLATFORM;
+    listBodies.Add(c36);
+
+    PhysBody* c37 = app->physics->CreateRectangle(1504 + 128 / 2, 224 + 16 / 2, 128, 16, bodyType::STATIC);
+    c37->ctype = ColliderType::PLATFORM;
+    listBodies.Add(c37);
+
+    PhysBody* c38 = app->physics->CreateRectangle(1616 + 16 / 2, 80 + 160 / 2, 16, 160, bodyType::STATIC);
+    c38->ctype = ColliderType::PLATFORM;
+    listBodies.Add(c38);
+
+
+    PhysBody* c39 = app->physics->CreateRectangle(1504 + 112 / 2, 80 + 16 / 2, 112, 16, bodyType::STATIC);
+    c39->ctype = ColliderType::PLATFORM;
+    listBodies.Add(c39);
+
+    PhysBody* c40 = app->physics->CreateRectangle(1488 + 16 / 2, 64 + 32 / 2, 16, 32, bodyType::STATIC);
+    c40->ctype = ColliderType::PLATFORM;
+    listBodies.Add(c40);
+
+
+    PhysBody* c41 = app->physics->CreateRectangle(1664 + 32 / 2, 128 + 32 / 2, 32, 32, bodyType::STATIC);
+    c41->ctype = ColliderType::PLATFORM;
+    listBodies.Add(c41);
+    PhysBody* c42 = app->physics->CreateRectangle(1728 + 32 / 2, 160 + 32 / 2, 32, 32, bodyType::STATIC);
+    c42->ctype = ColliderType::PLATFORM;
+    listBodies.Add(c42);
+
+
+    PhysBody* c44 = app->physics->CreateRectangle(1792 + 48 / 2, 240 + 16 / 2, 48, 16, bodyType::STATIC);
+    c44->ctype = ColliderType::PLATFORM;
+    listBodies.Add(c44);
+    PhysBody* c45 = app->physics->CreateRectangle(1792 + 64 / 2, 256 + 16 / 2, 64, 16, bodyType::STATIC);
+    c45->ctype = ColliderType::PLATFORM;
+    listBodies.Add(c45);
+
+    PhysBody* c46 = app->physics->CreateRectangle(1808 + 80 / 2, 272 + 16 / 2, 80, 16, bodyType::STATIC);
+    c46->ctype = ColliderType::PLATFORM;
+    listBodies.Add(c46);
+
+
+
+    PhysBody* c47 = app->physics->CreateRectangle(1824 + 96 / 2, 288 + 16 / 2, 96, 16, bodyType::STATIC);
+    c47->ctype = ColliderType::PLATFORM;
+    listBodies.Add(c47);
+    PhysBody* c48 = app->physics->CreateRectangle(1856 + 96 / 2, 304 + 16 / 2, 96, 16, bodyType::STATIC);
+    c48->ctype = ColliderType::PLATFORM;
+    listBodies.Add(c48);
+    PhysBody* c49 = app->physics->CreateRectangle(1920 + 80 / 2, 336 + 16 / 2, 80, 16, bodyType::STATIC);
+    c49->ctype = ColliderType::PLATFORM;
+    listBodies.Add(c49);
+    PhysBody* c50 = app->physics->CreateRectangle(1888 + 112 / 2, 320 + 16 / 2, 112, 16, bodyType::STATIC);
+    c50->ctype = ColliderType::PLATFORM;
+    listBodies.Add(c50);
+
+    PhysBody* c51 = app->physics->CreateRectangle(1952 + 32 / 2, 64 + 208 / 2, 32, 208, bodyType::STATIC);
+    c51->ctype = ColliderType::PLATFORM;
+    listBodies.Add(c51);
+    PhysBody* c52 = app->physics->CreateRectangle(2032 + 32 / 2, 64 + 272 / 2, 32, 272, bodyType::STATIC);
+    c52->ctype = ColliderType::PLATFORM;
+    listBodies.Add(c52);
+    PhysBody* c53 = app->physics->CreateRectangle(2032 + 16 / 2, 320 + 64 / 2, 16, 64, bodyType::STATIC);
+    c53->ctype = ColliderType::PLATFORM;
+    listBodies.Add(c53);
+    PhysBody* c54 = app->physics->CreateRectangle(2048 + 80 / 2, 320 + 16 / 2, 80, 16, bodyType::STATIC);
+    c54->ctype = ColliderType::PLATFORM;
+    listBodies.Add(c54);
+    PhysBody* c55 = app->physics->CreateRectangle(2112 + 16 / 2, -80 + 400 / 2, 16, 400, bodyType::STATIC);
+    c55->ctype = ColliderType::PLATFORM;
+    listBodies.Add(c55);
+    PhysBody* c56 = app->physics->CreateRectangle(2128 + 16 / 2, 0 + 16 / 2, 16, 16, bodyType::STATIC);
+    c56->ctype = ColliderType::PLATFORM;
+    listBodies.Add(c56);
+
+    /*
+    {
+    PhysBody* c57 = app->physics->CreateRectangle(160 + 16 / 2, 272 + 12, 16, 8, bodyType::STATIC);
+    c57->ctype = ColliderType::SPIKE;
+    listBodies.Add(c57);
+
+    PhysBody* c58 = app->physics->CreateRectangle(368 + 48 / 2, 272 + 12 , 48, 8, bodyType::STATIC);
+    c58->ctype = ColliderType::SPIKE;
+    listBodies.Add(c58);
+
+    PhysBody* c59 = app->physics->CreateRectangle(480 + 144 / 2, 360 + 16 / 2, 144, 16, bodyType::STATIC);
+    c59->ctype = ColliderType::SPIKE;
+    listBodies.Add(c59);
+
+
+    PhysBody* c61 = app->physics->CreateRectangle(688 + 32 / 2, 160 + 12 , 32, 8, bodyType::STATIC);
+    c61->ctype = ColliderType::SPIKE;
+    listBodies.Add(c61);
+    PhysBody* c62 = app->physics->CreateRectangle(800 + 16 / 2, 160 + 12 , 16, 8, bodyType::STATIC);
+    c62->ctype = ColliderType::SPIKE;
+    listBodies.Add(c62);
+    PhysBody* c63 = app->physics->CreateRectangle(896 + 16 / 2, 320 + 12 , 16, 8, bodyType::STATIC);
+    c63->ctype = ColliderType::SPIKE;
+    listBodies.Add(c63);
+
+    PhysBody* c64 = app->physics->CreateRectangle(1264 + 32 / 2, 272 + 12 , 32, 8, bodyType::STATIC);
+    c64->ctype = ColliderType::SPIKE;
+    listBodies.Add(c64);
+    PhysBody* c65 = app->physics->CreateRectangle(1504 + 32 / 2, 64 + 12, 32, 8, bodyType::STATIC);
+    c65->ctype = ColliderType::SPIKE;
+    listBodies.Add(c65);
+    PhysBody* c66 = app->physics->CreateRectangle(1824 + 16 / 2, 224 + 12 , 16, 8, bodyType::STATIC);
+    c66->ctype = ColliderType::SPIKE;
+    listBodies.Add(c66);
+
+    PhysBody* c67 = app->physics->CreateRectangle(1504 + 528 / 2, 361 + 16 / 2, 528, 16, bodyType::STATIC);
+    c67->ctype = ColliderType::SPIKE;
+    listBodies.Add(c67);
+    */
+    //PhysBody* c68 = app->physics->CreateRectangleSensor(641 + 1 / 2, 320 + 32 / 2, 1, 32, bodyType::STATIC);
+    //c68->ctype = ColliderType::CHANGE;
+    //listBodies.Add(c68);
+
+    PhysBody* c69 = app->physics->CreateRectangleSensor(240 + 64 / 2, 360 + 1 / 2, 64, 1, bodyType::STATIC);
     c69->ctype = ColliderType::FALL;
     listBodies.Add(c69);
 
-    PhysBody* c70 = app->physics->CreateRectangle(1040 + 224 / 2, 382 + 1 / 2, 224, 1, bodyType::STATIC);
-    c70->ctype = ColliderType::FALL;
+    PhysBody* c70 = app->physics->CreateRectangleSensor(480 + 144 / 2, 360 + 1 / 2, 144, 1, bodyType::STATIC);
+    c69->ctype = ColliderType::FALL;
     listBodies.Add(c70);
 
-    PhysBody* c = app->physics->CreateRectangle(2, 0, 0, 1000, bodyType::STATIC);//límit mapa
+    PhysBody* c71 = app->physics->CreateRectangleSensor(1040 + 224 / 2, 360 + 1 / 2, 224, 1, bodyType::STATIC);
+    c71->ctype = ColliderType::FALL;
+
+    PhysBody* c72 = app->physics->CreateRectangleSensor(1504 + 528 / 2, 360 + 1 / 2, 528, 1, bodyType::STATIC);
+    c72->ctype = ColliderType::FALL;
+
+    listBodies.Add(c72);
+
+  
+    PhysBody* c = app->physics->CreateRectangle(2, 0, 0, 5000, bodyType::STATIC);//límit mapa
     c->ctype = ColliderType::PLATFORM;
     listBodies.Add(c);
 
@@ -461,7 +701,7 @@ bool Map::Load()
     mapLoaded = ret;
 
 
-    DrawPlatformCollider();
+    //DrawPlatformCollider();no ho fa bé, ni el profe sap why, ho deixaré hardcode per tenir el joc funcional
     DrawSpikes();
 
     int w, h;

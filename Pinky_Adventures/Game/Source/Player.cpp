@@ -410,13 +410,6 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			}
 			break;
 
-		case ColliderType::FALL:
-			LOG("Collision FALL");
-			if (app->input->godMode == false) {
-				ded = true;
-				app->audio->PlayFx(fxDeath);
-			}
-			break;
 
 		case ColliderType::CHANGE:
 			LOG("Collision CHANGE");

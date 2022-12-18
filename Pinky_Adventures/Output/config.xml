@@ -61,12 +61,19 @@
 			audiopathLand_E ="Assets/Audio/Fx/sfx_landing.wav"
 			audiopathDeath_E ="Assets/Audio/Fx/sfx_enemyFlyDeath.wav"/>
 
-	<enemy x_E="80" y_E="260" type_E="basic" detectionDistance="10"
+	<enemy x_E="780" y_E="50" type_E="basic" detectionDistance="10"
 			texturepath_E="Assets/Textures/ss_enemies.png"
 			velocity_E="2" width_E="16" height_E="16"
 			audiopathJump_E ="Assets/Audio/Fx/sfx_jump.wav "
 			audiopathLand_E ="Assets/Audio/Fx/sfx_landing.wav"
 			audiopathDeath_E ="Assets/Audio/Fx/sfx_enemyFlyDeath.wav"/>
+
+	<enemy x_E="900" y_E="50" type_E="basic" detectionDistance="10"
+		texturepath_E="Assets/Textures/ss_enemies.png"
+		velocity_E="2" width_E="16" height_E="16"
+		audiopathJump_E ="Assets/Audio/Fx/sfx_jump.wav "
+		audiopathLand_E ="Assets/Audio/Fx/sfx_landing.wav"
+		audiopathDeath_E ="Assets/Audio/Fx/sfx_enemyFlyDeath.wav"/>
 		
 	<!--COINS-->
 
