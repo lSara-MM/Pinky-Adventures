@@ -24,6 +24,8 @@ Simple platformer for the first assignment of Game Development.
 
 * Jump -> SPACE
 
+* Special attack -> R 
+
 ### Menus
 
 * Accept -> Enter
@@ -53,6 +55,8 @@ Simple platformer for the first assignment of Game Development.
 	* Go upwards -> W (ONLY IN GOD MODE)
 
 	* Descend -> S (ONLY IN GOD MODE)
+
+* Enable/Disable FPS cap to 30 -> F11
 
 Can go through platforms when jumping from below -> implemented horizontally (can go through the wall from left but not right) in the secret area
 

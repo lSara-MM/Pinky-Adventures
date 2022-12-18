@@ -75,7 +75,7 @@
 			audiopathLand_E ="Assets/Audio/Fx/sfx_landing.wav"
 			audiopathDeath_E ="Assets/Audio/Fx/sfx_enemyFlyDeath.wav"/>
 
-	<enemy x_E="1600" y_E="50" type_E="basic" detectionDistance="10"
+	<enemy x_E="1500" y_E="50" type_E="basic" detectionDistance="10"
 		texturepath_E="Assets/Textures/ss_enemies.png"
 		velocity_E="3" width_E="16" height_E="16"
 		audiopathJump_E ="Assets/Audio/Fx/sfx_jump.wav "

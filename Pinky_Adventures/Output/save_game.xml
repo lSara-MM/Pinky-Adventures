@@ -11,14 +11,16 @@
 	<scene />
 	<loseScene />
 	<entitymanager>
-		<player x="463" y="260" />
-		<enemy x_E="309" y_E="79" />
-		<enemy x_E="449" y_E="247" />
-		<enemy x_E="95" y_E="271" />
+		<player x="690" y="75" />
+		<enemy x_E="625" y_E="149" />
+		<enemy x_E="783" y_E="50" />
+		<enemy x_E="1301" y_E="50" />
+		<enemy x_E="764" y_E="159" />
+		<enemy x_E="1536" y_E="63" />
 	</entitymanager>
 	<map />
 	<fadeToBlack />
 	<renderer>
-		<camera x="-626" y="0" />
+		<camera x="-1080" y="0" />
 	</renderer>
 </save_state>
