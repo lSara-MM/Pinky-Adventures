@@ -339,13 +339,11 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 				{
 					e->data->state = eState::DEAD;
 					e->data->pbody->body->SetGravityScale(15);
-					app->scene->listEnemies.Del(e);
+					//app->scene->listEnemies.Del(e);
 					break;
 				}
 			}
-
 			app->audio->PlayFx(app->scene->enemy->fxDeath_Enemy);
-			
 			break;
 
 		case ColliderType::ENEMY:
@@ -372,7 +370,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 						}
 
 						e->data->pbody->body->SetGravityScale(15);
-						app->scene->listEnemies.Del(e);
+						//app->scene->listEnemies.Del(e);
 						break;
 					}
 				}

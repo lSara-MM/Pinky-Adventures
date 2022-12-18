@@ -147,34 +147,25 @@ bool EntityManager::LoadState(pugi::xml_node& data)
 	float y = data.child("player").attribute("y").as_int();
 
 	app->scene->player->pbody->body->SetTransform({ PIXEL_TO_METERS(x),PIXEL_TO_METERS(y) }, 0);
-	
+
 	ListItem<Enemy*>* e;
-
 	e = app->scene->listEnemies.start;
-
-	for (pugi::xml_node itemNode = app->scene->sceneNode.child("enemy"); itemNode; itemNode = itemNode.next_sibling("enemy"))
+	
+	for (pugi::xml_node itemNode = data.child("enemy"); itemNode; itemNode = itemNode.next_sibling("enemy"))
 	{
-		float x = data.child("enemy").attribute("x_E").as_int();
-		float y = data.child("enemy").attribute("y_E").as_int();
-		SString loadedState = data.child("enemy").attribute("type_E").as_string();
+		float x = itemNode.attribute("x_E").as_int();
+		float y = itemNode.attribute("y_E").as_int();
+		SString loadedState = itemNode.attribute("state_E").as_string();
+
 		e->data->pbody->body->SetTransform({ PIXEL_TO_METERS(x),PIXEL_TO_METERS(y) }, 0);
 
-		switch (e->data->state)
-		{
-		case eState::IDLE:
-			break;
-		case eState::CHASE:
-			break;
-		case eState::DEAD:
-			break;
-		case eState::RETURN:
-			break;
-		default:
-			break;
-		}
+		if (loadedState == "idle") { e->data->state = eState::IDLE; }
+		else if (loadedState == "chase") { e->data->state = eState::CHASE; }
+		else if (loadedState == "dead") { e->data->state = eState::DEAD; }
+		else if (loadedState == "return") { e->data->state = eState::RETURN; }
 
+		e = e->next;
 	}
-
 	return true;
 }
 
@@ -187,16 +178,31 @@ bool EntityManager::SaveState(pugi::xml_node& data)
 	player.append_attribute("y") = app->scene->player->position.y;
 
 	ListItem<Enemy*>* e;
-	e = app->scene->listEnemies.start;
-
-	for (e; e != NULL; e = e->next)
+	for (e = app->scene->listEnemies.start; e != NULL; e = e->next)
 	{
 		pugi::xml_node enemy = data.append_child("enemy");
 
 		enemy.append_attribute("x_E") = e->data->position.x;
 		enemy.append_attribute("y_E") = e->data->position.y;
 
-
+		switch (e->data->state)
+		{
+		case eState::IDLE:
+			enemy.append_attribute("state_E") = "idle";
+			break;
+		case eState::CHASE:
+			enemy.append_attribute("state_E") = "chase";
+			break;
+		case eState::DEAD:
+			enemy.append_attribute("state_E") = "dead";
+			break;
+		case eState::RETURN:
+			enemy.append_attribute("state_E") = "return";
+			break;
+		default:
+			enemy.append_attribute("state_E") = "idle";
+			break;
+		}
 	}
 
 	return true;
