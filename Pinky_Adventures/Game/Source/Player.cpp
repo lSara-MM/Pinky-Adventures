@@ -337,7 +337,6 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 					e->data->state = eState::DEAD;
 					e->data->pbody->body->SetGravityScale(15);
 					app->scene->listEnemies.Del(e);
-
 					break;
 				}
 			}

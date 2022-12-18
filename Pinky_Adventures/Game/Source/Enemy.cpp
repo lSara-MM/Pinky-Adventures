@@ -118,30 +118,40 @@ bool Enemy::Update()
 	pos_Player = app->map->WorldToMap(app->scene->player->position.x, app->scene->player->position.y);
 	pos_Origin = app->map->WorldToMap(originPos.x, originPos.y);
 
+	iPoint idleWalk = {100, 0};
+	iPoint pos_IdleWalk = app->map->WorldToMap(originPos.x + idleWalk.x, originPos.y + idleWalk.y);
+
 	//LOG("distance %d", pos_Player.DistanceTo(pos_Enemy));
 
 	switch (state)
-	{	
+	{
 	case eState::IDLE:
 		if (pos_Player.DistanceTo(pos_Enemy) <= detectionDistance)
 		{
 			state = eState::CHASE;
 			LOG("PLAYER DETECTED");
 		}
-		
+
 		switch (type)
 		{
 		case eType::BASIC:
 			currentAnimation = &idleWalkingEnemyAnim;
 
-			LOG("position %d origin %d", position.x, pos_Origin.x);
-			vel = b2Vec2(0, grav);
+			if (pos_Enemy != pos_IdleWalk && origin) { CreatePath(pos_IdleWalk, pos_Enemy, vel); }
+			else if (pos_Enemy != pos_Origin && !origin) { CreatePath(pos_Origin, pos_Enemy, vel); }
+			else if (pos_Enemy == pos_IdleWalk) { origin = false; }
+			else if (pos_Enemy == pos_Origin) { origin = true; }
 
 			break;
 
 		case eType::FLYING:
 			currentAnimation = &idleFlyingEnemyAnim;
-			vel = b2Vec2(0, 0);
+
+			if (pos_Enemy != pos_IdleWalk && origin) { CreatePath(pos_IdleWalk, pos_Enemy, vel); }
+			else if (pos_Enemy != pos_Origin && !origin) { CreatePath(pos_Origin, pos_Enemy, vel); }
+			else if (pos_Enemy == pos_IdleWalk) { origin = false; }
+			else if (pos_Enemy == pos_Origin) { origin = true; }
+			
 			break;
 
 		case eType::UNKNOWN:
@@ -184,7 +194,7 @@ bool Enemy::Update()
 		break;
 
 	case eState::RETURN:
-		//(pos_Enemy != pos_Origin) ? State(pos_Origin, pos_Enemy, vel) : state = eState ::IDLE;	// perque no vol tornar al seu punt d'origen :/
+		(pos_Enemy != pos_Origin) ? CreatePath(pos_Origin, pos_Enemy, vel) : state = eState ::IDLE;	// perque no vol tornar al seu punt d'origen :/
 		break;
 
 	default:
