@@ -532,12 +532,12 @@ bool Map::Load()
     c37->ctype = ColliderType::PLATFORM;
     listBodies.Add(c37);
 
-    PhysBody* c38 = app->physics->CreateRectangle(1616 + 16 / 2, 80 + 160 / 2, 16, 160, bodyType::STATIC);
+    PhysBody* c38 = app->physics->CreateRectangle(1616 + 16 / 2, 96 + 144 / 2, 16, 144, bodyType::STATIC);
     c38->ctype = ColliderType::PLATFORM;
     listBodies.Add(c38);
 
 
-    PhysBody* c39 = app->physics->CreateRectangle(1504 + 112 / 2, 80 + 16 / 2, 112, 16, bodyType::STATIC);
+    PhysBody* c39 = app->physics->CreateRectangle(1504 + 128 / 2, 80 + 16 / 2, 128, 16, bodyType::STATIC);
     c39->ctype = ColliderType::PLATFORM;
     listBodies.Add(c39);
 
