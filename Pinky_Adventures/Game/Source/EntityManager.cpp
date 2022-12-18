@@ -156,7 +156,22 @@ bool EntityManager::LoadState(pugi::xml_node& data)
 	{
 		float x = data.child("enemy").attribute("x_E").as_int();
 		float y = data.child("enemy").attribute("y_E").as_int();
+		SString loadedState = data.child("enemy").attribute("type_E").as_string();
 		e->data->pbody->body->SetTransform({ PIXEL_TO_METERS(x),PIXEL_TO_METERS(y) }, 0);
+
+		switch (e->data->state)
+		{
+		case eState::IDLE:
+			break;
+		case eState::CHASE:
+			break;
+		case eState::DEAD:
+			break;
+		case eState::RETURN:
+			break;
+		default:
+			break;
+		}
 
 	}
 
@@ -169,12 +184,9 @@ bool EntityManager::SaveState(pugi::xml_node& data)
 	pugi::xml_node player = data.append_child("player");
 
 	player.append_attribute("x") = app->scene->player->position.x;
-
 	player.append_attribute("y") = app->scene->player->position.y;
 
-
 	ListItem<Enemy*>* e;
-
 	e = app->scene->listEnemies.start;
 
 	for (e; e != NULL; e = e->next)
@@ -182,8 +194,9 @@ bool EntityManager::SaveState(pugi::xml_node& data)
 		pugi::xml_node enemy = data.append_child("enemy");
 
 		enemy.append_attribute("x_E") = e->data->position.x;
-
 		enemy.append_attribute("y_E") = e->data->position.y;
+
+
 	}
 
 	return true;

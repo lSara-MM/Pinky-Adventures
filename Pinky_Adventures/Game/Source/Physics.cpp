@@ -99,7 +99,8 @@ PhysBody* Physics::CreateRectangle(int x, int y, int width, int height, bodyType
 	pbody->width = width * 0.5f;
 	pbody->height = height * 0.5f;
 
-
+	pbody->id = id;
+	// Return our PhysBody class
 	return pbody;
 }
 

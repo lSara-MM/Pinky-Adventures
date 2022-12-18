@@ -310,6 +310,7 @@ void Scene::Debug()
 		{
 			int maxR = -player->position.x * app->win->GetScale() + 300;
 			app->render->camera.x = maxR;
+			app->render->camera.y = 0;
 		}
 	}
 
