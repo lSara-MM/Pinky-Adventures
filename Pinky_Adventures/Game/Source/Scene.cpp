@@ -118,6 +118,7 @@ bool Scene::Start()
 	drawPaths = false;
 	frame30 = false;
 	freeCam = false;
+	app->input->godMode = false;
 	return true;
 }
 
