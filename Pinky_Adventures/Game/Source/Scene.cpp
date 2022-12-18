@@ -222,7 +222,8 @@ bool Scene::CleanUp()
 	app->tex->UnLoad(BACK1);
 	app->tex->UnLoad(BACK2);
 	app->tex->UnLoad(BACK3);
-	
+	app->tex->UnLoad(attackIcon);
+
 	app->entityManager->Disable();
 	app->physics->Disable();
 	app->map->CleanUp();

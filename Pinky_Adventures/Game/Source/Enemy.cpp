@@ -294,7 +294,7 @@ void Enemy::CreatePath(iPoint posPlayer, iPoint posEnemy, b2Vec2 &vel)
 	}
 
 	//DEBUG
-	if (path != nullptr)
+	if (app->input->godMode)
 	{
 		for (uint i = 0; i < path->Count(); ++i)
 		{
