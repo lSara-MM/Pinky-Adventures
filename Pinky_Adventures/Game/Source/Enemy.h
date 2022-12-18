@@ -43,7 +43,10 @@ public:
 
 	bool CleanUp();
 
-	void CreatePath(iPoint posPlayer, iPoint posEnemy, b2Vec2 &vel);
+	void State(iPoint posPlayer, iPoint posEnemy, b2Vec2 &vel);
+
+	void OnCollision(PhysBody* physA, PhysBody* physB);
+
 public:
 	// The pointer to the current player animation
 	// It will be switched depending on the player's movement direction

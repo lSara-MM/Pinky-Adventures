@@ -96,6 +96,8 @@ bool Enemy::Start() {
 	pbody->body->SetFixedRotation(true);
 	pbody->ctype = ColliderType::ENEMY;
 
+	pbody->listener = this;
+
 	headSensor = app->physics->CreateRectangleSensor((position.x + width / 2), (position.y + height / 2) - 7, 3, 3, bodyType::KINEMATIC, ID);
 	headSensor->body->SetFixedRotation(true);
 	headSensor->ctype = ColliderType::ENEMY_WP;
@@ -182,7 +184,8 @@ bool Enemy::Update()
 		break;
 
 	case eState::RETURN:
-		(pos_Enemy != pos_Origin) ? CreatePath(pos_Origin, pos_Enemy, vel) : state = eState ::IDLE;
+		//(pos_Enemy != pos_Origin) ? State(pos_Origin, pos_Enemy, vel) : state = eState ::IDLE;	// perque no vol tornar al seu punt d'origen :/
+		break;
 
 	default:
 		break;
@@ -244,6 +247,12 @@ void Enemy::CreatePath(iPoint posPlayer, iPoint posEnemy, b2Vec2 &vel)
 
 				vel = b2Vec2(-speed, grav);
 			}
+
+			else if (posPath_0.y < posPath.y || posPath_0.y > posPath.y)
+			{
+				pbody->body->ApplyForceToCenter(b2Vec2(0, -100), 0);
+			}
+			
 			break;
 
 		case eType::FLYING:
@@ -291,4 +300,50 @@ void Enemy::CreatePath(iPoint posPlayer, iPoint posEnemy, b2Vec2 &vel)
 		app->render->DrawRectangle(rect, 255, 0, 100, 255, false);
 	}
 	
+}
+
+
+void Enemy::OnCollision(PhysBody* physA, PhysBody* physB) {
+
+	ListItem<Enemy*>* e;
+
+	switch (physB->ctype)
+	{
+
+		case ColliderType::PLATFORM:
+			LOG("Collision PLATFORM");
+		
+			break;
+	
+		case ColliderType::SPIKE:
+			LOG("Collision ENEMY SPIKE");
+		
+			pbody->body->ApplyForceToCenter(b2Vec2(0, -50), 0);
+			
+			break;
+
+		case ColliderType::FALL:
+			LOG("Collision ENEMY SPIKE");
+
+			e = app->scene->listEnemies.start;
+
+			for (e; e != NULL; e = e->next)
+			{
+				if (e->data->ID == physA->id)
+				{
+					e->data->state = eState::DEAD;
+					break;
+				}
+			}
+
+			app->audio->PlayFx(app->scene->enemy->fxDeath_Enemy);
+
+			e->data->pbody->body->SetGravityScale(15);
+			
+			break;
+
+	case ColliderType::UNKNOWN:
+			LOG("Collision UNKNOWN");
+			break;
+	}
 }
