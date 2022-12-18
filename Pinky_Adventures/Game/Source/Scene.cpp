@@ -51,6 +51,7 @@ bool Scene::Awake(pugi::xml_node& config)
 bool Scene::Start()
 {
 	coinIDset = 1;
+	enemyIDset = 1;
 
 	app->physics->Enable();
 	app->render->camera.x = 0;
@@ -213,6 +214,7 @@ bool Scene::CleanUp()
 	player->Disable();
 	gem->Disable();
 	listCoins.Clear();
+	listEnemies.Clear();
 
 	app->tex->UnLoad(BACK1);
 	app->tex->UnLoad(BACK2);

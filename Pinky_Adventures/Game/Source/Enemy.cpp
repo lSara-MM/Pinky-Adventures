@@ -28,7 +28,6 @@ Enemy::Enemy() : Entity(EntityType::ENEMY)
 
 	deathFlyEnemyAnim.PushBack({ 0, 20, 16, 7 });
 
-
 	ForwardWalkingEnemyAnim.PushBack({ 128, 0, 16, 16 });
 	ForwardWalkingEnemyAnim.PushBack({ 144, 0, 16, 16 });
 	ForwardWalkingEnemyAnim.PushBack({ 160, 0, 16, 16 });
@@ -106,7 +105,6 @@ bool Enemy::Start() {
 	fxDeath_Enemy = app->audio->LoadFx(deathPath);
 	
 	origin = true;
-
 	return true;
 }
 
@@ -118,7 +116,7 @@ bool Enemy::Update()
 	pos_Player = app->map->WorldToMap(app->scene->player->position.x, app->scene->player->position.y);
 	pos_Origin = app->map->WorldToMap(originPos.x, originPos.y);
 
-	LOG("distance %d", pos_Player.DistanceTo(pos_Enemy));
+	//LOG("distance %d", pos_Player.DistanceTo(pos_Enemy));
 
 	switch (state)
 	{	
@@ -136,23 +134,6 @@ bool Enemy::Update()
 
 			LOG("position %d origin %d", position.x, pos_Origin.x);
 			vel = b2Vec2(0, grav);
-
-			/*if (position.x + dist > pos_Origin.x) {   d = true; }
-			else if (position.x + dist < pos_Origin.x && d == true) { vel = b2Vec2(speed, grav); }*/
-
-			//(app->pathfinding->IsWalkable(iPoint(pos_Enemy.x + 1, pos_Enemy.y))) ? speed : speed = -speed;
-			
-			/*if (position.x >= pos_Origin.x || position.x + 50 < pos_Origin.x)
-			{
-				flipType = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;
-				vel = b2Vec2(-speed, grav);
-			}
-
-			if (position.x < pos_Origin.x)
-			{
-				flipType = SDL_RendererFlip::SDL_FLIP_NONE;
-				vel = b2Vec2(speed, grav);
-			}*/
 
 			break;
 
@@ -177,7 +158,7 @@ bool Enemy::Update()
 			break;
 		}
 
-		State(pos_Player, pos_Enemy, vel);
+		CreatePath(pos_Player, pos_Enemy, vel);
 		break;
 
 	case eState::DEAD:
@@ -201,8 +182,7 @@ bool Enemy::Update()
 		break;
 
 	case eState::RETURN:
-		(pos_Enemy != pos_Origin) ? State(pos_Origin, pos_Enemy, vel) : state = eState ::IDLE;	// perque no vol tornar al seu punt d'origen :/
-		break;
+		(pos_Enemy != pos_Origin) ? CreatePath(pos_Origin, pos_Enemy, vel) : state = eState ::IDLE;
 
 	default:
 		break;
@@ -235,7 +215,7 @@ bool Enemy::CleanUp()
 	return true;
 }
 
-void Enemy::State(iPoint posPlayer, iPoint posEnemy, b2Vec2 &vel)
+void Enemy::CreatePath(iPoint posPlayer, iPoint posEnemy, b2Vec2 &vel)
 {
 	const DynArray<iPoint>* path = nullptr;
 

@@ -324,6 +324,25 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			}
 			break;
 
+		case ColliderType::ENEMY_WP:
+			LOG("Collision ENEMY WEAKPOINT");
+			score += 50;
+			e = app->scene->listEnemies.start;
+
+			for (e; e != NULL; e = e->next)
+			{
+				if (e->data->ID == physB->id)
+				{
+					e->data->state = eState::DEAD;
+					app->scene->listEnemies.Del(e);
+					break;
+				}
+			}
+
+			app->audio->PlayFx(app->scene->enemy->fxDeath_Enemy);
+			e->data->pbody->body->SetGravityScale(15);
+			break;
+
 		case ColliderType::ENEMY:
 			LOG("Collision ENEMY");
 
@@ -355,35 +374,25 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 				app->audio->PlayFx(fxAttack);
 
 				app->audio->PlayFx(app->scene->enemy->fxDeath_Enemy);
-
-				//app->scene->enemy->ded = true;
 			}
 
-			/*if (app->input->godMode == false && attackState==false) {
+			if (attackState == false) {
+				
+				e = app->scene->listEnemies.start;
 
-				ded = true;
-				app->audio->PlayFx(fxDeath);
-			}*/
-			break;
-
-		case ColliderType::ENEMY_WP:
-			LOG("Collision ENEMY WEAKPOINT");
-			score += 50;
-			e = app->scene->listEnemies.start;
-
- 			for (e; e != NULL; e = e->next)
-			{
-				if (e->data->ID == physB->id)
+				for (e; e != NULL; e = e->next)
 				{
-					e->data->state = eState::DEAD;
-					break;
+					if (e->data->ID == physB->id)
+					{
+						if (e->data->state != eState::DEAD)
+						{
+							ded = true;
+							app->audio->PlayFx(fxDeath);
+						}
+						break;
+					}
 				}
 			}
-
-			app->audio->PlayFx(app->scene->enemy->fxDeath_Enemy);
-
-			e->data->pbody->body->SetGravityScale(15);
-
 			break;
 
 		case ColliderType::GEM:
