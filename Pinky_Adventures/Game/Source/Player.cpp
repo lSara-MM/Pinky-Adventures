@@ -107,6 +107,7 @@ bool Player::Awake() {
 
 	jump = 2;
 	grav = GRAVITY_Y;
+
 	contador = 0; //temps salta player
 	
 	score = 0;
@@ -420,7 +421,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			break;
 
 		case ColliderType::PLATFORM:
-			//LOG("Collision PLATFORM");
+			LOG("Collision PLATFORM");
 			if (jump == 0) {
 				jump += 2;
 			}

@@ -119,7 +119,6 @@ bool Enemy::Update()
 	iPoint idleWalk = {100, 0};
 	iPoint pos_IdleWalk = app->map->WorldToMap(originPos.x + idleWalk.x, originPos.y + idleWalk.y);
 
-	//LOG("distance %d", pos_Player.DistanceTo(pos_Enemy));
 
 	switch (state)
 	{
@@ -173,7 +172,7 @@ bool Enemy::Update()
 
 	case eState::DEAD:
 		//active = false;
-		flipType = SDL_RendererFlip::SDL_FLIP_VERTICAL;//no queda bé amb la snake
+		flipType = SDL_RendererFlip::SDL_FLIP_VERTICAL;
 
 		switch (type)
 		{
@@ -192,7 +191,7 @@ bool Enemy::Update()
 		break;
 
 	case eState::RETURN:
-		(pos_Enemy != pos_Origin) ? CreatePath(pos_Origin, pos_Enemy, vel) : state = eState ::IDLE;	// perque no vol tornar al seu punt d'origen :/
+		(pos_Enemy != pos_Origin) ? CreatePath(pos_Origin, pos_Enemy, vel) : state = eState ::IDLE;	
 		break;
 
 	default:
@@ -256,11 +255,6 @@ void Enemy::CreatePath(iPoint posPlayer, iPoint posEnemy, b2Vec2 &vel)
 				vel = b2Vec2(-speed, grav);
 			}
 
-			/*else if (posPath_0.y < posPath.y || posPath_0.y > posPath.y)
-			{
-				pbody->body->ApplyForceToCenter(b2Vec2(0, -100), 0);
-			}*/
-			
 			break;
 
 		case eType::FLYING:
@@ -323,13 +317,6 @@ void Enemy::OnCollision(PhysBody* physA, PhysBody* physB) {
 		
 			break;
 	
-		case ColliderType::SPIKE:
-			LOG("Collision ENEMY SPIKE");
-		/*
-			pbody->body->ApplyForceToCenter(b2Vec2(0, -50), 0);*/
-			
-			break;
-
 		case ColliderType::FALL:
 			LOG("Collision ENEMY FALL");
 
@@ -350,7 +337,7 @@ void Enemy::OnCollision(PhysBody* physA, PhysBody* physB) {
 			
 			break;
 
-	case ColliderType::UNKNOWN:
+		case ColliderType::UNKNOWN:
 			LOG("Collision UNKNOWN");
 			break;
 	}

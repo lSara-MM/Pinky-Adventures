@@ -638,9 +638,9 @@ bool Map::Load()
     c67->ctype = ColliderType::SPIKE;
     listBodies.Add(c67);
     */
-    //PhysBody* c68 = app->physics->CreateRectangleSensor(641 + 1 / 2, 320 + 32 / 2, 1, 32, bodyType::STATIC);
-    //c68->ctype = ColliderType::CHANGE;
-    //listBodies.Add(c68);
+    PhysBody* c68 = app->physics->CreateRectangleSensor(641 + 1 / 2, 320 + 32 / 2, 1, 32, bodyType::STATIC);
+    c68->ctype = ColliderType::CHANGE;
+    listBodies.Add(c68);
 
     PhysBody* c69 = app->physics->CreateRectangleSensor(240 + 64 / 2, 360 + 1 / 2, 64, 1, bodyType::STATIC);
     c69->ctype = ColliderType::FALL;
