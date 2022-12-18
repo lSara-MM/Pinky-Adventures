@@ -51,36 +51,26 @@
 	<enemy x_E="300" y_E="50" type_E="flying" detectionDistance="20" 
 			texturepath_E="Assets/Textures/ss_duck.png"
 			velocity_E="1" width_E="16" height_E="12"
-			audiopathJump_E ="Assets/Audio/Fx/sfx_jump.wav "
-			audiopathLand_E ="Assets/Audio/Fx/sfx_landing.wav"
 			audiopathDeath_E ="Assets/Audio/Fx/sfx_enemyFlyDeath.wav"/>
 
 	<enemy x_E="1000" y_E="50" type_E="flying" detectionDistance="20"
 			texturepath_E="Assets/Textures/ss_duck.png"
 			velocity_E="1" width_E="16" height_E="12"
-			audiopathJump_E ="Assets/Audio/Fx/sfx_jump.wav "
-			audiopathLand_E ="Assets/Audio/Fx/sfx_landing.wav"
 			audiopathDeath_E ="Assets/Audio/Fx/sfx_enemyFlyDeath.wav"/>
 
 	<enemy x_E="1250" y_E="50" type_E="flying" detectionDistance="20"
 			texturepath_E="Assets/Textures/ss_duck.png"
 			velocity_E="1" width_E="16" height_E="12"
-			audiopathJump_E ="Assets/Audio/Fx/sfx_jump.wav "
-			audiopathLand_E ="Assets/Audio/Fx/sfx_landing.wav"
 			audiopathDeath_E ="Assets/Audio/Fx/sfx_enemyFlyDeath.wav"/>
 
 	<enemy x_E="780" y_E="50" type_E="basic" detectionDistance="10"
 			texturepath_E="Assets/Textures/ss_enemies.png"
 			velocity_E="3" width_E="16" height_E="16"
-			audiopathJump_E ="Assets/Audio/Fx/sfx_jump.wav "
-			audiopathLand_E ="Assets/Audio/Fx/sfx_landing.wav"
 			audiopathDeath_E ="Assets/Audio/Fx/sfx_enemyFlyDeath.wav"/>
 
 	<enemy x_E="1500" y_E="50" type_E="basic" detectionDistance="10"
 		texturepath_E="Assets/Textures/ss_enemies.png"
 		velocity_E="3" width_E="16" height_E="16"
-		audiopathJump_E ="Assets/Audio/Fx/sfx_jump.wav "
-		audiopathLand_E ="Assets/Audio/Fx/sfx_landing.wav"
 		audiopathDeath_E ="Assets/Audio/Fx/sfx_enemyFlyDeath.wav"/>
 		
 	<!--COINS-->
