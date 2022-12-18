@@ -74,6 +74,7 @@
 		audiopathJump_E ="Assets/Audio/Fx/sfx_jump.wav "
 		audiopathLand_E ="Assets/Audio/Fx/sfx_landing.wav"
 		audiopathDeath_E ="Assets/Audio/Fx/sfx_enemyFlyDeath.wav"/>
+	-->
 		
 	<!--COINS-->
 
@@ -81,7 +82,6 @@
 	<item2  name="gem" x="2072" y="285" texturepath="Assets/Maps/gems.png"/>
 
 </scene>
-
 	<map>
 		<mapfolder path="Assets/Maps/"/>
 		<mapfile path="Assets/Maps/map1.tmx"/>

@@ -43,7 +43,7 @@ public:
 
 	bool CleanUp();
 
-	void State(iPoint posPlayer, iPoint posEnemy, b2Vec2 &vel);
+	void CreatePath(iPoint posPlayer, iPoint posEnemy, b2Vec2 &vel);
 
 	void OnCollision(PhysBody* physA, PhysBody* physB);
 

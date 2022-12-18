@@ -319,6 +319,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 				if (i->data->ID == physB->id)
 				{
 					i->data->isPicked = false;
+					app->scene->listCoins.Del(i);
 					break;
 				}
 			}
@@ -355,6 +356,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 					if (e->data->ID == physB->id)
 					{
 						e->data->state = eState::DEAD;
+						app->scene->listEnemies.Del(e);
 						break;
 					}
 				}
@@ -376,7 +378,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 				app->audio->PlayFx(app->scene->enemy->fxDeath_Enemy);
 			}
 
-			if (attackState == false) {
+			if (app->input->godMode == false && attackState == false) {
 				
 				e = app->scene->listEnemies.start;
 
@@ -419,6 +421,13 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			}
 			break;
 
+		case ColliderType::FALL:
+			LOG("Collision FALL");
+			if (app->input->godMode == false) {
+				ded = true;
+				app->audio->PlayFx(fxDeath);
+			}
+			break;
 
 		case ColliderType::CHANGE:
 			LOG("Collision CHANGE");

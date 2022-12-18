@@ -50,8 +50,10 @@ bool Scene::Awake(pugi::xml_node& config)
 
 bool Scene::Start()
 {
+	// IMPORTANT, DO NOT SET ID's TO 0;
 	coinIDset = 1;
 	enemyIDset = 1;
+
 
 	app->physics->Enable();
 	app->render->camera.x = 0;
