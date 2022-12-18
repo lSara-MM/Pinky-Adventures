@@ -52,7 +52,7 @@ Enemy::Enemy() : Entity(EntityType::ENEMY)
 
 	deathWalkEnemyAnim.PushBack({ 128, 0, 16, 16 });
 
-	state = eState::IDLE;//Com s'hauria de posar això al xml?
+	state = eState::IDLE;
 	active = true;
 }
 
@@ -135,10 +135,10 @@ bool Enemy::Update()
 		case eType::BASIC:
 			currentAnimation = &idleWalkingEnemyAnim;
 
-			if (pos_Enemy != pos_IdleWalk && origin) { CreatePath(pos_IdleWalk, pos_Enemy, vel); }
+			/*if (pos_Enemy != pos_IdleWalk && origin) { CreatePath(pos_IdleWalk, pos_Enemy, vel); }
 			else if (pos_Enemy != pos_Origin && !origin) { CreatePath(pos_Origin, pos_Enemy, vel); }
 			else if (pos_Enemy == pos_IdleWalk) { origin = false; }
-			else if (pos_Enemy == pos_Origin) { origin = true; }
+			else if (pos_Enemy == pos_Origin) { origin = true; }*/
 
 			break;
 

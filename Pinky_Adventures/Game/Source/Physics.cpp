@@ -41,6 +41,7 @@ bool Physics::Start()
 	world->SetContactListener(this);
 
 	frameRate = 60.0f; // 60 fps default
+	collisions = false;
 	return true;
 }
 

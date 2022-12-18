@@ -164,6 +164,8 @@ bool EntityManager::LoadState(pugi::xml_node& data)
 		else if (loadedState == "dead") { e->data->state = eState::DEAD; }
 		else if (loadedState == "return") { e->data->state = eState::RETURN; }
 
+		//if (e->data->type == eType::BASIC)	{ e->data->pbody->body->SetGravityScale(15); }
+		if (e->data->type == eType::FLYING) { e->data->pbody->body->SetGravityScale(0); }
 		e = e->next;
 	}
 	return true;
