@@ -63,7 +63,7 @@
 			velocity_E="1" width_E="16" height_E="12"
 			audiopathDeath_E ="Assets/Audio/Fx/sfx_enemyFlyDeath.wav"/>
 
-	<enemy x_E="700" y_E="50" type_E="basic" detectionDistance="10"
+	<enemy x_E="750" y_E="50" type_E="basic" detectionDistance="10"
 			texturepath_E="Assets/Textures/ss_enemies.png"
 			velocity_E="3" width_E="16" height_E="16"
 			audiopathDeath_E ="Assets/Audio/Fx/sfx_enemyFlyDeath.wav"/>
