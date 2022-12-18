@@ -118,12 +118,12 @@ bool Enemy::Update()
 
 	iPoint idleWalk = {100, 0};
 	iPoint pos_IdleWalk = app->map->WorldToMap(originPos.x + idleWalk.x, originPos.y + idleWalk.y);
-
+	int a = pos_Player.DistanceTo(pos_Enemy);
 
 	switch (state)
 	{
 	case eState::IDLE:
-		if (pos_Player.DistanceTo(pos_Enemy) <= detectionDistance)
+		if (pos_Player.DistanceTo(pos_Enemy) <= detectionDistance && ID &&a)
 		{
 			state = eState::CHASE;
 			LOG("PLAYER DETECTED");
@@ -133,12 +133,7 @@ bool Enemy::Update()
 		{
 		case eType::BASIC:
 			currentAnimation = &idleWalkingEnemyAnim;
-
-			/*if (pos_Enemy != pos_IdleWalk && origin) { CreatePath(pos_IdleWalk, pos_Enemy, vel); }
-			else if (pos_Enemy != pos_Origin && !origin) { CreatePath(pos_Origin, pos_Enemy, vel); }
-			else if (pos_Enemy == pos_IdleWalk) { origin = false; }
-			else if (pos_Enemy == pos_Origin) { origin = true; }*/
-
+			//vel = b2Vec2(speed, grav);
 			break;
 
 		case eType::FLYING:
@@ -147,8 +142,7 @@ bool Enemy::Update()
 			if (pos_Enemy != pos_IdleWalk && origin) { CreatePath(pos_IdleWalk, pos_Enemy, vel); }
 			else if (pos_Enemy != pos_Origin && !origin) { CreatePath(pos_Origin, pos_Enemy, vel); }
 			else if (pos_Enemy == pos_IdleWalk) { origin = false; }
-			else if (pos_Enemy == pos_Origin) { origin = true; }
-			
+			else if (pos_Enemy == pos_Origin) { origin = true; }	
 			break;
 
 		case eType::UNKNOWN:
@@ -191,7 +185,9 @@ bool Enemy::Update()
 		break;
 
 	case eState::RETURN:
-		(pos_Enemy != pos_Origin) ? CreatePath(pos_Origin, pos_Enemy, vel) : state = eState ::IDLE;	
+		//(pos_Enemy.x != pos_Origin.x) ? CreatePath(pos_Origin, pos_Enemy, vel) : state = eState ::IDLE;	// per motius X, l'enemy serp no arriba mai al punt d'origen :/
+		if (type == eType::BASIC) {	state = eState::IDLE; }
+		if (type == eType::FLYING) { (pos_Enemy.x != pos_Origin.x) ? CreatePath(pos_Origin, pos_Enemy, vel) : state = eState::IDLE; }
 		break;
 
 	default:
@@ -205,15 +201,11 @@ bool Enemy::Update()
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - width / 2;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - height / 2;
 
-	//headSensor->body->SetLinearVelocity(vel);
 	headSensor->body->SetTransform(b2Vec2(PIXEL_TO_METERS(position.x) + 0.17f, PIXEL_TO_METERS(position.y)), 0);
 
 	currentAnimation->Update();
-
 	SDL_Rect rect = currentAnimation->GetCurrentFrame();
-
 	app->render->DrawTexture(textureEnemy, position.x, position.y, &rect, 1.0f, NULL, NULL, NULL, flipType);
-	
 	return true;
 }
 
@@ -301,27 +293,19 @@ void Enemy::CreatePath(iPoint posPlayer, iPoint posEnemy, b2Vec2 &vel)
 		SDL_Rect rect = { pos_Enemy.x - detectionDistance / 2, pos_Enemy.y - detectionDistance / 2, METERS_TO_PIXELS(detectionDistance),  METERS_TO_PIXELS(detectionDistance) };
 		app->render->DrawRectangle(rect, 255, 0, 100, 255, false);
 	}
-	
 }
-
 
 void Enemy::OnCollision(PhysBody* physA, PhysBody* physB) {
 
 	ListItem<Enemy*>* e;
-
-	switch (physB->ctype)
+	e = app->scene->listEnemies.start;
+	if (e->data->state != eState::DEAD)
 	{
-
-		case ColliderType::PLATFORM:
-			LOG("Collision PLATFORM");
-		
-			break;
-	
+		switch (physB->ctype)
+		{
 		case ColliderType::FALL:
 			LOG("Collision ENEMY FALL");
-
-			e = app->scene->listEnemies.start;
-
+			
 			for (e; e != NULL; e = e->next)
 			{
 				if (e->data->ID == physA->id)
@@ -333,12 +317,25 @@ void Enemy::OnCollision(PhysBody* physA, PhysBody* physB) {
 			}
 
 			app->audio->PlayFx(app->scene->enemy->fxDeath_Enemy);
+			break;
 
-			
+		case ColliderType::ENEMY_LIMIT:
+			LOG("Collision ENEMY LIMIT");
+
+			for (e; e != NULL; e = e->next)
+			{
+				if (e->data->ID == physA->id)
+				{
+					//e->data->speed  =- e->data->speed;
+					e->data->state = eState::IDLE;
+					break;
+				}
+			}
 			break;
 
 		case ColliderType::UNKNOWN:
 			LOG("Collision UNKNOWN");
 			break;
+		}
 	}
 }

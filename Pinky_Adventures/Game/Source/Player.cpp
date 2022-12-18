@@ -421,7 +421,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			break;
 
 		case ColliderType::PLATFORM:
-			LOG("Collision PLATFORM");
+			//LOG("Collision PLATFORM");
 			if (jump == 0) {
 				jump += 2;
 			}
@@ -450,9 +450,20 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 				app->scene->secret = true;
 				app->audio->PlayFx(fxSecret);
 			}
-
 			break;
 
+		case ColliderType::ENEMY_LIMIT:
+			LOG("Collision PLAYER LIMIT");
+
+			e = app->scene->listEnemies.start;
+			for (e; e != NULL; e = e->next)
+			{
+				if (e->data->ID == physA->id)
+				{
+					e->data->state = eState::IDLE;
+					break;
+				}
+			}
 		case ColliderType::UNKNOWN:
 			LOG("Collision UNKNOWN");
 			break;

@@ -656,13 +656,34 @@ bool Map::Load()
 
     PhysBody* c72 = app->physics->CreateRectangleSensor(1504 + 528 / 2, 360 + 1 / 2, 528, 1, bodyType::STATIC);
     c72->ctype = ColliderType::FALL;
-
     listBodies.Add(c72);
 
+    // Sensors enemy
+    PhysBody* c73 = app->physics->CreateRectangle(645, 175, 2, 3, bodyType::STATIC);
+    c73->ctype = ColliderType::ENEMY_LIMIT;
+    listBodies.Add(c73);
+
+    PhysBody* c74 = app->physics->CreateRectangle(845, 175, 2, 3, bodyType::STATIC);
+    c74->ctype = ColliderType::ENEMY_LIMIT;
+    listBodies.Add(c74);
+
+    PhysBody* c75 = app->physics->CreateRectangle(1537, 80, 2, 3, bodyType::STATIC);
+    c75->ctype = ColliderType::ENEMY_LIMIT;
+    listBodies.Add(c75);
+
+    PhysBody* c76 = app->physics->CreateRectangle(1630, 80, 2, 3, bodyType::STATIC);
+    c76->ctype = ColliderType::ENEMY_LIMIT;
+    listBodies.Add(c76);
+
   
-    PhysBody* c = app->physics->CreateRectangle(2, 0, 0, 5000, bodyType::STATIC);//límit mapa
+    // Map limits
+    PhysBody* c = app->physics->CreateRectangle(2, 0, 0, 5000, bodyType::STATIC);
     c->ctype = ColliderType::PLATFORM;
     listBodies.Add(c);
+
+    PhysBody* d = app->physics->CreateRectangle(2112, 0, 0, 5000, bodyType::STATIC);
+    d->ctype = ColliderType::PLATFORM;
+    listBodies.Add(d);
 
     if(ret == true)
     {

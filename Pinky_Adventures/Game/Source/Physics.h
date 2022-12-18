@@ -33,6 +33,7 @@ enum class ColliderType {
 	FALL,
 	ENEMY,
 	ENEMY_WP,	// enemy weakpoint (now head)
+	ENEMY_LIMIT,
 	UNKNOWN
 	// ..
 };
