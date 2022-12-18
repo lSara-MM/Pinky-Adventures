@@ -73,7 +73,6 @@ Player::Player() : Entity(EntityType::PLAYER)
 	attackAnim.speed = 0.1f;
 	attackAnim.loop = false;
 
-
 	active = true;
 }
 
@@ -217,6 +216,9 @@ bool Player::Update()
 
 	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN && ded == false && attackState == false && contadorCooldown == attackCooldown)
 	{
+
+		attackAnim.loop = true;
+
 		b2PolygonShape box;
 
 		if (flipType == SDL_RendererFlip::SDL_FLIP_NONE) {
@@ -244,9 +246,8 @@ bool Player::Update()
 
 		currentAnimation = &attackAnim;
 
-		if (currentAnimation->HasFinished()) {
+		if (currentAnimation->current_frame>5.8f) {
 
-			currentAnimation->Reset();//no va?
 
 			for (b2Fixture* f = pbody->body->GetFixtureList(); f; f = f->GetNext()) {
 
@@ -256,7 +257,9 @@ bool Player::Update()
 					
 				}
 			}
+			currentAnimation->current_frame = 0;
 			attackState = false;
+			currentAnimation = &idleAnim;
 		}
 	}
 

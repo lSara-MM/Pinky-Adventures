@@ -92,6 +92,8 @@ bool Enemy::Start() {
 	pbody = app->physics->CreateRectangle(position.x + width / 2, position.y + height / 2, width, height, bodyType::DYNAMIC, ID);
 	
 	if (type == eType::FLYING) { pbody->body->SetGravityScale(0); }
+	else if (type == eType::BASIC) { pbody->body->SetGravityScale(15); }
+
 
 	pbody->body->SetFixedRotation(true);
 	pbody->ctype = ColliderType::ENEMY;
