@@ -118,12 +118,11 @@ bool Enemy::Update()
 
 	iPoint idleWalk = {100, 0};
 	iPoint pos_IdleWalk = app->map->WorldToMap(originPos.x + idleWalk.x, originPos.y + idleWalk.y);
-	int a = pos_Player.DistanceTo(pos_Enemy);
 
 	switch (state)
 	{
 	case eState::IDLE:
-		if (pos_Player.DistanceTo(pos_Enemy) <= detectionDistance && ID &&a)
+		if (pos_Player.DistanceTo(pos_Enemy) <= detectionDistance)
 		{
 			state = eState::CHASE;
 			LOG("PLAYER DETECTED");
@@ -291,7 +290,10 @@ void Enemy::CreatePath(iPoint posPlayer, iPoint posEnemy, b2Vec2 &vel)
 		}
 		
 		SDL_Rect rect = { pos_Enemy.x - detectionDistance / 2, pos_Enemy.y - detectionDistance / 2, METERS_TO_PIXELS(detectionDistance),  METERS_TO_PIXELS(detectionDistance) };
-		app->render->DrawRectangle(rect, 255, 0, 100, 255, false);
+		//app->render->DrawRectangle(rect, 255, 0, 100, 255, false);
+		//iPoint pos = ;
+		iPoint a = app->map->MapToWorld(detectionDistance * app->win->GetScale(), detectionDistance * app->win->GetScale());
+		app->render->DrawCircle((position.x + width)* app->win->GetScale(), (position.y + height) * app->win->GetScale(), a.x, 255, 100, 100);
 	}
 }
 
