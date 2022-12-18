@@ -1,4 +1,4 @@
-
+ï»¿
 #include "App.h"
 #include "Render.h"
 #include "Window.h"
@@ -59,15 +59,12 @@ bool Map::CreateWalkabilityMap(int& width, int& height, uchar** buffer) const
                 int tileId = layer->Get(x, y);
 
                 TileSet* tileset = (tileId > 0) ? GetTilesetFromTileId(tileId) : NULL;
-                if (tileId == 246) {
-                    map[i] = 1;
-                }
-
-                else {
-                    map[i] = 0;
-
-                }
-               
+                // flying
+                if (tileId == 246) { map[i] = 1; }
+                // ground
+                if (tileId == 247) { map[i] = -1; }
+                // non walkable
+                else if (tileId == 246 && tileId == 247) { map[i] = 0; }
             }
         }
 
@@ -659,7 +656,7 @@ bool Map::Load()
     listBodies.Add(c72);
 
   
-    PhysBody* c = app->physics->CreateRectangle(2, 0, 0, 5000, bodyType::STATIC);//límit mapa
+    PhysBody* c = app->physics->CreateRectangle(2, 0, 0, 5000, bodyType::STATIC);//lÃ­mit mapa
     c->ctype = ColliderType::PLATFORM;
     listBodies.Add(c);
 
@@ -695,14 +692,12 @@ bool Map::Load()
 
     mapLoaded = ret;
 
-
-    //DrawPlatformCollider();no ho fa bé, ni el profe sap why, ho deixaré hardcode per tenir el joc funcional
+    //DrawPlatformCollider();no ho fa bï¿½, ni el profe sap why, ho deixarï¿½ hardcode per tenir el joc funcional
     DrawSpikes();
 
     int w, h;
     uchar* data = NULL;
 
-    //walkability map aquí o a start scene?
     bool retWalkMap = CreateWalkabilityMap(w, h, &data);
     if (retWalkMap) app->pathfinding->SetMap(w, h, data);
 

@@ -45,10 +45,15 @@ bool PathFinding::CheckBoundaries(const iPoint& pos) const
 }
 
 // Utility: returns true is the tile is walkable
-bool PathFinding::IsWalkable(const iPoint& pos) const
+bool PathFinding::IsWalkable(const iPoint& pos, eType type_) const
 {
 	uchar t = GetTileAt(pos);
-	return t != INVALID_WALK_CODE && t > 0;
+	bool ret;
+	
+	if (type_ == eType::FLYING) { ret = t != INVALID_WALK_CODE && t > 0; }
+	if (type_ == eType::BASIC) { ret = t != INVALID_WALK_CODE && abs(t) > 0; }
+
+	return ret;
 }
 
 // Utility: return the walkability value of a tile
@@ -123,29 +128,29 @@ PathNode::PathNode(const PathNode& node) : g(node.g), h(node.h), pos(node.pos), 
 // PathNode -------------------------------------------------------------------------
 // Fills a list (PathList) of all valid adjacent pathnodes
 // ----------------------------------------------------------------------------------
-uint PathNode::FindWalkableAdjacents(PathList& listToFill) const
+uint PathNode::FindWalkableAdjacents(PathList& listToFill, eType type_) const
 {
 	iPoint cell;
 	uint before = listToFill.list.Count();
 
 	// north
 	cell.Create(pos.x, pos.y + 1);
-	if(app->pathfinding->IsWalkable(cell))
+	if(app->pathfinding->IsWalkable(cell, type_))
 		listToFill.list.Add(PathNode(-1, -1, cell, this));
 
 	// south
 	cell.Create(pos.x, pos.y - 1);
-	if(app->pathfinding->IsWalkable(cell))
+	if(app->pathfinding->IsWalkable(cell, type_))
 		listToFill.list.Add(PathNode(-1, -1, cell, this));
 
 	// east
 	cell.Create(pos.x + 1, pos.y);
-	if(app->pathfinding->IsWalkable(cell))
+	if(app->pathfinding->IsWalkable(cell, type_))
 		listToFill.list.Add(PathNode(-1, -1, cell, this));
 
 	// west
 	cell.Create(pos.x - 1, pos.y);
-	if(app->pathfinding->IsWalkable(cell))
+	if(app->pathfinding->IsWalkable(cell, type_))
 		listToFill.list.Add(PathNode(-1, -1, cell, this));
 
 	return listToFill.list.Count();
@@ -173,13 +178,12 @@ int PathNode::CalculateF(const iPoint& destination)
 // ----------------------------------------------------------------------------------
 // Actual A* algorithm: return number of steps in the creation of the path or -1 ----
 // ----------------------------------------------------------------------------------
-int PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
+int PathFinding::CreatePath(const iPoint& origin, const iPoint& destination, eType type_)
 {
 	int ret = -1;
 	int iterations = 0;
 
-	
-	if (IsWalkable(origin) && IsWalkable(destination))
+	if (IsWalkable(origin, type_) && IsWalkable(destination, type_))
 	{
 		PathList open;
 		PathList closed;
@@ -190,11 +194,9 @@ int PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 		// Iterate while we have tile in the open list
 		while (open.list.Count() > 0)
 		{
-		
 			ListItem<PathNode>* lowest = open.GetNodeLowestScore();
 			ListItem<PathNode>* node = closed.list.Add(lowest->data);
 			open.list.Del(lowest);
-
 
 			if (node->data.pos == destination)
 			{
@@ -218,11 +220,11 @@ int PathFinding::CreatePath(const iPoint& origin, const iPoint& destination)
 
 		
 			PathList adjacent;
-			node->data.FindWalkableAdjacents(adjacent);
+			node->data.FindWalkableAdjacents(adjacent, type_);
 
 			// If it is a better path, Update the parent
 			ListItem<PathNode>* item = adjacent.list.start;
-			for (; item; item = item->next)
+			for (item; item != nullptr; item = item->next)
 			{
 				// ignore nodes in the closed list
 				if (closed.Find(item->data.pos) != NULL)

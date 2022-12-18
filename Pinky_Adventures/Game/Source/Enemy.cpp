@@ -134,6 +134,7 @@ bool Enemy::Update()
 		{
 		case eType::BASIC:
 			currentAnimation = &idleWalkingEnemyAnim;
+			// no li agrada?
 
 			/*if (pos_Enemy != pos_IdleWalk && origin) { CreatePath(pos_IdleWalk, pos_Enemy, vel); }
 			else if (pos_Enemy != pos_Origin && !origin) { CreatePath(pos_Origin, pos_Enemy, vel); }
@@ -230,7 +231,7 @@ void Enemy::CreatePath(iPoint posPlayer, iPoint posEnemy, b2Vec2 &vel)
 {
 	const DynArray<iPoint>* path = nullptr;
 
-	app->pathfinding->CreatePath(posEnemy, posPlayer);
+	app->pathfinding->CreatePath(posEnemy, posPlayer, type);
 	path = app->pathfinding->GetLastPath();
 
 	if (path->At(1) != NULL)
@@ -307,7 +308,6 @@ void Enemy::CreatePath(iPoint posPlayer, iPoint posEnemy, b2Vec2 &vel)
 		SDL_Rect rect = { pos_Enemy.x - detectionDistance / 2, pos_Enemy.y - detectionDistance / 2, METERS_TO_PIXELS(detectionDistance),  METERS_TO_PIXELS(detectionDistance) };
 		app->render->DrawRectangle(rect, 255, 0, 100, 255, false);
 	}
-	
 }
 
 
@@ -317,7 +317,6 @@ void Enemy::OnCollision(PhysBody* physA, PhysBody* physB) {
 
 	switch (physB->ctype)
 	{
-
 		case ColliderType::PLATFORM:
 			LOG("Collision PLATFORM");
 		
@@ -346,8 +345,6 @@ void Enemy::OnCollision(PhysBody* physA, PhysBody* physB) {
 			}
 
 			app->audio->PlayFx(app->scene->enemy->fxDeath_Enemy);
-
-			
 			break;
 
 	case ColliderType::UNKNOWN:
