@@ -181,13 +181,13 @@ bool Scene::Update(float dt)
 
 	if (player->contadorCooldown==player->attackCooldown) {
 
-		app->render->DrawTexture(attackIcon, app->render->camera.x, 0, &attackCajaNoCd, 1.0f, NULL, NULL, NULL);
+		app->render->DrawTexture(attackIcon, -app->render->camera.x*0.5, 0, &attackCajaNoCd, 1.0f, NULL, NULL, NULL);
 
 	}
 
 	if (player->contadorCooldown != player->attackCooldown) {
 
-		app->render->DrawTexture(attackIcon, app->render->camera.x, 0, &attackCajaCd, 1.0f, NULL, NULL, NULL);
+		app->render->DrawTexture(attackIcon, -app->render->camera.x*0.5, 0, &attackCajaCd, 1.0f, NULL, NULL, NULL);
 
 	}
 
