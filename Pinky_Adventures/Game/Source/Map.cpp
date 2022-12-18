@@ -647,11 +647,12 @@ bool Map::Load()
     listBodies.Add(c69);
 
     PhysBody* c70 = app->physics->CreateRectangleSensor(480 + 144 / 2, 360 + 1 / 2, 144, 1, bodyType::STATIC);
-    c69->ctype = ColliderType::FALL;
+    c70->ctype = ColliderType::FALL;
     listBodies.Add(c70);
 
     PhysBody* c71 = app->physics->CreateRectangleSensor(1040 + 224 / 2, 360 + 1 / 2, 224, 1, bodyType::STATIC);
     c71->ctype = ColliderType::FALL;
+    listBodies.Add(c71);
 
     PhysBody* c72 = app->physics->CreateRectangleSensor(1504 + 528 / 2, 360 + 1 / 2, 528, 1, bodyType::STATIC);
     c72->ctype = ColliderType::FALL;
@@ -696,7 +697,7 @@ bool Map::Load()
     mapLoaded = ret;
 
 
-    //DrawPlatformCollider();no ho fa bé, ni el profe sap why, ho deixaré hardcode per tenir el joc funcional
+    //DrawPlatformCollider();problema de dejar espacios entre los colliders no solucionado
     DrawSpikes();
 
     int w, h;
