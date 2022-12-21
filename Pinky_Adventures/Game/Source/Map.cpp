@@ -671,9 +671,9 @@ bool Map::Load()
     c75->ctype = ColliderType::ENEMY_LIMIT;
     listBodies.Add(c75);
 
-    PhysBody* c76 = app->physics->CreateRectangle(1630, 80, 2, 3, bodyType::STATIC);
+   /* PhysBody* c76 = app->physics->CreateRectangle(1630, 80, 2, 3, bodyType::STATIC);
     c76->ctype = ColliderType::ENEMY_LIMIT;
-    listBodies.Add(c76);
+    listBodies.Add(c76);*/
 
   
     // Map limits

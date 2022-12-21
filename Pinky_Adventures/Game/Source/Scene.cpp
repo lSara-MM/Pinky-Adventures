@@ -45,6 +45,8 @@ bool Scene::Awake(pugi::xml_node& config)
 	attackIconPath = config.attribute("textureAttackPath").as_string();
 	
 	musicPathBg = config.attribute("music").as_string();
+	
+	sceneNode = config;
 	return ret;
 }
 
