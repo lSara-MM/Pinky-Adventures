@@ -251,9 +251,7 @@ bool Player::Update()
 
 		currentAnimation = &attackAnim;
 
-		if (currentAnimation->current_frame>5.8f) {
-
-
+		if (currentAnimation->current_frame > 5.8f) {
 			for (b2Fixture* f = pbody->body->GetFixtureList(); f; f = f->GetNext()) {
 
 				if (f->IsSensor()) {

@@ -92,6 +92,8 @@ bool IntroScene::PostUpdate()
 	
 	v_start++;
 
+	app->render->TextDraw("holis", 150, 150, { 255, 0, 255 }, 15);
+	
 	return ret;
 }
 

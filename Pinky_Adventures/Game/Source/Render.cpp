@@ -49,6 +49,8 @@ bool Render::Awake(pugi::xml_node& config)
 		camera.y = config.child("camera").attribute("y").as_int();
 	}
 
+	//initialise the SDL_ttf library
+	TTF_Init();
 	return ret;
 }
 
@@ -82,7 +84,13 @@ bool Render::PostUpdate()
 
 // Called before quitting
 bool Render::CleanUp()
-{
+{    
+	// Free the font
+	TTF_CloseFont(ttf_font);
+
+	//we clean up TTF library
+	TTF_Quit();
+
 	LOG("Destroying SDL render");
 	SDL_DestroyRenderer(renderer);
 	return true;
@@ -246,25 +254,44 @@ bool Render::SaveState(pugi::xml_node& data)
 	return true;
 }
 
-/*
-bool Render::TextDraw(const char* text, int x, int y, int red, int green, int blue, int alpha, int size)
+bool Render::DrawText(const char* text, int posx, int posy, int w, int h, SDL_Color color) {
+
+	SDL_Surface* surface = TTF_RenderText_Solid(ttf_font, text, color);
+	SDL_Texture* texture = SDL_CreateTextureFromSurface(renderer, surface);
+
+	int texW = 0;
+	int texH = 0;
+	SDL_QueryTexture(texture, NULL, NULL, &texW, &texH);
+	SDL_Rect dstrect = { posx, posy, w, h };
+
+	SDL_RenderCopy(renderer, texture, NULL, &dstrect);
+
+	SDL_DestroyTexture(texture);
+	SDL_FreeSurface(surface);
+
+	return true;
+}
+
+bool Render::TextDraw(const char* text, int x, int y, SDL_Color color, int size)
 {
 	bool ret = true;
-	ttf_font = TTF_OpenFont("Assets/font_tetris.ttf", size);
+	//load a font into memory
+	ttf_font = TTF_OpenFont("Assets/Fonts/pcsenior.ttf", size);
+	
 	if (!ttf_font)
 	{
 		LOG("Cannot open font. TTF_OpenFont error: %s", TTF_GetError());
 		ret = false;
 	}
 	SDL_Color ttf_color;
-	ttf_color.r = red;
-	ttf_color.g = green;
-	ttf_color.b = blue;
-	ttf_color.a = alpha;
+	ttf_color.r = color.r;
+	ttf_color.g = color.g;
+	ttf_color.b = color.b;
+	ttf_color.a = color.a;
 
 	SDL_Rect ttf_rect;
 	ttf_surface = TTF_RenderText_Solid(ttf_font, text, ttf_color);
-	ttf_texture = SDL_CreateTextureFromSurface(render, ttf_surface);
+	ttf_texture = SDL_CreateTextureFromSurface(renderer, ttf_surface);
 
 	if (ttf_surface == nullptr)
 	{
@@ -273,22 +300,22 @@ bool Render::TextDraw(const char* text, int x, int y, int red, int green, int bl
 	}
 	else
 	{
-		ttf_rect.x = x * SCREEN_SIZE;
-		ttf_rect.y = y * SCREEN_SIZE;
-		ttf_rect.w = ttf_surface->w * SCREEN_SIZE;
-		ttf_rect.h = ttf_surface->h * SCREEN_SIZE;
+		ttf_rect.x = x * app->win->GetScale();
+		ttf_rect.y = y * app->win->GetScale();
+		ttf_rect.w = ttf_surface->w * app->win->GetScale();
+		ttf_rect.h = ttf_surface->h * app->win->GetScale();
 
 		SDL_FreeSurface(ttf_surface);
-		if (SDL_RenderCopy(render, ttf_texture, NULL, &ttf_rect) != 0)
+		if (SDL_RenderCopy(renderer, ttf_texture, NULL, &ttf_rect) != 0)
 		{
 			LOG("Cannot render text to screen. SDL_RenderCopy error: %s", SDL_GetError());
 			ret = false;
 		}
+
 		SDL_DestroyTexture(ttf_texture);
 		ttf_texture = nullptr;
-		TTF_CloseFont(ttf_font);
+		//TTF_CloseFont(ttf_font);
 	}
 
 	return ret;
 }
-*/
