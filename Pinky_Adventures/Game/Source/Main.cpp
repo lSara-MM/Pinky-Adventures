@@ -10,6 +10,9 @@
 //#pragma comment(lib, "../Game/Source/External/SDL/libx86/SDL2.lib")
 //#pragma comment(lib, "../Game/Source/External/SDL/libx86/SDL2main.lib")
 
+// L16: TODO 2: Include the Optick library header and add the library to the linker
+// Make sure to link the proper library depending on DEBUG/RELEASE project configuration
+#include "External/Optick/include/optick.h"
 #include <stdlib.h>
 
 enum MainState
@@ -32,17 +35,17 @@ int main(int argc, char* args[])
 	MainState state = CREATE;
 	int result = EXIT_FAILURE;
 
-	while(state != EXIT)
+	while (state != EXIT)
 	{
-		switch(state)
+		switch (state)
 		{
 			// Allocate the engine --------------------------------------------
-			case CREATE:
+		case CREATE:
 			LOG("CREATION PHASE ===============================");
 
 			app = new App(argc, args);
 
-			if(app != NULL)
+			if (app != NULL)
 				state = AWAKE;
 			else
 				state = FAIL;
@@ -50,9 +53,9 @@ int main(int argc, char* args[])
 			break;
 
 			// Awake all modules -----------------------------------------------
-			case AWAKE:
+		case AWAKE:
 			LOG("AWAKE PHASE ===============================");
-			if(app->Awake() == true)
+			if (app->Awake() == true)
 				state = START;
 			else
 			{
@@ -63,9 +66,9 @@ int main(int argc, char* args[])
 			break;
 
 			// Call all modules before first frame  ----------------------------
-			case START:
+		case START:
 			LOG("START PHASE ===============================");
-			if(app->Start() == true)
+			if (app->Start() == true)
 			{
 				state = LOOP;
 				LOG("UPDATE PHASE ===============================");
@@ -78,15 +81,19 @@ int main(int argc, char* args[])
 			break;
 
 			// Loop all modules until we are asked to leave ---------------------
-			case LOOP:
-			if(app->Update() == false)
+		case LOOP:
+		{
+			// L16: TODO 2: Add the Optick macro to trigger a frame
+			OPTICK_FRAME("Main Loop");
+			if (app->Update() == false)
 				state = CLEAN;
-			break;
+		}
+		break;
 
-			// Cleanup allocated memory -----------------------------------------
-			case CLEAN:
+		// Cleanup allocated memory -----------------------------------------
+		case CLEAN:
 			LOG("CLEANUP PHASE ===============================");
-			if(app->CleanUp() == true)
+			if (app->CleanUp() == true)
 			{
 				RELEASE(app);
 				result = EXIT_SUCCESS;
@@ -95,10 +102,11 @@ int main(int argc, char* args[])
 			else
 				state = FAIL;
 
+			delete app;
 			break;
 
 			// Exit with errors and shame ---------------------------------------
-			case FAIL:
+		case FAIL:
 			LOG("Exiting with errors :(");
 			result = EXIT_FAILURE;
 			state = EXIT;
@@ -107,8 +115,8 @@ int main(int argc, char* args[])
 	}
 
 	LOG("... Bye! :)\n");
-	delete app;
-	// Dump memory leaks
 
+	// Dump memory leaks
+	delete app;
 	return result;
 }

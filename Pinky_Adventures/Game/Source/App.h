@@ -11,6 +11,8 @@
 #define CONFIG_FILENAME		"config.xml"
 #define SAVE_STATE_FILENAME "save_game.xml"
 
+#include "External/Optick/include/optick.h"
+
 // Modules
 class Window;
 class Input;

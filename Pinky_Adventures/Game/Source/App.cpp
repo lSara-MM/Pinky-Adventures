@@ -193,12 +193,14 @@ bool App::LoadConfig()
 
 void App::PrepareUpdate()
 {
+	OPTICK_EVENT();
 	frameTime.Start();
 }
 
 
 void App::FinishUpdate()
 {
+	OPTICK_EVENT();
 	if (loadGameRequested == true) LoadFromFile();
 	if (saveGameRequested == true) SaveToFile();
 
@@ -241,6 +243,7 @@ void App::FinishUpdate()
 // Call modules before each loop iteration
 bool App::PreUpdate()
 {
+	OPTICK_EVENT();
 	bool ret = true;
 	ListItem<Module*>* item;
 	item = modules.start;
@@ -263,6 +266,7 @@ bool App::PreUpdate()
 // Call modules on each loop iteration
 bool App::DoUpdate()
 {
+	OPTICK_EVENT();
 	bool ret = true;
 	ListItem<Module*>* item;
 	item = modules.start;
@@ -285,6 +289,7 @@ bool App::DoUpdate()
 // Call modules after each loop iteration
 bool App::PostUpdate()
 {
+	OPTICK_EVENT();
 	bool ret = true;
 	ListItem<Module*>* item;
 	Module* pModule = NULL;

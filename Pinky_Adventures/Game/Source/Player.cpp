@@ -112,23 +112,9 @@ bool Player::Awake() {
 	
 	score = 0;
 
-	return true;
-}
-
-bool Player::Start() {
-
-	texture = app->tex->Load(texturePath);
-
 	pickCoinFxId = app->audio->LoadFx(fxCoin);
 	pickGemFxId = app->audio->LoadFx(fxGem);
-	
-	pbody = app->physics->CreateRectangle(position.x + width / 2, position.y + height / 2, width, height, bodyType::DYNAMIC);
-	pbody->body->SetFixedRotation(true);
-	
-	pbody->listener = this; 
 
-	pbody->ctype = ColliderType::PLAYER;
-	
 	fxJump = app->audio->LoadFx(jumpPath);
 	fxLand = app->audio->LoadFx(landPath);
 	fxDeath = app->audio->LoadFx(deathPath);
@@ -137,6 +123,19 @@ bool Player::Start() {
 	fxAttack = app->audio->LoadFx(attackPath);
 
 	attackCd = app->audio->LoadFx(audiopathCd);
+	return true;
+}
+
+bool Player::Start() {
+
+	texture = app->tex->Load(texturePath);
+	
+	pbody = app->physics->CreateRectangle(position.x + width / 2, position.y + height / 2, width, height, bodyType::DYNAMIC);
+	pbody->body->SetFixedRotation(true);
+	
+	pbody->listener = this; 
+
+	pbody->ctype = ColliderType::PLAYER;
 
 	contadorCooldown = attackCooldown;
 
