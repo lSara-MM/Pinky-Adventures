@@ -314,7 +314,7 @@ bool Render::TextDraw(const char* text, int x, int y, SDL_Color color, int size)
 
 		SDL_DestroyTexture(ttf_texture);
 		ttf_texture = nullptr;
-		//TTF_CloseFont(ttf_font);
+		TTF_CloseFont(ttf_font);
 	}
 
 	return ret;
