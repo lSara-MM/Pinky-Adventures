@@ -213,6 +213,7 @@ bool Enemy::CleanUp()
 	app->tex->UnLoad(textureEnemy);
 	pbody->body->GetWorld()->DestroyBody(pbody->body);
 	headSensor->body->GetWorld()->DestroyBody(headSensor->body);
+	
 	return true;
 }
 

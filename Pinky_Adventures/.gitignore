@@ -79,3 +79,11 @@ ipch/
 *.db
 *.opendb
 packages/
+
+
+!/SDL2_ttf-2.0.18
+!/SDL2_ttf-2.0.18/*
+
+
+!/SDL2_ttf
+!/SDL2_ttf/*

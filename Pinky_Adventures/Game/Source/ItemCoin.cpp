@@ -56,6 +56,7 @@ bool Coin::CleanUp()
 	isPicked = false;
 	app->tex->UnLoad(texture);
 	pbody->body->GetWorld()->DestroyBody(pbody->body);
+	
 
 	return true;
 }

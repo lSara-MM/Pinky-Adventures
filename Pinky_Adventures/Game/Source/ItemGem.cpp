@@ -46,7 +46,6 @@ bool Gem::Start() {
 	//initilize textures
 	texture = app->tex->Load(texturePath);
 	
-
 	pbody = app->physics->CreateCircleSensor(position.x + 16, position.y + 16, 10, bodyType::STATIC);
 	pbody->ctype = ColliderType::GEM;
 	pbody->body->SetFixedRotation(true);
@@ -57,7 +56,6 @@ bool Gem::Start() {
 
 bool Gem::Update()
 {
-
 	if (isPicked == false)
 	{
 		active = false;
@@ -69,7 +67,6 @@ bool Gem::Update()
 	currentAnimGem->Update();
 	SDL_Rect rect = currentAnimGem->GetCurrentFrame();
 	app->render->DrawTexture(texture, position.x, position.y, &rect);
-
 	
 	return true;
 }
