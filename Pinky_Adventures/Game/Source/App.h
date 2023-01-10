@@ -19,14 +19,17 @@ class Input;
 class Render;
 class Textures;
 class Audio;
-class Scene;
+
 class EntityManager;
+class GuiManager;
+
 class Map;
 class PathFinding;
 
 class Physics;
 class LogoScene;
 class IntroScene;
+class Scene;
 class LoseScene;
 class FadeToBlack;
 
@@ -61,7 +64,6 @@ public:
 	const char* GetTitle() const;
 	const char* GetOrganization() const;
 
-
 	void LoadGameRequest();
 	void SaveGameRequest() ;
 	bool LoadFromFile();
@@ -95,14 +97,17 @@ public:
 	Render* render;
 	Textures* tex;
 	Audio* audio;
-	Scene* scene;
+	
 	EntityManager* entityManager;
+	GuiManager* guiManager;
+	
 	Map* map;
 	PathFinding* pathfinding;
 	
 	Physics* physics;
 	LogoScene* lScene;
 	IntroScene* iScene;
+	Scene* scene;
 	LoseScene* loseScene;
 	FadeToBlack* fade;
 

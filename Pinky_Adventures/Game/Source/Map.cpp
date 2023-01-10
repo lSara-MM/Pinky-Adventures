@@ -729,8 +729,6 @@ bool Map::Load()
     if (retWalkMap) app->pathfinding->SetMap(w, h, data);
 
     RELEASE_ARRAY(data);
-    //
-
 
     return ret;
 }

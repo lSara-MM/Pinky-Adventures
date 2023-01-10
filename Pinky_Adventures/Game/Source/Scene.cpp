@@ -104,7 +104,6 @@ bool Scene::Start()
 	bgColor = { 0, 0, app->win->GetWidth() * app->win->GetScale() + 800,  app->win->GetHeight() };
 
 	attackCajaNoCd = { 0, 0, 32,  32 };
-
 	attackCajaCd = { 128, 0, 32,  32 };
 
 	// Background

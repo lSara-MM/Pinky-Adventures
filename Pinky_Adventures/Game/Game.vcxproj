@@ -98,6 +98,8 @@
     <ClCompile Include="Source\Enemy.cpp" />
     <ClCompile Include="Source\EntityManager.cpp" />
     <ClCompile Include="Source\FadeToBlack.cpp" />
+    <ClCompile Include="Source\GuiButton.cpp" />
+    <ClCompile Include="Source\GuiManager.cpp" />
     <ClCompile Include="Source\IntroScene.cpp" />
     <ClCompile Include="Source\ItemCoin.cpp" />
     <ClCompile Include="Source\ItemGem.cpp" />
@@ -122,6 +124,9 @@
     <ClInclude Include="Source\Entity.h" />
     <ClInclude Include="Source\EntityManager.h" />
     <ClInclude Include="Source\FadeToBlack.h" />
+    <ClInclude Include="Source\GuiButton.h" />
+    <ClInclude Include="Source\GuiControl.h" />
+    <ClInclude Include="Source\GuiManager.h" />
     <ClInclude Include="Source\IntroScene.h" />
     <ClInclude Include="Source\ItemCoin.h" />
     <ClInclude Include="Source\ItemGem.h" />

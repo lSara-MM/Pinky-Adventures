@@ -7,6 +7,7 @@
 #include "Textures.h"
 #include "Scene.h"
 #include "Physics.h"
+#include "Map.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -163,7 +164,7 @@ bool EntityManager::LoadState(pugi::xml_node& data)
 		else if (loadedState == "dead") { e->data->state = eState::DEAD; }
 		else if (loadedState == "return") { e->data->state = eState::RETURN; }
 
-		//if (e->data->type == eType::BASIC)	{ e->data->pbody->body->SetGravityScale(15); }
+		if (e->data->type == eType::BASIC)	{ e->data->pbody->body->SetGravityScale(15); }
 		if (e->data->type == eType::FLYING) { e->data->pbody->body->SetGravityScale(0); }
 		e = e->next;
 	}
@@ -173,9 +174,13 @@ bool EntityManager::LoadState(pugi::xml_node& data)
 
 	for (pugi::xml_node itemNode = data.child("coin"); itemNode; itemNode = itemNode.next_sibling("coin"))
 	{
+		if (c->next == nullptr)
+		{
+			app->map->DrawSecret();
+		}
+
 		bool loadedState = itemNode.attribute("state_C").as_bool();
 		c->data->isAlive = loadedState;
-		
 		c = c->next;
 	}
 	return true;

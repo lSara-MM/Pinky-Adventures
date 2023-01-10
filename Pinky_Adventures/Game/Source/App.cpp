@@ -4,14 +4,17 @@
 #include "Render.h"
 #include "Textures.h"
 #include "Audio.h"
-#include "Scene.h"
+
 #include "EntityManager.h"
+#include "GuiManager.h"
+
 #include "Map.h"
 #include "Pathfinding.h"
 #include "Physics.h"
 
 #include "LogoScene.h"
 #include "IntroScene.h"
+#include "Scene.h"
 #include "LoseScene.h"
 #include "FadeToBlack.h"
 
@@ -34,13 +37,15 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	audio = new Audio();
 	
 	physics = new Physics();
-	pathfinding = new PathFinding();
-	entityManager = new EntityManager();
 	map = new Map();
+	pathfinding = new PathFinding();
+
+	entityManager = new EntityManager();
+	guiManager = new GuiManager();
 	
-	scene = new Scene();
 	lScene = new LogoScene();
 	iScene = new IntroScene();
+	scene = new Scene();
 	loseScene = new LoseScene();
 	fade = new FadeToBlack();
 
@@ -59,8 +64,9 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(scene);
 	AddModule(loseScene);
 
-	AddModule(entityManager);
 	AddModule(map);
+	AddModule(entityManager);
+	AddModule(guiManager);
 
 	AddModule(fade);
 	// Render last to swap buffer

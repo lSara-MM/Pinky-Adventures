@@ -61,6 +61,12 @@
     <ClCompile Include="Source\Timer.cpp">
       <Filter>Utils</Filter>
     </ClCompile>
+    <ClCompile Include="Source\GuiButton.cpp">
+      <Filter>Modules\Core\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GuiManager.cpp">
+      <Filter>Modules\Core\GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Player.h" />
@@ -150,6 +156,15 @@
     <ClInclude Include="Source\Timer.h">
       <Filter>Utils</Filter>
     </ClInclude>
+    <ClInclude Include="Source\GuiButton.h">
+      <Filter>Modules\Core\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GuiControl.h">
+      <Filter>Modules\Core\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GuiManager.h">
+      <Filter>Modules\Core\GUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Utils">
@@ -169,6 +184,9 @@
     </Filter>
     <Filter Include="Modules\Entities">
       <UniqueIdentifier>{232a7a67-5c13-49f5-b915-a198ac08296f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Modules\Core\GUI">
+      <UniqueIdentifier>{45c302ec-1d81-41d5-a52d-167fc2483d41}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
