@@ -180,6 +180,12 @@ bool EntityManager::LoadState(pugi::xml_node& data)
 		}
 
 		bool loadedState = itemNode.attribute("state_C").as_bool();
+		if (loadedState)
+		{
+			c->data->active = true;
+			c->data->pbody->body->SetActive(true);
+		}
+
 		c->data->isAlive = loadedState;
 		c = c->next;
 	}

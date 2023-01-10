@@ -137,7 +137,7 @@ void Map::DrawSecret()
                 {                
                     int gid = mapLayerItem->data->Get(x, y);
                    
-                    if (gid == 248 && secretCoins == false)
+                    if (gid == 248 && !secretCoins)
                     {
                         coins->CreateCoins(gid, x, y);
                     }

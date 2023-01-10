@@ -36,13 +36,12 @@ bool Coin::Start() {
 
 bool Coin::Update()
 {
-	if (isAlive == false)
+	if (!isAlive)
 	{
 		active = false;
 		pbody->body->SetActive(false);
 		return true;
 	}
-
 
 	currentAnimCoin = &coinAnim;
 	currentAnimCoin->Update();
@@ -53,7 +52,6 @@ bool Coin::Update()
 
 bool Coin::CleanUp()
 {
-	isAlive = false;
 	app->tex->UnLoad(texture);
 	pbody->body->GetWorld()->DestroyBody(pbody->body);
 
