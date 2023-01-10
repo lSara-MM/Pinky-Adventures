@@ -29,16 +29,15 @@ public:
 	void CreateCoins(int gid_, int x_, int y_);
 public:
 
-	bool isPicked;
+	bool isAlive;
 	int ID;
+	PhysBody* pbody;
 private:
 
 	SDL_Texture* texture;
 
 	Animation* currentAnimCoin;
 	Animation coinAnim;
-
-	PhysBody* pbody;
 };
 
 #endif // __ITEMCOIN_H__

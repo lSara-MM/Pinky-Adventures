@@ -12,7 +12,7 @@
 #include "Log.h"
 
 EntityManager::EntityManager() : Module()
-{
+{ 
 	name.Create("entitymanager");
 }
 
@@ -167,6 +167,17 @@ bool EntityManager::LoadState(pugi::xml_node& data)
 		if (e->data->type == eType::FLYING) { e->data->pbody->body->SetGravityScale(0); }
 		e = e->next;
 	}
+
+	ListItem<Coin*>* c;
+	c = app->scene->listCoins.start;
+
+	for (pugi::xml_node itemNode = data.child("coin"); itemNode; itemNode = itemNode.next_sibling("coin"))
+	{
+		bool loadedState = itemNode.attribute("state_C").as_bool();
+		c->data->isAlive = loadedState;
+		
+		c = c->next;
+	}
 	return true;
 }
 
@@ -204,6 +215,13 @@ bool EntityManager::SaveState(pugi::xml_node& data)
 			enemy.append_attribute("state_E") = "idle";
 			break;
 		}
+	}
+
+	ListItem<Coin*>* c;
+	for (c = app->scene->listCoins.start; c != NULL; c = c->next)
+	{
+		pugi::xml_node coin = data.append_child("coin");
+		coin.append_attribute("state_C") = c->data->isAlive;
 	}
 
 	return true;

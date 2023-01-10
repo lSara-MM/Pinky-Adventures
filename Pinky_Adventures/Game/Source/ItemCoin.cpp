@@ -36,27 +36,26 @@ bool Coin::Start() {
 
 bool Coin::Update()
 {
-	if (isPicked == false)
+	if (isAlive == false)
 	{
 		active = false;
 		pbody->body->SetActive(false);
 		return true;
 	}
 
+
 	currentAnimCoin = &coinAnim;
 	currentAnimCoin->Update();
 	SDL_Rect rect = currentAnimCoin->GetCurrentFrame();
-	ID;
 	app->render->DrawTexture(texture, position.x, position.y, &rect);
 	return true;
 }
 
 bool Coin::CleanUp()
 {
-	isPicked = false;
+	isAlive = false;
 	app->tex->UnLoad(texture);
 	pbody->body->GetWorld()->DestroyBody(pbody->body);
-	
 
 	return true;
 }
@@ -107,7 +106,7 @@ void Coin::CreateCoins(int gid_, int x_, int y_) {
 	item->pbody->ctype = ColliderType::COIN;
 	item->pbody->body->SetFixedRotation(true);
 	item->active = true;
-	item->isPicked = true;
+	item->isAlive = true;
 	
 	item->texture = tileset->texture;
 	app->scene->listCoins.Add(item);

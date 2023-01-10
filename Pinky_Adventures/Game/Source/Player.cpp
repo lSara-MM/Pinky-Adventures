@@ -220,7 +220,6 @@ bool Player::Update()
 
 	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN && ded == false && attackState == false && contadorCooldown == attackCooldown)
 	{
-
 		attackAnim.loop = true;
 
 		b2PolygonShape box;
@@ -268,13 +267,11 @@ bool Player::Update()
 	if (contadorCooldown != attackCooldown) {//check if attack is on cooldown
 
 		contadorCooldown++;
-
 	}
 
 	if (contadorCooldown == attackCooldown-1) {
 
 		app->audio->PlayFx(attackCd);
-
 	}
 
 	if (ded == true) {
@@ -331,8 +328,8 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			{
 				if (i->data->ID == physB->id)
 				{
-					i->data->isPicked = false;
-					app->scene->listCoins.Del(i);
+					i->data->isAlive = false;
+					//app->scene->listCoins.Del(i);
 					break;
 				}
 			}
