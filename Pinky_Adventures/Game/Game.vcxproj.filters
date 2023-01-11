@@ -2,7 +2,6 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="Source\Player.cpp" />
-    <ClCompile Include="Source\Scene.cpp" />
     <ClCompile Include="Source\External\PugiXml\src\pugixml.cpp">
       <Filter>App\PugiXml</Filter>
     </ClCompile>
@@ -36,7 +35,6 @@
     <ClCompile Include="Source\Window.cpp">
       <Filter>Modules\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Source\IntroScene.cpp" />
     <ClCompile Include="Source\FadeToBlack.cpp">
       <Filter>Modules\Core</Filter>
     </ClCompile>
@@ -46,8 +44,6 @@
     <ClCompile Include="Source\ItemGem.cpp">
       <Filter>Modules\Core</Filter>
     </ClCompile>
-    <ClCompile Include="Source\LogoScene.cpp" />
-    <ClCompile Include="Source\LoseScene.cpp" />
     <ClCompile Include="Source\EntityManager.cpp">
       <Filter>Modules\Entities</Filter>
     </ClCompile>
@@ -67,10 +63,24 @@
     <ClCompile Include="Source\GuiManager.cpp">
       <Filter>Modules\Core\GUI</Filter>
     </ClCompile>
+    <ClCompile Include="Source\IntroScene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LogoScene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LoseScene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Scene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\LeaderboardScene.cpp">
+      <Filter>Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Player.h" />
-    <ClInclude Include="Source\Scene.h" />
     <ClInclude Include="Source\Animation.h">
       <Filter>Utils</Filter>
     </ClInclude>
@@ -128,7 +138,6 @@
     <ClInclude Include="Source\Module.h">
       <Filter>Modules</Filter>
     </ClInclude>
-    <ClInclude Include="Source\IntroScene.h" />
     <ClInclude Include="Source\FadeToBlack.h">
       <Filter>Modules\Core</Filter>
     </ClInclude>
@@ -138,8 +147,6 @@
     <ClInclude Include="Source\ItemGem.h">
       <Filter>Modules\Core</Filter>
     </ClInclude>
-    <ClInclude Include="Source\LogoScene.h" />
-    <ClInclude Include="Source\LoseScene.h" />
     <ClInclude Include="Source\EntityManager.h">
       <Filter>Modules\Entities</Filter>
     </ClInclude>
@@ -165,6 +172,21 @@
     <ClInclude Include="Source\GuiManager.h">
       <Filter>Modules\Core\GUI</Filter>
     </ClInclude>
+    <ClInclude Include="Source\IntroScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LogoScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LoseScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Scene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\LeaderboardScene.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Utils">
@@ -187,6 +209,9 @@
     </Filter>
     <Filter Include="Modules\Core\GUI">
       <UniqueIdentifier>{45c302ec-1d81-41d5-a52d-167fc2483d41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scenes">
+      <UniqueIdentifier>{59396da5-13ff-4cbf-85fc-91a7386282ba}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

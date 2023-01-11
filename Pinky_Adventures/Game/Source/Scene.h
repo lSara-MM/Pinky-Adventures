@@ -67,6 +67,7 @@ public:
 	bool freeCam;
 
 	pugi::xml_node sceneNode;
+
 private:
 	int contadorT;
 	

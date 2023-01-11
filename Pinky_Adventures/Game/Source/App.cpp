@@ -16,6 +16,7 @@
 #include "IntroScene.h"
 #include "Scene.h"
 #include "LoseScene.h"
+#include "LeaderboardScene.h"
 #include "FadeToBlack.h"
 
 #include "Defs.h"
@@ -47,6 +48,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	iScene = new IntroScene();
 	scene = new Scene();
 	loseScene = new LoseScene();
+	leadScene = new LeaderboardScene();
 	fade = new FadeToBlack();
 
 	// Ordered for awake / Start / Update
@@ -63,6 +65,7 @@ App::App(int argc, char* args[]) : argc(argc), args(args)
 	AddModule(iScene);
 	AddModule(scene);
 	AddModule(loseScene);
+	AddModule(leadScene);
 
 	AddModule(map);
 	AddModule(entityManager);

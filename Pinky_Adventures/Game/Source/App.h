@@ -31,6 +31,7 @@ class LogoScene;
 class IntroScene;
 class Scene;
 class LoseScene;
+class LeaderboardScene;
 class FadeToBlack;
 
 
@@ -109,6 +110,7 @@ public:
 	IntroScene* iScene;
 	Scene* scene;
 	LoseScene* loseScene;
+	LeaderboardScene* leadScene;
 	FadeToBlack* fade;
 
 private:
