@@ -4,7 +4,10 @@
 #include "Audio.h"
 #include "Render.h"
 #include "Window.h"
+
+#include "IntroScene.h"
 #include "Scene.h"
+#include "LeaderboardScene.h"
 #include "EntityManager.h"
 #include "Map.h"
 
@@ -121,6 +124,12 @@ bool Scene::Start()
 	frame30 = false;
 	freeCam = false;
 	app->input->godMode = false;
+
+	if (app->iScene->loaded)
+	{
+		app->LoadGameRequest();
+	}
+
 	return true;
 }
 
@@ -172,8 +181,12 @@ bool Scene::Update(float dt)
 	if (player->ded == true)
 		contadorT++;
 
-	if (player->ded == true && (player->ani == false || contadorT == 80)) 
+	if (player->ded == true && (player->ani == false || contadorT == 80))
+	{
 		app->fade->FadingToBlack(this, (Module*)app->loseScene, 45);
+		if (app->leadScene->leaderboard[9] < player->score) { app->leadScene->leaderboard[9] = player->score; }
+		app->leadScene->currentScore = player->score;
+	}
 
 	if (player->position.x > 624 && player->position.x < 895 && player->position.y > 224)
 		secret = true;

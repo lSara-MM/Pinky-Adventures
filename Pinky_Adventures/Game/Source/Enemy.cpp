@@ -185,8 +185,17 @@ bool Enemy::Update()
 
 	case eState::RETURN:
 		//(pos_Enemy.x != pos_Origin.x) ? CreatePath(pos_Origin, pos_Enemy, vel) : state = eState ::IDLE;	// per motius X, l'enemy serp no arriba mai al punt d'origen :/
-		if (type == eType::BASIC) {	state = eState::IDLE; }
-		if (type == eType::FLYING) { (pos_Enemy.x != pos_Origin.x) ? CreatePath(pos_Origin, pos_Enemy, vel) : state = eState::IDLE; }
+		if (type == eType::BASIC)
+		{
+			state = eState::IDLE; 
+			currentAnimation = &ForwardWalkingEnemyAnim;
+		}
+		if (type == eType::FLYING)
+		{
+			(pos_Enemy.x != pos_Origin.x) ? CreatePath(pos_Origin, pos_Enemy, vel) : state = eState::IDLE; 
+			currentAnimation = &idleFlyingEnemyAnim;
+		}
+
 		break;
 
 	default:

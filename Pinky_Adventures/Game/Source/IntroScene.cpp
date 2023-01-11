@@ -47,6 +47,7 @@ bool IntroScene::Start()
 	p2sTexture = app->tex->Load(p2sPath);
 	
 	app->audio->PlayMusic(musicIntro, 0);
+	loaded = false;
 
 	return true;
 }
@@ -64,7 +65,11 @@ bool IntroScene::Update(float dt)
 		app->fade->FadingToBlack(this, (Module*)app->scene, 5);
 
 	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
-		app->LoadGameRequest();
+	{
+		app->fade->FadingToBlack(this, (Module*)app->scene, 90);
+		loaded = true;
+	}
+	
 
 	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
 		app->fade->FadingToBlack(this, (Module*)app->scene, 90);
