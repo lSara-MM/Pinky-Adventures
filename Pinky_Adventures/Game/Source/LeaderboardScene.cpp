@@ -23,28 +23,38 @@ using namespace std;
 
 LeaderboardScene::LeaderboardScene() : Module()
 {
-	animLurkingCat.PushBack({ 0, 0, 256, 192 });
-	animLurkingCat.PushBack({ 0, 0, 256, 192 });
-	animLurkingCat.PushBack({ 0, 0, 256, 192 });
+	name.Create("leaderboardScene");
 
-	for (int i = 0; i < 4; i++)
-	{
-		for (int j = 0; j < 11; j++)
-		{
-			animLurkingCat.PushBack({ 256 * j, 192 * i, 256, 192 });
-			if (i == 3 && j == 3) { break; }
-		}
-	}
-	for (int i = 7; i > 0; i--)
-	{
-		animLurkingCat.PushBack({ 256 * i, 0, 256, 192 });
-	}
-	animLurkingCat.speed = 0.2f;
 }
 
 LeaderboardScene::~LeaderboardScene()
 {
 	// You should do some memory cleaning here, if required
+}
+
+bool LeaderboardScene::Awake(pugi::xml_node& config)
+{
+	LOG("Loading Scene");
+	bool ret = true;
+
+	// iterate all objects in the scene
+	// Check https://pugixml.org/docs/quickstart.html#access
+	/*for (pugi::xml_node itemNode = config.child("item"); itemNode; itemNode = itemNode.next_sibling("item"))
+	{
+
+		Coin* item = (Coin*)app->entityManager->CreateEntity(EntityType::COIN);
+		item->parameters = itemNode;
+		listCoins.Add(item);
+	}*/
+
+	/*back1Path = config.attribute("background1").as_string();
+	back2Path = config.attribute("background2").as_string();
+	back3Path = config.attribute("background3").as_string();
+	attackIconPath = config.attribute("textureAttackPath").as_string();
+
+	musicPathBg = config.attribute("music").as_string();*/
+
+	return ret;
 }
 
 bool LeaderboardScene::Start()
@@ -56,7 +66,7 @@ bool LeaderboardScene::Start()
 	app->render->camera.x = app->render->camera.y = 0;
 
 	// Load textures
-	texLurkingCat = app->tex->Load("pinball/ss_LurkingCat.png");
+	//texLurkingCat = app->tex->Load("pinball/ss_LurkingCat.png");
 	bgColor = { 0, 0, app->win->GetWidth() * app->win->GetScale(), app->win->GetHeight() * app->win->GetScale() };
 
 	srand(time(NULL));
@@ -68,6 +78,11 @@ bool LeaderboardScene::CleanUp()
 {
 	prevScore[0] = prevScore[1];
 	animLurkingCat.Reset();
+	return true;
+}
+
+bool LeaderboardScene::PreUpdate()
+{
 	return true;
 }
 
@@ -141,6 +156,16 @@ bool LeaderboardScene::Update(float dt)
 
 	// Keep playing
 	return true;
+}
+
+bool LeaderboardScene::PostUpdate()
+{
+	bool ret = true;
+
+	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
+		ret = false;
+
+	return ret;
 }
 
 void LeaderboardScene::ranks()

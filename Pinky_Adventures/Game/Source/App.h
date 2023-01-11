@@ -90,6 +90,8 @@ private:
 	// Call modules after each loop iteration
 	bool PostUpdate();
 
+	void DisableAtStart();
+
 public:
 
 	// Modules

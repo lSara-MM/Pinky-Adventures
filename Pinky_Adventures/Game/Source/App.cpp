@@ -141,10 +141,7 @@ bool App::Start()
 	ListItem<Module*>* item;
 	item = modules.start;
 
-	iScene->active = false;
-	scene->active = false;
-	loseScene->active = false;
-	entityManager->active = false;
+	DisableAtStart();
 
 	while (item != NULL && ret == true)
 	{
@@ -408,7 +405,6 @@ bool App::LoadFromFile()
 	return ret;
 }
 
-
 bool App::SaveToFile() 
 {
 	bool ret = false;
@@ -430,4 +426,13 @@ bool App::SaveToFile()
 	saveGameRequested = false;
 
 	return ret;
+}
+
+void App::DisableAtStart()
+{
+	iScene->active = false;
+	scene->active = false;
+	loseScene->active = false;
+	entityManager->active = false;
+	leadScene->active = false;
 }

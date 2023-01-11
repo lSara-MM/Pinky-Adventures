@@ -88,8 +88,8 @@ bool Render::CleanUp()
 	// Free the font
 	TTF_CloseFont(ttf_font);
 
-	//we clean up TTF library
-	TTF_Quit();
+	// we clean up TTF library
+	//TTF_Quit();	// peta xd
 
 	LOG("Destroying SDL render");
 	SDL_DestroyRenderer(renderer);
