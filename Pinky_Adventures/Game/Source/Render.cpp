@@ -283,6 +283,7 @@ bool Render::TextDraw(const char* text, int x, int y, SDL_Color color, int size)
 		LOG("Cannot open font. TTF_OpenFont error: %s", TTF_GetError());
 		ret = false;
 	}
+
 	SDL_Color ttf_color;
 	ttf_color.r = color.r;
 	ttf_color.g = color.g;

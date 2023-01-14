@@ -87,3 +87,6 @@ packages/
 
 !/SDL2_ttf
 !/SDL2_ttf/*
+
+!/Optick
+!/Optick/*
