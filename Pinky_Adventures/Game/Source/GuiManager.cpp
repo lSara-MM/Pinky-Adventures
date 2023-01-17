@@ -19,7 +19,7 @@ bool GuiManager::Start()
 
 GuiControl* GuiManager::CreateGuiControl(GuiControlType type, int id, const char* text, SDL_Rect bounds, Module* observer, SDL_Rect sliderBounds)
 {
-	// L15: TODO1: Create a GUI control and add it to the list of controls
+	
 
 	GuiControl* guiControl = nullptr;
 

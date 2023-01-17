@@ -8,7 +8,7 @@
 #include "IntroScene.h"
 #include "Scene.h"
 #include "FadeToBlack.h"
-
+#include "GuiManager.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -49,6 +49,12 @@ bool IntroScene::Start()
 	app->audio->PlayMusic(musicIntro, 0);
 	loaded = false;
 
+	//exemple botó
+	uint w, h;
+	app->win->GetWindowSize(w, h);
+	button1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Button 1", { (int)w / 2 - 50,(int)h / 2 - 30,100,20 }, this);
+	button2 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Button 2", { (int)w / 2 - 50,(int)h / 2,100,20 }, this);
+
 	return true;
 }
 
@@ -74,6 +80,8 @@ bool IntroScene::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
 		app->fade->FadingToBlack(this, (Module*)app->scene, 90);
 
+
+
 	return true;
 }
 
@@ -98,7 +106,9 @@ bool IntroScene::PostUpdate()
 	v_start++;
 
 	app->render->TextDraw("holis", 150, 150, { 255, 0, 255 }, 15);
-	
+
+	app->guiManager->Draw();
+
 	return ret;
 }
 
@@ -110,6 +120,24 @@ bool IntroScene::CleanUp()
 
 	app->tex->UnLoad(bgTexture);
 	app->tex->UnLoad(p2sTexture);
+
+	return true;
+}
+
+bool IntroScene::OnGuiMouseClickEvent(GuiControl* control)
+{
+	// L15: DONE 5: Implement the OnGuiMouseClickEvent method
+	LOG("Event by %d ", control->id);
+
+	switch (control->id)
+	{
+	case 1:
+		LOG("Button 1 click");
+		break;
+	case 2:
+		LOG("Button 2 click");
+		break;
+	}
 
 	return true;
 }

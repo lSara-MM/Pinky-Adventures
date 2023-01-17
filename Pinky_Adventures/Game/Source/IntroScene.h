@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "ItemCoin.h"
 #include "ItemGem.h"
+#include "GuiButton.h"
 
 struct SDL_Texture;
 
@@ -35,6 +36,8 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	bool OnGuiMouseClickEvent(GuiControl* control);
+
 public:
 
 	Player* player;
@@ -52,7 +55,9 @@ private:
 	SDL_Texture* p2sTexture;
 	int v_start = 0;
 
-
+	//prova botó
+	GuiButton* button1;
+	GuiButton* button2;
 };
 
 #endif // __INTROSCENE_H__
