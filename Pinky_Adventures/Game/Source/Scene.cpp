@@ -15,6 +15,7 @@
 #include "Physics.h"
 #include "FadeToBlack.h"
 #include "ItemCoin.h"
+#include "ItemSave.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -341,6 +342,16 @@ bool Scene::InitEntities()
 	gem = (Gem*)app->entityManager->CreateEntity(EntityType::GEM);
 	gem->parameters = sceneNode.child("item2");
 	gem->Awake();
+
+	portal = (Portal*)app->entityManager->CreateEntity(EntityType::PORTAL);
+	portal->parameters = sceneNode.child("portal");
+	portal->Awake();
+
+
+	save =(Save*)app->entityManager->CreateEntity(EntityType::SAVE);
+	save->parameters = sceneNode.child("save");
+	save->Awake();
+
 
 	player = (Player*)app->entityManager->CreateEntity(EntityType::PLAYER);
 	player->parameters = sceneNode.child("player");

@@ -8,6 +8,8 @@
 #include "Scene.h"
 #include "Physics.h"
 #include "Map.h"
+#include "ItemPortal.h"
+#include "ItemSave.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -98,6 +100,14 @@ Entity* EntityManager::CreateEntity(EntityType type)
 		break;
 	case EntityType::GEM:
 		entity = new Gem();
+		break;
+
+	case EntityType::PORTAL:
+		entity = new Portal();
+		break;
+
+	case EntityType::SAVE:
+		entity = new Save();
 		break;
 
 	default: break;

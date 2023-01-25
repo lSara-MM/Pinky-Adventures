@@ -14,6 +14,8 @@ enum class EntityType
 	ENEMY,
 	COIN,
 	GEM,
+	PORTAL,
+	SAVE,
 	UNKNOWN
 };
 

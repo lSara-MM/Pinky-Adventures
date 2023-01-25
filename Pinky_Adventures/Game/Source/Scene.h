@@ -6,6 +6,8 @@
 #include "Enemy.h"
 #include "ItemCoin.h"
 #include "ItemGem.h"
+#include "ItemPortal.h"
+#include "ItemSave.h"
 
 #include "App.h"
 
@@ -47,6 +49,8 @@ public:
 	Gem* gem;
 	Coin* coins;
 	Enemy* enemy;
+	Portal* portal;
+	Save* save;
 
 	List<Coin*> listCoins;
 	int coinIDset;

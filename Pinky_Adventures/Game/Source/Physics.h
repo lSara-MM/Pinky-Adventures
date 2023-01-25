@@ -34,6 +34,8 @@ enum class ColliderType {
 	ENEMY,
 	ENEMY_WP,	// enemy weakpoint (now head)
 	ENEMY_LIMIT,
+	PORTAL,
+	SAVE,
 	UNKNOWN
 	// ..
 };

@@ -458,6 +458,22 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 					break;
 				}
 			}
+		case ColliderType::PORTAL:
+
+			LOG("Collision PORTAL");
+			physA->body->SetTransform({ PIXEL_TO_METERS(50),PIXEL_TO_METERS(50) }, 0);//per que no va :(
+			break;
+
+		case ColliderType::SAVE:
+
+			LOG("Collision SAVE");
+			app->SaveGameRequest();
+			app->audio->PlayFx(app->scene->save->fxSave);
+
+			app->scene->save->active = false;
+
+			break;
+
 		case ColliderType::UNKNOWN:
 			LOG("Collision UNKNOWN");
 			break;

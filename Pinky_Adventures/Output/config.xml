@@ -73,10 +73,16 @@
 		velocity_E="3" width_E="16" height_E="16"
 		audiopathDeath_E ="Assets/Audio/Fx/sfx_enemyFlyDeath.wav"/>
 		
-	<!--COINS-->
+	<!--Portal-->
+	<portal name="portal" x="10" y="200" width ="13" height ="42" texturepath="Assets/Textures/portal.png"/>
 
-	<!--GEM-->
+	<!--Save-->
+	<save name="save" x="960" y="304" width ="20" height ="27" texturepath="Assets/Textures/save.png"
+		  audiopath ="Assets/Audio/Fx/sfx_save.wav"/>
+
+		<!--GEM-->
 	<item2  name="gem" x="2072" y="285" texturepath="Assets/Maps/gems.png"/>
+		
 
 </scene>
 	<map>
