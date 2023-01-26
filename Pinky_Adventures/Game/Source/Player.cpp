@@ -452,7 +452,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			}
 			break;
 
-		case ColliderType::ENEMY_LIMIT:
+	/*	case ColliderType::ENEMY_LIMIT:
 			LOG("Collision PLAYER LIMIT");
 
 			e = app->scene->listEnemies.start;
@@ -463,7 +463,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 					e->data->state = eState::IDLE;
 					break;
 				}
-			}
+			}*/
 		case ColliderType::PORTAL:
 
 			LOG("Collision PORTAL");
