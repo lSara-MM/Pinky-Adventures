@@ -33,8 +33,8 @@ bool GuiButton::Update(float dt)
 
 		GuiControlState previousState = state;
 
-		if ((mouseX > bounds.x) && (mouseX < (bounds.x + bounds.w)) &&
-			(mouseY > bounds.y) && (mouseY < (bounds.y + bounds.h))) {
+		if (mouseX >= bounds.x && mouseX <= bounds.x + bounds.w &&
+			mouseY >= bounds.y && mouseY <= bounds.y + bounds.h) {
 		
 			state = GuiControlState::FOCUSED;
 			
@@ -74,7 +74,7 @@ bool GuiButton::Draw(Render* render)
 	case GuiControlState::DISABLED: 
 	{
 		//render->DrawRectangle(bounds, 0, 0, 0, 0);
-		render->DrawRectangle(bounds, 200, 200, 200, 255, true, false);
+		render->DrawRectangle({ bounds.x * 2,bounds.y * 2,bounds.w * 2,bounds.h * 2 }, 200, 200, 200, 255, true, false);
 	} break;
 
 	case GuiControlState::NORMAL:
@@ -82,7 +82,7 @@ bool GuiButton::Draw(Render* render)
 		//render->DrawRectangle(bounds, 255, 0, 0, 255);
 		//SDL_Rect rect = {0,70,190,66};
 		//render->DrawTexture(buttonTex, bounds.x, bounds.y, &rect);
-		render->DrawRectangle(bounds, 0, 0, 255, 255, true, false);
+		render->DrawRectangle({ bounds.x * 2,bounds.y * 2,bounds.w * 2,bounds.h * 2 }, 0, 0, 255, 255, true, false);
 
 	} break;
 
@@ -92,7 +92,7 @@ bool GuiButton::Draw(Render* render)
 		//render->DrawRectangle(bounds, 255, 255, 255, 160);
 		//SDL_Rect rect = { 0,0,190,66 };
 		//render->DrawTexture(buttonTex, bounds.x, bounds.y, &rect);
-		render->DrawRectangle(bounds, 0, 0, 20, 255, true, false);
+		render->DrawRectangle({ bounds.x * 2,bounds.y * 2,bounds.w * 2,bounds.h * 2 }, 0, 0, 20, 255, true, false);
 
 	} break;
 	case GuiControlState::PRESSED:
@@ -100,7 +100,7 @@ bool GuiButton::Draw(Render* render)
 		//SDL_Rect rect = { 0,141,190,66 };
 		//render->DrawTexture(buttonTex, bounds.x, bounds.y, &rect);
 		//render->DrawRectangle(bounds, 255, 255, 255, 200);
-		render->DrawRectangle(bounds, 0, 255, 0, 255, true, false);
+		render->DrawRectangle({ bounds.x *2,bounds.y *2,bounds.w *2,bounds.h * 2 }, 0, 255, 0, 255, true, false);
 
 	} break;
 
