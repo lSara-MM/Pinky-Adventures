@@ -100,6 +100,10 @@ private:
 
 	bool drawPaths;
 	bool frame30;
+
+	Timer timerLvl1;
+	float timeLeft;
+	float timeElapsed;
 };
 
 #endif // __SCENE_H__

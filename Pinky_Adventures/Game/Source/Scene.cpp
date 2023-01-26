@@ -61,9 +61,13 @@ bool Scene::Awake(pugi::xml_node& config)
 
 bool Scene::Start()
 {
+	timerLvl1.Start();
+	timeLeft = 60.0;
+	timeElapsed = 0.0;
 	// IMPORTANT, DO NOT SET ID's TO 0;
 	coinIDset = 1;
 	enemyIDset = 1;
+	healthIDset = 1;
 
 	lives = 3;
 	app->SaveGameRequest();
@@ -150,7 +154,7 @@ bool Scene::Update(float dt)
 {
 	// Move camera with player
 	float speed = 1 * dt;
-	player->dt = dt;
+	//player->dt = dt;
 	int maxR = -player->position.x * app->win->GetScale() + 300;
 	if (!freeCam)
 	{
@@ -164,12 +168,29 @@ bool Scene::Update(float dt)
 	}
 
 	// Background parallax
-	if (-maxR < app->scene->maxCameraPosRigth - app->render->camera.w && -maxR > app->scene->maxCameraPosLeft)
+	if (-maxR < app->scene->maxCameraPosRigth - app->render->camera.w && -maxR > app->scene->maxCameraPosLeft) {
 		posx1 = maxR * 0.2f;
-	if (-maxR < app->scene->maxCameraPosRigth - app->render->camera.w && -maxR > app->scene->maxCameraPosLeft)
+	}
+		
+	else {
+		posx1 = 0;
+	}
+
+	if (-maxR < app->scene->maxCameraPosRigth - app->render->camera.w && -maxR > app->scene->maxCameraPosLeft) {
 		posx2 = maxR * 0.2f;
-	if (-maxR < app->scene->maxCameraPosRigth - app->render->camera.w && -maxR > app->scene->maxCameraPosLeft)
+
+	}
+	else {
+		posx2 = 0;
+	}
+	if (-maxR < app->scene->maxCameraPosRigth - app->render->camera.w && -maxR > app->scene->maxCameraPosLeft) {
+
 		posx3 = -maxR * 0.2f;
+
+	}
+	else {
+		posx3 = 0;
+	}
 
 	app->render->DrawTexture(BACK1, posx1, -380, &bgColor,1.0f,NULL, NULL, NULL);
 	app->render->DrawTexture(BACK3, posx3, -380, &bgColor, 1.0f, NULL, NULL, NULL);
@@ -227,6 +248,12 @@ bool Scene::Update(float dt)
 		app->render->DrawTexture(attackIcon, -app->render->camera.x*0.5, 0, &attackCajaCd, 1.0f, NULL, NULL, NULL);
 	}
 
+
+	timeElapsed = timerLvl1.ReadSec();
+	timeLeft -= timeElapsed;
+
+	LOG("---------------------------------- %f", timeLeft);
+
 	return true;
 }
 
@@ -237,7 +264,7 @@ bool Scene::PostUpdate()
 	// render score
 	string s_score = std::to_string(player->score);
 	const char* ch_score = s_score.c_str();
-	
+
 	app->render->TextDraw(ch_score, -app->render->camera.x * 0.5 + 100, 40, 12, { 0, 0, 0 });
 
 	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
@@ -259,6 +286,7 @@ bool Scene::CleanUp()
 	gem->Disable();
 	listCoins.Clear();
 	listEnemies.Clear();
+	listHealth.Clear();
 
 	app->tex->UnLoad(BACK1);
 	app->tex->UnLoad(BACK2);

@@ -20,7 +20,7 @@
 		<score score="0" />
 		<score score="0" />
 		<score score="0" />
-		<score score="230" />
+		<score score="0" />
 	</leaderboardScene>
 	<map />
 	<entitymanager>
@@ -73,9 +73,6 @@
 		<coin state_C="true" />
 		<coin state_C="true" />
 		<coin state_C="true" />
-		<health state_H="false" />
-		<health state_H="true" />
-		<health state_H="true" />
 		<health state_H="true" />
 		<health state_H="true" />
 		<health state_H="true" />
