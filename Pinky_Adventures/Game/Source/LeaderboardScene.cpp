@@ -209,7 +209,7 @@ bool LeaderboardScene::SaveState(pugi::xml_node& data)
 		string s_num = std::to_string(i + 1);
 		const char* ch_num = s_num.c_str();
 
-		pugi::xml_node score = data.append_child(ch_num);
+		pugi::xml_node score = data.append_child("score");
 
 		string s_score = std::to_string(leaderboard[i]);
 		const char* ch_score = s_score.c_str();
