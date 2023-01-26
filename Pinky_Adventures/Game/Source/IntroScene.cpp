@@ -80,8 +80,6 @@ bool IntroScene::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
 		app->fade->FadingToBlack(this, (Module*)app->scene, 90);
 
-
-
 	return true;
 }
 
@@ -105,7 +103,7 @@ bool IntroScene::PostUpdate()
 	
 	v_start++;
 
-	app->render->TextDraw("holis", 150, 150, { 255, 0, 255 }, 15);
+	app->render->TextDraw("holis", 150, 150, 15, { 255, 0, 255 });
 
 	app->guiManager->Draw();
 

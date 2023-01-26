@@ -38,22 +38,19 @@ public:
 	void ranks();
 	void bubbleSort(int array[], int size);
 
+	//Load / Save methods
+	bool LoadState(pugi::xml_node&);
+	bool SaveState(pugi::xml_node&);
+
 public:
 	// Textures
-	Animation animLurkingCat;
-	SDL_Texture* texLurkingCat;
-
 	int leaderboard[10];
 	int currentScore;
 
-private:
-	int titleFont;
-	int subtitleFont;
+	pugi::xml_node leadSaveNode;
+	pugi::xml_node leadLoadNode;
 
-	// Ranks
-	Uint32 startTime = 0;
-	uint dTime;
-	int randNum;
+private:
 	
 	int prevScore[2];
 	SDL_Rect bgColor;

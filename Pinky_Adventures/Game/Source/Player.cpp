@@ -467,8 +467,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		case ColliderType::PORTAL:
 
 			LOG("Collision PORTAL");
-			app->audio->PlayFx(goPortal);
-			physA->body->SetTransform({ PIXEL_TO_METERS(0.0f),PIXEL_TO_METERS(0.0f) }, 0);//per que no va :(
+			physA->body->SetTransform({ PIXEL_TO_METERS(50),PIXEL_TO_METERS(50) }, 0); //per que no va :(
 			break;
 
 		case ColliderType::SAVE:

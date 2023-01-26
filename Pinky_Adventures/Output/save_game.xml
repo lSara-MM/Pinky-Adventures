@@ -10,27 +10,26 @@
 	<introScene />
 	<scene />
 	<loseScene />
-	<leaderboardScene />
+	<leaderboardScene>
+		<1 score="0" />
+		<2 score="0" />
+		<3 score="0" />
+		<4 score="0" />
+		<5 score="0" />
+		<6 score="0" />
+		<7 score="0" />
+		<8 score="0" />
+		<9 score="0" />
+		<10 score="0" />
+	</leaderboardScene>
 	<map />
 	<entitymanager>
-		<player x="1151" y="260" />
-		<enemy x_E="280" y_E="258" state_E="dead" />
-		<enemy x_E="934" y_E="304" state_E="dead" />
-		<enemy x_E="1352" y_E="279" state_E="dead" />
-		<enemy x_E="729" y_E="134" state_E="dead" />
-		<enemy x_E="1528" y_E="55" state_E="idle" />
-		<coin state_C="true" />
-		<coin state_C="true" />
-		<coin state_C="true" />
-		<coin state_C="true" />
-		<coin state_C="true" />
-		<coin state_C="true" />
-		<coin state_C="false" />
-		<coin state_C="false" />
-		<coin state_C="false" />
-		<coin state_C="false" />
-		<coin state_C="false" />
-		<coin state_C="false" />
+		<player x="944" y="303" />
+		<enemy x_E="333" y_E="128" state_E="return" />
+		<enemy x_E="1004" y_E="41" state_E="chase" />
+		<enemy x_E="1328" y_E="50" state_E="idle" />
+		<enemy x_E="827" y_E="159" state_E="idle" />
+		<enemy x_E="1552" y_E="63" state_E="idle" />
 		<coin state_C="false" />
 		<coin state_C="false" />
 		<coin state_C="false" />
@@ -74,16 +73,28 @@
 		<coin state_C="true" />
 		<coin state_C="true" />
 		<coin state_C="true" />
-		<coin state_C="true" />
-		<coin state_C="true" />
-		<coin state_C="true" />
-		<health state_H="false" />
+		<coin state_C="false" />
+		<coin state_C="false" />
+		<coin state_C="false" />
+		<coin state_C="false" />
+		<coin state_C="false" />
+		<coin state_C="false" />
+		<coin state_C="false" />
+		<coin state_C="false" />
+		<coin state_C="false" />
+		<coin state_C="false" />
+		<coin state_C="false" />
+		<coin state_C="false" />
+		<coin state_C="false" />
+		<coin state_C="false" />
+		<coin state_C="false" />
+		<health state_H="true" />
 		<health state_H="true" />
 		<health state_H="true" />
 	</entitymanager>
 	<guiManager />
 	<fadeToBlack />
 	<renderer>
-		<camera x="-2002" y="0" />
+		<camera x="-1578" y="0" />
 	</renderer>
 </save_state>

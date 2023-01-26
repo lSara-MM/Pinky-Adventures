@@ -272,7 +272,7 @@ bool Render::DrawText(const char* text, int posx, int posy, int w, int h, SDL_Co
 	return true;
 }
 
-bool Render::TextDraw(const char* text, int x, int y, SDL_Color color, int size)
+bool Render::TextDraw(const char* text, int x, int y, int size, SDL_Color color)
 {
 	bool ret = true;
 	//load a font into memory

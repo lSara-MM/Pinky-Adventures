@@ -21,6 +21,10 @@
 #include "Defs.h"
 #include "Log.h"
 
+#include <iostream>
+using namespace std;
+#include <sstream>
+
 Scene::Scene() : Module()
 {
 	name.Create("scene");
@@ -214,7 +218,13 @@ bool Scene::Update(float dt)
 bool Scene::PostUpdate()
 {
 	bool ret = true;
+
+	// render score
+	string s_score = std::to_string(player->score);
+	const char* ch_score = s_score.c_str();
 	
+	app->render->TextDraw(ch_score, -app->render->camera.x * 0.5 + 100, 40, 12, { 0, 0, 0 });
+
 	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
 	
@@ -254,6 +264,16 @@ void Scene::Debug()
 	// Start again level
 	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
 		app->fade->FadingToBlack(this, (Module*)app->scene, 0);
+
+	if (app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
+	{
+		if (app->leadScene->leaderboard[9] < player->score) { app->leadScene->leaderboard[9] = player->score; }
+		app->leadScene->currentScore = player->score;
+
+		player->Disable();
+
+		app->fade->FadingToBlack(this, (Module*)app->leadScene, 0);
+	}
 
 	// Load / Save - keys F5 (save) / F6 (load)
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
