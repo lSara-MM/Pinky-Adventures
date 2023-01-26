@@ -13,7 +13,7 @@ GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(
 	canClick = true;
 	drawBasic = false;
 
-	//buttonTex = app->tex->Load("Assets/Textures/button_texture_atlas.png");
+	buttonTex = app->tex->Load("Assets/Textures/button_texture_atlas.png");
 
 }
 
@@ -110,6 +110,8 @@ bool GuiButton::Draw(Render* render)
 	default:
 		break;
 	}
+
+	app->render->DrawText(text.GetString(), bounds.x, bounds.y, bounds.w, bounds.h, { 255,255,255 });
 
 	return false;
 }
