@@ -333,16 +333,16 @@ void Enemy::OnCollision(PhysBody* physA, PhysBody* physB) {
 
 		case ColliderType::ENEMY_LIMIT:
 			LOG("Collision ENEMY LIMIT");
-
-			for (e; e != NULL; e = e->next)
-			{
-				if (e->data->ID == physA->id)
-				{
-					//e->data->speed  =- e->data->speed;
-					e->data->state = eState::IDLE;
-					break;
-				}
-			}
+			//això fa que l'enemic torni a la vida si li faig atac que l'envia a col·lisionar amb el límit
+			//for (e; e != NULL; e = e->next)
+			//{
+			//	if (e->data->ID == physA->id)
+			//	{
+			//		//e->data->speed  =- e->data->speed;
+			//		e->data->state = eState::IDLE;
+			//		break;
+			//	}
+			//}
 			break;
 
 		case ColliderType::UNKNOWN:

@@ -486,7 +486,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 
 			app->audio->PlayFx(pickHealthFxId);
 
-			//score += 10;posar vida extra en ui
+			app->scene->lives++;
 
 			h = app->scene->listHealth.start;
 

@@ -46,6 +46,8 @@ public:
 
 public:
 
+	int lives;
+
 	Player* player;
 	Gem* gem;
 	Coin* coins;

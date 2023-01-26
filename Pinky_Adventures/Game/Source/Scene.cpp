@@ -61,6 +61,8 @@ bool Scene::Start()
 	coinIDset = 1;
 	enemyIDset = 1;
 
+	lives = 3;
+	app->SaveGameRequest();
 
 	app->physics->Enable();
 	app->render->camera.x = 0;
@@ -152,6 +154,9 @@ bool Scene::Update(float dt)
 		{
 			app->render->camera.x = ceil(maxR);
 		}
+		else {
+			app->render->camera.x = 0;//si no es posa fa que la càmara no torni si guardes en aquesta zona i fas load
+		}
 	}
 
 	// Background parallax
@@ -183,7 +188,17 @@ bool Scene::Update(float dt)
 	if (player->ded == true)
 		contadorT++;
 
-	if (player->ded == true && (player->ani == false || contadorT == 80))
+	if (lives > 0 && player->ded == true && contadorT == 80)
+	{
+		app->LoadGameRequest();
+		player->currentAnimation->current_frame = 0;
+		player->ded = false;
+		contadorT = 0;
+		lives--;
+		
+	}
+
+	else if (player->ded == true && contadorT == 80)
 	{
 		app->fade->FadingToBlack(this, (Module*)app->loseScene, 45);
 		if (app->leadScene->leaderboard[9] < player->score) { app->leadScene->leaderboard[9] = player->score; }

@@ -13,36 +13,21 @@
 	<leaderboardScene />
 	<map />
 	<entitymanager>
-		<player x="1151" y="260" />
-		<enemy x_E="280" y_E="258" state_E="dead" />
-		<enemy x_E="934" y_E="304" state_E="dead" />
-		<enemy x_E="1352" y_E="279" state_E="dead" />
-		<enemy x_E="729" y_E="134" state_E="dead" />
-		<enemy x_E="1528" y_E="55" state_E="idle" />
-		<coin state_C="true" />
-		<coin state_C="true" />
-		<coin state_C="true" />
-		<coin state_C="true" />
-		<coin state_C="true" />
-		<coin state_C="true" />
-		<coin state_C="false" />
-		<coin state_C="false" />
-		<coin state_C="false" />
-		<coin state_C="false" />
-		<coin state_C="false" />
-		<coin state_C="false" />
-		<coin state_C="false" />
-		<coin state_C="false" />
-		<coin state_C="false" />
+		<player x="970" y="294" />
+		<enemy x_E="548" y_E="134" state_E="return" />
+		<enemy x_E="931" y_E="79" state_E="chase" />
+		<enemy x_E="1286" y_E="50" state_E="idle" />
+		<enemy x_E="827" y_E="159" state_E="dead" />
+		<enemy x_E="1552" y_E="63" state_E="idle" />
 		<coin state_C="false" />
 		<coin state_C="false" />
 		<coin state_C="false" />
 		<coin state_C="true" />
+		<coin state_C="false" />
+		<coin state_C="false" />
 		<coin state_C="true" />
 		<coin state_C="true" />
-		<coin state_C="true" />
-		<coin state_C="true" />
-		<coin state_C="true" />
+		<coin state_C="false" />
 		<coin state_C="true" />
 		<coin state_C="true" />
 		<coin state_C="true" />
@@ -84,6 +69,6 @@
 	<guiManager />
 	<fadeToBlack />
 	<renderer>
-		<camera x="-2002" y="0" />
+		<camera x="-1640" y="0" />
 	</renderer>
 </save_state>
