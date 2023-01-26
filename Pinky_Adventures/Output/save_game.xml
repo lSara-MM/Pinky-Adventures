@@ -13,12 +13,12 @@
 	<leaderboardScene />
 	<map />
 	<entitymanager>
-		<player x="1377" y="276" />
-		<enemy x_E="296" y_E="270" state_E="dead" />
-		<enemy x_E="951" y_E="317" state_E="dead" />
-		<enemy x_E="1360" y_E="291" state_E="dead" />
-		<enemy x_E="745" y_E="150" state_E="dead" />
-		<enemy x_E="1544" y_E="63" state_E="idle" />
+		<player x="1151" y="260" />
+		<enemy x_E="280" y_E="258" state_E="dead" />
+		<enemy x_E="934" y_E="304" state_E="dead" />
+		<enemy x_E="1352" y_E="279" state_E="dead" />
+		<enemy x_E="729" y_E="134" state_E="dead" />
+		<enemy x_E="1528" y_E="55" state_E="idle" />
 		<coin state_C="true" />
 		<coin state_C="true" />
 		<coin state_C="true" />
@@ -84,6 +84,6 @@
 	<guiManager />
 	<fadeToBlack />
 	<renderer>
-		<camera x="-2454" y="0" />
+		<camera x="-2002" y="0" />
 	</renderer>
 </save_state>

@@ -46,7 +46,8 @@
 			audiopathAttack="Assets/Audio/Fx/sfx_attack.wav"
 			audiopathSecret ="Assets/Audio/Fx/sfx_secret.wav"
 			audiopathCd ="Assets/Audio/Fx/sfx_Attack_Up.wav"
-			audiopathHealth="Assets/Audio/Fx/sfx_health.wav"/>
+			audiopathHealth="Assets/Audio/Fx/sfx_health.wav"
+			audiopathPortal="Assets/Audio/Fx/sfx_portal.wav"/>
 		
 	<enemy x_E="300" y_E="50" type_E="flying" detectionDistance="20" 
 			texturepath_E="Assets/Textures/ss_duck.png"

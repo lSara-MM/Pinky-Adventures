@@ -14,6 +14,7 @@
 #include "Map.h"
 #include "ItemCoin.h"
 #include "ItemGem.h"
+
 #include "EntityManager.h"
 
 
@@ -89,6 +90,7 @@ bool Player::Awake() {
 	fxCoin = parameters.attribute("audiopathCoin").as_string();
 	fxGem = parameters.attribute("audiopathGem").as_string(); 
 	fxHealth = parameters.attribute("audiopathHealth").as_string();
+	fxPortal = parameters.attribute("audiopathPortal").as_string();
 
 	speed = parameters.attribute("velocity").as_int();
 	width = parameters.attribute("width").as_int();
@@ -116,6 +118,7 @@ bool Player::Awake() {
 	pickCoinFxId = app->audio->LoadFx(fxCoin);
 	pickGemFxId = app->audio->LoadFx(fxGem);
 	pickHealthFxId = app->audio->LoadFx(fxHealth);
+	goPortal = app->audio->LoadFx(fxPortal);
 
 	fxJump = app->audio->LoadFx(jumpPath);
 	fxLand = app->audio->LoadFx(landPath);
@@ -464,7 +467,8 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		case ColliderType::PORTAL:
 
 			LOG("Collision PORTAL");
-			physA->body->SetTransform({ PIXEL_TO_METERS(50),PIXEL_TO_METERS(50) }, 0);//per que no va :(
+			app->audio->PlayFx(goPortal);
+			physA->body->SetTransform({ PIXEL_TO_METERS(0.0f),PIXEL_TO_METERS(0.0f) }, 0);//per que no va :(
 			break;
 
 		case ColliderType::SAVE:
@@ -491,7 +495,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 				if (h->data->ID == physB->id)
 				{
 					h->data->isAlive = false;
-					//app->scene->listCoins.Del(i);
+			
 					break;
 				}
 			}
