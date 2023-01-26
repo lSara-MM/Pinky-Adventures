@@ -16,6 +16,7 @@ enum class EntityType
 	GEM,
 	PORTAL,
 	SAVE,
+	HEALTH,
 	UNKNOWN
 };
 

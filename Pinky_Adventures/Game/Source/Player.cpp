@@ -87,7 +87,8 @@ bool Player::Awake() {
 
 	texturePath = parameters.attribute("texturepath").as_string();
 	fxCoin = parameters.attribute("audiopathCoin").as_string();
-	fxGem = parameters.attribute("audiopathGem").as_string();
+	fxGem = parameters.attribute("audiopathGem").as_string(); 
+	fxHealth = parameters.attribute("audiopathHealth").as_string();
 
 	speed = parameters.attribute("velocity").as_int();
 	width = parameters.attribute("width").as_int();
@@ -114,6 +115,7 @@ bool Player::Awake() {
 
 	pickCoinFxId = app->audio->LoadFx(fxCoin);
 	pickGemFxId = app->audio->LoadFx(fxGem);
+	pickHealthFxId = app->audio->LoadFx(fxHealth);
 
 	fxJump = app->audio->LoadFx(jumpPath);
 	fxLand = app->audio->LoadFx(landPath);
@@ -313,6 +315,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 
 	ListItem<Coin*>* i;
 	ListItem<Enemy*>* e;
+	ListItem<Health*>* h;
 
 	switch (physB->ctype)
 	{
@@ -356,7 +359,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		case ColliderType::ENEMY:
 			LOG("Collision ENEMY");
 
-			if (attackState == true) {
+			if (attackState == true || app->input->godMode) {
 
 				e = app->scene->listEnemies.start;
 
@@ -470,9 +473,30 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			app->SaveGameRequest();
 			app->audio->PlayFx(app->scene->save->fxSave);
 
-			app->scene->save->active = false;
+			app->scene->save->isPicked = true;
 
 			break;
+
+		case ColliderType::HEALTH:
+			LOG("Collision HEALTH");
+
+			app->audio->PlayFx(pickHealthFxId);
+
+			//score += 10;posar vida extra en ui
+
+			h = app->scene->listHealth.start;
+
+			for (h; h != NULL; h = h->next)
+			{
+				if (h->data->ID == physB->id)
+				{
+					h->data->isAlive = false;
+					//app->scene->listCoins.Del(i);
+					break;
+				}
+			}
+			break;
+
 
 		case ColliderType::UNKNOWN:
 			LOG("Collision UNKNOWN");

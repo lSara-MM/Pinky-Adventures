@@ -103,6 +103,7 @@
     <ClCompile Include="Source\IntroScene.cpp" />
     <ClCompile Include="Source\ItemCoin.cpp" />
     <ClCompile Include="Source\ItemGem.cpp" />
+    <ClCompile Include="Source\ItemHealth.cpp" />
     <ClCompile Include="Source\ItemPortal.cpp" />
     <ClCompile Include="Source\ItemSave.cpp" />
     <ClCompile Include="Source\LeaderboardScene.cpp" />
@@ -133,6 +134,7 @@
     <ClInclude Include="Source\IntroScene.h" />
     <ClInclude Include="Source\ItemCoin.h" />
     <ClInclude Include="Source\ItemGem.h" />
+    <ClInclude Include="Source\ItemHealth.h" />
     <ClInclude Include="Source\ItemPortal.h" />
     <ClInclude Include="Source\ItemSave.h" />
     <ClInclude Include="Source\LeaderboardScene.h" />

@@ -36,6 +36,7 @@ enum class ColliderType {
 	ENEMY_LIMIT,
 	PORTAL,
 	SAVE,
+	HEALTH,
 	UNKNOWN
 	// ..
 };

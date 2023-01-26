@@ -10,6 +10,7 @@
 #include "Map.h"
 #include "ItemPortal.h"
 #include "ItemSave.h"
+#include "ItemHealth.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -110,6 +111,10 @@ Entity* EntityManager::CreateEntity(EntityType type)
 		entity = new Save();
 		break;
 
+	case EntityType::HEALTH:
+		entity = new Health();
+		break;
+
 	default: break;
 	}
 
@@ -199,6 +204,23 @@ bool EntityManager::LoadState(pugi::xml_node& data)
 		c->data->isAlive = loadedState;
 		c = c->next;
 	}
+
+	ListItem<Health*>* h;
+	h = app->scene->listHealth.start;
+
+	for (pugi::xml_node itemNode = data.child("health"); itemNode; itemNode = itemNode.next_sibling("health"))
+	{
+		
+		bool loadedState = itemNode.attribute("state_H").as_bool();
+		if (loadedState)
+		{
+			h->data->active = true;
+			h->data->pbody->body->SetActive(true);
+		}
+
+		h->data->isAlive = loadedState;
+		h = h->next;
+	}
 	return true;
 }
 
@@ -243,6 +265,13 @@ bool EntityManager::SaveState(pugi::xml_node& data)
 	{
 		pugi::xml_node coin = data.append_child("coin");
 		coin.append_attribute("state_C") = c->data->isAlive;
+	}
+
+	ListItem<Health*>* h;
+	for (h = app->scene->listHealth.start; h != NULL; h = h->next)
+	{
+		pugi::xml_node health = data.append_child("health");
+		health.append_attribute("state_H") = h->data->isAlive;
 	}
 
 	return true;

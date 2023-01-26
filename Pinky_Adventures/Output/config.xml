@@ -46,7 +46,7 @@
 			audiopathAttack="Assets/Audio/Fx/sfx_attack.wav"
 			audiopathSecret ="Assets/Audio/Fx/sfx_secret.wav"
 			audiopathCd ="Assets/Audio/Fx/sfx_Attack_Up.wav"
-			audiopathLoseB=""/>
+			audiopathHealth="Assets/Audio/Fx/sfx_health.wav"/>
 		
 	<enemy x_E="300" y_E="50" type_E="flying" detectionDistance="20" 
 			texturepath_E="Assets/Textures/ss_duck.png"
@@ -77,7 +77,7 @@
 	<portal name="portal" x="10" y="200" width ="13" height ="42" texturepath="Assets/Textures/portal.png"/>
 
 	<!--Save-->
-	<save name="save" x="960" y="304" width ="20" height ="27" texturepath="Assets/Textures/save.png"
+	<save name="save" x="960" y="310" width ="20" height ="27" texturepath="Assets/Textures/save.png"
 		  audiopath ="Assets/Audio/Fx/sfx_save.wav"/>
 
 		<!--GEM-->

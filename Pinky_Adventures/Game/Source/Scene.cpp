@@ -16,6 +16,7 @@
 #include "FadeToBlack.h"
 #include "ItemCoin.h"
 #include "ItemSave.h"
+#include "ItemHealth.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -367,6 +368,7 @@ bool Scene::InitEntities()
 	}
 
 	coins->SpawnCoins();
+	health->SpawnHealth();
 
 	return true;
 }

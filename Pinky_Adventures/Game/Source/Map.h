@@ -7,6 +7,7 @@
 
 #include "EntityManager.h"
 #include "ItemCoin.h"
+#include "ItemHealth.h"
 
 #include "PugiXml\src\pugixml.hpp"
 
@@ -148,6 +149,7 @@ public:
 
 	friend class Coin;
 	friend class Enemy;
+	friend class Health;
 private:
 
 	bool LoadMap(pugi::xml_node mapFile);

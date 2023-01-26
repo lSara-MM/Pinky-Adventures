@@ -78,10 +78,12 @@ private:
 	
 	uint fxSecret;
 
+	uint pickHealthFxId;
 	uint pickCoinFxId;
 	uint pickGemFxId;
 	const char* fxCoin;	
 	const char* fxGem;
+	const char* fxHealth;
 
 
 	uint fxAttack;

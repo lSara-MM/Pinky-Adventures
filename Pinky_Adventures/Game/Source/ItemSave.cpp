@@ -35,7 +35,7 @@ Save::Save() : Entity(EntityType::SAVE)
 
 	SaveCheckAnim.speed = 0.1f;
 	SaveCheckAnim.loop = false;
-	active = true;
+	
 }
 
 Save::~Save() {}
@@ -64,19 +64,19 @@ bool Save::Start() {
 	pbody = app->physics->CreateRectangleSensor(position.x + width / 2, position.y + height / 2, width, height, bodyType::STATIC);
 	pbody->ctype = ColliderType::SAVE;
 	pbody->body->SetFixedRotation(true);
-	isPicked = true;
-	active = true;
+	isPicked = false;
+	
 	return true;
 }
 
 bool Save::Update()
 {
-	if (isPicked == false)
+	if (isPicked == true)
 	{
-		active = false;
+		
 		pbody->body->SetActive(false);
 		currentAnimSave = &SaveCheckAnim;
-		return true;
+	
 	}
 	else {
 
@@ -93,7 +93,7 @@ bool Save::Update()
 
 bool Save::CleanUp()
 {
-	isPicked = false;
+	isPicked = true;
 	app->tex->UnLoad(texture);
 	pbody->body->GetWorld()->DestroyBody(pbody->body);
 

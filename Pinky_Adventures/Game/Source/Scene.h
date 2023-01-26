@@ -8,6 +8,7 @@
 #include "ItemGem.h"
 #include "ItemPortal.h"
 #include "ItemSave.h"
+#include "ItemHealth.h"
 
 #include "App.h"
 
@@ -51,9 +52,13 @@ public:
 	Enemy* enemy;
 	Portal* portal;
 	Save* save;
+	Health* health;
 
 	List<Coin*> listCoins;
 	int coinIDset;
+
+	List<Health*> listHealth;
+	int healthIDset;
 
 	List<Enemy*> listEnemies;
 	int enemyIDset;
