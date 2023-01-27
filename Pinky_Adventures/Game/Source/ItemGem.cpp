@@ -64,7 +64,10 @@ bool Gem::Update(float dt)
 	}
 
 	currentAnimGem = &GemAnim;
-	currentAnimGem->Update();
+	if (!app->scene->pause)
+	{
+		currentAnimGem->Update();
+	}
 	SDL_Rect rect = currentAnimGem->GetCurrentFrame();
 	app->render->DrawTexture(texture, position.x, position.y, &rect);
 	

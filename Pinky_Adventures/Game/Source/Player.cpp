@@ -183,19 +183,20 @@ bool Player::Update(float dt)
 		pbody->body->SetGravityScale(-750* dtP);
 	}
 
-	if (app->input->godMode == true && app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) 
+	if (app->input->godMode == true && app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT && !app->scene->pause)
 	{
 		vel = b2Vec2(0, -125);
 		app->scene->freeCam = false;
 	}
 
-	if (app->input->godMode == true && app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) 
+	if (app->input->godMode == true && app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT && !app->scene->pause)
 	{
 		vel = b2Vec2(0, 500);
 		app->scene->freeCam = false;
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN  && jump > 0 && ded == false && !app->input->godMode)
+	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN  && jump > 0 && ded == false && !app->input->godMode 
+		&& !app->scene->pause)
 	{
 		
 		pbody->body->ApplyForceToCenter(b2Vec2(50, -playerForce), 0);//50 fa que quedi millor
@@ -206,7 +207,7 @@ bool Player::Update(float dt)
 		app->scene->freeCam = false;
 	}
 	
-	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && ded == false)
+	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT && ded == false && !app->scene->pause)
 	{
 		if (!attackState) {
 			flipType = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;
@@ -218,7 +219,7 @@ bool Player::Update(float dt)
 		app->scene->freeCam = false;
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && ded == false)
+	if (app->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT && ded == false && !app->scene->pause)
 	{
 		if(!attackState){
 			flipType = SDL_RendererFlip::SDL_FLIP_NONE;
@@ -241,7 +242,8 @@ bool Player::Update(float dt)
 	//}
 
 
-	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN && ded == false && attackState == false && contadorCooldown == attackCooldown)
+	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN && ded == false && attackState == false && contadorCooldown == attackCooldown
+		&& !app->scene->pause)
 	{
 		attackAnim.loop = true;
 
@@ -311,7 +313,12 @@ bool Player::Update(float dt)
 		pbody->body->SetTransform({ PIXEL_TO_METERS(120),PIXEL_TO_METERS(260) }, 0);
 		tp = false;
 	}
-	currentAnimation->Update();
+	
+	if (!app->scene->pause)
+	{
+		currentAnimation->Update();
+	}
+	
 
 	SDL_Rect rect = currentAnimation->GetCurrentFrame();
 
@@ -496,9 +503,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		case ColliderType::SAVE:
 
 			LOG("Collision SAVE");
-			app->SaveGameRequest();
 			app->audio->PlayFx(app->scene->save->fxSave);
-
 			app->scene->save->isPicked = true;
 
 			break;

@@ -236,13 +236,23 @@ bool Scene::Update(float dt)
 
 	Debug();
 
+
 	// Win/Lose logic
 	if (player->ded == true)
 		contadorT++;
 
 	if (player->lives > 1 && player->ded == true && contadorT == 80)
 	{
-		player->pbody->body->SetTransform({ PIXEL_TO_METERS(120),PIXEL_TO_METERS(260) }, 0);
+		if (!save->isPicked)
+		{
+			player->pbody->body->SetTransform({ PIXEL_TO_METERS(120),PIXEL_TO_METERS(260) }, 0);
+		}
+		
+		else if (save->isPicked)
+		{
+			player->pbody->body->SetTransform({ PIXEL_TO_METERS(save->position.x),PIXEL_TO_METERS(save->position.y) }, 0);
+		}
+		
 		player->currentAnimation->current_frame = 0;
 		player->ded = false;
 		contadorT = 0;

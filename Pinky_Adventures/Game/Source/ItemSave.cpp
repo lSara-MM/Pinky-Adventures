@@ -83,7 +83,10 @@ bool Save::Update(float dt)
 		currentAnimSave = &SaveIdleAnim;
 
 	}
-	currentAnimSave->Update();
+	if (!app->scene->pause)
+	{
+		currentAnimSave->Update();
+	}
 	flipType = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;
 	SDL_Rect rect = currentAnimSave->GetCurrentFrame();
 	app->render->DrawTexture(texture, position.x, position.y, &rect,1.0f,NULL,NULL,NULL, flipType);

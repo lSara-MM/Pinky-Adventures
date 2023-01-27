@@ -67,7 +67,10 @@ bool Portal::Update(float dt)
 	}
 
 	currentAnimPort = &PortAnim;
-	currentAnimPort->Update();
+	if (!app->scene->pause)
+	{
+		currentAnimPort->Update();
+	}
 	flipType = SDL_RendererFlip::SDL_FLIP_HORIZONTAL;
 	SDL_Rect rect = currentAnimPort->GetCurrentFrame();
 	app->render->DrawTexture(texture, position.x, position.y, &rect,1.0f,NULL,NULL,NULL, flipType);

@@ -44,7 +44,10 @@ bool Coin::Update(float dt)
 	}
 
 	currentAnimCoin = &coinAnim;
-	currentAnimCoin->Update();
+	if (!app->scene->pause)
+	{
+		currentAnimCoin->Update();
+	}
 	SDL_Rect rect = currentAnimCoin->GetCurrentFrame();
 	app->render->DrawTexture(texture, position.x, position.y, &rect);
 	return true;

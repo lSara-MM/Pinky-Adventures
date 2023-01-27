@@ -20,25 +20,25 @@
 		<score score="0" />
 		<score score="0" />
 		<score score="0" />
-		<score score="40" />
+		<score score="0" />
 	</leaderboardScene>
 	<map />
 	<entitymanager>
-		<player x="120" y="260" score="0" coins="0" lives="3" />
-		<enemy x_E="300" y_E="50" state_E="idle" />
-		<enemy x_E="1000" y_E="50" state_E="idle" />
-		<enemy x_E="1250" y_E="50" state_E="idle" />
-		<enemy x_E="750" y_E="50" state_E="idle" />
-		<enemy x_E="1552" y_E="50" state_E="idle" />
+		<player x="952" y="287" score="60" coins="6" lives="3" />
+		<enemy x_E="363" y_E="124" state_E="return" />
+		<enemy x_E="921" y_E="157" state_E="chase" />
+		<enemy x_E="1261" y_E="50" state_E="idle" />
+		<enemy x_E="827" y_E="159" state_E="idle" />
+		<enemy x_E="1552" y_E="63" state_E="idle" />
+		<coin state_C="true" />
+		<coin state_C="false" />
+		<coin state_C="false" />
+		<coin state_C="false" />
 		<coin state_C="true" />
 		<coin state_C="true" />
-		<coin state_C="true" />
-		<coin state_C="true" />
-		<coin state_C="true" />
-		<coin state_C="true" />
-		<coin state_C="true" />
-		<coin state_C="true" />
-		<coin state_C="true" />
+		<coin state_C="false" />
+		<coin state_C="false" />
+		<coin state_C="false" />
 		<coin state_C="true" />
 		<coin state_C="true" />
 		<coin state_C="true" />
@@ -80,6 +80,6 @@
 	<guiManager />
 	<fadeToBlack />
 	<renderer>
-		<camera x="0" y="0" />
+		<camera x="-1604" y="0" />
 	</renderer>
 </save_state>

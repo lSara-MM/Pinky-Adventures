@@ -48,7 +48,10 @@ bool Health::Update(float dt)
 	}
 
 	currentAnimHealth = &healthAnim;
-	currentAnimHealth->Update();
+	if (!app->scene->pause)
+	{
+		currentAnimHealth->Update();
+	}
 	SDL_Rect rect = currentAnimHealth->GetCurrentFrame();
 	app->render->DrawTexture(texture, position.x, position.y, &rect);
 	return true;

@@ -222,7 +222,11 @@ bool Enemy::Update(float dt)
 
 	headSensor->body->SetTransform(b2Vec2(PIXEL_TO_METERS(position.x) + 0.17f, PIXEL_TO_METERS(position.y)), 0);
 
-	currentAnimation->Update();
+	if (!app->scene->pause)
+	{
+		currentAnimation->Update();
+	}
+	
 	SDL_Rect rect = currentAnimation->GetCurrentFrame();
 	app->render->DrawTexture(textureEnemy, position.x, position.y, &rect, 1.0f, NULL, NULL, NULL, flipType);
 	return true;
