@@ -157,7 +157,7 @@ bool Player::Start() {
 	return true;
 }
 
-bool Player::Update()
+bool Player::Update(float dt)
 {
 	if (app->scene->pause)
 	{
@@ -165,7 +165,7 @@ bool Player::Update()
 	}
 	else if(!app->scene->pause)
 	{
-		dtP = app->dt / 1000;
+		dtP = dt / 1000;
 	}
 	
 

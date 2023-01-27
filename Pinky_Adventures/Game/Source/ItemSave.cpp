@@ -69,7 +69,7 @@ bool Save::Start() {
 	return true;
 }
 
-bool Save::Update()
+bool Save::Update(float dt)
 {
 	if (isPicked == true)
 	{

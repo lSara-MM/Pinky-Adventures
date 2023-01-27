@@ -57,7 +57,7 @@ bool Portal::Start() {
 	return true;
 }
 
-bool Portal::Update()
+bool Portal::Update(float dt)
 {
 	if (isPicked == false)
 	{

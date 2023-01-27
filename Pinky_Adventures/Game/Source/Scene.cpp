@@ -169,7 +169,7 @@ bool Scene::Start()
 	}
 
 	tempo.Start();
-
+	
 	return true;
 }
 
@@ -316,6 +316,7 @@ bool Scene::PostUpdate()
 
 
 	// time
+	
 	string s_TIME = std::to_string(app->secondsSinceStartupTempo);
 	const char* ch_TIME = s_TIME.c_str();
 	app->render->TextDraw("Time:", 415, 20, fontsize, { 0, 0, 0 });

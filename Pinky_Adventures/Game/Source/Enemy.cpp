@@ -108,7 +108,7 @@ bool Enemy::Start() {
 	return true;
 }
 
-bool Enemy::Update()
+bool Enemy::Update(float dt)
 {
 	if (app->scene->pause)
 	{
@@ -116,7 +116,7 @@ bool Enemy::Update()
 	}
 	else if(!app->scene->pause)
 	{
-		dtE = app->dt / 1000;
+		dtE = dt / 1000;
 	}
 
 

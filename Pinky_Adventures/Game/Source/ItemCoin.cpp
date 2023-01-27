@@ -34,7 +34,7 @@ bool Coin::Start() {
 	return true;
 }
 
-bool Coin::Update()
+bool Coin::Update(float dt)
 {
 	if (!isAlive)
 	{

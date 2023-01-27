@@ -38,7 +38,7 @@ bool Health::Start() {
 	return true;
 }
 
-bool Health::Update()
+bool Health::Update(float dt)
 {
 	if (!isAlive)
 	{
