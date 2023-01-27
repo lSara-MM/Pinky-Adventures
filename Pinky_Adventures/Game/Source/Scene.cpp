@@ -174,7 +174,7 @@ bool Scene::Update(float dt)
 
 	// Background parallax
 	if (-maxR < app->scene->maxCameraPosRigth - app->render->camera.w && -maxR > app->scene->maxCameraPosLeft) {
-		posx1 = maxR * speed;
+		//posx1 = maxR * speed;
 	}
 		
 	else if (maxR >= -3200) {
@@ -182,7 +182,7 @@ bool Scene::Update(float dt)
 	}
 
 	if (-maxR < app->scene->maxCameraPosRigth - app->render->camera.w && -maxR > app->scene->maxCameraPosLeft) {
-		posx2 = maxR * speed;
+		//posx2 = maxR * speed;
 
 	}
 	else if (maxR >= -3200) {
@@ -190,7 +190,7 @@ bool Scene::Update(float dt)
 	}
 	if (-maxR < app->scene->maxCameraPosRigth - app->render->camera.w && -maxR > app->scene->maxCameraPosLeft) {
 
-		posx3 = maxR*speed;
+		//posx3 = maxR*speed;
 
 	}
 	else if (maxR >= -3200) {

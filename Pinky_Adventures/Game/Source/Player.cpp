@@ -108,8 +108,10 @@ bool Player::Awake() {
 
 	audiopathCd = parameters.attribute("audiopathCd").as_string();
 
+	grav = parameters.attribute("FUYMGravity").as_int();;
+
 	jump = 2;
-	grav = GRAVITY_Y;
+	
 
 	contador = 0; //temps salta player
 	
@@ -175,7 +177,7 @@ bool Player::Update()
 
 	if (app->input->godMode == true) {
 
-		pbody->body->SetGravityScale(-19.25f);
+		pbody->body->SetGravityScale(-750* dtP);
 	}
 
 	if (app->input->godMode == true && app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) 
@@ -192,7 +194,8 @@ bool Player::Update()
 
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN  && jump > 0 && ded == false && !app->input->godMode)
 	{
-		//pbody->body->ApplyForceToCenter(b2Vec2(0, -25000), 0);
+		
+		pbody->body->ApplyForceToCenter(b2Vec2(50, -playerForce), 0);//50 fa que quedi millor
 		currentAnimation = &jumpAnim;
 		jump--;
 		contador = 20;
@@ -225,14 +228,14 @@ bool Player::Update()
 	}
 	
 	if (contador != 0) {
-		grav = -speed;
+		//grav = -speed;
 		currentAnimation = &jumpAnim;
 		contador--;
 	}
 
-	if (contador == 0) {
-		grav = speed;
-	}
+	//if (contador == 0) {
+	//	grav = speed;
+	//}
 
 
 	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN && ded == false && attackState == false && contadorCooldown == attackCooldown)
@@ -305,7 +308,7 @@ bool Player::Update()
 
 	if (tp)
 	{
-		pbody->body->SetTransform({ PIXEL_TO_METERS(50),PIXEL_TO_METERS(50) }, 0);
+		pbody->body->SetTransform({ PIXEL_TO_METERS(120),PIXEL_TO_METERS(260) }, 0);
 		tp = false;
 	}
 	currentAnimation->Update();
