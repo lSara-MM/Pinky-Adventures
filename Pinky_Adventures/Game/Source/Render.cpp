@@ -86,7 +86,7 @@ bool Render::PostUpdate()
 bool Render::CleanUp()
 {    
 	// Free the font
-	TTF_CloseFont(ttf_font);
+	//TTF_CloseFont(ttf_font);PETA AL TANCAR, MOLEST
 
 	// we clean up TTF library
 	//TTF_Quit();	// peta xd

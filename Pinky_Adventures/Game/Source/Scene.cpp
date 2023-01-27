@@ -153,7 +153,7 @@ bool Scene::PreUpdate()
 bool Scene::Update(float dt)
 {
 	// Move camera with player
-	float speed = 1 * dt;
+	float speed = dt / 1000;
 	//player->dt = dt;
 	int maxR = -player->position.x * app->win->GetScale() + 300;
 	if (!freeCam)
@@ -162,33 +162,33 @@ bool Scene::Update(float dt)
 		{
 			app->render->camera.x = ceil(maxR);
 		}
-		else {
-			app->render->camera.x = 0;//si no es posa fa que la càmara no torni si guardes en aquesta zona i fas load
+		else if(maxR>=-3200){
+			app->render->camera.x = 0;
 		}
 	}
 
 	// Background parallax
 	if (-maxR < app->scene->maxCameraPosRigth - app->render->camera.w && -maxR > app->scene->maxCameraPosLeft) {
-		posx1 = maxR * 0.2f;
+		posx1 = maxR * speed;
 	}
 		
-	else {
+	else if (maxR >= -3200) {
 		posx1 = 0;
 	}
 
 	if (-maxR < app->scene->maxCameraPosRigth - app->render->camera.w && -maxR > app->scene->maxCameraPosLeft) {
-		posx2 = maxR * 0.2f;
+		posx2 = maxR * speed;
 
 	}
-	else {
+	else if (maxR >= -3200) {
 		posx2 = 0;
 	}
 	if (-maxR < app->scene->maxCameraPosRigth - app->render->camera.w && -maxR > app->scene->maxCameraPosLeft) {
 
-		posx3 = -maxR * 0.2f;
+		posx3 = maxR*speed;
 
 	}
-	else {
+	else if (maxR >= -3200) {
 		posx3 = 0;
 	}
 

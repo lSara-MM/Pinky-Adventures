@@ -110,6 +110,8 @@ bool Enemy::Start() {
 
 bool Enemy::Update()
 {
+	dtE = app->dt / 1000;
+
 	b2Vec2 vel = b2Vec2(0, 0);
 
 	pos_Enemy = app->map->WorldToMap(position.x, position.y);
@@ -204,6 +206,7 @@ bool Enemy::Update()
 
 
 	//Update enemy position in pixels
+	vel = b2Vec2(vel.x * dtE, vel.y * dtE);
 	pbody->body->SetLinearVelocity(vel);
 
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - width / 2;

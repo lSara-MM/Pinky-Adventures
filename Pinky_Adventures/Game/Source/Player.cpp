@@ -153,6 +153,8 @@ bool Player::Start() {
 
 bool Player::Update()
 {
+	dtP = app->dt/1000;
+
 	currentAnimation = &idleAnim;
 
 	b2Vec2 vel = b2Vec2(0, grav); 
@@ -164,23 +166,24 @@ bool Player::Update()
 
 	if (app->input->godMode == true) {
 
-		pbody->body->SetGravityScale(-30.f);
+		pbody->body->SetGravityScale(-19.25f);
 	}
 
 	if (app->input->godMode == true && app->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT) 
 	{
-		vel = b2Vec2(0, -speed);
+		vel = b2Vec2(0, -125);
 		app->scene->freeCam = false;
 	}
 
 	if (app->input->godMode == true && app->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT) 
 	{
-		vel = b2Vec2(0, 15);
+		vel = b2Vec2(0, 500);
 		app->scene->freeCam = false;
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_SPACE) == KEY_DOWN  && jump > 0 && ded == false && !app->input->godMode)
 	{
+		//pbody->body->ApplyForceToCenter(b2Vec2(0, -25000), 0);
 		currentAnimation = &jumpAnim;
 		jump--;
 		contador = 20;
@@ -211,15 +214,15 @@ bool Player::Update()
 		currentAnimation = &forwardAnim;
 		app->scene->freeCam = false;
 	}
-
+	
 	if (contador != 0) {
-		grav = -GRAVITY_Y / 2;
+		grav = -speed;
 		currentAnimation = &jumpAnim;
 		contador--;
 	}
 
 	if (contador == 0) {
-		grav = GRAVITY_Y;
+		grav = speed;
 	}
 
 
@@ -283,6 +286,7 @@ bool Player::Update()
 		currentAnimation = &deathAnim;
 	}
 
+	vel = b2Vec2(vel.x*dtP, vel.y*dtP);
 	//Set the velocity of the pbody of the player
 	pbody->body->SetLinearVelocity(vel);
 

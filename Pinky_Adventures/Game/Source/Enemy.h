@@ -80,6 +80,8 @@ public:
 
 	uint fxDeath_Enemy;
 
+	float dtE;
+
 private:
 
 	SDL_Texture* textureWalkingEnemy;

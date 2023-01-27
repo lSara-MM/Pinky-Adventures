@@ -40,7 +40,7 @@ bool Physics::Start()
 	// Set this module as a listener for contacts
 	world->SetContactListener(this);
 
-	frameRate = 60.0f; // 60 fps default
+	frameRate = 1000/app->dt; // delta time
 	collisions = false;
 	return true;
 }

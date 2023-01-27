@@ -115,6 +115,10 @@ public:
 	LeaderboardScene* leadScene;
 	FadeToBlack* fade;
 
+	// Time control
+	uint frames;
+	float dt;
+
 private:
 
 	int argc;
@@ -124,9 +128,7 @@ private:
 
 	List<Module*> modules;
 
-	// Time control
-	uint frames;
-	float dt;
+	
 
 	Timer timer;
 	PerfTimer ptimer;

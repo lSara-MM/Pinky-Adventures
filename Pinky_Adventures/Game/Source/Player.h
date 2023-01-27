@@ -55,7 +55,7 @@ public:
 	uint fxDeath;
 	int score;
 
-	float dt;
+	float dtP;
 
 
 	int attackCooldown;
