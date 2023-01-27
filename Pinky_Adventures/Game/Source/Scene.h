@@ -79,6 +79,8 @@ public:
 
 	bool pause;
 
+	Timer tempo;
+
 	pugi::xml_node sceneNode;
 
 private:
