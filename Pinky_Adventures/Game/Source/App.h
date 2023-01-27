@@ -91,7 +91,7 @@ private:
 	bool PostUpdate();
 
 	void DisableAtStart();
-
+	friend class Scene;
 public:
 
 	// Modules
@@ -133,6 +133,7 @@ private:
 	Timer timer;
 	PerfTimer ptimer;
 
+
 	Timer startupTime;
 	Timer frameTime;
 	Timer lastSecFrameTime;
@@ -143,6 +144,7 @@ private:
 
 	float averageFps = 0.0f;
 	float secondsSinceStartup = 0.0f;
+	int  secondsSinceStartupTempo = 0;
 
 	uint32 maxFrameDuration = 0;
 

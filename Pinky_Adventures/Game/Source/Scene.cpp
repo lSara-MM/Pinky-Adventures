@@ -170,6 +170,8 @@ bool Scene::Start()
 		app->LoadGameRequest();
 	}
 
+	tempo.Start();
+
 	return true;
 }
 
@@ -273,12 +275,10 @@ bool Scene::Update(float dt)
 
 		app->render->DrawTexture(attackIcon, -app->render->camera.x * 0.5, 0, &attackCajaCd, 1.0f, NULL, NULL, NULL);
 	}
-
-
-	timeElapsed = timerLvl1.ReadSec();
-	timeLeft -= timeElapsed;
-
-	LOG("---------------------------------- %f", timeLeft);
+	
+	string s_TIME = std::to_string(app->secondsSinceStartupTempo);
+	const char* ch_TIME = s_TIME.c_str();
+	app->render->TextDraw(ch_TIME, -app->render->camera.x * 0.5 + 200, 40, 12, { 0, 0, 0 });
 
 	return true;
 }

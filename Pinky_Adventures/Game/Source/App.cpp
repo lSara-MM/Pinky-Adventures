@@ -215,6 +215,7 @@ void App::FinishUpdate()
 	frameCount++;
 	// Amount of time since game start (use a low resolution timer)
 	secondsSinceStartup = startupTime.ReadSec();
+	secondsSinceStartupTempo = app->scene->tempo.ReadSec();
 	// Amount of ms took the last update
 	dt = frameTime.ReadMSec();
 	// Amount of frames during the last second
