@@ -147,6 +147,7 @@ bool Player::Start() {
 	ded = false;
 	ani = true;
 	attackState = false;
+	tp = false;
 	
 	return true;
 }
@@ -302,6 +303,11 @@ bool Player::Update()
 	position.x = METERS_TO_PIXELS(pbody->body->GetTransform().p.x) - width/2;
 	position.y = METERS_TO_PIXELS(pbody->body->GetTransform().p.y) - height/2;
 
+	if (tp)
+	{
+		pbody->body->SetTransform({ PIXEL_TO_METERS(50),PIXEL_TO_METERS(50) }, 0);
+		tp = false;
+	}
 	currentAnimation->Update();
 
 	SDL_Rect rect = currentAnimation->GetCurrentFrame();
@@ -479,7 +485,8 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 		case ColliderType::PORTAL:
 
 			LOG("Collision PORTAL");
-			physA->body->SetTransform({ PIXEL_TO_METERS(50),PIXEL_TO_METERS(50) }, 0); //per que no va :(
+			app->audio->PlayFx(goPortal);
+			tp = true;
 			break;
 
 		case ColliderType::SAVE:

@@ -94,7 +94,7 @@ private:
 	const char* audiopathCd;
 	uint attackCd;
 
-
+	bool tp;
 };
 
 #endif // __PLAYER_H__
