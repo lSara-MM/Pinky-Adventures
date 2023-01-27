@@ -242,7 +242,7 @@ bool Scene::Update(float dt)
 	if (player->ded == true)
 		contadorT++;
 
-	if (player->lives > 0 && player->ded == true && contadorT == 80)
+	if (player->lives > 1 && player->ded == true && contadorT == 80)
 	{
 		app->LoadGameRequest();
 		player->currentAnimation->current_frame = 0;
@@ -276,10 +276,6 @@ bool Scene::Update(float dt)
 		app->render->DrawTexture(attackIcon, -app->render->camera.x * 0.5, 0, &attackCajaCd, 1.0f, NULL, NULL, NULL);
 	}
 	
-	string s_TIME = std::to_string(app->secondsSinceStartupTempo);
-	const char* ch_TIME = s_TIME.c_str();
-	app->render->TextDraw(ch_TIME, -app->render->camera.x * 0.5 + 200, 40, 12, { 0, 0, 0 });
-
 	return true;
 }
 
@@ -319,6 +315,13 @@ bool Scene::PostUpdate()
 	app->render->DrawTexture(heart_tex, -app->render->camera.x * 0.5 + 50, 40, &rect2);
 	app->render->TextDraw("x", 75, 43, fontsize, { 0, 0, 0 });
 	app->render->TextDraw(ch_hearts, 95, 43, fontsize, { 0, 0, 0 });
+
+
+	// time
+	string s_TIME = std::to_string(app->secondsSinceStartupTempo);
+	const char* ch_TIME = s_TIME.c_str();
+	app->render->TextDraw("Time:", 415, 20, fontsize, { 0, 0, 0 });
+	app->render->TextDraw(ch_TIME, 480, 20, fontsize, { 0, 0, 0 });
 
 
 	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
