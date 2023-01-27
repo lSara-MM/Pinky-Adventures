@@ -28,6 +28,25 @@ using namespace std;
 Scene::Scene() : Module()
 {
 	name.Create("scene");
+
+	coinAnim.PushBack({ 0, 0, 16, 16 });
+	coinAnim.PushBack({ 16, 0, 16, 16 });
+	coinAnim.PushBack({ 32, 0, 16, 16 });
+	coinAnim.PushBack({ 48, 0, 16, 16 });
+
+	coinAnim.speed = 0.1f;
+
+
+	heartAnim.PushBack({ 1, 1, 16, 16 });
+	heartAnim.PushBack({ 19, 1, 16, 16 });
+	heartAnim.PushBack({ 37, 1, 16, 16 });
+	heartAnim.PushBack({ 55, 1, 16, 16 });
+	heartAnim.PushBack({ 73, 1, 16, 16 });
+	heartAnim.PushBack({ 91, 1, 16, 16 });
+	heartAnim.PushBack({ 109, 1, 16, 16 });
+	heartAnim.PushBack({ 127, 1, 16, 16 });
+
+	heartAnim.speed = 0.1f;
 }
 
 Scene::~Scene()
@@ -55,6 +74,9 @@ bool Scene::Awake(pugi::xml_node& config)
 	
 	musicPathBg = config.attribute("music").as_string();
 	
+	coinPath = config.attribute("coinspath").as_string();
+	heartPath = config.attribute("heartspath").as_string();
+
 	sceneNode = config;
 	return ret;
 }
@@ -64,6 +86,7 @@ bool Scene::Start()
 	timerLvl1.Start();
 	timeLeft = 60.0;
 	timeElapsed = 0.0;
+
 	// IMPORTANT, DO NOT SET ID's TO 0;
 	coinIDset = 1;
 	enemyIDset = 1;
@@ -72,7 +95,6 @@ bool Scene::Start()
 	//pause menu
 	pause = false;
 
-	lives = 3;
 	app->SaveGameRequest();
 
 	app->physics->Enable();
@@ -130,6 +152,9 @@ bool Scene::Start()
 	BACK3 = app->tex->Load(back3Path);
 
 	attackIcon = app->tex->Load(attackIconPath);
+	coin_tex = app->tex->Load(coinPath); 
+	heart_tex = app->tex->Load(heartPath);
+
 
 	app->audio->PlayMusic(musicPathBg, 0);
 	
@@ -209,21 +234,19 @@ bool Scene::Update(float dt)
 		ghostCollider->body->SetActive(false);
 	}
 
-	listCoins;
 	Debug();
 
 	// Win/Lose logic
 	if (player->ded == true)
 		contadorT++;
 
-	if (lives > 0 && player->ded == true && contadorT == 80)
+	if (player->lives > 0 && player->ded == true && contadorT == 80)
 	{
 		app->LoadGameRequest();
 		player->currentAnimation->current_frame = 0;
 		player->ded = false;
 		contadorT = 0;
-		lives--;
-		
+		player->lives--;	
 	}
 
 	else if (player->ded == true && contadorT == 80)
@@ -248,7 +271,7 @@ bool Scene::Update(float dt)
 
 	if (player->contadorCooldown != player->attackCooldown) {
 
-		app->render->DrawTexture(attackIcon, -app->render->camera.x*0.5, 0, &attackCajaCd, 1.0f, NULL, NULL, NULL);
+		app->render->DrawTexture(attackIcon, -app->render->camera.x * 0.5, 0, &attackCajaCd, 1.0f, NULL, NULL, NULL);
 	}
 
 
@@ -264,11 +287,39 @@ bool Scene::PostUpdate()
 {
 	bool ret = true;
 
+	int fontsize = 10;
+
 	// render score
 	string s_score = std::to_string(player->score);
 	const char* ch_score = s_score.c_str();
 
-	app->render->TextDraw(ch_score, -app->render->camera.x * 0.5 + 100, 40, 12, { 0, 0, 0 });
+	app->render->TextDraw("Score:", 50, 3, fontsize, { 0, 0, 0 });
+	app->render->TextDraw(ch_score, 120, 3, fontsize, { 0, 0, 0 });
+	
+
+	// coins
+	string s_coins = std::to_string(player->coins);
+	const char* ch_coins = s_coins.c_str();
+
+	currentAnimCoin = &coinAnim;
+	currentAnimCoin->Update();
+	SDL_Rect rect = currentAnimCoin->GetCurrentFrame();
+	app->render->DrawTexture(coin_tex, -app->render->camera.x * 0.5 + 50, 17, &rect);
+	app->render->TextDraw("x", 75, 20, fontsize, { 0, 0, 0 });
+	app->render->TextDraw(ch_coins, 95, 20, fontsize, { 0, 0, 0 });
+
+
+	// heart
+	string s_hearts = std::to_string(player->lives);
+	const char* ch_hearts = s_hearts.c_str();
+
+	currentAnimHeart = &heartAnim;
+	currentAnimHeart->Update();
+	SDL_Rect rect2 = currentAnimHeart->GetCurrentFrame();
+	app->render->DrawTexture(heart_tex, -app->render->camera.x * 0.5 + 50, 40, &rect2);
+	app->render->TextDraw("x", 75, 43, fontsize, { 0, 0, 0 });
+	app->render->TextDraw(ch_hearts, 95, 43, fontsize, { 0, 0, 0 });
+
 
 	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;

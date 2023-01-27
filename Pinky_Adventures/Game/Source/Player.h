@@ -43,7 +43,7 @@ public:
 	Animation deathAnim;
 	Animation attackAnim;
 
-	int jump, speed, width, height;
+	int jump, speed, width, height, lives;
 	bool ded;
 	bool ani;
 	bool attackState;
@@ -61,7 +61,7 @@ public:
 	int attackCooldown;
 	int contadorCooldown;
 	
-
+	int coins;
 
 private:
 	SDL_Texture* texture;

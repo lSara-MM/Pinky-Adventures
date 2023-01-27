@@ -25,7 +25,6 @@ Health::Health() : Entity(EntityType::COIN)
 	healthAnim.PushBack({ 109, 1, 16, 16 });
 	healthAnim.PushBack({ 127, 1, 16, 16 });
 
-
 	healthAnim.speed = 0.1f;
 }
 

@@ -33,9 +33,10 @@
 	<introScene background="Assets/Maps/intro_bg.png" audioIntroPath ="Assets/Audio/Music/music_intro.ogg" p2sPath ="Assets/Maps/press2start.png"/>/>
 	
 	<scene music="Assets/Audio/Music/lvl_1.ogg" textureAttackPath="Assets/Textures/attack.png"
-	   background1 ="Assets/Maps/clouds_bg.png" background2 ="Assets/Maps/clouds_mg_1.png" background3 ="Assets/Maps/clouds_mg_2.png">
+	   background1 ="Assets/Maps/clouds_bg.png" background2 ="Assets/Maps/clouds_mg_1.png" background3 ="Assets/Maps/clouds_mg_2.png"
+	   coinspath="Assets/Maps/coin.png" heartspath="Assets/Maps/heart.png">
 
-	<player x="120" y="260" attackCooldown="175" playerForce="500"
+	<player x="120" y="260" score="0" coins="0" lives="3" attackCooldown="175" playerForce="500"
 			texturepath="Assets/Textures/pinky_2.0.png"
 			velocity="200" width="20" height="27"
 			audiopathCoin="Assets/Audio/Fx/Coin.wav"

@@ -46,8 +46,6 @@ public:
 
 public:
 
-	int lives;
-
 	Player* player;
 	Gem* gem;
 	Coin* coins;
@@ -106,6 +104,21 @@ private:
 	Timer timerLvl1;
 	float timeLeft;
 	float timeElapsed;
+
+
+
+	// UI
+	const char* coinPath;
+	SDL_Texture* coin_tex;
+
+	Animation* currentAnimCoin;
+	Animation coinAnim;
+
+	const char* heartPath;
+	SDL_Texture* heart_tex;
+
+	Animation* currentAnimHeart;
+	Animation heartAnim;
 };
 
 #endif // __SCENE_H__

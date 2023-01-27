@@ -24,7 +24,7 @@
 	</leaderboardScene>
 	<map />
 	<entitymanager>
-		<player x="120" y="260" />
+		<player x="120" y="260" score="0" coins="0" lives="3" />
 		<enemy x_E="300" y_E="50" state_E="idle" />
 		<enemy x_E="1000" y_E="50" state_E="idle" />
 		<enemy x_E="1250" y_E="50" state_E="idle" />

@@ -86,6 +86,11 @@ bool Player::Awake() {
 	position.x = parameters.attribute("x").as_int();
 	position.y = parameters.attribute("y").as_int();
 
+	score = parameters.attribute("score").as_int();
+	coins = parameters.attribute("coins").as_int();
+	lives = parameters.attribute("lives").as_int();
+
+
 	texturePath = parameters.attribute("texturepath").as_string();
 	fxCoin = parameters.attribute("audiopathCoin").as_string();
 	fxGem = parameters.attribute("audiopathGem").as_string(); 
@@ -112,8 +117,6 @@ bool Player::Awake() {
 	grav = GRAVITY_Y;
 
 	contador = 0; //temps salta player
-	
-	score = 0;
 
 	pickCoinFxId = app->audio->LoadFx(fxCoin);
 	pickGemFxId = app->audio->LoadFx(fxGem);
@@ -270,9 +273,7 @@ bool Player::Update()
 			for (b2Fixture* f = pbody->body->GetFixtureList(); f; f = f->GetNext()) {
 
 				if (f->IsSensor()) {
-
 					pbody->body->DestroyFixture(f);
-					
 				}
 			}
 			currentAnimation->current_frame = 0;
@@ -287,7 +288,6 @@ bool Player::Update()
 	}
 
 	if (contadorCooldown == attackCooldown-1) {
-
 		app->audio->PlayFx(attackCd);
 	}
 
@@ -353,6 +353,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 				if (i->data->ID == physB->id)
 				{
 					i->data->isAlive = false;
+					coins++;
 					//app->scene->listCoins.Del(i);
 					break;
 				}
@@ -504,7 +505,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 
 			app->audio->PlayFx(pickHealthFxId);
 
-			app->scene->lives++;
+			lives++;
 
 			h = app->scene->listHealth.start;
 
