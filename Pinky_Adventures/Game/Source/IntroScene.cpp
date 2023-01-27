@@ -49,9 +49,9 @@ bool IntroScene::Start()
 	app->audio->PlayMusic(musicIntro, 0);
 	loaded = false;
 
-	//exemple botó
-
-	button1 = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Button 1", { 0,0,100,100 }, this);
+	
+	button_play = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Play", { 30, 200, 100, 100 }, this);
+	button_continue = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Continue", { 30, 250, 70, 100 }, this);
 
 	return true;
 }
@@ -100,8 +100,6 @@ bool IntroScene::PostUpdate()
 		v_start = 0;
 	
 	v_start++;
-
-	app->render->TextDraw("holis", 150, 150, 15, { 255, 0, 255 });
 
 	app->guiManager->Draw();
 

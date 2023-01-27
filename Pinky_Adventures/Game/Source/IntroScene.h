@@ -55,9 +55,9 @@ private:
 	SDL_Texture* p2sTexture;
 	int v_start = 0;
 
-	//prova botó
-	GuiButton* button1;
-	GuiButton* button2;
+	// buttons
+	GuiButton* button_play;
+	GuiButton* button_continue;
 };
 
 #endif // __INTROSCENE_H__

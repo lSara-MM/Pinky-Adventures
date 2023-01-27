@@ -13,7 +13,7 @@ GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text) : GuiControl(
 	canClick = true;
 	drawBasic = false;
 
-	buttonTex = app->tex->Load("Assets/Textures/button_texture_atlas.png");
+	buttonTex = app->tex->Load("Assets/Textures/long_button.png");
 
 }
 
@@ -38,9 +38,9 @@ bool GuiButton::Update(float dt)
 		
 			state = GuiControlState::FOCUSED;
 			
-			if (previousState != state) {
+			if (previousState != state) 
+			{
 				LOG("Change state from %d to %d", previousState, state);
-				
 			}
 
 			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_REPEAT)
@@ -55,7 +55,8 @@ bool GuiButton::Update(float dt)
 			}
 
 		}
-		else {
+		else 
+		{
 			state = GuiControlState::NORMAL;
 		}
 
@@ -66,6 +67,8 @@ bool GuiButton::Update(float dt)
 
 bool GuiButton::Draw(Render* render)
 {
+	int size = bounds.w / 10;
+	int x, y;
 
 	// Draw the right button depending on state
 	switch (state)
@@ -74,33 +77,35 @@ bool GuiButton::Draw(Render* render)
 	case GuiControlState::DISABLED: 
 	{
 		//render->DrawRectangle(bounds, 0, 0, 0, 0);
-		render->DrawRectangle({ bounds.x * 2,bounds.y * 2,bounds.w * 2,bounds.h * 2 }, 200, 200, 200, 255, true, false);
+		render->DrawRectangle({ bounds.x * 2, bounds.y * 2, bounds.w * 2, bounds.h * 2 }, 200, 200, 200, 255, true, false);
 	} break;
 
 	case GuiControlState::NORMAL:
 	{
-		//render->DrawRectangle(bounds, 255, 0, 0, 255);
-		//SDL_Rect rect = {0,70,190,66};
-		//render->DrawTexture(buttonTex, bounds.x, bounds.y, &rect);
-		render->DrawRectangle({ bounds.x * 2,bounds.y * 2,bounds.w * 2,bounds.h * 2 }, 0, 0, 255, 255, true, false);
+		SDL_Rect rect = { 0, 0, 90, 27 };
+		render->DrawTexture(buttonTex, bounds.x, bounds.y, &rect);
+
+		x = 90; y = 27;
+		//render->DrawRectangle({ bounds.x * 2, bounds.y * 2, bounds.w * 2, bounds.h * 2 }, 0, 0, 255, 255, true, false);
 
 	} break;
 
 
 	case GuiControlState::FOCUSED:
 	{
-		//render->DrawRectangle(bounds, 255, 255, 255, 160);
-		//SDL_Rect rect = { 0,0,190,66 };
-		//render->DrawTexture(buttonTex, bounds.x, bounds.y, &rect);
-		render->DrawRectangle({ bounds.x * 2,bounds.y * 2,bounds.w * 2,bounds.h * 2 }, 0, 0, 20, 255, true, false);
+		SDL_Rect rect = { 90, 0, 90, 27 };
+		render->DrawTexture(buttonTex, bounds.x, bounds.y, &rect);
+		x = 90; y = 27;
+		//render->DrawRectangle({ bounds.x * 2, bounds.y * 2, bounds.w * 2, bounds.h * 2 }, 0, 0, 20, 255, true, false);
 
 	} break;
 	case GuiControlState::PRESSED:
 	{
-		//SDL_Rect rect = { 0,141,190,66 };
-		//render->DrawTexture(buttonTex, bounds.x, bounds.y, &rect);
+		SDL_Rect rect = { 180, 0, 97, 27 };
+		render->DrawTexture(buttonTex, bounds.x, bounds.y, &rect);
+		x = 120; y = 36;
 		//render->DrawRectangle(bounds, 255, 255, 255, 200);
-		render->DrawRectangle({ bounds.x *2,bounds.y *2,bounds.w *2,bounds.h * 2 }, 0, 255, 0, 255, true, false);
+		//render->DrawRectangle({ bounds.x *2, bounds.y *2, bounds.w *2, bounds.h * 2 }, 0, 255, 0, 255, true, false);
 
 	} break;
 
@@ -111,7 +116,8 @@ bool GuiButton::Draw(Render* render)
 		break;
 	}
 
-	app->render->DrawText(text.GetString(), bounds.x, bounds.y, bounds.w, bounds.h, { 255,255,255 });
+	//app->render->DrawText(text.GetString(), bounds.x, bounds.y, bounds.w, bounds.h, { 255,255,255 });
+	app->render->TextDraw(text.GetString(), bounds.x + x / 4, bounds.y + y / 4, size);
 
 	return false;
 }
