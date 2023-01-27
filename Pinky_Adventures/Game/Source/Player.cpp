@@ -153,7 +153,15 @@ bool Player::Start() {
 
 bool Player::Update()
 {
-	dtP = app->dt/1000;
+	if (app->scene->pause)
+	{
+		dtP = 0;
+	}
+	else if(!app->scene->pause)
+	{
+		dtP = app->dt / 1000;
+	}
+	
 
 	currentAnimation = &idleAnim;
 

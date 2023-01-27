@@ -110,7 +110,15 @@ bool Enemy::Start() {
 
 bool Enemy::Update()
 {
-	dtE = app->dt / 1000;
+	if (app->scene->pause)
+	{
+		dtE = 0;
+	}
+	else if(!app->scene->pause)
+	{
+		dtE = app->dt / 1000;
+	}
+
 
 	b2Vec2 vel = b2Vec2(0, 0);
 

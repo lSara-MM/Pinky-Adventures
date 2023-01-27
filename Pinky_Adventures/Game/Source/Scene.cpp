@@ -69,6 +69,9 @@ bool Scene::Start()
 	enemyIDset = 1;
 	healthIDset = 1;
 
+	//pause menu
+	pause = false;
+
 	lives = 3;
 	app->SaveGameRequest();
 
@@ -357,6 +360,12 @@ void Scene::Debug()
 	}
 	(frame30) ? app->physics->frameRate = 60.0f : app->physics->frameRate = 30.0f;
 
+	//pause menu
+	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
+	{
+		pause = !pause;
+		LOG("PAUSE");
+	}
 	// Mute / unmute
 	if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
 		mute = !mute;

@@ -77,6 +77,8 @@ public:
 	bool end;
 	bool freeCam;
 
+	bool pause;
+
 	pugi::xml_node sceneNode;
 
 private:
