@@ -95,8 +95,6 @@ bool Scene::Start()
 	//pause menu
 	pause = false;
 
-	app->SaveGameRequest();
-
 	app->physics->Enable();
 	app->render->camera.x = 0;
 	app->render->camera.y = 0;
@@ -184,7 +182,7 @@ bool Scene::Update(float dt)
 {
 	// Move camera with player
 	float speed = dt / 1000;
-	//player->dt = dt;
+	
 	int maxR = -player->position.x * app->win->GetScale() + 300;
 	if (!freeCam)
 	{
@@ -244,7 +242,7 @@ bool Scene::Update(float dt)
 
 	if (player->lives > 1 && player->ded == true && contadorT == 80)
 	{
-		app->LoadGameRequest();
+		player->pbody->body->SetTransform({ PIXEL_TO_METERS(120),PIXEL_TO_METERS(260) }, 0);
 		player->currentAnimation->current_frame = 0;
 		player->ded = false;
 		contadorT = 0;
