@@ -218,7 +218,7 @@ bool Scene::Update(float dt)
 	if (player->ded == true)
 		contadorT++;
 
-	if (lives > 0 && player->ded == true && contadorT == 80)
+	if (lives > 1 && player->ded == true && contadorT == 80)
 	{
 		app->LoadGameRequest();
 		player->currentAnimation->current_frame = 0;
