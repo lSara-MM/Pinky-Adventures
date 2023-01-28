@@ -53,6 +53,7 @@ public:
 
 	Player* player;
 	bool loaded = false;
+	bool buttonDebug = false;
 
 private:
 

@@ -415,7 +415,8 @@ void Scene::Debug()
 	if (app->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) {
 		//player->ded = true;
 		//app->audio->PlayFx(player->fxDeath);
-		app->fade->FadingToBlack(this, (Module*)app->loseScene, 0);
+		//app->fade->FadingToBlack(this, (Module*)app->loseScene, 0);
+		app->iScene->buttonDebug = !app->iScene->buttonDebug;
 	}
 
 	// Show collisions

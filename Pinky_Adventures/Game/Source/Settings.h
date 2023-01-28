@@ -26,7 +26,7 @@ public:
 	{
 		Settings* set = this;
 
-		settingsTexture = app->tex->Load(settingsPath);
+		//settingsTexture = app->tex->Load(settingsPath);
 
 		// settings buttons
 		settings = false;
@@ -125,7 +125,7 @@ public:
 
 	bool CleanUp()
 	{
-		app->tex->UnLoad(settingsTexture);
+		//app->tex->UnLoad(settingsTexture);
 		listSettingsButtons.Clear();
 		listCheckbox.Clear();
 	}

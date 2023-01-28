@@ -88,6 +88,13 @@ bool IntroScene::Update(float dt)
 		listButtons.start->next->data->state = GuiControlState::NORMAL;
 	}
 
+	if (app->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) {
+		//player->ded = true;
+		//app->audio->PlayFx(player->fxDeath);
+		//app->fade->FadingToBlack(this, (Module*)app->loseScene, 0);
+		buttonDebug = !buttonDebug;
+	}
+
 	/*if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 	{
 		app->fade->FadingToBlack(this, (Module*)app->scene, 90);

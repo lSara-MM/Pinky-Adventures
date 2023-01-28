@@ -84,7 +84,7 @@ public:
 	int posx1, posx2, posx3;
 	bool end;
 	bool freeCam;
-
+	
 	bool pause;
 
 	Timer tempo;
