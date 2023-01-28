@@ -18,6 +18,8 @@
 #include "ItemSave.h"
 #include "ItemHealth.h"
 
+#include "GuiManager.h"
+
 #include "Defs.h"
 #include "Log.h"
 
@@ -76,6 +78,8 @@ bool Scene::Awake(pugi::xml_node& config)
 	
 	coinPath = config.attribute("coinspath").as_string();
 	heartPath = config.attribute("heartspath").as_string();
+
+	pSettings->settingsPath = config.attribute("settingsPath").as_string();
 
 	sceneNode = config;
 	return ret;
@@ -171,6 +175,10 @@ bool Scene::Start()
 
 	tempo.Start();
 	
+
+	// Settings
+	pSettings->GUI_id = 0;
+	pSettings->CreateSettings(this);
 	return true;
 }
 
@@ -326,8 +334,7 @@ bool Scene::PostUpdate()
 	app->render->TextDraw(ch_hearts, 95, 43, fontsize, { 0, 0, 0 });
 
 
-	// time
-	
+	// time	
 	string s_TIME = std::to_string(app->secondsSinceStartupTempo);
 	const char* ch_TIME = s_TIME.c_str();
 	app->render->TextDraw("Time:", 415, 20, fontsize, { 0, 0, 0 });
@@ -337,6 +344,15 @@ bool Scene::PostUpdate()
 	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
 	
+
+	if (pSettings->settings)
+	{
+		pSettings->OpenSettings();
+	}
+
+	app->guiManager->Draw();
+
+
 	return ret;
 }
 
@@ -434,7 +450,7 @@ void Scene::Debug()
 	}
 	if (x)
 	{
-		app->iScene->OpenSettings();
+		//app->iScene->OpenSettings();
 	}
 	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
 	{
@@ -516,6 +532,40 @@ bool Scene::InitEntities()
 
 	coins->SpawnCoins();
 	health->SpawnHealth();
+
+	return true;
+}
+
+bool Scene::OnGuiMouseClickEvent(GuiControl* control)
+{
+	LOG("Event by %d ", control->id);
+
+	switch (control->id)
+	{
+	case 1:
+		LOG("Button Close settings click");
+		pSettings->CloseSettings();
+		break;
+
+	case 2:
+		LOG("Slider music click");
+
+		break;
+	case 3:
+		LOG("Slider sfx click");
+
+		break;
+	case 4:
+		LOG("Checkbox Fullscreen click");
+		app->win->changeScreen = !app->win->changeScreen;
+
+		app->win->ResizeWin();
+		break;
+	case 5:
+		LOG("Checkbox Vsync click");
+		(control->state == GuiControlState::NORMAL) ? app->render->flags = SDL_RENDERER_ACCELERATED : app->render->flags |= SDL_RENDERER_PRESENTVSYNC;
+		break;
+	}
 
 	return true;
 }

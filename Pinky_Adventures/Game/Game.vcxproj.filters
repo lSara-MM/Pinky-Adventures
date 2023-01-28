@@ -217,6 +217,9 @@
     <ClInclude Include="Source\GuiSlider.h">
       <Filter>Modules\Core\GUI</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Settings.h">
+      <Filter>Scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Utils">

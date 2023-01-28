@@ -9,6 +9,8 @@ class App;
 class PhysBody;
 class GuiControl;
 
+class GuiControl;
+
 class Module
 {
 public:

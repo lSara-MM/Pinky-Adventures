@@ -1,6 +1,8 @@
 #ifndef __INTROSCENE_H__
 #define __INTROSCENE_H__
 
+#include "App.h"
+
 #include "Module.h"
 #include "Player.h"
 #include "ItemCoin.h"
@@ -9,6 +11,9 @@
 #include "GuiButton.h"
 #include "GuiCheckBox.h"
 #include "GuiSlider.h"
+
+
+#include "Settings.h"
 
 struct SDL_Texture;
 
@@ -39,7 +44,7 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-	void Settings();
+	//void Settings();
 	bool OnGuiMouseClickEvent(GuiControl* control);
 	bool OpenSettings();
 	bool CloseSettings();
@@ -60,15 +65,18 @@ private:
 	List<GuiButton*> listButtons;
 	const char* buttons[6] = { "Play", "Continue", "Settings", "Credits", "Exit", "\n" };
 	int bNum;
-	List<GuiButton*> listSettingsButtons;
-	
-	List<GuiCheckBox*> listCheckbox;
+	//List<GuiButton*> listSettingsButtons;
+	//
+	//List<GuiCheckBox*> listCheckbox;
 
 
-	SDL_Texture* settingsTexture;
-	const char* settingsPath;
-	bool settings;
-	bool open;
+	//SDL_Texture* settingsTexture;
+	//const char* settingsPath;
+	//bool settings;
+	//bool open;
+
+	Settings options;
+	Settings* pSettings = &options;
 
 	bool exit;
 };
