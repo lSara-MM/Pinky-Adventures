@@ -53,21 +53,52 @@ bool IntroScene::Start()
 	// buttons
 	for (int i = 0; buttons[i] != "\n"; i++)
 	{
-		listButtons.Add((GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, i + 1, buttons[i], { 30, 200 + 35 * i, 90, 27 }, 10, this, ButtonType::LONG));
+		listButtons.Add((GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, i + 1, buttons[i], { 25, 180 + 33 * i, 90, 27 }, 10, this, ButtonType::LONG));
+		bNum = i + 1;
 	}
-
-	settings = false;
-	open = false;
 
 	listButtons.start->next->data->state = GuiControlState::DISABLED;
 
 
 	// settings buttons
+	settings = false;
+	open = false;
+
+	// close
 	bNum++;
 	GuiButton* button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, bNum, "x", { 137, 56, 26, 28 }, 10, this, ButtonType::SMALL);
 	button->state = GuiControlState::NONE;
 	listButtons.Add(button);
 	listSettingsButtons.Add(button);
+
+	// music
+	bNum++;
+	/*GuiButton* button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, bNum, "x", { 137, 56, 26, 28 }, 10, this, ButtonType::SMALL);
+	button->state = GuiControlState::NONE;
+	listButtons.Add(button);
+	listSettingsButtons.Add(button);*/
+
+	// sfx
+	bNum++;
+	/*GuiButton* button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, bNum, "x", { 137, 56, 26, 28 }, 10, this, ButtonType::SMALL);
+	button->state = GuiControlState::NONE;
+	listButtons.Add(button);
+	listSettingsButtons.Add(button);*/
+
+
+	// fullscreen	
+	bNum++;
+	GuiCheckBox* checkbox = (GuiCheckBox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, bNum, "", { 330, 240, 30, 30 }, 10, this);
+	checkbox->state = GuiControlState::NONE;
+	listCheckbox.Add(checkbox);
+
+	// vsync
+	bNum++;
+	checkbox = (GuiCheckBox*)app->guiManager->CreateGuiControl(GuiControlType::CHECKBOX, bNum, "", { 330, 280, 30, 30 }, 10, this);
+	checkbox->state = GuiControlState::NONE;
+	listCheckbox.Add(checkbox);
+
+	exit = false;
 
 	return true;
 }
@@ -103,6 +134,8 @@ bool IntroScene::PostUpdate()
 {
 	bool ret = true;
 
+	if (exit) return false;
+
 	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
 
@@ -128,6 +161,8 @@ bool IntroScene::CleanUp()
 	app->tex->UnLoad(settingsTexture);
 
 	listButtons.Clear();
+	listSettingsButtons.Clear();
+	listCheckbox.Clear();
 
 	return true;
 }
@@ -149,7 +184,7 @@ bool IntroScene::OnGuiMouseClickEvent(GuiControl* control)
 		break;
 	case 3:
 		LOG("Button settings click");
-		settings = !settings;
+		settings = true;
 		break;
 	case 4:
 		LOG("Button Credits click");
@@ -157,8 +192,32 @@ bool IntroScene::OnGuiMouseClickEvent(GuiControl* control)
 		break;
 
 	case 5:
+		LOG("Button Exit game click");
+		exit = true;
+		break;
+
+	case 6:
 		LOG("Button Close settings click");
 		CloseSettings();
+		break;
+
+	case 7:
+		LOG("Slider music click");
+		
+		break;
+	case 8:
+		LOG("Slider sfx click");
+		
+		break;
+	case 9:
+		LOG("Checkbox Fullscreen click");
+		app->win->changeScreen = !app->win->changeScreen;
+
+		app->win->ResizeWin(); 
+		break;
+	case 10:
+		LOG("Checkbox Vsync click");
+		(control->state == GuiControlState::NORMAL) ? app->render->flags = SDL_RENDERER_ACCELERATED : app->render->flags |= SDL_RENDERER_PRESENTVSYNC;
 		break;
 	}
 
@@ -170,12 +229,32 @@ bool IntroScene::OpenSettings()
 	SDL_Rect rect = {0, 0, 226, 261};
 	app->render->DrawTexture(settingsTexture, 150, 70, &rect);
 	
+	int x = 170; int y = 130; int offset = 40;
+	app->render->TextDraw("Music:", x, y + offset, 12);
+	app->render->TextDraw("Sfx:", x, y + offset * 2, 12);
+	app->render->TextDraw("Fullscreen:", x, y + offset * 3, 12);
+	app->render->TextDraw("Vsync:", x, y + offset * 4, 12);
+	
 	if (!open)
 	{
 		for (ListItem<GuiButton*>* i = listSettingsButtons.start; i != nullptr; i = i->next)
 		{
 			i->data->state = GuiControlState::NORMAL;
 		}
+
+		
+		for (ListItem<GuiCheckBox*>* i = listCheckbox.start; i != nullptr; i = i->next)
+		{
+			if (i->data->id == 9 && app->win->changeScreen)
+			{
+				i->data->state = GuiControlState::SELECTED;
+			}
+			else
+			{
+				i->data->state = GuiControlState::NORMAL;
+			}
+		}
+
 		open = true;
 	}
 	
@@ -187,6 +266,11 @@ bool IntroScene::CloseSettings()
 	settings = false;
 	open = false;
 	for (ListItem<GuiButton*>* i = listSettingsButtons.start; i != nullptr; i = i->next)
+	{
+		i->data->state = GuiControlState::NONE;
+	}
+
+	for (ListItem<GuiCheckBox*>* i = listCheckbox.start; i != nullptr; i = i->next)
 	{
 		i->data->state = GuiControlState::NONE;
 	}

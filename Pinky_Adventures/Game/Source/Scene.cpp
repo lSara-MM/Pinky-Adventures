@@ -92,6 +92,7 @@ bool Scene::Start()
 	enemyIDset = 1;
 	healthIDset = 1;
 
+
 	//pause menu
 	pause = false;
 
@@ -423,8 +424,18 @@ void Scene::Debug()
 		LOG("frame rate: %d", app->physics->frameRate);
 	}
 	
-
+	
 	//pause menu
+	if (app->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN)
+	{
+		pause = !pause;
+		x = !x;
+		LOG("PAUSE");
+	}
+	if (x)
+	{
+		app->iScene->OpenSettings();
+	}
 	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
 	{
 		pause = !pause;

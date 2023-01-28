@@ -17,9 +17,6 @@ public:
 	bool Draw(Render* render);
 
 	int mouseX, mouseY;
-	unsigned int click;
-
-	bool canClick = true;
 
 	SDL_Texture* buttonTex;
 	ButtonType buttonType;

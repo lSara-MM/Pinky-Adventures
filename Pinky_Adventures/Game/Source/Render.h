@@ -52,6 +52,7 @@ public:
 	bool SaveState(pugi::xml_node&);
 
 public:
+	Uint32 flags = SDL_RENDERER_ACCELERATED;
 
 	SDL_Renderer* renderer;
 	SDL_Rect camera;

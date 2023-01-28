@@ -5,7 +5,10 @@
 #include "Player.h"
 #include "ItemCoin.h"
 #include "ItemGem.h"
+
 #include "GuiButton.h"
+#include "GuiCheckBox.h"
+#include "GuiSlider.h"
 
 struct SDL_Texture;
 
@@ -36,6 +39,7 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	void Settings();
 	bool OnGuiMouseClickEvent(GuiControl* control);
 	bool OpenSettings();
 	bool CloseSettings();
@@ -54,14 +58,19 @@ private:
 
 	// buttons
 	List<GuiButton*> listButtons;
-	const char* buttons[5] = { "Play", "Continue", "Settings", "Credits", "\n" };
-	int bNum = 4;
+	const char* buttons[6] = { "Play", "Continue", "Settings", "Credits", "Exit", "\n" };
+	int bNum;
 	List<GuiButton*> listSettingsButtons;
 	
+	List<GuiCheckBox*> listCheckbox;
+
+
 	SDL_Texture* settingsTexture;
 	const char* settingsPath;
 	bool settings;
-	bool open = false;
+	bool open;
+
+	bool exit;
 };
 
 #endif // __INTROSCENE_H__

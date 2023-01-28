@@ -10,12 +10,10 @@ GuiButton::GuiButton(uint32 id, SDL_Rect bounds, ButtonType bType, const char* t
 	this->bounds = bounds;
 	this->text = text;
 	this->fontSize = fontSize;
-
-	canClick = true;
 	
 	buttonType = bType;
 
-	(bType == ButtonType::LONG)?buttonTex = app->tex->Load("Assets/Textures/long_button.png"): 
+	(bType == ButtonType::LONG) ? buttonTex = app->tex->Load("Assets/Textures/long_button.png") :
 		buttonTex = app->tex->Load("Assets/Textures/small_button.png");
 }
 
@@ -54,7 +52,6 @@ bool GuiButton::Update(float dt)
 			{
 				NotifyObserver();
 			}
-
 		}
 		else 
 		{

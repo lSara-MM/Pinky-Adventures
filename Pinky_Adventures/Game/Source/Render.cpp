@@ -5,7 +5,7 @@
 #include "Defs.h"
 #include "Log.h"
 
-#define VSYNC true
+//#define VSYNC true
 
 Render::Render() : Module()
 {
@@ -26,7 +26,7 @@ bool Render::Awake(pugi::xml_node& config)
 	LOG("Create SDL rendering context");
 	bool ret = true;
 
-	Uint32 flags = SDL_RENDERER_ACCELERATED;
+	flags = SDL_RENDERER_ACCELERATED;
 
 	if (config.child("vsync").attribute("value").as_bool(true) == true)
 	{

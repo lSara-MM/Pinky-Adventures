@@ -87,6 +87,12 @@
     <ClCompile Include="Source\ItemHealth.cpp">
       <Filter>Modules\Entities</Filter>
     </ClCompile>
+    <ClCompile Include="Source\GuiCheckBox.cpp">
+      <Filter>Modules\Core\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GuiSlider.cpp">
+      <Filter>Modules\Core\GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Source\Player.h" />
@@ -204,6 +210,12 @@
     </ClInclude>
     <ClInclude Include="Source\ItemHealth.h">
       <Filter>Modules\Entities</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GuiCheckBox.h">
+      <Filter>Modules\Core\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\GuiSlider.h">
+      <Filter>Modules\Core\GUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

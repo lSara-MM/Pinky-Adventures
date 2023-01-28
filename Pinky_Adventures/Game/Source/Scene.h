@@ -83,7 +83,7 @@ public:
 
 	pugi::xml_node sceneNode;
 
-
+	bool x = false;
 private:
 	int contadorT;
 	

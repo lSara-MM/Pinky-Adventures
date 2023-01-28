@@ -33,20 +33,27 @@ bool Window::Awake(pugi::xml_node& config)
 	else
 	{
 		// Create window
-		Uint32 flags = SDL_WINDOW_SHOWN;
+		flags = SDL_WINDOW_SHOWN;
+
 		bool fullscreen = config.child("fullscreen").attribute("value").as_bool(); // get from config
 		bool borderless = config.child("bordeless").attribute("value").as_bool(); // get from config
 		bool resizable = config.child("resizable").attribute("value").as_bool(); // get from config
 		bool fullscreen_window = config.child("fullscreen_window").attribute("value").as_bool(); // get from config
 
 		width = config.child("resolution").attribute("width").as_int(); //get from config 
-		height = config.child("resolution").attribute("height").as_int();; //get from config 
-		scale = config.child("resolution").attribute("scale").as_int();; //get from config 
+		height = config.child("resolution").attribute("height").as_int(); //get from config 
+		scale = config.child("resolution").attribute("scale").as_int(); //get from config 
 
-		if (fullscreen == true) flags |= SDL_WINDOW_FULLSCREEN;
-		if (borderless == true) flags |= SDL_WINDOW_BORDERLESS;
-		if (resizable == true) flags |= SDL_WINDOW_RESIZABLE;
-		if (fullscreen_window == true) flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
+		if (fullscreen == true) { flags |= SDL_WINDOW_FULLSCREEN; changeScreen = true; }
+		else if (borderless == true) { flags |= SDL_WINDOW_BORDERLESS; }
+		else if (resizable == true) { flags |= SDL_WINDOW_RESIZABLE; }
+		else if (fullscreen_window == true) { flags |= SDL_WINDOW_FULLSCREEN_DESKTOP; }
+		else { changeScreen = false; }
+
+		if (window == nullptr)
+		{
+			SDL_DestroyWindow(window);
+		}
 
 		window = SDL_CreateWindow(app->GetTitle(), SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, width, height, flags);
 
@@ -59,9 +66,10 @@ bool Window::Awake(pugi::xml_node& config)
 		{
 			// Get window surface
 			screenSurface = SDL_GetWindowSurface(window);
+			ret = true;
 		}
 	}
-
+	
 	return ret;
 }
 
@@ -107,4 +115,12 @@ int Window::GetWidth() const
 int Window::GetHeight() const
 {
 	return height;
+}
+
+bool Window::ResizeWin()
+{
+	(!changeScreen) ? flags = SDL_WINDOW_SHOWN : flags = SDL_WINDOW_FULLSCREEN;
+
+	SDL_SetWindowFullscreen(window, flags);
+	return true; 
 }
