@@ -26,6 +26,7 @@ enum class GuiControlType
 
 enum class GuiControlState
 {
+	NONE,
 	DISABLED,
 	NORMAL,
 	FOCUSED,
@@ -37,8 +38,8 @@ enum class GuiControlState
 enum class ButtonType
 {
 	NONE,
-	LARGE,
-	SQUARE
+	LONG,
+	SMALL
 };
 
 

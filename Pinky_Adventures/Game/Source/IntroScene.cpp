@@ -32,7 +32,8 @@ bool IntroScene::Awake(pugi::xml_node& config)
 	// Check https://pugixml.org/docs/quickstart.html#access
 	bgPath = config.attribute("background").as_string();
 	musicIntro = config.attribute("audioIntroPath").as_string();
-	p2sPath = config.attribute("p2sPath").as_string();
+	settingsPath = config.attribute("settingsPath").as_string();
+
 	return ret;
 }
 
@@ -44,22 +45,29 @@ bool IntroScene::Start()
 	app->win->SetTitle(title.GetString());
 
 	bgTexture = app->tex->Load(bgPath);
-	p2sTexture = app->tex->Load(p2sPath);
+	settingsTexture = app->tex->Load(settingsPath);
 	
 	app->audio->PlayMusic(musicIntro, 0);
 	loaded = false;
 
-
 	// buttons
 	for (int i = 0; buttons[i] != "\n"; i++)
 	{
-		listButtons.Add((GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, i + 1, buttons[i], { 30, 200 + 35 * i, 90, 27 }, 10, this, ButtonType::LARGE));
+		listButtons.Add((GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, i + 1, buttons[i], { 30, 200 + 35 * i, 90, 27 }, 10, this, ButtonType::LONG));
 	}
 
-	/*button_play = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Play", { 30, y, 100, 100 }, this);
-	button_continue = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Continue", { 30, 250, 100, 100 }, this);
-	button_options = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Options", { 30, 300, 100, 100 }, this);
-	button_credits = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Credits", { 30, 350, 100, 100 }, this);*/
+	settings = false;
+	open = false;
+
+	listButtons.start->next->data->state = GuiControlState::DISABLED;
+
+
+	// settings buttons
+	bNum++;
+	GuiButton* button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, bNum, "x", { 137, 56, 26, 28 }, 10, this, ButtonType::SMALL);
+	button->state = GuiControlState::NONE;
+	listButtons.Add(button);
+	listSettingsButtons.Add(button);
 
 	return true;
 }
@@ -83,44 +91,10 @@ bool IntroScene::Update(float dt)
 	}
 	
 
-	ListItem<GuiButton*>* b = listButtons.start;
-
-	// Start
-	if (b->data->state == GuiControlState::PRESSED)
-	{
-		app->fade->FadingToBlack(this, (Module*)app->scene, 90);
-	}
-
-	b = b->next;
-
-	// Continue		// faria falta comprobar que hi ha un joc guardat
-	if (b->data->state == GuiControlState::PRESSED)
-	{
-		app->fade->FadingToBlack(this, (Module*)app->scene, 90);
-		loaded = true;
-	}
-
-	b = b->next;
-
-	// Options		
-	if (b->data->state == GuiControlState::PRESSED)
-	{
-		// crear menu options
-	}
-
-	b = b->next;
-
-	// Credits		
-	if (b->data->state == GuiControlState::PRESSED)
-	{
-		app->fade->FadingToBlack(this, (Module*)app->scene, 90);
-	}
-
-
-
 	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
 		app->fade->FadingToBlack(this, (Module*)app->scene, 90);
 
+	
 	return true;
 }
 
@@ -133,17 +107,11 @@ bool IntroScene::PostUpdate()
 		ret = false;
 
 	app->render->DrawTexture(bgTexture, 0, 0);
-	
-	/*
-	if (v_start < 100)
-	{
-		app->render->DrawTexture(p2sTexture, 100, 350);
-	}
 
-	if (v_start == 150)
-		v_start = 0;
-	
-	v_start++;*/
+	if (settings)
+	{
+		OpenSettings();
+	}
 
 	app->guiManager->Draw();
 
@@ -157,7 +125,7 @@ bool IntroScene::CleanUp()
 	app->audio->PauseMusic();
 
 	app->tex->UnLoad(bgTexture);
-	app->tex->UnLoad(p2sTexture);
+	app->tex->UnLoad(settingsTexture);
 
 	listButtons.Clear();
 
@@ -166,17 +134,61 @@ bool IntroScene::CleanUp()
 
 bool IntroScene::OnGuiMouseClickEvent(GuiControl* control)
 {
-	// L15: DONE 5: Implement the OnGuiMouseClickEvent method
 	LOG("Event by %d ", control->id);
 
 	switch (control->id)
 	{
 	case 1:
-		LOG("Button 1 click");
+		LOG("Button start click");
+		app->fade->FadingToBlack(this, (Module*)app->scene, 90);
 		break;
 	case 2:
-		LOG("Button 2 click");
+		LOG("Button continue click");
+		app->fade->FadingToBlack(this, (Module*)app->scene, 90);
+		loaded = true;
 		break;
+	case 3:
+		LOG("Button settings click");
+		settings = !settings;
+		break;
+	case 4:
+		LOG("Button Credits click");
+		app->fade->FadingToBlack(this, (Module*)app->scene, 90);
+		break;
+
+	case 5:
+		LOG("Button Close settings click");
+		CloseSettings();
+		break;
+	}
+
+	return true;
+}
+
+bool IntroScene::OpenSettings()
+{
+	SDL_Rect rect = {0, 0, 226, 261};
+	app->render->DrawTexture(settingsTexture, 150, 70, &rect);
+	
+	if (!open)
+	{
+		for (ListItem<GuiButton*>* i = listSettingsButtons.start; i != nullptr; i = i->next)
+		{
+			i->data->state = GuiControlState::NORMAL;
+		}
+		open = true;
+	}
+	
+	return true;
+}
+
+bool IntroScene::CloseSettings()
+{
+	settings = false;
+	open = false;
+	for (ListItem<GuiButton*>* i = listSettingsButtons.start; i != nullptr; i = i->next)
+	{
+		i->data->state = GuiControlState::NONE;
 	}
 
 	return true;

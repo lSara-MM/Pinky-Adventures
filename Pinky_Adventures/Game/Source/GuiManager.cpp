@@ -68,7 +68,7 @@ bool GuiManager::Update(float dt)
 	{
 		ListItem<GuiControl*>* control = guiControlsList.start;
 
-		while (control != nullptr)
+		while (control != nullptr && control->data->state != GuiControlState::NONE)
 		{
 			control->data->Update(dt);
 			control = control->next;
@@ -85,14 +85,13 @@ bool GuiManager::Draw() {
 
 	ListItem<GuiControl*>* control = guiControlsList.start;
 
-	while (control != nullptr)
+	while (control != nullptr && control->data->state != GuiControlState::NONE)
 	{
 		control->data->Draw(app->render);
 		control = control->next;
 	}
 
 	return true;
-
 }
 
 bool GuiManager::CleanUp()

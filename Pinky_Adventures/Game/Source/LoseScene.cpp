@@ -57,14 +57,9 @@ bool LoseScene::Start()
 	
 
 	// buttons
-	//for (int i = 0; buttons[i] != NULL; i++)	// en debug este peta :/
-	//{
-	//	listButtons.Add((GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, i + 1, buttons[i], { 30, 200 + 35 * i, 90, 27 }, 10, this, ButtonType::LARGE));
-	//}
-
 	for (int i = 0; buttons[i] != "\n"; i++)
 	{
-		listButtons.Add((GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, i + 1, buttons[i], { 30, 200 + 35 * i, 90, 27 }, 11, this, ButtonType::LARGE));
+		listButtons.Add((GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, i + 1, buttons[i], { 30, 200 + 35 * i, 90, 27 }, 11, this, ButtonType::LONG));
 	}
 
 	return true;

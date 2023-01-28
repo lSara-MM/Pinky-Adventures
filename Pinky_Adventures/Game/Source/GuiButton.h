@@ -20,10 +20,9 @@ public:
 	unsigned int click;
 
 	bool canClick = true;
-	bool drawBasic = false;
 
 	SDL_Texture* buttonTex;
-
+	ButtonType buttonType;
 };
 
 #endif // __GUIBUTTON_H__

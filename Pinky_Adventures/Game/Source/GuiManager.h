@@ -40,7 +40,6 @@ public:
 	bool doLogic = false;
 
 	SDL_Texture* texture;
-
 };
 
 #endif // __GUIMANAGER_H__

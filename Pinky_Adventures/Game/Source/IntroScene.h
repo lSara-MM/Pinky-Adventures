@@ -37,6 +37,8 @@ public:
 	bool CleanUp();
 
 	bool OnGuiMouseClickEvent(GuiControl* control);
+	bool OpenSettings();
+	bool CloseSettings();
 
 public:
 
@@ -46,26 +48,20 @@ public:
 private:
 
 	const char* musicIntro;
-	const char* imagePath;
 
 	SDL_Texture* bgTexture;
 	const char* bgPath;
-	const char* p2sPath;
-
-	SDL_Texture* p2sTexture;
-	int v_start = 0;
 
 	// buttons
 	List<GuiButton*> listButtons;
-	const char* buttons[5] = { "Play", "Continue", "Options", "Credits", "\n" };
+	const char* buttons[5] = { "Play", "Continue", "Settings", "Credits", "\n" };
+	int bNum = 4;
+	List<GuiButton*> listSettingsButtons;
 	
-		
-	/*
-	GuiButton* button_play;
-	GuiButton* button_continue;
-	GuiButton* button_options;
-	GuiButton* button_credits;
-	*/
+	SDL_Texture* settingsTexture;
+	const char* settingsPath;
+	bool settings;
+	bool open = false;
 };
 
 #endif // __INTROSCENE_H__
