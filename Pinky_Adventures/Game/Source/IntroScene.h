@@ -56,8 +56,14 @@ private:
 	int v_start = 0;
 
 	// buttons
+	List<GuiButton*> listButtons;
+	const char* buttons[4] = { "Play", "Continue", "Options", "Credits" };
+	/*
 	GuiButton* button_play;
 	GuiButton* button_continue;
+	GuiButton* button_options;
+	GuiButton* button_credits;
+	*/
 };
 
 #endif // __INTROSCENE_H__

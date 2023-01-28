@@ -49,9 +49,15 @@ bool IntroScene::Start()
 	app->audio->PlayMusic(musicIntro, 0);
 	loaded = false;
 
-	
-	button_play = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Play", { 30, 200, 100, 100 }, this);
-	button_continue = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Continue", { 30, 250, 70, 100 }, this);
+	for (int i = 0; buttons[i] != NULL; i++)
+	{
+		listButtons.Add((GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, i + 1, buttons[i], { 30, 200 + 35 * i, 90, 27 }, 10, this));
+	}
+
+	/*button_play = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Play", { 30, y, 100, 100 }, this);
+	button_continue = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Continue", { 30, 250, 100, 100 }, this);
+	button_options = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Options", { 30, 300, 100, 100 }, this);
+	button_credits = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 2, "Credits", { 30, 350, 100, 100 }, this);*/
 
 	return true;
 }

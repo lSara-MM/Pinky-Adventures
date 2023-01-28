@@ -39,11 +39,12 @@ public:
 
 	GuiControl(GuiControlType type, uint32 id) : type(type), id(id), state(GuiControlState::NORMAL) {}
 
-	GuiControl(GuiControlType type, SDL_Rect bounds, const char* text) :
+	GuiControl(GuiControlType type, SDL_Rect bounds, const char* text, int fontSize) :
 		type(type),
 		state(GuiControlState::NORMAL),
 		bounds(bounds),
-		text(text)
+		text(text),
+		fontSize(fontSize)
 	{
 		color.r = 255; color.g = 255; color.b = 255;
 		texture = NULL;
@@ -89,6 +90,7 @@ public:
 	SDL_Rect section;       // Texture atlas base section
 
 	//Font font;              // Text font
+	int fontSize;
 
 	Module* observer;        // Observer module (it should probably be an array/list)
 };

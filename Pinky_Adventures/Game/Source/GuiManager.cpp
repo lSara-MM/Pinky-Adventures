@@ -17,17 +17,15 @@ bool GuiManager::Start()
 	return true;
 }
 
-GuiControl* GuiManager::CreateGuiControl(GuiControlType type, int id, const char* text, SDL_Rect bounds, Module* observer, SDL_Rect sliderBounds)
+GuiControl* GuiManager::CreateGuiControl(GuiControlType type, int id, const char* text, SDL_Rect bounds, int fontSize, Module* observer, SDL_Rect sliderBounds)
 {
-	
-
 	GuiControl* guiControl = nullptr;
 
 	//Call the constructor according to the GuiControlType
 	switch (type)
 	{
 	case GuiControlType::BUTTON:
-		guiControl = (GuiControl*) new GuiButton(id, bounds, text);
+		guiControl = (GuiControl*) new GuiButton(id, bounds, text, fontSize);
 		break;
 	case GuiControlType::TOGGLE:
 		break;
@@ -107,8 +105,6 @@ bool GuiManager::CleanUp()
 	}
 
 	return true;
-
-	return false;
 }
 
 
