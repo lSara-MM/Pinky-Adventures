@@ -159,7 +159,7 @@ bool Scene::Start()
 	mute = false;
 	end = false;
 	drawPaths = false;
-	frcap = false;
+	frcap = true;
 	freeCam = false;
 	app->input->godMode = false;
 
