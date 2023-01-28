@@ -47,7 +47,7 @@ public:
 public:
 
 	Player* player;
-	bool loaded;
+	bool loaded = false;
 
 private:
 

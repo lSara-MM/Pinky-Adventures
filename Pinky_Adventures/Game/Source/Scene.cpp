@@ -164,10 +164,10 @@ bool Scene::Start()
 	freeCam = false;
 	app->input->godMode = false;
 
-	if (app->iScene->loaded)
+	/*if (app->iScene->loaded)
 	{
 		app->LoadGameRequest();
-	}
+	}*/
 
 	tempo.Start();
 	
@@ -389,7 +389,7 @@ void Scene::Debug()
 	if (app->input->GetKey(SDL_SCANCODE_F5) == KEY_DOWN)
 		app->SaveGameRequest();
 
-	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
+	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN && app->iScene->loaded)
 		app->LoadGameRequest();
 
 	// Instant win
