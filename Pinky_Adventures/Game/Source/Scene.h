@@ -12,6 +12,13 @@
 
 #include "App.h"
 
+#include "GuiButton.h"
+#include "GuiCheckBox.h"
+#include "GuiSlider.h"
+
+
+#include "Settings.h"
+
 struct SDL_Texture;
 
 class Scene : public Module
@@ -43,6 +50,9 @@ public:
 
 	void Debug();
 	bool InitEntities();
+
+	// Settings
+	bool OnGuiMouseClickEvent(GuiControl* control);
 
 public:
 
@@ -81,9 +91,6 @@ public:
 
 	bool frcap;
 
-	pugi::xml_node sceneNode;
-
-	bool x = false;
 private:
 	int contadorT;
 	
@@ -105,6 +112,9 @@ private:
 
 	bool drawPaths;
 	
+	pugi::xml_node sceneNode;
+
+	bool x = false;
 
 	Timer timerLvl1;
 	float timeLeft;
@@ -124,6 +134,11 @@ private:
 
 	Animation* currentAnimHeart;
 	Animation heartAnim;
+
+
+	// Settings
+	Settings options;
+	Settings* pSettings = &options;
 };
 
 #endif // __SCENE_H__
