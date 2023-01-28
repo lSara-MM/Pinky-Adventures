@@ -160,7 +160,6 @@ bool IntroScene::CleanUp()
 	app->tex->UnLoad(p2sTexture);
 
 	listButtons.Clear();
-	//app->guiManager->CleanUp();	// peta :D
 
 	return true;
 }

@@ -5,11 +5,13 @@
 #include "Render.h"
 #include "Window.h"
 
+#include "LeaderboardScene.h"
 #include "LoseScene.h"
 #include "IntroScene.h"
 #include "Scene.h"
 #include "FadeToBlack.h"
 #include "GuiManager.h"
+
 
 #include "Defs.h"
 #include "Log.h"
@@ -100,7 +102,7 @@ bool LoseScene::Update(float dt)
 
 	ListItem<GuiButton*>* b = listButtons.start;
 
-	// Start
+	// Retry
 	if (b->data->state == GuiControlState::PRESSED)
 	{
 		app->fade->FadingToBlack(this, (Module*)app->scene, 90);
@@ -108,44 +110,44 @@ bool LoseScene::Update(float dt)
 
 	b = b->next;
 
-	// Continue		// faria falta comprobar que hi ha un joc guardat
+	// Give up
 	if (b->data->state == GuiControlState::PRESSED)
 	{
-		app->fade->FadingToBlack(this, (Module*)app->scene, 90);
-	}
-
-	b = b->next;
-
-	// Options		
-	if (b->data->state == GuiControlState::PRESSED)
-	{
-		// crear menu options
-	}
-
-
-
-
-	// retry
-	if (retry == true)
-		app->render->DrawTexture(button1, 32, 53);
-	else
-		app->render->DrawTexture(button2, 344, 53);
-
-	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN && retry == true)
-	{
-		app->audio->PauseMusic();
-		app->fade->FadingToBlack(this, (Module*)app->scene, 45);
-	}
-	// non retry
-	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN && retry == false)
-	{
-		app->audio->PauseMusic();
 		app->fade->FadingToBlack(this, (Module*)app->iScene, 90);
 	}
 
-	if (app->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN ||
-		app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
-		retry = !retry;
+	b = b->next;
+
+	// Ranks	
+	if (b->data->state == GuiControlState::PRESSED)
+	{
+		app->fade->FadingToBlack(this, (Module*)app->leadScene, 90);
+	}
+
+
+
+
+	//// retry
+	//if (retry == true)
+	//	app->render->DrawTexture(button1, 32, 53);
+	//else
+	//	app->render->DrawTexture(button2, 344, 53);
+
+	//if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN && retry == true)
+	//{
+	//	app->audio->PauseMusic();
+	//	app->fade->FadingToBlack(this, (Module*)app->scene, 45);
+	//}
+	//// non retry
+	//if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN && retry == false)
+	//{
+	//	app->audio->PauseMusic();
+	//	app->fade->FadingToBlack(this, (Module*)app->iScene, 90);
+	//}
+
+	//if (app->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN ||
+	//	app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
+	//	retry = !retry;
 
 	return true;
 }
@@ -173,6 +175,8 @@ bool LoseScene::CleanUp()
 	app->tex->UnLoad(loseTexture);
 	app->tex->UnLoad(button1);
 	app->tex->UnLoad(button2);
+
+	listButtons.Clear();
 
 	return true;
 }
