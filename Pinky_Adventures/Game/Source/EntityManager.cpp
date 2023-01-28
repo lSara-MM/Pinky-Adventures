@@ -11,6 +11,7 @@
 #include "ItemPortal.h"
 #include "ItemSave.h"
 #include "ItemHealth.h"
+#include "IntroScene.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -279,6 +280,11 @@ bool EntityManager::SaveState(pugi::xml_node& data)
 		pugi::xml_node health = data.append_child("health");
 		health.append_attribute("state_H") = h->data->isAlive;
 	}
+
+	if (!app->iScene->loaded) {
+		app->iScene->loaded = true;
+	}
+	
 
 	return true;
 }

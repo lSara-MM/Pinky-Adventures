@@ -51,7 +51,7 @@ bool IntroScene::Start()
 	//settingsTexture = app->tex->Load(settingsPath);
 
 	app->audio->PlayMusic(musicIntro, 0);
-	loaded = false;
+	/*loaded = false;*/
 
 	// buttons
 	for (int i = 0; buttons[i] != "\n"; i++)
@@ -83,15 +83,20 @@ bool IntroScene::Update(float dt)
 	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 		app->fade->FadingToBlack(this, (Module*)app->scene, 5);
 
-	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
+	if (loaded)
+	{
+		listButtons.start->next->data->state = GuiControlState::NORMAL;
+	}
+
+	/*if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 	{
 		app->fade->FadingToBlack(this, (Module*)app->scene, 90);
 		loaded = true;
-	}
+	}*/
 
 
-	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
-		app->fade->FadingToBlack(this, (Module*)app->scene, 90);
+	/*if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
+		app->fade->FadingToBlack(this, (Module*)app->scene, 90);*/
 
 
 	return true;
@@ -146,8 +151,10 @@ bool IntroScene::OnGuiMouseClickEvent(GuiControl* control)
 		break;
 	case 2:
 		LOG("Button continue click");
-		app->fade->FadingToBlack(this, (Module*)app->scene, 90);
-		loaded = true;
+		if (loaded) {
+			app->LoadGameRequest();
+		}
+		//loaded = true;
 		break;
 	case 3:
 		LOG("Button settings click");

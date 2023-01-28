@@ -74,8 +74,8 @@ bool LoseScene::PreUpdate()
 // Called each loop iteration
 bool LoseScene::Update(float dt)
 {
-	if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
-		app->LoadGameRequest();
+	//if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
+	//	app->LoadGameRequest();
 	
 	if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
 		app->fade->FadingToBlack(this, (Module*)app->iScene, 5);
