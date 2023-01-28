@@ -36,6 +36,8 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
+	bool OnGuiMouseClickEvent(GuiControl* control);
+
 public:
 	Player* player;
 

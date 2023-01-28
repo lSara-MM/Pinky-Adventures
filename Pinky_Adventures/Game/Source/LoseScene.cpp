@@ -77,11 +77,11 @@ bool LoseScene::Update(float dt)
 	//if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
 	//	app->LoadGameRequest();
 	
-	if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
-		app->fade->FadingToBlack(this, (Module*)app->iScene, 5);
-
 	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 		app->fade->FadingToBlack(this, (Module*)app->scene, 5);
+
+	if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+		app->fade->FadingToBlack(this, (Module*)app->iScene, 5);
 
 	if (musLose == false)
 	{
@@ -94,56 +94,6 @@ bool LoseScene::Update(float dt)
 	app->render->camera.y = 0;
 	app->render->DrawTexture(loseTexture, 0, 0);
 
-
-	ListItem<GuiButton*>* b = listButtons.start;
-
-	// Retry
-	if (b->data->state == GuiControlState::PRESSED)
-	{
-		app->fade->FadingToBlack(this, (Module*)app->scene, 90);
-	}
-
-	b = b->next;
-
-	// Give up
-	if (b->data->state == GuiControlState::PRESSED)
-	{
-		app->fade->FadingToBlack(this, (Module*)app->iScene, 90);
-	}
-
-	b = b->next;
-
-	// Ranks	
-	if (b->data->state == GuiControlState::PRESSED)
-	{
-		app->fade->FadingToBlack(this, (Module*)app->leadScene, 90);
-	}
-
-
-
-
-	//// retry
-	//if (retry == true)
-	//	app->render->DrawTexture(button1, 32, 53);
-	//else
-	//	app->render->DrawTexture(button2, 344, 53);
-
-	//if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN && retry == true)
-	//{
-	//	app->audio->PauseMusic();
-	//	app->fade->FadingToBlack(this, (Module*)app->scene, 45);
-	//}
-	//// non retry
-	//if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN && retry == false)
-	//{
-	//	app->audio->PauseMusic();
-	//	app->fade->FadingToBlack(this, (Module*)app->iScene, 90);
-	//}
-
-	//if (app->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_D) == KEY_DOWN ||
-	//	app->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN || app->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
-	//	retry = !retry;
-
 	return true;
 }
 
@@ -155,7 +105,6 @@ bool LoseScene::PostUpdate()
 	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
 
-	//app->render->DrawTexture(LoseTexture, -65, 0);
 	app->guiManager->Draw();
 
 	return ret;
@@ -172,6 +121,31 @@ bool LoseScene::CleanUp()
 	app->tex->UnLoad(button2);
 
 	listButtons.Clear();
+	app->guiManager->CleanUp();
+
+	return true;
+}
+
+bool LoseScene::OnGuiMouseClickEvent(GuiControl* control)
+{
+	LOG("Event by %d ", control->id);
+
+	switch (control->id)
+	{
+	case 1:
+		LOG("Button Retry click");
+		app->fade->FadingToBlack(this, (Module*)app->scene, 90);
+		
+		break;
+	case 2:
+		LOG("Button Give up click");
+		app->fade->FadingToBlack(this, (Module*)app->iScene, 90);
+		break;
+	case 3:
+		LOG("Button Leaderboard click");
+		app->fade->FadingToBlack(this, (Module*)app->leadScene, 90);
+		break;
+	}
 
 	return true;
 }

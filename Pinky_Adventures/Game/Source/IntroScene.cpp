@@ -48,7 +48,6 @@ bool IntroScene::Start()
 	app->win->SetTitle(title.GetString());
 
 	bgTexture = app->tex->Load(bgPath);
-	//settingsTexture = app->tex->Load(settingsPath);
 
 	app->audio->PlayMusic(musicIntro, 0);
 	/*loaded = false;*/
@@ -165,7 +164,11 @@ bool IntroScene::OnGuiMouseClickEvent(GuiControl* control)
 		break;
 	case 3:
 		LOG("Button settings click");
-		pSettings->settings = true;
+		pSettings->settings = !pSettings->settings;
+		if (!pSettings->settings)
+		{
+			pSettings->CloseSettings();
+		}
 		break;
 	case 4:
 		LOG("Button Credits click");
@@ -193,7 +196,6 @@ bool IntroScene::OnGuiMouseClickEvent(GuiControl* control)
 	case 9:
 		LOG("Checkbox Fullscreen click");
 		app->win->changeScreen = !app->win->changeScreen;
-
 		app->win->ResizeWin();
 		break;
 	case 10:
