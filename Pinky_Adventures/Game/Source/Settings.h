@@ -128,6 +128,8 @@ public:
 		app->tex->UnLoad(settingsTexture);
 		listSettingsButtons.Clear();
 		listCheckbox.Clear();
+
+		return true;
 	}
 
 public:

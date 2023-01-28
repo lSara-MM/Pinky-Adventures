@@ -215,7 +215,6 @@ bool Scene::Update(float dt)
 
 	if (-maxR < app->scene->maxCameraPosRigth - app->render->camera.w && -maxR > app->scene->maxCameraPosLeft) {
 		//posx2 = maxR * speed;
-
 	}
 	else if (maxR >= -3200) {
 		posx2 = 0;
@@ -223,7 +222,6 @@ bool Scene::Update(float dt)
 	if (-maxR < app->scene->maxCameraPosRigth - app->render->camera.w && -maxR > app->scene->maxCameraPosLeft) {
 
 		//posx3 = maxR*speed;
-
 	}
 	else if (maxR >= -3200) {
 		posx3 = 0;
@@ -391,6 +389,7 @@ void Scene::Debug()
 	if (app->input->GetKey(SDL_SCANCODE_F3) == KEY_DOWN)
 		app->fade->FadingToBlack(this, (Module*)app->scene, 0);
 
+	// Leaderboard
 	if (app->input->GetKey(SDL_SCANCODE_L) == KEY_DOWN)
 	{
 		if (app->leadScene->leaderboard[9] < player->score) { app->leadScene->leaderboard[9] = player->score; }
@@ -445,13 +444,10 @@ void Scene::Debug()
 	if (app->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN)
 	{
 		pause = !pause;
-		x = !x;
+		pSettings->settings = !pSettings->settings;
 		LOG("PAUSE");
 	}
-	if (x)
-	{
-		//app->iScene->OpenSettings();
-	}
+
 	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
 	{
 		pause = !pause;
