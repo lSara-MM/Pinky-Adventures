@@ -140,6 +140,9 @@ bool IntroScene::CleanUp()
 	app->tex->UnLoad(bgTexture);
 	
 	listButtons.Clear();
+	pSettings->CleanUp();
+
+	app->guiManager->CleanUp();
 	return true;
 }
 

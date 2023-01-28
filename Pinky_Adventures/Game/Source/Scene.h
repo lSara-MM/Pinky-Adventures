@@ -114,8 +114,6 @@ private:
 	
 	pugi::xml_node sceneNode;
 
-	bool x = false;
-
 	Timer timerLvl1;
 	float timeLeft;
 	float timeElapsed;
