@@ -90,7 +90,7 @@ bool Enemy::Start() {
 	pbody = app->physics->CreateRectangle(position.x + width / 2, position.y + height / 2, width, height, bodyType::DYNAMIC, ID);
 	
 	if (type == eType::FLYING) { pbody->body->SetGravityScale(0); }
-	else if (type == eType::BASIC) { pbody->body->SetGravityScale(15); }
+	/*else if (type == eType::BASIC) { pbody->body->SetGravityScale(15); }*/
 
 
 	pbody->body->SetFixedRotation(true);
@@ -110,6 +110,7 @@ bool Enemy::Start() {
 
 bool Enemy::Update(float dt)
 {
+
 	if (app->scene->pause)
 	{
 		dtE = 0;
@@ -119,6 +120,7 @@ bool Enemy::Update(float dt)
 		dtE = dt / 1000;
 	}
 
+	if (type == eType::BASIC) { pbody->body->SetGravityScale(750*dtE); }
 
 	b2Vec2 vel = b2Vec2(0, 0);
 
@@ -338,7 +340,7 @@ void Enemy::OnCollision(PhysBody* physA, PhysBody* physB) {
 				if (e->data->ID == physA->id)
 				{
 					e->data->state = eState::DEAD;
-					e->data->pbody->body->SetGravityScale(15);
+					e->data->pbody->body->SetGravityScale(750 *dtE);
 					break;
 				}
 			}

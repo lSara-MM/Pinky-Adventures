@@ -92,6 +92,7 @@ private:
 
 	void DisableAtStart();
 	friend class Scene;
+	friend class Physics;
 public:
 
 	// Modules

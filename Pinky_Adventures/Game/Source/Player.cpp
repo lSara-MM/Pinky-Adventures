@@ -411,7 +411,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 							e->data->pbody->body->ApplyForceToCenter(b2Vec2(playerForce, 0), 0);
 						}
 
-						e->data->pbody->body->SetGravityScale(15);
+						e->data->pbody->body->SetGravityScale(750*dtP);
 						//app->scene->listEnemies.Del(e);
 						break;
 					}

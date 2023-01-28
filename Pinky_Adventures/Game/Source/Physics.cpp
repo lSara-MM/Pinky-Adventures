@@ -40,7 +40,7 @@ bool Physics::Start()
 	// Set this module as a listener for contacts
 	world->SetContactListener(this);
 
-	frameRate = 1000/app->dt; // delta time
+	frameRate = 60.0f; 
 	collisions = false;
 	return true;
 }

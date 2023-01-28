@@ -159,7 +159,7 @@ bool Scene::Start()
 	mute = false;
 	end = false;
 	drawPaths = false;
-	frame30 = false;
+	frcap = false;
 	freeCam = false;
 	app->input->godMode = false;
 
@@ -416,13 +416,13 @@ void Scene::Debug()
 		drawPaths = !drawPaths;
 	}
 
-	// Enable/Disable FPS cap to 30
+	// Enable/Disable Frcap
 	if (app->input->GetKey(SDL_SCANCODE_F11) == KEY_DOWN)
 	{
-		frame30 = !frame30;
+		frcap = !frcap;
 		LOG("frame rate: %d", app->physics->frameRate);
 	}
-	(frame30) ? app->physics->frameRate = 60.0f : app->physics->frameRate = 30.0f;
+	
 
 	//pause menu
 	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)

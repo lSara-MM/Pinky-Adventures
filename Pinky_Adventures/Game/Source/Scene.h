@@ -79,7 +79,10 @@ public:
 
 	Timer tempo;
 
+	bool frcap;
+
 	pugi::xml_node sceneNode;
+
 
 private:
 	int contadorT;
@@ -101,7 +104,7 @@ private:
 	PhysBody* ghostCollider;
 
 	bool drawPaths;
-	bool frame30;
+	
 
 	Timer timerLvl1;
 	float timeLeft;
