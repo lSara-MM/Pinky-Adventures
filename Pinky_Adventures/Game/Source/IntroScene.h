@@ -57,7 +57,9 @@ private:
 
 	// buttons
 	List<GuiButton*> listButtons;
-	const char* buttons[4] = { "Play", "Continue", "Options", "Credits" };
+	const char* buttons[5] = { "Play", "Continue", "Options", "Credits", "\n" };
+	
+		
 	/*
 	GuiButton* button_play;
 	GuiButton* button_continue;

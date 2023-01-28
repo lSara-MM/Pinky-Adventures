@@ -9,6 +9,7 @@
 #include "IntroScene.h"
 #include "Scene.h"
 #include "FadeToBlack.h"
+#include "GuiManager.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -52,6 +53,18 @@ bool LoseScene::Start()
 	retry = true;
 	musLose = false;
 	
+
+	// buttons
+	//for (int i = 0; buttons[i] != NULL; i++)	// en debug este peta :/
+	//{
+	//	listButtons.Add((GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, i + 1, buttons[i], { 30, 200 + 35 * i, 90, 27 }, 10, this, ButtonType::LARGE));
+	//}
+
+	for (int i = 0; buttons[i] != "\n"; i++)
+	{
+		listButtons.Add((GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, i + 1, buttons[i], { 30, 200 + 35 * i, 90, 27 }, 11, this, ButtonType::LARGE));
+	}
+
 	return true;
 }
 
@@ -83,6 +96,34 @@ bool LoseScene::Update(float dt)
 	app->render->camera.x = 0;
 	app->render->camera.y = 0;
 	app->render->DrawTexture(loseTexture, 0, 0);
+
+
+	ListItem<GuiButton*>* b = listButtons.start;
+
+	// Start
+	if (b->data->state == GuiControlState::PRESSED)
+	{
+		app->fade->FadingToBlack(this, (Module*)app->scene, 90);
+	}
+
+	b = b->next;
+
+	// Continue		// faria falta comprobar que hi ha un joc guardat
+	if (b->data->state == GuiControlState::PRESSED)
+	{
+		app->fade->FadingToBlack(this, (Module*)app->scene, 90);
+	}
+
+	b = b->next;
+
+	// Options		
+	if (b->data->state == GuiControlState::PRESSED)
+	{
+		// crear menu options
+	}
+
+
+
 
 	// retry
 	if (retry == true)
@@ -118,7 +159,8 @@ bool LoseScene::PostUpdate()
 		ret = false;
 
 	//app->render->DrawTexture(LoseTexture, -65, 0);
-	
+	app->guiManager->Draw();
+
 	return ret;
 }
 

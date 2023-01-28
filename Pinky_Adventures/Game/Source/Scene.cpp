@@ -396,8 +396,9 @@ void Scene::Debug()
 		end = true;
 	// Instant lose
 	if (app->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) {
-		player->ded = true;
-		app->audio->PlayFx(player->fxDeath);
+		//player->ded = true;
+		//app->audio->PlayFx(player->fxDeath);
+		app->fade->FadingToBlack(this, (Module*)app->loseScene, 0);
 	}
 
 	// Show collisions

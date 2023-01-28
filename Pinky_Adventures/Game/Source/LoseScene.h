@@ -4,6 +4,8 @@
 #include "Module.h"
 #include "Player.h"
 
+#include "GuiButton.h"
+
 
 struct SDL_Texture;
 
@@ -36,6 +38,7 @@ public:
 
 public:
 	Player* player;
+
 private:
 	const char* musicLosePath;
 	const char* imagePath;
@@ -53,6 +56,12 @@ private:
 
 	bool retry;
 	bool musLose;
+
+
+	// buttons
+	List<GuiButton*> listButtons;
+	//const char* buttons[3] = { "Retry", "Give up", "Leaderboard" };
+	const char* buttons[4] = { "Retry", "Give up", "Ranks", "\n"};
 };
 
 #endif // __LOSESCENE_H__

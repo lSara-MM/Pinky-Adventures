@@ -5,7 +5,7 @@
 #include "Textures.h"
 #include "Log.h"
 
-GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text, int fontSize) : GuiControl(GuiControlType::BUTTON, id)
+GuiButton::GuiButton(uint32 id, SDL_Rect bounds, ButtonType bType, const char* text, int fontSize) : GuiControl(GuiControlType::BUTTON, id)
 {
 	this->bounds = bounds;
 	this->text = text;
@@ -14,8 +14,7 @@ GuiButton::GuiButton(uint32 id, SDL_Rect bounds, const char* text, int fontSize)
 	canClick = true;
 	drawBasic = false;
 
-	buttonTex = app->tex->Load("Assets/Textures/long_button.png");
-
+	(bType == ButtonType::LARGE)?buttonTex = app->tex->Load("Assets/Textures/long_button.png"): buttonTex = app->tex->Load("Assets/Textures/small_button.png");
 }
 
 GuiButton::~GuiButton()
@@ -100,6 +99,7 @@ bool GuiButton::Draw(Render* render)
 	{
 		rect = { 180, 0, 97, 27 };
 		render->DrawTexture(buttonTex, bounds.x, bounds.y, &rect);
+		rect = { 180, 0, 120, 40 };
 
 	} break;
 

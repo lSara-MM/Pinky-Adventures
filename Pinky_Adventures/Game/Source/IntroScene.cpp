@@ -49,9 +49,11 @@ bool IntroScene::Start()
 	app->audio->PlayMusic(musicIntro, 0);
 	loaded = false;
 
-	for (int i = 0; buttons[i] != NULL; i++)
+
+	// buttons
+	for (int i = 0; buttons[i] != "\n"; i++)
 	{
-		listButtons.Add((GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, i + 1, buttons[i], { 30, 200 + 35 * i, 90, 27 }, 10, this));
+		listButtons.Add((GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, i + 1, buttons[i], { 30, 200 + 35 * i, 90, 27 }, 10, this, ButtonType::LARGE));
 	}
 
 	/*button_play = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, "Play", { 30, y, 100, 100 }, this);
@@ -81,6 +83,41 @@ bool IntroScene::Update(float dt)
 	}
 	
 
+	ListItem<GuiButton*>* b = listButtons.start;
+
+	// Start
+	if (b->data->state == GuiControlState::PRESSED)
+	{
+		app->fade->FadingToBlack(this, (Module*)app->scene, 90);
+	}
+
+	b = b->next;
+
+	// Continue		// faria falta comprobar que hi ha un joc guardat
+	if (b->data->state == GuiControlState::PRESSED)
+	{
+		app->fade->FadingToBlack(this, (Module*)app->scene, 90);
+		loaded = true;
+	}
+
+	b = b->next;
+
+	// Options		
+	if (b->data->state == GuiControlState::PRESSED)
+	{
+		// crear menu options
+	}
+
+	b = b->next;
+
+	// Credits		
+	if (b->data->state == GuiControlState::PRESSED)
+	{
+		app->fade->FadingToBlack(this, (Module*)app->scene, 90);
+	}
+
+
+
 	if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
 		app->fade->FadingToBlack(this, (Module*)app->scene, 90);
 
@@ -96,7 +133,8 @@ bool IntroScene::PostUpdate()
 		ret = false;
 
 	app->render->DrawTexture(bgTexture, 0, 0);
-
+	
+	/*
 	if (v_start < 100)
 	{
 		app->render->DrawTexture(p2sTexture, 100, 350);
@@ -105,7 +143,7 @@ bool IntroScene::PostUpdate()
 	if (v_start == 150)
 		v_start = 0;
 	
-	v_start++;
+	v_start++;*/
 
 	app->guiManager->Draw();
 
@@ -120,6 +158,9 @@ bool IntroScene::CleanUp()
 
 	app->tex->UnLoad(bgTexture);
 	app->tex->UnLoad(p2sTexture);
+
+	listButtons.Clear();
+	//app->guiManager->CleanUp();	// peta :D
 
 	return true;
 }
