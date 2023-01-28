@@ -378,6 +378,7 @@ bool Scene::CleanUp()
 	app->physics->Disable();
 	app->map->CleanUp();
 
+	app->guiManager->CleanUp();
 	return true;
 }
 
@@ -445,6 +446,11 @@ void Scene::Debug()
 	{
 		pause = !pause;
 		pSettings->settings = !pSettings->settings;
+		if (!pSettings->settings)
+		{
+			pSettings->CloseSettings();
+		}
+
 		LOG("PAUSE");
 	}
 
@@ -540,6 +546,7 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 	{
 	case 1:
 		LOG("Button Close settings click");
+		pause = !pause;
 		pSettings->CloseSettings();
 		break;
 
@@ -554,7 +561,6 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 	case 4:
 		LOG("Checkbox Fullscreen click");
 		app->win->changeScreen = !app->win->changeScreen;
-
 		app->win->ResizeWin();
 		break;
 	case 5:

@@ -48,7 +48,6 @@ bool IntroScene::Start()
 	app->win->SetTitle(title.GetString());
 
 	bgTexture = app->tex->Load(bgPath);
-	//settingsTexture = app->tex->Load(settingsPath);
 
 	app->audio->PlayMusic(musicIntro, 0);
 	/*loaded = false;*/
@@ -88,11 +87,11 @@ bool IntroScene::Update(float dt)
 		listButtons.start->next->data->state = GuiControlState::NORMAL;
 	}
 
-	/*if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
-	{
-		app->fade->FadingToBlack(this, (Module*)app->scene, 90);
-		loaded = true;
-	}*/
+	//if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
+	//{
+	//	listButtons.start->next->data->state = GuiControlState::NORMAL;
+	//	loaded = true;
+	//}
 
 
 	/*if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
@@ -158,7 +157,11 @@ bool IntroScene::OnGuiMouseClickEvent(GuiControl* control)
 		break;
 	case 3:
 		LOG("Button settings click");
-		pSettings->settings = true;
+		pSettings->settings = !pSettings->settings;
+		if (!pSettings->settings)
+		{
+			pSettings->CloseSettings();
+		}
 		break;
 	case 4:
 		LOG("Button Credits click");
@@ -186,7 +189,6 @@ bool IntroScene::OnGuiMouseClickEvent(GuiControl* control)
 	case 9:
 		LOG("Checkbox Fullscreen click");
 		app->win->changeScreen = !app->win->changeScreen;
-
 		app->win->ResizeWin();
 		break;
 	case 10:

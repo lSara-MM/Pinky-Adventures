@@ -44,7 +44,7 @@ public:
 	// Called before quitting
 	bool CleanUp();
 
-	//void Settings();
+	// Settings
 	bool OnGuiMouseClickEvent(GuiControl* control);
 	bool OpenSettings();
 	bool CloseSettings();

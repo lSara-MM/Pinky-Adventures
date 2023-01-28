@@ -30,7 +30,7 @@ bool GuiSlider::Update(float dt)
 		if (mouseX >= bounds.x && mouseX <= bounds.x + bounds.w &&
 			mouseY >= bounds.y && mouseY <= bounds.y + bounds.h) {
 
-			//state = GuiControlState::FOCUSED;
+			state = GuiControlState::FOCUSED;
 
 			if (previousState != state)
 			{
@@ -61,51 +61,48 @@ bool GuiSlider::Draw(Render* render)
 {
 	SDL_Rect rect = { 0, 0, 0, 0 };
 
-	//if (SliderType == SliderType::LONG)
-	//{
-	//	// Draw the right Slider depending on state
-	//	switch (state)
-	//	{
 
-	//	case GuiControlState::DISABLED:
-	//	{
-	//		rect = { 277, 0, 90, 27 };
-	//		render->DrawTexture(SliderTex, bounds.x, bounds.y, &rect);
+		// Draw the right Slider depending on state
+	switch (state)
+	{
 
-	//	} break;
+	case GuiControlState::DISABLED:
+	{
+		rect = { 277, 0, 90, 27 };
+		render->DrawTexture(SliderTex, bounds.x, bounds.y, &rect);
 
-	//	case GuiControlState::NORMAL:
-	//	{
-	//		rect = { 0, 0, 90, 27 };
-	//		render->DrawTexture(SliderTex, bounds.x, bounds.y, &rect);
+	} break;
 
-	//	} break;
+	case GuiControlState::NORMAL:
+	{
+		rect = { 0, 0, 90, 27 };
+		render->DrawTexture(SliderTex, bounds.x, bounds.y, &rect);
+
+	} break;
 
 
-	//	case GuiControlState::FOCUSED:
-	//	{
-	//		rect = { 90, 0, 90, 27 };
-	//		render->DrawTexture(SliderTex, bounds.x, bounds.y, &rect);
+	case GuiControlState::FOCUSED:
+	{
+		rect = { 90, 0, 90, 27 };
+		render->DrawTexture(SliderTex, bounds.x, bounds.y, &rect);
 
-	//	} break;
-	//	case GuiControlState::PRESSED:
-	//	{
-	//		rect = { 180, 0, 97, 27 };
-	//		render->DrawTexture(SliderTex, bounds.x, bounds.y, &rect);
-	//		rect = { 180, 0, 120, 40 };
+	} break;
+	case GuiControlState::PRESSED:
+	{
+		rect = { 180, 0, 97, 27 };
+		render->DrawTexture(SliderTex, bounds.x, bounds.y, &rect);
+		rect = { 180, 0, 120, 40 };
 
-	//	} break;
+	} break;
 
-	//	case GuiControlState::SELECTED: //render->DrawRectangle(bounds, 0, 255, 0, 255);
-	//		break;
+	case GuiControlState::SELECTED: //render->DrawRectangle(bounds, 0, 255, 0, 255);
+		break;
 
-	//	default:
-	//		break;
-	//	}
-	//	
-	//	offsetX = 20;	offsetY = 3;
-	//}
-	//
+	default:
+		break;
+	}
+	
+
 	//if (SliderType == SliderType::SMALL)
 	//{
 	//	// Draw the right Slider depending on state
