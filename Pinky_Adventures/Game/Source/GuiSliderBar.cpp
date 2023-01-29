@@ -10,7 +10,7 @@ GuiSliderBar::GuiSliderBar(uint32 id, SDL_Rect bounds, SDL_Rect sliderBounds) : 
 	this->bounds = bounds;
 	this->sliderBounds = sliderBounds;
 
-	SliderBarTex = app->tex->Load("Assets/Textures/small_SliderBar.png");
+	SliderBarTex = app->tex->Load("Assets/Textures/slider_button.png");
 }
 
 GuiSliderBar::~GuiSliderBar()
@@ -61,7 +61,7 @@ bool GuiSliderBar::Update(float dt)
 
 bool GuiSliderBar::Draw(Render* render)
 {
-	SDL_Rect rect = { 0, 4, 38, 4 };
+	SDL_Rect rect = { 0, 16, 38, 4 };
 
 	render->DrawTexture(SliderBarTex, bounds.x, bounds.y, &rect);
 

@@ -40,13 +40,13 @@ public:
 
 		// music
 		GUI_id++;
-		GuiSliderBar* sliderBar = (GuiSliderBar*)app->guiManager->CreateGuiControl(GuiControlType::SLIDERBAR, GUI_id, "", { 200, 170, 26, 28 }, 10, mod, ButtonType::NONE, {0, 0, 14, 16});
+		GuiSliderBar* sliderBar = (GuiSliderBar*)app->guiManager->CreateGuiControl(GuiControlType::SLIDERBAR, GUI_id, "", { 300, 170, 26, 28 }, 10, mod, ButtonType::NONE, {0, 0, 14, 16});
 		sliderBar->state = GuiControlState::NONE;
 		listSliderBars.Add(sliderBar);
 
 		// sfx
 		GUI_id++;
-		sliderBar = (GuiSliderBar*)app->guiManager->CreateGuiControl(GuiControlType::SLIDERBAR, GUI_id, "", { 200, 210, 26, 28 }, 10, mod, ButtonType::NONE, { 0, 0, 14, 16 });
+		sliderBar = (GuiSliderBar*)app->guiManager->CreateGuiControl(GuiControlType::SLIDERBAR, GUI_id, "", { 300, 210, 26, 28 }, 10, mod, ButtonType::NONE, { 0, 0, 14, 16 });
 		sliderBar->state = GuiControlState::NONE;
 		listSliderBars.Add(sliderBar);
 
@@ -95,6 +95,11 @@ public:
 				{
 					i->data->state = GuiControlState::NORMAL;
 				}
+			}
+
+			for (ListItem<GuiSliderBar*>* i = listSliderBars.start; i != nullptr; i = i->next)
+			{
+				i->data->state = GuiControlState::NORMAL;
 			}
 
 			open = true;
