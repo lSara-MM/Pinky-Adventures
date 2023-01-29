@@ -38,7 +38,6 @@ bool LeaderboardScene::Awake(pugi::xml_node& config)
 	bool ret = true;
 
 
-	// NO FUNCIONEN BE ELS PUGIS ESTOS :')
 	pugi::xml_document gameStateFile;
 	pugi::xml_parse_result result = gameStateFile.load_file("save_game.xml");
 
@@ -64,11 +63,10 @@ bool LeaderboardScene::Start()
 	app->render->camera.x = app->render->camera.y = 0;
 
 	// Load textures
-	//texLurkingCat = app->tex->Load("pinball/ss_LurkingCat.png");
 	bgColor = { 0, 0, app->win->GetWidth() * app->win->GetScale(), app->win->GetHeight() * app->win->GetScale() };
 
-	// buttons
 
+	// buttons
 	listButtons.Add((GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, buttons[0], { 25, 35, 90, 27 }, 10, this, ButtonType::SMALL));
 
 	return ret;
@@ -135,12 +133,6 @@ bool LeaderboardScene::Update(float dt)
 
 		app->render->TextDraw(ch_score, 130, y, 12);
 	}
-
-	/*app->render->TextDraw(150, 680, titleFont, "PREVIOUS SCORE", 0.3f);
-	string s_Pnum = std::to_string(prevScore[0]);
-	const char* ch_Pnum = s_Pnum.c_str();
-	app->render->TextDraw(200, 720, subtitleFont, ch_Pnum);*/
-
 
 	// Keep playing
 	return true;

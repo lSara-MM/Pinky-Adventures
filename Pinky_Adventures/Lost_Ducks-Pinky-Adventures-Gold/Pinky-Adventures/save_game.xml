@@ -1,0 +1,85 @@
+<?xml version="1.0"?>
+<save_state>
+	<input />
+	<window />
+	<textures />
+	<audio />
+	<:anonymous />
+	<pathfinding />
+	<logoScene />
+	<introScene />
+	<scene />
+	<loseScene />
+	<leaderboardScene>
+		<score score="0" />
+		<score score="0" />
+		<score score="0" />
+		<score score="0" />
+		<score score="0" />
+		<score score="0" />
+		<score score="0" />
+		<score score="0" />
+		<score score="0" />
+		<score score="0" />
+	</leaderboardScene>
+	<map />
+	<entitymanager>
+		<player x="298" y="262" score="10" coins="1" lives="3" />
+		<enemy x_E="241" y_E="276" state_E="dead" />
+		<enemy x_E="1075" y_E="50" state_E="idle" />
+		<enemy x_E="1330" y_E="50" state_E="idle" />
+		<enemy x_E="750" y_E="159" state_E="idle" />
+		<enemy x_E="1552" y_E="63" state_E="idle" />
+		<coin state_C="false" />
+		<coin state_C="true" />
+		<coin state_C="true" />
+		<coin state_C="true" />
+		<coin state_C="true" />
+		<coin state_C="true" />
+		<coin state_C="true" />
+		<coin state_C="true" />
+		<coin state_C="true" />
+		<coin state_C="true" />
+		<coin state_C="true" />
+		<coin state_C="true" />
+		<coin state_C="true" />
+		<coin state_C="true" />
+		<coin state_C="true" />
+		<coin state_C="true" />
+		<coin state_C="true" />
+		<coin state_C="true" />
+		<coin state_C="true" />
+		<coin state_C="true" />
+		<coin state_C="true" />
+		<coin state_C="true" />
+		<coin state_C="true" />
+		<coin state_C="true" />
+		<coin state_C="true" />
+		<coin state_C="true" />
+		<coin state_C="true" />
+		<coin state_C="true" />
+		<coin state_C="true" />
+		<coin state_C="true" />
+		<coin state_C="true" />
+		<coin state_C="true" />
+		<coin state_C="true" />
+		<coin state_C="true" />
+		<coin state_C="true" />
+		<coin state_C="true" />
+		<coin state_C="true" />
+		<coin state_C="true" />
+		<coin state_C="true" />
+		<coin state_C="true" />
+		<coin state_C="true" />
+		<coin state_C="true" />
+		<coin state_C="true" />
+		<health state_H="true" />
+		<health state_H="true" />
+		<health state_H="true" />
+	</entitymanager>
+	<guiManager />
+	<fadeToBlack />
+	<renderer>
+		<camera x="-296" y="0" />
+	</renderer>
+</save_state>

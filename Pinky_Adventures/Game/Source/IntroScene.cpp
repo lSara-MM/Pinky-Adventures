@@ -89,22 +89,8 @@ bool IntroScene::Update(float dt)
 	}
 
 	if (app->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) {
-		//player->ded = true;
-		//app->audio->PlayFx(player->fxDeath);
-		//app->fade->FadingToBlack(this, (Module*)app->loseScene, 0);
 		buttonDebug = !buttonDebug;
 	}
-
-	/*if (app->input->GetKey(SDL_SCANCODE_F6) == KEY_DOWN)
-	{
-		app->fade->FadingToBlack(this, (Module*)app->scene, 90);
-		loaded = true;
-	}*/
-
-
-	/*if (app->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
-		app->fade->FadingToBlack(this, (Module*)app->scene, 90);*/
-
 
 	return true;
 }
@@ -198,10 +184,7 @@ bool IntroScene::OnGuiMouseClickEvent(GuiControl* control)
 	case 9:
 		LOG("Button Credits click");
 		pCredits->credits = !pCredits->credits;
-		if (!pCredits->credits)
-		{
-			pCredits->CloseCredits();
-		}
+		if (!pCredits->credits) { pCredits->CloseCredits(); }
 		break;
 
 	case 10:

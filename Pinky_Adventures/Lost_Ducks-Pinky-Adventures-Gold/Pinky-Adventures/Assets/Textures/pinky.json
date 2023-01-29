@@ -1,0 +1,315 @@
+{
+	"frames": {
+		"Double_Jump_Dust_5.png": {
+			"frame": {
+				"x": 1,
+				"y": 1,
+				"w": 160,
+				"h": 32
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 160,
+				"h": 32
+			},
+			"sourceSize": {
+				"w": 160,
+				"h": 32
+			}
+		},
+		"Pink_Monster.png": {
+			"frame": {
+				"x": 163,
+				"y": 1,
+				"w": 32,
+				"h": 32
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 32,
+				"h": 32
+			},
+			"sourceSize": {
+				"w": 32,
+				"h": 32
+			}
+		},
+		"Pink_Monster_Attack1_4.png": {
+			"frame": {
+				"x": 1,
+				"y": 35,
+				"w": 128,
+				"h": 32
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 128,
+				"h": 32
+			},
+			"sourceSize": {
+				"w": 128,
+				"h": 32
+			}
+		},
+		"Pink_Monster_Attack2_6.png": {
+			"frame": {
+				"x": 1,
+				"y": 69,
+				"w": 192,
+				"h": 32
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 192,
+				"h": 32
+			},
+			"sourceSize": {
+				"w": 192,
+				"h": 32
+			}
+		},
+		"Pink_Monster_Climb_4.png": {
+			"frame": {
+				"x": 131,
+				"y": 35,
+				"w": 128,
+				"h": 32
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 128,
+				"h": 32
+			},
+			"sourceSize": {
+				"w": 128,
+				"h": 32
+			}
+		},
+		"Pink_Monster_Death_8.png": {
+			"frame": {
+				"x": 1,
+				"y": 103,
+				"w": 256,
+				"h": 32
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 256,
+				"h": 32
+			},
+			"sourceSize": {
+				"w": 256,
+				"h": 32
+			}
+		},
+		"Pink_Monster_Hurt_4.png": {
+			"frame": {
+				"x": 1,
+				"y": 137,
+				"w": 128,
+				"h": 32
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 128,
+				"h": 32
+			},
+			"sourceSize": {
+				"w": 128,
+				"h": 32
+			}
+		},
+		"Pink_Monster_Idle_4.png": {
+			"frame": {
+				"x": 131,
+				"y": 137,
+				"w": 128,
+				"h": 32
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 128,
+				"h": 32
+			},
+			"sourceSize": {
+				"w": 128,
+				"h": 32
+			}
+		},
+		"Pink_Monster_Jump_8.png": {
+			"frame": {
+				"x": 1,
+				"y": 171,
+				"w": 256,
+				"h": 32
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 256,
+				"h": 32
+			},
+			"sourceSize": {
+				"w": 256,
+				"h": 32
+			}
+		},
+		"Pink_Monster_Push_6.png": {
+			"frame": {
+				"x": 1,
+				"y": 205,
+				"w": 192,
+				"h": 32
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 192,
+				"h": 32
+			},
+			"sourceSize": {
+				"w": 192,
+				"h": 32
+			}
+		},
+		"Pink_Monster_Run_6.png": {
+			"frame": {
+				"x": 1,
+				"y": 239,
+				"w": 192,
+				"h": 32
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 192,
+				"h": 32
+			},
+			"sourceSize": {
+				"w": 192,
+				"h": 32
+			}
+		},
+		"Pink_Monster_Throw_4.png": {
+			"frame": {
+				"x": 197,
+				"y": 1,
+				"w": 128,
+				"h": 32
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 128,
+				"h": 32
+			},
+			"sourceSize": {
+				"w": 128,
+				"h": 32
+			}
+		},
+		"Pink_Monster_Walk_6.png": {
+			"frame": {
+				"x": 195,
+				"y": 69,
+				"w": 192,
+				"h": 32
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 192,
+				"h": 32
+			},
+			"sourceSize": {
+				"w": 192,
+				"h": 32
+			}
+		},
+		"Pink_Monster_Walk+Attack_6.png": {
+			"frame": {
+				"x": 195,
+				"y": 205,
+				"w": 192,
+				"h": 32
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 192,
+				"h": 32
+			},
+			"sourceSize": {
+				"w": 192,
+				"h": 32
+			}
+		},
+		"Walk_Run_Push_Dust_6.png": {
+			"frame": {
+				"x": 195,
+				"y": 239,
+				"w": 192,
+				"h": 32
+			},
+			"rotated": false,
+			"trimmed": false,
+			"spriteSourceSize": {
+				"x": 0,
+				"y": 0,
+				"w": 192,
+				"h": 32
+			},
+			"sourceSize": {
+				"w": 192,
+				"h": 32
+			}
+		}
+	},
+	"meta": {
+		"app": "http://www.codeandweb.com/texturepacker",
+		"version": "1.0",
+		"image": "spritesheet.png",
+		"format": "RGBA8888",
+		"size": {
+			"w": 388,
+			"h": 272
+		},
+		"scale": "1"
+	}
+}

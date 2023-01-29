@@ -290,12 +290,12 @@ bool Scene::Update(float dt)
 
 	if (player->contadorCooldown == player->attackCooldown) {
 
-		app->render->DrawTexture(attackIcon, -app->render->camera.x * 0.5, 15, &attackCajaNoCd, 1.0f, NULL, NULL, NULL);
+		app->render->DrawTexture(attackIcon, -app->render->camera.x * 0.5 + 5, 20, &attackCajaNoCd, 1.0f, NULL, NULL, NULL);
 	}
 
 	if (player->contadorCooldown != player->attackCooldown) {
 
-		app->render->DrawTexture(attackIcon, -app->render->camera.x * 0.5, 15, &attackCajaCd, 1.0f, NULL, NULL, NULL);
+		app->render->DrawTexture(attackIcon, -app->render->camera.x * 0.5 + 5, 20, &attackCajaCd, 1.0f, NULL, NULL, NULL);
 	}
 	
 	return true;
@@ -313,8 +313,8 @@ bool Scene::PostUpdate()
 	string s_score = std::to_string(player->score);
 	const char* ch_score = s_score.c_str();
 
-	app->render->TextDraw("Score:", 50, 3, fontsize, { 0, 0, 0 });
-	app->render->TextDraw(ch_score, 120, 3, fontsize, { 0, 0, 0 });
+	app->render->TextDraw("Score:", 50, 10, fontsize, { 0, 0, 0 });
+	app->render->TextDraw(ch_score, 120, 10, fontsize, { 0, 0, 0 });
 	
 
 	// coins
@@ -324,9 +324,9 @@ bool Scene::PostUpdate()
 	currentAnimCoin = &coinAnim;
 	currentAnimCoin->Update();
 	SDL_Rect rect = currentAnimCoin->GetCurrentFrame();
-	app->render->DrawTexture(coin_tex, -app->render->camera.x * 0.5 + 50, 17, &rect);
-	app->render->TextDraw("x", 75, 20, fontsize, { 0, 0, 0 });
-	app->render->TextDraw(ch_coins, 95, 20, fontsize, { 0, 0, 0 });
+	app->render->DrawTexture(coin_tex, -app->render->camera.x * 0.5 + 50, 25, &rect);
+	app->render->TextDraw("x", 75, 28, fontsize, { 0, 0, 0 });
+	app->render->TextDraw(ch_coins, 95, 28, fontsize, { 0, 0, 0 });
 
 
 	// heart
@@ -336,9 +336,9 @@ bool Scene::PostUpdate()
 	currentAnimHeart = &heartAnim;
 	currentAnimHeart->Update();
 	SDL_Rect rect2 = currentAnimHeart->GetCurrentFrame();
-	app->render->DrawTexture(heart_tex, -app->render->camera.x * 0.5 + 50, 40, &rect2);
-	app->render->TextDraw("x", 75, 43, fontsize, { 0, 0, 0 });
-	app->render->TextDraw(ch_hearts, 95, 43, fontsize, { 0, 0, 0 });
+	app->render->DrawTexture(heart_tex, -app->render->camera.x * 0.5 + 50, 48, &rect2);
+	app->render->TextDraw("x", 75, 51, fontsize, { 0, 0, 0 });
+	app->render->TextDraw(ch_hearts, 95, 51, fontsize, { 0, 0, 0 });
 
 	if (!pause)
 	{
@@ -353,8 +353,8 @@ bool Scene::PostUpdate()
 	// time	
 	string s_TIME = std::to_string(timeLeft);
 	const char* ch_TIME = s_TIME.c_str();
-	app->render->TextDraw("Time:", 415, 20, fontsize, { 0, 0, 0 });
-	app->render->TextDraw(ch_TIME, 480, 20, fontsize, { 0, 0, 0 });
+	app->render->TextDraw("Time:", 415, 28, fontsize, { 0, 0, 0 });
+	app->render->TextDraw(ch_TIME, 480, 28, fontsize, { 0, 0, 0 });
 
 
 	if(app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
@@ -430,11 +430,9 @@ void Scene::Debug()
 	// Instant win
 	if (app->input->GetKey(SDL_SCANCODE_F7) == KEY_DOWN)
 		end = true;
-	// Instant lose
+
+	// Show Gui 
 	if (app->input->GetKey(SDL_SCANCODE_F8) == KEY_DOWN) {
-		//player->ded = true;
-		//app->audio->PlayFx(player->fxDeath);
-		//app->fade->FadingToBlack(this, (Module*)app->loseScene, 0);
 		app->iScene->buttonDebug = !app->iScene->buttonDebug;
 	}
 

@@ -199,7 +199,7 @@ bool Player::Update(float dt)
 		&& !app->scene->pause)
 	{
 		
-		pbody->body->ApplyForceToCenter(b2Vec2(50, -playerForce), 0);//50 fa que quedi millor
+		pbody->body->ApplyForceToCenter(b2Vec2(50, -playerForce), 0);
 		currentAnimation = &jumpAnim;
 		jump--;
 		contador = 20;
@@ -232,15 +232,9 @@ bool Player::Update(float dt)
 	}
 	
 	if (contador != 0) {
-		//grav = -speed;
 		currentAnimation = &jumpAnim;
 		contador--;
 	}
-
-	//if (contador == 0) {
-	//	grav = speed;
-	//}
-
 
 	if (app->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN && ded == false && attackState == false && contadorCooldown == attackCooldown
 		&& !app->scene->pause)
@@ -481,18 +475,6 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			}
 			break;
 
-	/*	case ColliderType::ENEMY_LIMIT:
-			LOG("Collision PLAYER LIMIT");
-
-			e = app->scene->listEnemies.start;
-			for (e; e != NULL; e = e->next)
-			{
-				if (e->data->ID == physA->id)
-				{
-					e->data->state = eState::IDLE;
-					break;
-				}
-			}*/
 		case ColliderType::PORTAL:
 
 			LOG("Collision PORTAL");
