@@ -175,7 +175,8 @@ bool Scene::Start()
 
 	tempo.Start();
 	
-
+	timePassed = 0;
+	timeStart = 60;
 	// Settings
 	pSettings->GUI_id = 0;
 	pSettings->CreateSettings(this);
@@ -266,7 +267,7 @@ bool Scene::Update(float dt)
 		player->lives--;	
 	}
 
-	else if (player->ded == true && contadorT == 80)
+	else if ((player->ded == true && contadorT == 80)|| timeLeft==0)
 	{
 		app->fade->FadingToBlack(this, (Module*)app->loseScene, 45);
 		if (app->leadScene->leaderboard[9] < player->score) { app->leadScene->leaderboard[9] = player->score; }
@@ -331,9 +332,20 @@ bool Scene::PostUpdate()
 	app->render->TextDraw("x", 75, 43, fontsize, { 0, 0, 0 });
 	app->render->TextDraw(ch_hearts, 95, 43, fontsize, { 0, 0, 0 });
 
+	if (!pause)
+	{
 
+		timeLeft = timeStart - tempo.ReadSec() - timePassed;
+		
+	}
+	else
+	{
+		timePassed = timeStart - timeLeft;
+		tempo.Start();
+	}
+	
 	// time	
-	string s_TIME = std::to_string(app->secondsSinceStartupTempo);
+	string s_TIME = std::to_string(timeLeft);
 	const char* ch_TIME = s_TIME.c_str();
 	app->render->TextDraw("Time:", 415, 20, fontsize, { 0, 0, 0 });
 	app->render->TextDraw(ch_TIME, 480, 20, fontsize, { 0, 0, 0 });

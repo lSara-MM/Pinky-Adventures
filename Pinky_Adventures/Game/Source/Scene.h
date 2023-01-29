@@ -84,10 +84,13 @@ public:
 	int posx1, posx2, posx3;
 	bool end;
 	bool freeCam;
-	
+
+	int timePassed;
+	int timeStart;
 	bool pause;
 
 	Timer tempo;
+	
 
 	bool frcap;
 
@@ -115,10 +118,8 @@ private:
 	pugi::xml_node sceneNode;
 
 	Timer timerLvl1;
-	float timeLeft;
+	int timeLeft;
 	float timeElapsed;
-
-
 
 	// UI
 	const char* coinPath;
