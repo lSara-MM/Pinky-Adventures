@@ -311,6 +311,8 @@ bool Scene::PostUpdate()
 {
 	bool ret = true;
 
+	if (exit) return false;
+
 	int fontsize = 10;
 
 	// render score
@@ -577,7 +579,7 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 	{
 	case 1:
 		LOG("Button Close settings click");
-		pause = false;
+		pPause->OpenPause();
 		pSettings->CloseSettings();
 		break;
 	case 2:
@@ -598,23 +600,28 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 		(control->state == GuiControlState::NORMAL) ? app->render->flags = SDL_RENDERER_ACCELERATED : app->render->flags |= SDL_RENDERER_PRESENTVSYNC;
 		break;
 	case 6:
-		LOG("Button start click");
-		app->scene->continueEnabled = false;
-		app->fade->FadingToBlack(this, (Module*)app->scene, 90);
+		LOG("Button Close pause click");
+
+		pause = !pause;
+		pPause->ClosePause(); 
 		break;
 	case 7:
-		LOG("Button continue click");
-		
+		LOG("Button Resume click");
+		pause = !pause;
+		pPause->ClosePause();
 		break;
 	case 8:
-		LOG("Button settings click");
-		pSettings->settings = !pSettings->settings;
-		if (!pSettings->settings)
-		{
-			pSettings->CloseSettings();
-		}
+		LOG("Button Return to Title click");
+		app->fade->FadingToBlack(this, (Module*)app->iScene, 90);
 		break;
 	case 9:
+		LOG("Button settings click");
+		pPause->ClosePause();
+
+		pSettings->settings = !pSettings->settings;
+		if (!pSettings->settings) { pSettings->CloseSettings();}
+		break;
+	case 10:
 		LOG("Button Exit game click");
 		exit = true;
 		break;

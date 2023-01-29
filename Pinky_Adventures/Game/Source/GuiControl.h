@@ -38,7 +38,8 @@ enum class GuiControlState
 enum class ButtonType
 {
 	NONE,
-	LONG,
+	EXTRA_LARGE,
+	LARGE,
 	SMALL
 };
 

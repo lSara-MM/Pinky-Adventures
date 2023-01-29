@@ -76,7 +76,7 @@ public:
 		SDL_Rect rect = { 0, 0, 226, 261 };
 
 		app->render->DrawRectangle({ 150, 70, 226, 261 }, 206, 167, 240 , 230, true);
-		app->render->DrawTexture(settingsTexture, 150, 70, &rect);
+		if (!app->render->DrawTexture(settingsTexture, 150, 70, &rect)) { app->render->TextDraw("Settings", 180, 100, 21, { 107, 0, 110}); }
 
 		int x = 170; int y = 130; int offset = 40;
 		app->render->TextDraw("Music:", x, y + offset, 12);
@@ -193,34 +193,10 @@ public:
 		button->state = GuiControlState::NONE;
 		listPauseButtons.Add(button);
 
-		//// resume
-		//GUI_id++;
-		//button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, GUI_id, "Resume", { 250, 170, 60, 10 }, 10, mod, ButtonType::LONG);
-		//button->state = GuiControlState::NONE;
-		//listPauseButtons.Add(button);
-
-		//// return to title
-		//GUI_id++;
-		//button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, GUI_id, "Return to Title", { 250, 210, 60, 10 }, 9, mod, ButtonType::LONG);
-		//button->state = GuiControlState::NONE;
-		//listPauseButtons.Add(button);
-	
-		//// settings
-		//GUI_id++;
-		//button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, GUI_id, "Settings", { 250, 240, 60, 10 }, 10, mod, ButtonType::LONG);
-		//button->state = GuiControlState::NONE;
-		//listPauseButtons.Add(button);
-
-		//// exit
-		//GUI_id++;
-		//button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, GUI_id, "Exit", { 250, 210, 60, 10 }, 9, mod, ButtonType::LONG);
-		//button->state = GuiControlState::NONE;
-		//listPauseButtons.Add(button);
-
 		// buttons
 		for (int i = 0; buttons[i] != "\n"; i++)
 		{
-			button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, i + 6, buttons[i], { 180, 170 + 33 * i, 90, 27 }, 10, mod, ButtonType::LONG);
+			button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, i + GUI_id + 1, buttons[i], { 180, 130 + 50 * i, 172, 40 }, 10, mod, ButtonType::EXTRA_LARGE);
 			button->state = GuiControlState::NONE;
 			listPauseButtons.Add(button);
 		}
@@ -233,7 +209,7 @@ public:
 		SDL_Rect rect = { 0, 0, 226, 261 };
 
 		app->render->DrawRectangle({ 150, 70, 226, 261 }, 206, 167, 240, 230, true);
-		app->render->DrawTexture(PauseTexture, 150, 70, &rect);
+		if (!app->render->DrawTexture(PauseTexture, 150, 70, &rect)) { app->render->TextDraw("Pause", 210, 90, 21, { 107, 0, 110 }); }
 
 		if (!open)
 		{
