@@ -8,6 +8,7 @@
 #include "Scene.h"
 #include "Physics.h"
 #include "FadeToBlack.h"
+#include "GuiManager.h"
 
 #include "Defs.h"
 #include "Log.h"
@@ -66,12 +67,19 @@ bool LeaderboardScene::Start()
 	//texLurkingCat = app->tex->Load("pinball/ss_LurkingCat.png");
 	bgColor = { 0, 0, app->win->GetWidth() * app->win->GetScale(), app->win->GetHeight() * app->win->GetScale() };
 
+	// buttons
+
+	listButtons.Add((GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, 1, buttons[0], { 25, 35, 90, 27 }, 10, this, ButtonType::SMALL));
+
 	return ret;
 }
 
 bool LeaderboardScene::CleanUp()
 {
 	prevScore[0] = prevScore[1];
+
+	listButtons.Clear();
+	app->guiManager->CleanUp();
 	return true;
 }
 
@@ -82,7 +90,7 @@ bool LeaderboardScene::PreUpdate()
 
 bool LeaderboardScene::Update(float dt)
 {
-	app->render->DrawRectangle(bgColor, 162, 209, 255);
+	app->render->DrawRectangle(bgColor, 206, 167, 240);
 
 
 	// Change screens
@@ -90,15 +98,20 @@ bool LeaderboardScene::Update(float dt)
 	{
 		app->fade->FadingToBlack(this, (Module*)app->iScene, 90);
 	}
+
 	if (app->input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
 	{
 		app->fade->FadingToBlack(this, (Module*)app->scene, 0);
+	}
+	if (app->input->GetKey(SDL_SCANCODE_F2) == KEY_DOWN)
+	{
+		app->fade->FadingToBlack(this, (Module*)app->iScene, 0);
 	}
 	
 	ranks();
 
 	// render text
-	app->render->TextDraw("Leaderboard", 130, 40, 24, { 255, 0, 255 });
+	app->render->TextDraw("Leaderboard", 130, 40, 24, { 125, 0, 138 });
 
 	for (int i = 0; i < 10; i++)
 	{
@@ -141,6 +154,8 @@ bool LeaderboardScene::PostUpdate()
 	if (app->input->GetKey(SDL_SCANCODE_ESCAPE) == KEY_DOWN)
 		ret = false;
 
+	app->guiManager->Draw();
+
 	return ret;
 }
 
@@ -150,21 +165,6 @@ void LeaderboardScene::ranks()
 	prevScore[1] = currentScore;
 
 	SaveState(leadSaveNode);
-
-	//// save leaderboard
-	//for (int i = 0; i < 10; i++)
-	//{
-	//	string s_num = std::to_string(i + 1);
-	//	const char* ch_num = s_num.c_str();
-
-	//	pugi::xml_node score = leadNode.append_child(ch_num);
-
-	//	string s_score = std::to_string(leaderboard[i]);
-	//	const char* ch_score = s_score.c_str();
-
-	//	score.append_attribute("score") = ch_score;
-	//}
-
 }
 
 void LeaderboardScene::bubbleSort(int array[], int size)
@@ -216,5 +216,20 @@ bool LeaderboardScene::SaveState(pugi::xml_node& data)
 
 		score.append_attribute("score") = ch_score;
 	}
+	return true;
+}
+
+bool LeaderboardScene::OnGuiMouseClickEvent(GuiControl* control)
+{
+	LOG("Event by %d ", control->id);
+
+	switch (control->id)
+	{
+	case 1:
+		LOG("Button Close settings click");
+		app->fade->FadingToBlack(this, (Module*)app->iScene, 90);
+		break;
+	}
+
 	return true;
 }

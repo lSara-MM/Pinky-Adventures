@@ -138,6 +138,11 @@ private:
 	// Settings
 	Settings options;
 	Settings* pSettings = &options;
+
+	Pause pauseMenu;
+	Pause* pPause = &pauseMenu;
+
+	bool exit;
 };
 
 #endif // __SCENE_H__

@@ -72,11 +72,13 @@ public:
 	bool OpenSettings()
 	{
 		SDL_Rect rect = { 0, 0, 226, 261 };
+
+		app->render->DrawRectangle({ 150, 70, 226, 261 }, 206, 167, 240 , 230, true);
 		app->render->DrawTexture(settingsTexture, 150, 70, &rect);
 
 		int x = 170; int y = 130; int offset = 40;
 		app->render->TextDraw("Music:", x, y + offset, 12);
-		app->render->TextDraw("fx:", x, y + offset * 2, 12);
+		app->render->TextDraw("Fx:", x, y + offset * 2, 12);
 		app->render->TextDraw("Fullscreen:", x, y + offset * 3, 12);
 		app->render->TextDraw("Vsync:", x, y + offset * 4, 12);
 
@@ -134,6 +136,11 @@ public:
 			i->data->state = GuiControlState::NONE;
 		}
 
+		for (ListItem<GuiSliderBar*>* i = listSliderBars.start; i != nullptr; i = i->next)
+		{
+			i->data->state = GuiControlState::NONE;
+		}
+
 		return true;
 	}
 
@@ -142,6 +149,7 @@ public:
 		//app->tex->UnLoad(settingsTexture);
 		listSettingsButtons.Clear();
 		listCheckbox.Clear();
+		listSliderBars.Clear();
 
 		return true;
 	}
@@ -160,7 +168,106 @@ public:
 	const char* settingsPath;
 	bool settings;
 	bool open;
+};
 
+
+struct Pause
+{
+public:
+
+	Pause* CreatePause(Module* mod)
+	{
+		Pause* pause = this;
+
+		//PauseTexture = app->tex->Load(PausePath);
+
+		// Pause buttons
+		pause = false;
+		open = false;
+
+		// close
+		GUI_id++;
+		GuiButton* button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, GUI_id, "x", { 137, 56, 26, 28 }, 10, mod, ButtonType::SMALL);
+		button->state = GuiControlState::NONE;
+		listPauseButtons.Add(button);
+
+		// resume
+		GUI_id++;
+		button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, GUI_id, "Resume", { 250, 170, 60, 10 }, 10, mod, ButtonType::LONG);
+		button->state = GuiControlState::NONE;
+		listPauseButtons.Add(button);
+
+		// return to title
+		GUI_id++;
+		button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, GUI_id, "Return to Title", { 250, 210, 60, 10 }, 9, mod, ButtonType::LONG);
+		button->state = GuiControlState::NONE;
+		listPauseButtons.Add(button);
+	
+		// settings
+		GUI_id++;
+		button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, GUI_id, "Settings", { 250, 240, 60, 10 }, 10, mod, ButtonType::LONG);
+		button->state = GuiControlState::NONE;
+		listPauseButtons.Add(button);
+
+		// exit
+		GUI_id++;
+		button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, GUI_id, "Exit", { 250, 210, 60, 10 }, 9, mod, ButtonType::LONG);
+		button->state = GuiControlState::NONE;
+		listPauseButtons.Add(button);
+
+		return pause;
+	}
+
+	bool OpenPause()
+	{
+		SDL_Rect rect = { 0, 0, 226, 261 };
+
+		app->render->DrawRectangle({ 150, 70, 226, 261 }, 206, 167, 240, 230, true);
+		app->render->DrawTexture(PauseTexture, 150, 70, &rect);
+
+		if (!open)
+		{
+			for (ListItem<GuiButton*>* i = listPauseButtons.start; i != nullptr; i = i->next)
+			{
+				i->data->state = GuiControlState::NORMAL;
+			}
+
+			open = true;
+		}
+
+		return true;
+	}
+
+	bool ClosePause()
+	{
+		pause = false;
+		open = false;
+		for (ListItem<GuiButton*>* i = listPauseButtons.start; i != nullptr; i = i->next)
+		{
+			i->data->state = GuiControlState::NONE;
+		}
+
+		return true;
+	}
+
+	bool CleanUp()
+	{
+		//app->tex->UnLoad(PauseTexture);
+		listPauseButtons.Clear();
+		
+		return true;
+	}
+
+public:
+
+	// buttons
+	int GUI_id = 0;
+	List<GuiButton*> listPauseButtons;
+
+	SDL_Texture* PauseTexture;
+	const char* PausePath;
+	bool pause;
+	bool open;
 };
 
 #endif // __SETTINGS_H__

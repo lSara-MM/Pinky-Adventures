@@ -80,6 +80,7 @@ bool Scene::Awake(pugi::xml_node& config)
 	heartPath = config.attribute("heartspath").as_string();
 
 	pSettings->settingsPath = config.attribute("settingsPath").as_string();
+	pPause->PausePath = config.attribute("settingsPath").as_string();	// es la mateixa textura
 
 	sceneNode = config;
 	return ret;
@@ -177,9 +178,15 @@ bool Scene::Start()
 	
 	timePassed = 0;
 	timeStart = 60;
+
 	// Settings
 	pSettings->GUI_id = 0;
 	pSettings->CreateSettings(this);
+
+	// Pause 
+	pPause->GUI_id = pSettings->GUI_id;
+	pPause->CreatePause(this);
+
 
 	if (continueEnabled) {
 		app->LoadGameRequest();
@@ -289,12 +296,12 @@ bool Scene::Update(float dt)
 
 	if (player->contadorCooldown==player->attackCooldown) {
 
-		app->render->DrawTexture(attackIcon, -app->render->camera.x*0.5, 0, &attackCajaNoCd, 1.0f, NULL, NULL, NULL);
+		app->render->DrawTexture(attackIcon, -app->render->camera.x*0.5, 15, &attackCajaNoCd, 1.0f, NULL, NULL, NULL);
 	}
 
 	if (player->contadorCooldown != player->attackCooldown) {
 
-		app->render->DrawTexture(attackIcon, -app->render->camera.x * 0.5, 0, &attackCajaCd, 1.0f, NULL, NULL, NULL);
+		app->render->DrawTexture(attackIcon, -app->render->camera.x * 0.5, 15, &attackCajaCd, 1.0f, NULL, NULL, NULL);
 	}
 	
 	return true;
@@ -339,9 +346,7 @@ bool Scene::PostUpdate()
 
 	if (!pause)
 	{
-
-		timeLeft = timeStart - tempo.ReadSec() - timePassed;
-		
+		timeLeft = timeStart - tempo.ReadSec() - timePassed;	
 	}
 	else
 	{
@@ -360,17 +365,11 @@ bool Scene::PostUpdate()
 		ret = false;
 	
 
-	if (pSettings->settings)
-	{
-		pSettings->OpenSettings();
-	}
-
+	if (pSettings->settings) { pSettings->OpenSettings(); }
+	if (pPause->pause) { pPause->OpenPause(); }
 	app->guiManager->Draw();
 
-	if (app->iScene->loaded)
-	{
-		continueEnabled = true;
-	}
+	if (app->iScene->loaded) { continueEnabled = true; }
 
 	return ret;
 }
@@ -384,6 +383,7 @@ bool Scene::CleanUp()
 	app->render->camera.y = 0;
 
 	app->audio->PauseMusic();
+
 	player->Disable();
 	gem->Disable();
 	listCoins.Clear();
@@ -479,8 +479,15 @@ void Scene::Debug()
 	if (app->input->GetKey(SDL_SCANCODE_P) == KEY_DOWN)
 	{
 		pause = !pause;
+		pPause->pause = !pPause->pause;
+		if (!pPause->pause)
+		{
+			pPause->ClosePause();
+		}
+
 		LOG("PAUSE");
 	}
+
 	// Mute / unmute
 	if (app->input->GetKey(SDL_SCANCODE_M) == KEY_DOWN)
 		mute = !mute;
@@ -587,6 +594,27 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 	case 5:
 		LOG("Checkbox Vsync click");
 		(control->state == GuiControlState::NORMAL) ? app->render->flags = SDL_RENDERER_ACCELERATED : app->render->flags |= SDL_RENDERER_PRESENTVSYNC;
+		break;
+	case 6:
+		LOG("Button start click");
+		app->scene->continueEnabled = false;
+		app->fade->FadingToBlack(this, (Module*)app->scene, 90);
+		break;
+	case 7:
+		LOG("Button continue click");
+		
+		break;
+	case 8:
+		LOG("Button settings click");
+		pSettings->settings = !pSettings->settings;
+		if (!pSettings->settings)
+		{
+			pSettings->CloseSettings();
+		}
+		break;
+	case 9:
+		LOG("Button Exit game click");
+		exit = true;
 		break;
 	}
 

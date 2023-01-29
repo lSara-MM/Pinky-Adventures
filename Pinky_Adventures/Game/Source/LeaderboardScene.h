@@ -5,6 +5,14 @@
 #include "Animation.h"
 #include "Textures.h"
 
+
+#include "GuiButton.h"
+#include "GuiCheckBox.h"
+#include "GuiSliderBar.h"
+
+
+//#include "Settings.h"
+
 #include "App.h"
 
 class LeaderboardScene : public Module
@@ -42,6 +50,9 @@ public:
 	bool LoadState(pugi::xml_node&);
 	bool SaveState(pugi::xml_node&);
 
+
+	bool OnGuiMouseClickEvent(GuiControl* control);
+
 public:
 	// Textures
 	int leaderboard[10];
@@ -51,7 +62,13 @@ public:
 	pugi::xml_node leadLoadNode;
 
 private:
-	
+
+	// buttons
+	List<GuiButton*> listButtons;
+	const char* buttons[2] = { "<", "\n" };
+	int bNum;
+
+
 	int prevScore[2];
 	SDL_Rect bgColor;
 };
