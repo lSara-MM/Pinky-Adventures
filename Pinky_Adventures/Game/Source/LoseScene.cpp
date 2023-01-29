@@ -134,6 +134,7 @@ bool LoseScene::OnGuiMouseClickEvent(GuiControl* control)
 	{
 	case 1:
 		LOG("Button Retry click");
+		app->scene->continueEnabled = false;
 		app->fade->FadingToBlack(this, (Module*)app->scene, 90);
 		
 		break;
