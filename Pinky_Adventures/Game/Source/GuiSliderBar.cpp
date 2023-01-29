@@ -41,7 +41,10 @@ bool GuiSliderBar::Update(float dt)
 			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_REPEAT)
 			{
 				state = GuiControlState::PRESSED;
-				sliderBounds.x = mouseX;	//sliderBounds.y = mouseY;
+				sliderBounds.x = mouseX;	volume = bounds.x + mouseX - 500;
+
+				volume100 = volume * 100 / 59;
+				LOG("volume %d, %d", volume, volume100);
 			}
 
 			// If mouse button pressed -> Generate event!
@@ -61,7 +64,7 @@ bool GuiSliderBar::Update(float dt)
 
 bool GuiSliderBar::Draw(Render* render)
 {
-	SDL_Rect rect = { 0, 16, 38, 4 };
+	SDL_Rect rect = { 0, 16, 68, 4 };
 
 	render->DrawTexture(SliderBarTex, bounds.x, bounds.y, &rect);
 
@@ -85,9 +88,7 @@ bool GuiSliderBar::Draw(Render* render)
 
 	case GuiControlState::FOCUSED:
 	{
-		//rect = { 90, 0, 90, 27 };
-		//render->DrawTexture(SliderBarTex, sliderBounds.x, sliderBounds.y, &rect);
-		rect = { 0, 0, 14, 16 };
+		rect = { 30, 0, 14, 16 };
 		render->DrawTexture(SliderBarTex, sliderBounds.x, sliderBounds.y, &rect);
 
 	} break;

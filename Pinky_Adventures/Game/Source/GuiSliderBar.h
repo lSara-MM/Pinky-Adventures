@@ -19,6 +19,8 @@ public:
 	int mouseX, mouseY;
 	SDL_Rect sliderBounds;
 
+	int volume, volume100;
+
 	SDL_Texture* SliderBarTex;
 };
 

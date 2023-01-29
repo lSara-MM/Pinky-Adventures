@@ -40,13 +40,13 @@ public:
 
 		// music
 		GUI_id++;
-		GuiSliderBar* sliderBar = (GuiSliderBar*)app->guiManager->CreateGuiControl(GuiControlType::SLIDERBAR, GUI_id, "", { 300, 170, 26, 28 }, 10, mod, ButtonType::NONE, { 300, 165, 14, 16});
+		GuiSliderBar* sliderBar = (GuiSliderBar*)app->guiManager->CreateGuiControl(GuiControlType::SLIDERBAR, GUI_id, "", { 250, 170, 60, 10 }, 10, mod, ButtonType::NONE, { 310, 165, 14, 16});
 		sliderBar->state = GuiControlState::NONE;
 		listSliderBars.Add(sliderBar);
 
 		// sfx
 		GUI_id++;
-		sliderBar = (GuiSliderBar*)app->guiManager->CreateGuiControl(GuiControlType::SLIDERBAR, GUI_id, "", { 300, 210, 26, 28 }, 10, mod, ButtonType::NONE, { 300, 205, 14, 16 });
+		sliderBar = (GuiSliderBar*)app->guiManager->CreateGuiControl(GuiControlType::SLIDERBAR, GUI_id, "", { 250, 210, 60, 10 }, 10, mod, ButtonType::NONE, { 310, 205, 14, 16 });
 		sliderBar->state = GuiControlState::NONE;
 		listSliderBars.Add(sliderBar);
 
