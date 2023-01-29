@@ -79,8 +79,8 @@ bool Scene::Awake(pugi::xml_node& config)
 	coinPath = config.attribute("coinspath").as_string();
 	heartPath = config.attribute("heartspath").as_string();
 
-	pSettings->settingsPath = config.attribute("settingsPath").as_string();
-	pPause->PausePath = config.attribute("settingsPath").as_string();	// es la mateixa textura
+	//pSettings->settingsPath = config.attribute("settingsPath").as_string();
+	//pPause->PausePath = config.attribute("settingsPath").as_string();	// es la mateixa textura
 
 	sceneNode = config;
 	return ret;
@@ -130,16 +130,7 @@ bool Scene::Start()
 
 	secret = false;
 	ghostCollider = app->physics->CreateRectangle(890, 240, 10, 16 * app->win->GetScale(), bodyType::STATIC);
-	
 
-	SString title("Map:%dx%d Tiles:%dx%d Tilesets:%d",
-		app->map->mapData.width,
-		app->map->mapData.height,
-		app->map->mapData.tileWidth,
-		app->map->mapData.tileHeight,
-		app->map->mapData.tilesets.Count());
-
-	app->win->SetTitle(title.GetString());
 	
 	// camera 
 	maxCameraPosLeft = 0;
@@ -279,7 +270,7 @@ bool Scene::Update(float dt)
 		player->lives--;	
 	}
 
-	else if ((player->ded == true && contadorT == 80)|| timeLeft==0)
+	else if ((player->ded == true && contadorT == 80) || timeLeft == 0)
 	{
 		app->fade->FadingToBlack(this, (Module*)app->loseScene, 45);
 		if (app->leadScene->leaderboard[9] < player->score) { app->leadScene->leaderboard[9] = player->score; }
@@ -290,13 +281,16 @@ bool Scene::Update(float dt)
 		secret = true;
 
 	if (end == true) {
-		//app->audio->PauseMusic();
-		app->fade->FadingToBlack(this, (Module*)app->iScene, 90);
+		////app->audio->PauseMusic();
+		//app->fade->FadingToBlack(this, (Module*)app->iScene, 90);
+		app->fade->FadingToBlack(this, (Module*)app->leadScene, 45);
+		if (app->leadScene->leaderboard[9] < player->score) { app->leadScene->leaderboard[9] = player->score; }
+		app->leadScene->currentScore = player->score;
 	}
 
-	if (player->contadorCooldown==player->attackCooldown) {
+	if (player->contadorCooldown == player->attackCooldown) {
 
-		app->render->DrawTexture(attackIcon, -app->render->camera.x*0.5, 15, &attackCajaNoCd, 1.0f, NULL, NULL, NULL);
+		app->render->DrawTexture(attackIcon, -app->render->camera.x * 0.5, 15, &attackCajaNoCd, 1.0f, NULL, NULL, NULL);
 	}
 
 	if (player->contadorCooldown != player->attackCooldown) {
@@ -574,6 +568,8 @@ bool Scene::InitEntities()
 bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 {
 	LOG("Event by %d ", control->id);
+
+	app->audio->PlayFx(control->fxControl);
 
 	switch (control->id)
 	{

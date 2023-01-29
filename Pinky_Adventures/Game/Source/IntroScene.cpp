@@ -34,8 +34,8 @@ bool IntroScene::Awake(pugi::xml_node& config)
 	bgPath = config.attribute("background").as_string();
 	musicIntro = config.attribute("audioIntroPath").as_string();
 
-	
 	pSettings->settingsPath = config.attribute("settingsPath").as_string();
+	pCredits->creditsPath = config.attribute("settingsPath").as_string();
 
 	return ret;
 }
@@ -55,14 +55,16 @@ bool IntroScene::Start()
 	// buttons
 	for (int i = 0; buttons[i] != "\n"; i++)
 	{
-		listButtons.Add((GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, i + 6, buttons[i], { 25, 180 + 33 * i, 90, 27 }, 10, this, ButtonType::LARGE));
+		bNum = i + 6;
+		listButtons.Add((GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, bNum, buttons[i], { 25, 180 + 33 * i, 90, 27 }, 10, this, ButtonType::LARGE));
 	}
 
 	listButtons.start->next->data->state = GuiControlState::DISABLED;
 
-	pSettings->GUI_id = bNum;
 	pSettings->CreateSettings(this);
 	listButtons.Add(pSettings->listSettingsButtons.start->data);
+
+	pCredits->CreateCredits(this, bNum);
 
 	exit = false;
 
@@ -119,10 +121,8 @@ bool IntroScene::PostUpdate()
 
 	app->render->DrawTexture(bgTexture, 0, 0);
 
-	if (pSettings->settings)
-	{
-		pSettings->OpenSettings();
-	}
+	if (pSettings->settings) { pSettings->OpenSettings(); }
+	if (pCredits->credits) { pCredits->OpenCredits(); }
 
 	app->guiManager->Draw();
 
@@ -139,6 +139,7 @@ bool IntroScene::CleanUp()
 	
 	listButtons.Clear();
 	pSettings->CleanUp();
+	pCredits->CleanUp();
 
 	app->guiManager->CleanUp();
 	return true;
@@ -147,6 +148,8 @@ bool IntroScene::CleanUp()
 bool IntroScene::OnGuiMouseClickEvent(GuiControl* control)
 {
 	LOG("Event by %d ", control->id);
+
+	app->audio->PlayFx(control->fxControl);
 
 	switch (control->id)
 	{
@@ -194,12 +197,21 @@ bool IntroScene::OnGuiMouseClickEvent(GuiControl* control)
 		break;
 	case 9:
 		LOG("Button Credits click");
-		app->fade->FadingToBlack(this, (Module*)app->scene, 90);
+		pCredits->credits = !pCredits->credits;
+		if (!pCredits->credits)
+		{
+			pCredits->CloseCredits();
+		}
 		break;
 
 	case 10:
 		LOG("Button Exit game click");
 		exit = true;
+		break;
+
+	case 11:
+		LOG("Button Close credits");
+		pCredits->CloseCredits();
 		break;
 	}
 

@@ -186,7 +186,9 @@ bool Audio::PlayFx(unsigned int id, int repeat)
 
 	if(id > 0 && id <= fx.Count())
 	{
+		LOG("Successfully play Fx");
 		Mix_PlayChannel(-1, fx[id - 1], repeat);
+		ret = true;
 	}
 
 	return ret;

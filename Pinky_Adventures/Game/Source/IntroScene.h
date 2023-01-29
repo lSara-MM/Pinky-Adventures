@@ -64,18 +64,12 @@ private:
 	List<GuiButton*> listButtons;
 	const char* buttons[6] = { "Play", "Continue", "Settings", "Credits", "Exit", "\n" };
 	int bNum;
-	//List<GuiButton*> listSettingsButtons;
-	//
-	//List<GuiCheckBox*> listCheckbox;
-
-
-	//SDL_Texture* settingsTexture;
-	//const char* settingsPath;
-	//bool settings;
-	//bool open;
-
+	
 	Settings options;
 	Settings* pSettings = &options;
+
+	Credits credits;
+	Credits* pCredits = &credits;
 
 	bool exit;
 };

@@ -130,6 +130,8 @@ bool LoseScene::OnGuiMouseClickEvent(GuiControl* control)
 {
 	LOG("Event by %d ", control->id);
 
+	app->audio->PlayFx(control->fxControl);
+
 	switch (control->id)
 	{
 	case 1:

@@ -31,7 +31,7 @@
 		musicLose="Assets/Audio/Music/the_end.ogg"/>
 
 	<introScene background="Assets/Maps/intro_bg.png" audioIntroPath ="Assets/Audio/Music/music_intro.ogg"
-				settingsPath ="Assets/Textures/setting_menu.png"/>
+				settingsPath="Assets/Textures/setting_menu.png"/>
 	
 	<scene music="Assets/Audio/Music/lvl_1.ogg" textureAttackPath="Assets/Textures/attack.png"
 	   background1 ="Assets/Maps/clouds_bg.png" background2 ="Assets/Maps/clouds_mg_1.png" background3 ="Assets/Maps/clouds_mg_2.png"

@@ -76,7 +76,8 @@ public:
 		SDL_Rect rect = { 0, 0, 226, 261 };
 
 		app->render->DrawRectangle({ 150, 70, 226, 261 }, 206, 167, 240 , 230, true);
-		if (!app->render->DrawTexture(settingsTexture, 150, 70, &rect)) { app->render->TextDraw("Settings", 180, 100, 21, { 107, 0, 110}); }
+		//if (!app->render->DrawTexture(settingsTexture, 150, 70, &rect)) { app->render->TextDraw("Settings", 180, 100, 21, { 107, 0, 110}); }
+		app->render->TextDraw("Settings", 180, 100, 21, { 107, 0, 110 });
 
 		int x = 170; int y = 130; int offset = 40;
 		app->render->TextDraw("Music:", x, y + offset, 12);
@@ -210,7 +211,8 @@ public:
 		SDL_Rect rect = { 0, 0, 226, 261 };
 
 		app->render->DrawRectangle({ 150, 70, 226, 261 }, 206, 167, 240, 230, true);
-		if (!app->render->DrawTexture(PauseTexture, 150, 70, &rect)) { app->render->TextDraw("Pause", 210, 90, 21, { 107, 0, 110 }); }
+		//if (!app->render->DrawTexture(PauseTexture, 150, 70, &rect)) { app->render->TextDraw("Pause", 210, 90, 21, { 107, 0, 110 }); }
+		app->render->TextDraw("Pause", 210, 90, 21, { 107, 0, 110 });
 
 		if (!open)
 		{
@@ -256,6 +258,101 @@ public:
 	SDL_Texture* PauseTexture;
 	const char* PausePath;
 	bool pause;
+	bool open;
+};
+
+struct Credits
+{
+public:
+
+	Credits* CreateCredits(Module* mod, int num)
+	{
+		Credits* Credits = this;
+
+		//CreditsTexture = app->tex->Load(CreditsPath);
+
+		GUI_id = num;
+
+		// Credits buttons
+		credits = false;
+		open = false;
+
+		// close
+		GUI_id++;
+		GuiButton* button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, GUI_id, "x", { 137, 56, 26, 28 }, 10, mod, ButtonType::SMALL);
+		button->state = GuiControlState::NONE;
+		listCreditsButtons.Add(button);
+
+		return Credits;
+	}
+
+	bool OpenCredits()
+	{
+		SDL_Rect rect = { 0, 0, 226, 261 };
+
+		app->render->DrawRectangle({ 150, 70, 226, 261 }, 206, 167, 240, 230, true);
+		//if (!app->render->DrawTexture(CreditsTexture, 150, 70, &rect)) { app->render->TextDraw("Credits", 210, 90, 21, { 107, 0, 110 }); }
+		app->render->TextDraw("Credits", 195, 90, 21, { 107, 0, 110 });
+
+
+		app->render->TextDraw("Game by: Lost Ducks", 160, 130, 11, { 107, 0, 110 });
+
+		int posX = 180; int posY = 150; int offset = 20;
+
+		app->render->TextDraw("This project is", posX, posY + offset, 10, { 107, 0, 110 });
+		app->render->TextDraw("licensed under an", posX, posY + offset * 2, 10, { 107, 0, 110 });
+		app->render->TextDraw("unmodified MIT", posX, posY + offset * 3, 10, { 107, 0, 110 });
+		app->render->TextDraw("license", posX, posY + offset * 4, 10, { 107, 0, 110 });
+
+		app->render->TextDraw("Andreu Nosas Soler", 157, posY + offset * 6, 10, { 107, 0, 110 });
+		app->render->TextDraw("Sara Martinez Mauri", 157, posY + offset * 7, 10, { 107, 0, 110 });
+		app->render->TextDraw("Copyright(c) 2020 Ray", 157, posY + offset * 8, 10, { 107, 0, 110 });
+
+
+		if (!open)
+		{
+			for (ListItem<GuiButton*>* i = listCreditsButtons.start; i != nullptr; i = i->next)
+			{
+				i->data->state = GuiControlState::NORMAL;
+			}
+
+			open = true;
+		}
+
+		return true;
+	}
+
+	bool CloseCredits()
+	{
+		credits = false;
+		open = false;
+		for (ListItem<GuiButton*>* i = listCreditsButtons.start; i != nullptr; i = i->next)
+		{
+			i->data->state = GuiControlState::NONE;
+		}
+
+		return true;
+	}
+
+	bool CleanUp()
+	{
+		CloseCredits();
+		//app->tex->UnLoad(CreditsTexture);
+		listCreditsButtons.Clear();
+
+		return true;
+	}
+
+public:
+
+	// buttons
+	int GUI_id = 0;
+	List<GuiButton*> listCreditsButtons;
+	const char* buttons[2] = { "x", "\n" };
+
+	SDL_Texture* creditsTexture;
+	const char* creditsPath;
+	bool credits;
 	bool open;
 };
 

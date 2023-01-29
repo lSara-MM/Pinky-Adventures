@@ -57,6 +57,9 @@ GuiControl* GuiManager::CreateGuiControl(GuiControlType type, int id, const char
 	//Set the observer
 	guiControl->SetObserver(observer);
 
+	guiControl->fxPath = "Assets/Audio/Fx/sfx_button.wav";
+	guiControl->fxControl = app->audio->LoadFx(guiControl->fxPath);
+
 	// Created GuiControls are add it to the list of controls
 	guiControlsList.Add(guiControl);
 

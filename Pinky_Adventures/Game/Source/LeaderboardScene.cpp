@@ -107,7 +107,7 @@ bool LeaderboardScene::Update(float dt)
 	{
 		app->fade->FadingToBlack(this, (Module*)app->iScene, 0);
 	}
-	
+
 	ranks();
 
 	// render text
@@ -126,22 +126,21 @@ bool LeaderboardScene::Update(float dt)
 
 		string s_score = std::to_string(leaderboard[i]);
 		const char* ch_score = s_score.c_str();
-		/*if (leaderboard[i] == currentScore)
+		if (leaderboard[i] == currentScore)
 		{
-			SDL_Rect rect = { 147, 160 + 50 * i, 32 * strlen(ch_score), 40 };
-			app->render->DrawRectangle(rect, 200, 0, 255, 75);
-			app->render->TextDraw(32 * strlen(ch_score) + 170, 167 + 50 * i, subtitleFont, "Current", 0.75f);
-		}*/
+			SDL_Rect rect = { 127, 95 + 25 * i, strlen(ch_score) * 20, 20 };
+			app->render->DrawRectangle(rect, 150, 0, 255, 75);
+			app->render->TextDraw("Current score", 32 * strlen(ch_score) + 130, y, 10);
+		}
 
 		app->render->TextDraw(ch_score, 130, y, 12);
 	}
 
-		/*app->render->TextDraw(150, 680, titleFont, "PREVIOUS SCORE", 0.3f);
-		string s_Pnum = std::to_string(prevScore[0]);
-		const char* ch_Pnum = s_Pnum.c_str();
-		app->render->TextDraw(200, 720, subtitleFont, ch_Pnum);*/
+	/*app->render->TextDraw(150, 680, titleFont, "PREVIOUS SCORE", 0.3f);
+	string s_Pnum = std::to_string(prevScore[0]);
+	const char* ch_Pnum = s_Pnum.c_str();
+	app->render->TextDraw(200, 720, subtitleFont, ch_Pnum);*/
 
-	
 
 	// Keep playing
 	return true;
@@ -222,6 +221,8 @@ bool LeaderboardScene::SaveState(pugi::xml_node& data)
 bool LeaderboardScene::OnGuiMouseClickEvent(GuiControl* control)
 {
 	LOG("Event by %d ", control->id);
+
+	app->audio->PlayFx(control->fxControl);
 
 	switch (control->id)
 	{

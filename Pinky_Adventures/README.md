@@ -10,7 +10,9 @@ Simple platformer for the first assignment of Game Development.
 
 * Double jump, which resets if you hit any platform, allowing to jump between walls.
 
-* Merciless, any hit will kill you!
+* Beware! Portals may or may not help you.
+
+* Your friends are here to help you when you get hurt. (Checkpoints)
 
 * Collect the coins to get some points.
 
@@ -49,7 +51,7 @@ Simple platformer for the first assignment of Game Development.
 
 * Instant win -> F7
 
-* Instant lose -> F8
+* View GUI bounds and States -> F8
 
 * View colliders -> F9
 
@@ -59,7 +61,7 @@ Simple platformer for the first assignment of Game Development.
 
 	* Descend -> S (ONLY IN GOD MODE)
 
-* Enable/Disable FPS cap to 30 -> F11
+* Enable/Disable FPS cap -> F11
 
 Can go through platforms when jumping from below -> implemented horizontally (can go through the wall from left but not right) in the secret area
 
