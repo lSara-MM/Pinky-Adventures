@@ -36,15 +36,15 @@ public:
 	bool PlayFx(unsigned int fx, int repeat = 0);
 
 	bool ChangeMusicVolume(int vol);
-	bool ChangeSfxVolume(int vol);
+	bool ChangeFxVolume(int vol);
 
 public:
-	int volumeM, volumeS;
+	int volumeM, volumeF;
 
 private:
 
 	_Mix_Music* music;
-	List<Mix_Chunk *>	fx;
+	List<Mix_Chunk *> fx;
 };
 
 #endif // __AUDIO_H__

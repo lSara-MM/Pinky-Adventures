@@ -573,11 +573,11 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 		break;
 	case 2:
 		LOG("Slider music click");
-		app->audio->ChangeMusicVolume(control->id);
+		app->audio->ChangeMusicVolume(pSettings->music->volume100);
 		break;
 	case 3:
-		LOG("Slider sfx click");
-		app->audio->ChangeSfxVolume(app->audio->volumeS);
+		LOG("Slider fx click");
+		app->audio->ChangeFxVolume(pSettings->fx->volume100);
 		break;
 	case 4:
 		LOG("Checkbox Fullscreen click");

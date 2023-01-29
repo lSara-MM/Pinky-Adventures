@@ -46,11 +46,11 @@ public:
 		music = sliderBar;
 		listSliderBars.Add(sliderBar);
 
-		// sfx
+		// fx
 		GUI_id++;
-		sliderBar = (GuiSliderBar*)app->guiManager->CreateGuiControl(GuiControlType::SLIDERBAR, GUI_id, "sfx", { 250, 210, 60, 10 }, 10, mod, ButtonType::NONE, { 310, 205, 14, 16 });
+		sliderBar = (GuiSliderBar*)app->guiManager->CreateGuiControl(GuiControlType::SLIDERBAR, GUI_id, "fx", { 250, 210, 60, 10 }, 10, mod, ButtonType::NONE, { 310, 205, 14, 16 });
 		sliderBar->state = GuiControlState::NONE;
-		sfx = sliderBar;
+		fx = sliderBar;
 		listSliderBars.Add(sliderBar);
 
 
@@ -76,7 +76,7 @@ public:
 
 		int x = 170; int y = 130; int offset = 40;
 		app->render->TextDraw("Music:", x, y + offset, 12);
-		app->render->TextDraw("Sfx:", x, y + offset * 2, 12);
+		app->render->TextDraw("fx:", x, y + offset * 2, 12);
 		app->render->TextDraw("Fullscreen:", x, y + offset * 3, 12);
 		app->render->TextDraw("Vsync:", x, y + offset * 4, 12);
 
@@ -108,15 +108,15 @@ public:
 			music->sliderBounds.x = app->audio->volumeM * 310 / SDL_MIX_MAXVOLUME;
 			music->volume100 = app->audio->volumeM;
 
-			sfx->sliderBounds.x = app->audio->volumeS * 310 / SDL_MIX_MAXVOLUME;
-			sfx->volume100 = app->audio->volumeS;
+			fx->sliderBounds.x = app->audio->volumeF * 310 / SDL_MIX_MAXVOLUME;
+			fx->volume100 = app->audio->volumeF;
 
 
 			open = true;
 		}
 
-		app->audio->ChangeMusicVolume(music->volume100);
-		app->audio->ChangeSfxVolume(sfx->volume100);
+		if (app->audio->volumeM != music->volume100)app->audio->ChangeMusicVolume(music->volume100);
+		if (app->audio->volumeF != fx->volume100)app->audio->ChangeFxVolume(fx->volume100);
 		return true;
 	}
 
@@ -154,7 +154,7 @@ public:
 	List<GuiSliderBar*> listSliderBars;
 	List<GuiCheckBox*> listCheckbox;
 
-	GuiSliderBar* music, *sfx;
+	GuiSliderBar* music, *fx;
 
 	SDL_Texture* settingsTexture;
 	const char* settingsPath;

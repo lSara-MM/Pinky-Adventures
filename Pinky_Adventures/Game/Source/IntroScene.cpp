@@ -159,8 +159,8 @@ bool IntroScene::OnGuiMouseClickEvent(GuiControl* control)
 		app->audio->ChangeMusicVolume(pSettings->music->volume100);
 		break;
 	case 3:
-		LOG("Slider sfx click");
-		app->audio->ChangeSfxVolume(pSettings->sfx->volume100);
+		LOG("Slider fx click");
+		app->audio->ChangeFxVolume(pSettings->fx->volume100);
 		break;
 	case 4:
 		LOG("Checkbox Fullscreen click");
