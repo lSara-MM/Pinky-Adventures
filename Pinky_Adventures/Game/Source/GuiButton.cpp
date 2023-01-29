@@ -76,63 +76,62 @@ bool GuiButton::Draw(Render* render)
 
 		case GuiControlState::DISABLED:
 		{
+			rect = { 277, 0, 90, 27 };
 			if (app->iScene->buttonDebug)
 			{
 				render->DrawRectangle({ bounds.x * 2, bounds.y * 2, bounds.w * 2, bounds.h * 2 }, 200, 200, 200, 255, true, false);
 			}
 			else
 			{
-				rect = { 277, 0, 90, 27 };
 				render->DrawTexture(buttonTex, bounds.x, bounds.y, &rect);
 			}
-			
 
 		} break;
 
 		case GuiControlState::NORMAL:
 		{
+			rect = { 0, 0, 90, 27 };
+
 			if (app->iScene->buttonDebug)
 			{
 				render->DrawRectangle({ bounds.x * 2, bounds.y * 2, bounds.w * 2, bounds.h * 2 }, 0, 0, 255, 255, true, false);
 			}
 			else
 			{
-				rect = { 0, 0, 90, 27 };
 				render->DrawTexture(buttonTex, bounds.x, bounds.y, &rect);
 			}
 		
-
 		} break;
-
 
 		case GuiControlState::FOCUSED:
 		{
+			rect = { 90, 0, 90, 27 };
+
 			if (app->iScene->buttonDebug)
 			{
 				render->DrawRectangle({ bounds.x * 2, bounds.y * 2, bounds.w * 2, bounds.h * 2 }, 0, 0, 20, 255, true, false);
 			}
 			else
 			{
-				rect = { 90, 0, 90, 27 };
 				render->DrawTexture(buttonTex, bounds.x, bounds.y, &rect);
 			}
-	
 
 		} break;
+
 		case GuiControlState::PRESSED:
 		{
+			rect = { 180, 0, 97, 27 };
+
 			if (app->iScene->buttonDebug)
 			{
 				render->DrawRectangle({ bounds.x * 2, bounds.y * 2, bounds.w * 2, bounds.h * 2 }, 0, 255, 0, 255, true, false);
 			}
 			else
 			{
-				rect = { 180, 0, 97, 27 };
 				render->DrawTexture(buttonTex, bounds.x, bounds.y, &rect);
 				rect = { 180, 0, 120, 40 };
 			}
 		
-
 		} break;
 
 		case GuiControlState::SELECTED: //render->DrawRectangle(bounds, 0, 255, 0, 255);
@@ -153,34 +152,33 @@ bool GuiButton::Draw(Render* render)
 
 		case GuiControlState::DISABLED:
 		{
+			rect = { 85, 0, 26, 28 };
+
 			if (app->iScene->buttonDebug)
 			{
 				render->DrawRectangle({ bounds.x * 2, bounds.y * 2, bounds.w * 2, bounds.h * 2 }, 200, 200, 200, 255, true, false);
 			}
 			else
 			{
-				rect = { 85, 0, 26, 28 };
 				render->DrawTexture(buttonTex, bounds.x, bounds.y, &rect);
 			}
-			
 
 		} break;
 
 		case GuiControlState::NORMAL:
 		{
+			rect = { 0, 0, 26, 28 };
+
 			if (app->iScene->buttonDebug)
 			{
 				render->DrawRectangle({ bounds.x * 2, bounds.y * 2, bounds.w * 2, bounds.h * 2 }, 0, 0, 255, 255, true, false);
 			}
 			else
 			{
-				rect = { 0, 0, 26, 28 };
 				render->DrawTexture(buttonTex, bounds.x, bounds.y, &rect);
 			}
-		
 
 		} break;
-
 
 		case GuiControlState::FOCUSED:
 		{
@@ -194,7 +192,6 @@ bool GuiButton::Draw(Render* render)
 				render->DrawTexture(buttonTex, bounds.x, bounds.y, &rect);
 			}
 	
-
 		} break;
 
 		case GuiControlState::PRESSED:
@@ -207,9 +204,9 @@ bool GuiButton::Draw(Render* render)
 			{
 				rect = { 52, 0, 33, 28 };
 				render->DrawTexture(buttonTex, bounds.x, bounds.y, &rect);
-				rect = { 0, 0, 56, 41 };
 			}
-		
+
+			rect = { 0, 0, 56, 41 };
 
 		} break;
 

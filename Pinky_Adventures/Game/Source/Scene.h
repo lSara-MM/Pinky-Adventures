@@ -14,7 +14,7 @@
 
 #include "GuiButton.h"
 #include "GuiCheckBox.h"
-#include "GuiSlider.h"
+#include "GuiSliderBar.h"
 
 
 #include "Settings.h"

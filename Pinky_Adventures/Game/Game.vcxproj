@@ -101,7 +101,7 @@
     <ClCompile Include="Source\GuiButton.cpp" />
     <ClCompile Include="Source\GuiCheckBox.cpp" />
     <ClCompile Include="Source\GuiManager.cpp" />
-    <ClCompile Include="Source\GuiSlider.cpp" />
+    <ClCompile Include="Source\GuiSliderBar.cpp" />
     <ClCompile Include="Source\IntroScene.cpp" />
     <ClCompile Include="Source\ItemCoin.cpp" />
     <ClCompile Include="Source\ItemGem.cpp" />
@@ -134,7 +134,7 @@
     <ClInclude Include="Source\GuiCheckBox.h" />
     <ClInclude Include="Source\GuiControl.h" />
     <ClInclude Include="Source\GuiManager.h" />
-    <ClInclude Include="Source\GuiSlider.h" />
+    <ClInclude Include="Source\GuiSliderBar.h" />
     <ClInclude Include="Source\IntroScene.h" />
     <ClInclude Include="Source\ItemCoin.h" />
     <ClInclude Include="Source\ItemGem.h" />

@@ -55,8 +55,7 @@ bool IntroScene::Start()
 	// buttons
 	for (int i = 0; buttons[i] != "\n"; i++)
 	{
-		listButtons.Add((GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, i + 1, buttons[i], { 25, 180 + 33 * i, 90, 27 }, 10, this, ButtonType::LONG));
-		bNum = i + 1;
+		listButtons.Add((GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, i + 6, buttons[i], { 25, 180 + 33 * i, 90, 27 }, 10, this, ButtonType::LONG));
 	}
 
 	listButtons.start->next->data->state = GuiControlState::DISABLED;
@@ -152,17 +151,39 @@ bool IntroScene::OnGuiMouseClickEvent(GuiControl* control)
 	switch (control->id)
 	{
 	case 1:
+		LOG("Button Close settings click");
+		pSettings->CloseSettings();
+		break;
+
+	case 2:
+		LOG("Slider music click");
+
+		break;
+	case 3:
+		LOG("Slider sfx click");
+
+		break;
+	case 4:
+		LOG("Checkbox Fullscreen click");
+		app->win->changeScreen = !app->win->changeScreen;
+		app->win->ResizeWin();
+		break;
+	case 5:
+		LOG("Checkbox Vsync click");
+		(control->state == GuiControlState::NORMAL) ? app->render->flags = SDL_RENDERER_ACCELERATED : app->render->flags |= SDL_RENDERER_PRESENTVSYNC;
+		break;
+	case 6:
 		LOG("Button start click");
 		app->fade->FadingToBlack(this, (Module*)app->scene, 90);
 		break;
-	case 2:
+	case 7:
 		LOG("Button continue click");
 		if (loaded) {
 			app->LoadGameRequest();
 		}
 		//loaded = true;
 		break;
-	case 3:
+	case 8:
 		LOG("Button settings click");
 		pSettings->settings = !pSettings->settings;
 		if (!pSettings->settings)
@@ -170,37 +191,14 @@ bool IntroScene::OnGuiMouseClickEvent(GuiControl* control)
 			pSettings->CloseSettings();
 		}
 		break;
-	case 4:
+	case 9:
 		LOG("Button Credits click");
 		app->fade->FadingToBlack(this, (Module*)app->scene, 90);
 		break;
 
-	case 5:
+	case 10:
 		LOG("Button Exit game click");
 		exit = true;
-		break;
-
-	case 6:
-		LOG("Button Close settings click");
-		pSettings->CloseSettings();
-		break;
-
-	case 7:
-		LOG("Slider music click");
-
-		break;
-	case 8:
-		LOG("Slider sfx click");
-
-		break;
-	case 9:
-		LOG("Checkbox Fullscreen click");
-		app->win->changeScreen = !app->win->changeScreen;
-		app->win->ResizeWin();
-		break;
-	case 10:
-		LOG("Checkbox Vsync click");
-		(control->state == GuiControlState::NORMAL) ? app->render->flags = SDL_RENDERER_ACCELERATED : app->render->flags |= SDL_RENDERER_PRESENTVSYNC;
 		break;
 	}
 

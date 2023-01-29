@@ -6,7 +6,7 @@
 
 #include "GuiButton.h"
 #include "GuiCheckBox.h"
-#include "GuiSlider.h"
+#include "GuiSliderBar.h"
 
 #include "Window.h"
 #include "Render.h"
@@ -36,22 +36,19 @@ public:
 		GUI_id++;
 		GuiButton* button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, GUI_id, "x", { 137, 56, 26, 28 }, 10, mod, ButtonType::SMALL);
 		button->state = GuiControlState::NONE;
-		//listButtons.Add(button);
 		listSettingsButtons.Add(button);
 
 		// music
 		GUI_id++;
-		/*GuiButton* button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, GUI_id, "x", { 137, 56, 26, 28 }, 10, mod, ButtonType::SMALL);
-		button->state = GuiControlState::NONE;
-		listButtons.Add(button);
-		listSettingsButtons.Add(button);*/
+		GuiSliderBar* sliderBar = (GuiSliderBar*)app->guiManager->CreateGuiControl(GuiControlType::SLIDERBAR, GUI_id, "", { 200, 170, 26, 28 }, 10, mod, ButtonType::NONE, {0, 0, 14, 16});
+		sliderBar->state = GuiControlState::NONE;
+		listSliderBars.Add(sliderBar);
 
 		// sfx
 		GUI_id++;
-		/*GuiButton* button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, GUI_id, "x", { 137, 56, 26, 28 }, 10, mod, ButtonType::SMALL);
-		button->state = GuiControlState::NONE;
-		listButtons.Add(button);
-		listSettingsButtons.Add(button);*/
+		sliderBar = (GuiSliderBar*)app->guiManager->CreateGuiControl(GuiControlType::SLIDERBAR, GUI_id, "", { 200, 210, 26, 28 }, 10, mod, ButtonType::NONE, { 0, 0, 14, 16 });
+		sliderBar->state = GuiControlState::NONE;
+		listSliderBars.Add(sliderBar);
 
 
 		// fullscreen	
@@ -90,7 +87,7 @@ public:
 
 			for (ListItem<GuiCheckBox*>* i = listCheckbox.start; i != nullptr; i = i->next)
 			{
-				if (i->data->id == 9 && app->win->changeScreen)
+				if (i->data->id == 4 && app->win->changeScreen)
 				{
 					i->data->state = GuiControlState::SELECTED;
 				}
@@ -135,11 +132,10 @@ public:
 public:
 
 	// buttons
-	int GUI_id;
+	int GUI_id = 0;
 	List<GuiButton*> listSettingsButtons;
-
+	List<GuiSliderBar*> listSliderBars;
 	List<GuiCheckBox*> listCheckbox;
-
 
 	SDL_Texture* settingsTexture;
 	const char* settingsPath;
