@@ -399,6 +399,8 @@ bool Scene::CleanUp()
 	app->physics->Disable();
 	app->map->CleanUp();
 
+	pSettings->CleanUp();
+	pPause->CleanUp();
 	app->guiManager->CleanUp();
 	return true;
 }

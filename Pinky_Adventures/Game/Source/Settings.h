@@ -17,6 +17,8 @@
 #include "SString.h"
 
 #include "SDL/include/SDL.h"
+#include "Log.h"
+
 
 
 struct Settings
@@ -107,10 +109,10 @@ public:
 				i->data->state = GuiControlState::NORMAL;
 			}
 
-			music->sliderBounds.x = app->audio->volumeM * 310 / SDL_MIX_MAXVOLUME;
+			music->sliderBounds.x = music->bounds.x + app->audio->volumeM * 60 / SDL_MIX_MAXVOLUME;
 			music->volume100 = app->audio->volumeM;
 
-			fx->sliderBounds.x = app->audio->volumeF * 310 / SDL_MIX_MAXVOLUME;
+			fx->sliderBounds.x = fx->bounds.x + app->audio->volumeF * 60 / SDL_MIX_MAXVOLUME;
 			fx->volume100 = app->audio->volumeF;
 
 
@@ -191,29 +193,37 @@ public:
 		button->state = GuiControlState::NONE;
 		listPauseButtons.Add(button);
 
-		// resume
-		GUI_id++;
-		button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, GUI_id, "Resume", { 250, 170, 60, 10 }, 10, mod, ButtonType::LONG);
-		button->state = GuiControlState::NONE;
-		listPauseButtons.Add(button);
+		//// resume
+		//GUI_id++;
+		//button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, GUI_id, "Resume", { 250, 170, 60, 10 }, 10, mod, ButtonType::LONG);
+		//button->state = GuiControlState::NONE;
+		//listPauseButtons.Add(button);
 
-		// return to title
-		GUI_id++;
-		button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, GUI_id, "Return to Title", { 250, 210, 60, 10 }, 9, mod, ButtonType::LONG);
-		button->state = GuiControlState::NONE;
-		listPauseButtons.Add(button);
+		//// return to title
+		//GUI_id++;
+		//button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, GUI_id, "Return to Title", { 250, 210, 60, 10 }, 9, mod, ButtonType::LONG);
+		//button->state = GuiControlState::NONE;
+		//listPauseButtons.Add(button);
 	
-		// settings
-		GUI_id++;
-		button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, GUI_id, "Settings", { 250, 240, 60, 10 }, 10, mod, ButtonType::LONG);
-		button->state = GuiControlState::NONE;
-		listPauseButtons.Add(button);
+		//// settings
+		//GUI_id++;
+		//button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, GUI_id, "Settings", { 250, 240, 60, 10 }, 10, mod, ButtonType::LONG);
+		//button->state = GuiControlState::NONE;
+		//listPauseButtons.Add(button);
 
-		// exit
-		GUI_id++;
-		button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, GUI_id, "Exit", { 250, 210, 60, 10 }, 9, mod, ButtonType::LONG);
-		button->state = GuiControlState::NONE;
-		listPauseButtons.Add(button);
+		//// exit
+		//GUI_id++;
+		//button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, GUI_id, "Exit", { 250, 210, 60, 10 }, 9, mod, ButtonType::LONG);
+		//button->state = GuiControlState::NONE;
+		//listPauseButtons.Add(button);
+
+		// buttons
+		for (int i = 0; buttons[i] != "\n"; i++)
+		{
+			button = (GuiButton*)app->guiManager->CreateGuiControl(GuiControlType::BUTTON, i + 6, buttons[i], { 180, 170 + 33 * i, 90, 27 }, 10, mod, ButtonType::LONG);
+			button->state = GuiControlState::NONE;
+			listPauseButtons.Add(button);
+		}
 
 		return pause;
 	}
@@ -263,6 +273,7 @@ public:
 	// buttons
 	int GUI_id = 0;
 	List<GuiButton*> listPauseButtons;
+	const char* buttons[5] = { "Resume", "Return to Title", "Settings", "Exit", "\n" };
 
 	SDL_Texture* PauseTexture;
 	const char* PausePath;
