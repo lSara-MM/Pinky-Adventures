@@ -46,8 +46,6 @@ public:
 
 	// Settings
 	bool OnGuiMouseClickEvent(GuiControl* control);
-	bool OpenSettings();
-	bool CloseSettings();
 
 public:
 

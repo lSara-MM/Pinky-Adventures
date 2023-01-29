@@ -568,17 +568,16 @@ bool Scene::OnGuiMouseClickEvent(GuiControl* control)
 	{
 	case 1:
 		LOG("Button Close settings click");
-		pause = !pause;
+		pause = false;
 		pSettings->CloseSettings();
 		break;
-
 	case 2:
 		LOG("Slider music click");
-
+		app->audio->ChangeMusicVolume(control->id);
 		break;
 	case 3:
 		LOG("Slider sfx click");
-
+		app->audio->ChangeSfxVolume(app->audio->volumeS);
 		break;
 	case 4:
 		LOG("Checkbox Fullscreen click");

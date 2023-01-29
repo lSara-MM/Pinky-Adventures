@@ -35,7 +35,7 @@ bool GuiSliderBar::Update(float dt)
 
 			if (previousState != state)
 			{
-				LOG("Change state from %d to %d", previousState, state);
+				//LOG("Change state from %d to %d", previousState, state);
 			}
 
 			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_REPEAT)
@@ -43,8 +43,8 @@ bool GuiSliderBar::Update(float dt)
 				state = GuiControlState::PRESSED;
 				sliderBounds.x = mouseX;	volume = bounds.x + mouseX - 500;
 
-				volume100 = volume * 100 / 59;
-				LOG("volume %d, %d", volume, volume100);
+				volume100 = volume * SDL_MIX_MAXVOLUME / 60;
+				//LOG("volume %d, %d", volume, volume100);
 			}
 
 			// If mouse button pressed -> Generate event!

@@ -154,14 +154,13 @@ bool IntroScene::OnGuiMouseClickEvent(GuiControl* control)
 		LOG("Button Close settings click");
 		pSettings->CloseSettings();
 		break;
-
 	case 2:
 		LOG("Slider music click");
-
+		app->audio->ChangeMusicVolume(pSettings->music->volume100);
 		break;
 	case 3:
 		LOG("Slider sfx click");
-
+		app->audio->ChangeSfxVolume(pSettings->sfx->volume100);
 		break;
 	case 4:
 		LOG("Checkbox Fullscreen click");

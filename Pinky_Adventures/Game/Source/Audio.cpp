@@ -55,7 +55,8 @@ bool Audio::Awake(pugi::xml_node& config)
 		ret = true;
 	}
 
-	//Mix_Volume(-1, config.child("music").attribute("volume").as_int()); 
+	volumeM = config.child("music").attribute("volume").as_int();
+	volumeS = config.child("fx").attribute("volume").as_int();
 
 	return ret;
 }
@@ -190,3 +191,30 @@ bool Audio::PlayFx(unsigned int id, int repeat)
 
 	return ret;
 }
+
+bool Audio::ChangeMusicVolume(int vol)
+{
+	if (vol >= 0 && vol <= SDL_MIX_MAXVOLUME)
+	{
+		Mix_VolumeMusic(vol);
+		volumeM = vol;
+
+		return true;
+	}
+
+	return false;
+}
+
+bool Audio::ChangeSfxVolume(int vol)
+{
+	if (vol >= 0 && vol <= SDL_MIX_MAXVOLUME)
+	{
+		Mix_Volume(-1, vol);
+		volumeS = vol;
+
+		return true;
+	}
+
+	return false;
+}
+

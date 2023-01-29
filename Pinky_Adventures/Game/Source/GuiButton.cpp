@@ -40,7 +40,7 @@ bool GuiButton::Update(float dt)
 			
 			if (previousState != state) 
 			{
-				LOG("Change state from %d to %d", previousState, state);
+				//LOG("Change state from %d to %d", previousState, state);
 			}
 
 			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_REPEAT)
