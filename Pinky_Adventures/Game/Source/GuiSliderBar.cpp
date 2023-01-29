@@ -87,6 +87,8 @@ bool GuiSliderBar::Draw(Render* render)
 	{
 		//rect = { 90, 0, 90, 27 };
 		//render->DrawTexture(SliderBarTex, sliderBounds.x, sliderBounds.y, &rect);
+		rect = { 0, 0, 14, 16 };
+		render->DrawTexture(SliderBarTex, sliderBounds.x, sliderBounds.y, &rect);
 
 	} break;
 

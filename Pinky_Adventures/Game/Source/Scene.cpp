@@ -180,6 +180,11 @@ bool Scene::Start()
 	// Settings
 	pSettings->GUI_id = 0;
 	pSettings->CreateSettings(this);
+
+	if (continueEnabled) {
+		app->LoadGameRequest();
+		
+	}
 	return true;
 }
 
@@ -362,6 +367,10 @@ bool Scene::PostUpdate()
 
 	app->guiManager->Draw();
 
+	if (app->iScene->loaded)
+	{
+		continueEnabled = true;
+	}
 
 	return ret;
 }

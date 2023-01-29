@@ -91,7 +91,7 @@ public:
 
 	Timer tempo;
 	
-
+	bool continueEnabled = false;//evitar peti continue
 	bool frcap;
 
 private:

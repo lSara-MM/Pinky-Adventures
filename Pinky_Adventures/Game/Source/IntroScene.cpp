@@ -174,12 +174,14 @@ bool IntroScene::OnGuiMouseClickEvent(GuiControl* control)
 		break;
 	case 6:
 		LOG("Button start click");
+		app->scene->continueEnabled = false;
 		app->fade->FadingToBlack(this, (Module*)app->scene, 90);
 		break;
 	case 7:
 		LOG("Button continue click");
 		if (loaded) {
-			app->LoadGameRequest();
+			app->fade->FadingToBlack(this, (Module*)app->scene, 90);
+			//app->scene->continueEnabled = true;
 		}
 		//loaded = true;
 		break;
