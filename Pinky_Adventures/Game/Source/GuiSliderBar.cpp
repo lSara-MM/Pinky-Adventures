@@ -41,7 +41,7 @@ bool GuiSliderBar::Update(float dt)
 			if (app->input->GetMouseButtonDown(SDL_BUTTON_LEFT) == KeyState::KEY_REPEAT)
 			{
 				state = GuiControlState::PRESSED;
-				sliderBounds.x = mouseX;	sliderBounds.y = mouseY;
+				sliderBounds.x = mouseX;	//sliderBounds.y = mouseY;
 			}
 
 			// If mouse button pressed -> Generate event!
