@@ -18,7 +18,9 @@ Simple platformer for the first assignment of Game Development.
 
 * Kill enemies by jumping onto them or use the special attack to kill them more safely, but remember, 
   this attack has a cooldown! (red sword icon means it can be used, brown means it's on cd)
- 
+
+* Hurry up before the time's up! 
+
 ## Controls
 
 ### Player
@@ -29,15 +31,18 @@ Simple platformer for the first assignment of Game Development.
 
 * Jump -> SPACE
 
-* Special attack -> R 
+* Special attack -> R
+
+* Pause game -> P 
 
 ### Menus
 
-* Accept -> Enter
-
-* Move right -> D
-
-* Move left -> A
+* Navigate with the new menus
+	
+	- Start [Start - Continue - Settings - Credits - Exit]
+	- Pause [Resume - Return to title - Settings - Exit]
+	- Settings [Music volume - Fx volume - Toggle Fullscreen - Toggle Vsync]
+	- Lose [Retry - Give up - Ranks]
 
 ### Debug
 
@@ -62,6 +67,23 @@ Simple platformer for the first assignment of Game Development.
 	* Descend -> S (ONLY IN GOD MODE)
 
 * Enable/Disable FPS cap -> F11
+
+Leaderboard screen -> L
+Open settings -> X
+
+
+### Scores
+
+* Coin -> 10
+
+* Health -> 50 (and another life :D)
+
+* Smash enemy -> 100
+
+* Checkpoint -> 150
+
+* Gem -> 300
+
 
 Can go through platforms when jumping from below -> implemented horizontally (can go through the wall from left but not right) in the secret area
 

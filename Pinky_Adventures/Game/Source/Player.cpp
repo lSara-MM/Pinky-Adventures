@@ -372,7 +372,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 
 		case ColliderType::ENEMY_WP:
 			LOG("Collision ENEMY WEAKPOINT");
-			score += 50;
+			score += 100;
 			e = app->scene->listEnemies.start;
 
 			for (e; e != NULL; e = e->next)
@@ -443,7 +443,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 
 		case ColliderType::GEM:
 			LOG("Collision GEM");
-			score += 100;
+			score += 300;
 			app->audio->PlayFx(pickGemFxId);
 			app->scene->gem->isPicked = false;
 			app->scene->end = true;
@@ -501,7 +501,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 			break;
 
 		case ColliderType::SAVE:
-
+			score += 150;
 			LOG("Collision SAVE");
 			app->audio->PlayFx(app->scene->save->fxSave);
 			app->scene->save->isPicked = true;
@@ -510,7 +510,7 @@ void Player::OnCollision(PhysBody* physA, PhysBody* physB) {
 
 		case ColliderType::HEALTH:
 			LOG("Collision HEALTH");
-
+			score += 50;
 			app->audio->PlayFx(pickHealthFxId);
 
 			lives++;
