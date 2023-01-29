@@ -90,7 +90,7 @@
     <ClCompile Include="Source\GuiCheckBox.cpp">
       <Filter>Modules\Core\GUI</Filter>
     </ClCompile>
-    <ClCompile Include="Source\GuiSlider.cpp">
+    <ClCompile Include="Source\GuiSliderBar.cpp">
       <Filter>Modules\Core\GUI</Filter>
     </ClCompile>
   </ItemGroup>
@@ -214,7 +214,7 @@
     <ClInclude Include="Source\GuiCheckBox.h">
       <Filter>Modules\Core\GUI</Filter>
     </ClInclude>
-    <ClInclude Include="Source\GuiSlider.h">
+    <ClInclude Include="Source\GuiSliderBar.h">
       <Filter>Modules\Core\GUI</Filter>
     </ClInclude>
     <ClInclude Include="Source\Settings.h">
