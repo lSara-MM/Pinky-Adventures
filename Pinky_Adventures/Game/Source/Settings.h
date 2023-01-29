@@ -43,14 +43,14 @@ public:
 
 		// music
 		GUI_id++;
-		GuiSliderBar* sliderBar = (GuiSliderBar*)app->guiManager->CreateGuiControl(GuiControlType::SLIDERBAR, GUI_id, "music", { 250, 170, 60, 10 }, 10, mod, ButtonType::NONE, { 310, 165, 14, 16});
+		GuiSliderBar* sliderBar = (GuiSliderBar*)app->guiManager->CreateGuiControl(GuiControlType::SLIDERBAR, GUI_id, "music", { 250, 170, 63, 10 }, 10, mod, ButtonType::NONE, { 310, 165, 14, 16});
 		sliderBar->state = GuiControlState::NONE;
 		music = sliderBar;
 		listSliderBars.Add(sliderBar);
 
 		// fx
 		GUI_id++;
-		sliderBar = (GuiSliderBar*)app->guiManager->CreateGuiControl(GuiControlType::SLIDERBAR, GUI_id, "fx", { 250, 210, 60, 10 }, 10, mod, ButtonType::NONE, { 310, 205, 14, 16 });
+		sliderBar = (GuiSliderBar*)app->guiManager->CreateGuiControl(GuiControlType::SLIDERBAR, GUI_id, "fx", { 250, 210, 63, 10 }, 10, mod, ButtonType::NONE, { 310, 205, 14, 16 });
 		sliderBar->state = GuiControlState::NONE;
 		fx = sliderBar;
 		listSliderBars.Add(sliderBar);
@@ -148,6 +148,7 @@ public:
 
 	bool CleanUp()
 	{
+		CloseSettings();
 		//app->tex->UnLoad(settingsTexture);
 		listSettingsButtons.Clear();
 		listCheckbox.Clear();
@@ -238,6 +239,7 @@ public:
 
 	bool CleanUp()
 	{
+		ClosePause();
 		//app->tex->UnLoad(PauseTexture);
 		listPauseButtons.Clear();
 		

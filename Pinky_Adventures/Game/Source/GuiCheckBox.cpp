@@ -1,6 +1,7 @@
 #include "GuiCheckBox.h"
 #include "Render.h"
 #include "App.h"
+#include "IntroScene.h"
 #include "Audio.h"
 #include "Textures.h"
 #include "Log.h"
@@ -56,41 +57,81 @@ bool GuiCheckBox::Update(float dt)
 bool GuiCheckBox::Draw(Render* render)
 {
 	SDL_Rect rect = { 0, 0, 0, 0 };
-	
-	// Draw the right CheckBox depending on state
-	switch (state)
+	if (app->iScene->buttonDebug)
 	{
+		// Draw the right button depending on state
+		switch (state)
+		{
 
-	case GuiControlState::DISABLED:
+		case GuiControlState::DISABLED:
+		{
+			render->DrawRectangle({ bounds.x * 2, bounds.y * 2, bounds.w * 2, bounds.h * 2 }, 200, 200, 200, 255, true, false);
+
+		} break;
+
+		case GuiControlState::NORMAL:
+		{
+			render->DrawRectangle({ bounds.x * 2, bounds.y * 2, bounds.w * 2, bounds.h * 2 }, 0, 0, 255, 255, true, false);
+
+		}	break;
+
+		case GuiControlState::FOCUSED:
+		{
+			//render->DrawRectangle({ bounds.x * 2, bounds.y * 2, bounds.w * 2, bounds.h * 2 }, 255, 0, 255, 255, true, false);
+
+		} break;
+
+		case GuiControlState::PRESSED:
+		{
+			//render->DrawRectangle({ bounds.x * 2, bounds.y * 2, bounds.w * 2, bounds.h * 2 }, 0, 255, 0, 255, true, false);
+
+		} break;
+
+		case GuiControlState::SELECTED:
+			render->DrawRectangle({ bounds.x * 2, bounds.y * 2, bounds.w * 2, bounds.h * 2 }, 0, 255, 0, 255, true, false);
+			break;
+
+		default:
+			break;
+		}
+	}
+	else
 	{
+		// Draw the right CheckBox depending on state
+		switch (state)
+		{
 
-	} break;
+		case GuiControlState::DISABLED:
+		{
 
-	case GuiControlState::NORMAL:
-	{
-		rect = { 0, 0, 30, 30 };
-		render->DrawTexture(checkBoxTex, bounds.x, bounds.y, &rect);
-		
-	} break;
+		} break;
+
+		case GuiControlState::NORMAL:
+		{
+			rect = { 0, 0, 30, 30 };
+			render->DrawTexture(checkBoxTex, bounds.x, bounds.y, &rect);
+
+		} break;
 
 
-	case GuiControlState::FOCUSED:
-	{
-	
-	} break;
-	case GuiControlState::PRESSED:
-	{
+		case GuiControlState::FOCUSED:
+		{
 
-	} break;
+		} break;
+		case GuiControlState::PRESSED:
+		{
 
-	case GuiControlState::SELECTED:
-	{
-		rect = { 30, 0, 30, 30 };
-		render->DrawTexture(checkBoxTex, bounds.x, bounds.y, &rect);
-	} break;
+		} break;
 
-	default:
-		break;
+		case GuiControlState::SELECTED:
+		{
+			rect = { 30, 0, 30, 30 };
+			render->DrawTexture(checkBoxTex, bounds.x, bounds.y, &rect);
+		} break;
+
+		default:
+			break;
+		}
 	}
 
 	return false;

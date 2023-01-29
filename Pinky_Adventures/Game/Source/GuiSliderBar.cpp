@@ -2,6 +2,7 @@
 #include "Render.h"
 #include "App.h"
 #include "Audio.h"
+#include "IntroScene.h"
 #include "Textures.h"
 #include "Log.h"
 
@@ -66,46 +67,89 @@ bool GuiSliderBar::Draw(Render* render)
 {
 	SDL_Rect rect = { 0, 16, 68, 4 };
 
-	render->DrawTexture(SliderBarTex, bounds.x, bounds.y, &rect);
-
-	// Draw the right SliderBar depending on state
-	switch (state)
+	if (app->iScene->buttonDebug)
 	{
+		// Draw the right button depending on state
+		switch (state)
+		{
 
-	case GuiControlState::DISABLED:
-	{
-		//rect = { 277, 0, 90, 27 };
-		//render->DrawTexture(SliderBarTex, sliderBounds.x, sliderBounds.y, &rect);
+		case GuiControlState::DISABLED:
+		{
+			render->DrawRectangle({ bounds.x * 2, bounds.y * 2, bounds.w * 2, bounds.h * 2 }, 200, 200, 200, 255, false, false);
+			render->DrawRectangle({ sliderBounds.x * 2, sliderBounds.y * 2, sliderBounds.w * 2, sliderBounds.h * 2 }, 200, 200, 200, 255, true, false);
 
-	} break;
+		} break;
 
-	case GuiControlState::NORMAL:
-	{
-		rect = { 0, 0, 14, 16 };
-		render->DrawTexture(SliderBarTex, sliderBounds.x, sliderBounds.y, &rect);
+		case GuiControlState::NORMAL:
+		{
+			render->DrawRectangle({ bounds.x * 2, bounds.y * 2, bounds.w * 2, bounds.h * 2 }, 0, 0, 255, 255, false, false);
+			render->DrawRectangle({ sliderBounds.x * 2, sliderBounds.y * 2, sliderBounds.w * 2, sliderBounds.h * 2 }, 0, 0, 255, 255, true, false);
 
-	} break;
+		}	break;
 
-	case GuiControlState::FOCUSED:
-	{
-		rect = { 30, 0, 14, 16 };
-		render->DrawTexture(SliderBarTex, sliderBounds.x, sliderBounds.y, &rect);
+		case GuiControlState::FOCUSED:
+		{
+			render->DrawRectangle({ bounds.x * 2, bounds.y * 2, bounds.w * 2, bounds.h * 2 }, 255, 0, 255, 255, false, false);
+			render->DrawRectangle({ sliderBounds.x * 2, sliderBounds.y * 2, sliderBounds.w * 2, sliderBounds.h * 2 }, 255, 0, 255, 255, true, false);
 
-	} break;
+		} break;
 
-	case GuiControlState::PRESSED:
-	{
-		rect = { 14, 0, 16, 16 };
-		render->DrawTexture(SliderBarTex, sliderBounds.x, sliderBounds.y, &rect);
+		case GuiControlState::PRESSED:
+		{
+			render->DrawRectangle({ bounds.x * 2, bounds.y * 2, bounds.w * 2, bounds.h * 2 }, 0, 255, 0, 255, false, false);
+			render->DrawRectangle({ sliderBounds.x * 2, sliderBounds.y * 2, sliderBounds.w * 2, sliderBounds.h * 2 }, 0, 255, 0, 255, true, false);
 
-	} break;
+		} break;
 
-	case GuiControlState::SELECTED:
-		break;
+		case GuiControlState::SELECTED:
+			break;
 
-	default:
-		break;
+		default:
+			break;
+		}
 	}
-	
+	else
+	{
+		render->DrawTexture(SliderBarTex, bounds.x - 3, bounds.y, &rect);
+
+		// Draw the right SliderBar depending on state
+		switch (state)
+		{
+
+		case GuiControlState::DISABLED:
+		{
+			//render->DrawTexture(SliderBarTex, sliderBounds.x, sliderBounds.y, &rect);
+
+		} break;
+
+		case GuiControlState::NORMAL:
+		{
+			rect = { 0, 0, 14, 16 };
+			render->DrawTexture(SliderBarTex, sliderBounds.x, sliderBounds.y, &rect);
+
+		} break;
+
+		case GuiControlState::FOCUSED:
+		{
+			rect = { 30, 0, 14, 16 };
+			render->DrawTexture(SliderBarTex, sliderBounds.x, sliderBounds.y, &rect);
+
+		} break;
+
+		case GuiControlState::PRESSED:
+		{
+			rect = { 14, 0, 16, 16 };
+			render->DrawTexture(SliderBarTex, sliderBounds.x, sliderBounds.y, &rect);
+
+		} break;
+
+		case GuiControlState::SELECTED:
+			break;
+
+		default:
+			break;
+		}
+	}
+
 	return false;
 }
